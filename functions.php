@@ -151,21 +151,57 @@ genesis_register_sidebar( array(
 	'description' => __( 'This is the home section 5 section.', 'parallax' ),
 ) );
 
-//remove_action('genesis_header', 'genesis_do_header');
-add_action('genesis_header', 'sp_custom_header');
+
+
+remove_action('genesis_header', 'genesis_do_header' );
+add_action('genesis_header', 'sp_custom_header' );
 function sp_custom_header() {
-	?>
-	<script type="text/javascript">
-		jQuery(function() {
-			$("nav .menu-item").mouseover(function(ev) {
-				ev.preventDefault();
-				ev.stopImmediatePropagation();
-				console.log("hi");
-			});
-		});
-	</script>
-	<?php
+	$title = "Our World in Data";
+
+	$html = <<<EOT
+	<div class="title-area">
+		<h1 class="site-title" itemprop="headline">
+			<a href="/">$title</a>
+		</h1>
+	</div>
+	
+<nav class="owid-nav">
+	<div class="dropdown">
+		<a>Topics</a>
+		<div class="dropdown-bg">
+			<div class="dropdown-second-bg"></div>
+		</div>
+		<div class="category-menu">
+			<ul>
+				<li><a>Population Growth & Vital Statistics</a></li>
+				<li>
+					<a>Health</a>
+					<div class="subcategory-menu">
+						<div class="submenu-title">Health</div>
+						<ul>
+							<li><a>World Population Growth</a></li>
+							<li><a>Future World Population Growth</a></li>
+							<li><a>Fertility Rates</a></li>
+							<li><a>Age Structure and Mortality By Age</a></li>
+							<li><a>Child Mortality</a></li>
+							<li><a>Infant Mortality</a></li>
+							<li><a>Life Expectancy</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a>Food & Agriculture</a></li>
+			</ul>
+		</div>
+	</div>
+	<div>
+		<a href="/about">About</a>
+	</div>
+</nav>
+EOT;
+
+	echo($html);
 }
+
 
 //* Customize the entire footer
 remove_action( 'genesis_footer', 'genesis_do_footer' );
