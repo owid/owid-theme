@@ -1,5 +1,4 @@
-;( function($) {
-
+;(function($) {
 	"use strict";
 
 	//menu
@@ -17,7 +16,7 @@
 			$submenu.hide();
 		},
 		exitMenu: function() { return true; },
-		submenuDirection: "left"
+		submenuDirection: "right"
 	});
 
 	var $entry = $( ".entry" );
