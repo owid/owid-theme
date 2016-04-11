@@ -1,6 +1,11 @@
 ;(function($) {
 	"use strict";
 
+	$("nav.owid-nav .dropdown").on("click", function(ev) {
+		ev.preventDefault();
+		$("nav.owid-nav .dropdown").toggleClass("active");
+	});
+
 	//menu
 	$( ".genesis-nav-menu .sub-menu" ).menuAim({
 		activate: function( row ) {
@@ -19,8 +24,11 @@
 		submenuDirection: "right"
 	});
 
+
 	var $entry = $( ".entry" );
-	$entry.scrollNav( { subSections: 'h3, h4' } );
+	$entry.scrollNav({ 
+		subSections: 'h3, h4'
+	});
 	
 	//remove hashtags from menu
 	var $menuItems = $( ".scroll-nav" ).find( ".scroll-nav__item a, .scroll-nav__sub-item a" );
@@ -74,7 +82,6 @@
 		};
 
 	if( $pageItemHasChildren.length ) {
-
 		if( $win.width() > 1023 ) {
 			//for safari and ie, we need to make elements absolute position otherwise impossible to compute correct top/left
 			$pageItemHasChildren.css( "position", "absolute" );
@@ -104,15 +111,6 @@
 
 		componentHeight += parseInt( $homeNavGridWrapper.css( "marginBottom" ), 10 );
 		$homeNavGridWrapper.height( componentHeight );
-
-		//remove last comma
-		/*$pageItemHasChildren.find( "li:last-child a" ).each( function( i, v ) {
-			var $lastItem = $( v ),
-				lastItemText = $lastItem.text();
-			lastItemText = lastItemText.substring( 0, lastItemText.length - 1 );
-			$lastItem.text( lastItemText );
-		} );*/
-
 	}
 
 	$win.on( "resize", onResize );

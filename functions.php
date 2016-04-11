@@ -151,46 +151,74 @@ genesis_register_sidebar( array(
 	'description' => __( 'This is the home section 5 section.', 'parallax' ),
 ) );
 
-
-
+/* MISPY: Custom Amazon-style header topics menu */
 remove_action('genesis_header', 'genesis_do_header' );
 add_action('genesis_header', 'sp_custom_header' );
 function sp_custom_header() {
 	$title = "Our World in Data";
+	$categories = ['1 Population Growth & Vital Statistics', 
+				   '2 Health',
+				   '3 Food & Agriculture',
+				   '4 Resources & Energy',
+				   '5 Environmental Change',
+				   '6 Technology & Infrastructure',
+				   '7 Growth & Distribution of Prosperity',
+				   '8 Economic Development, Work & Standard of Living',
+				   '9 The Public Sector & Economic System',
+				   '10 Global Interconnections',
+				   '11 War & Peace',
+				   '12 Political Regmines',
+				   '13 Violence & Rights',
+				   '14 Education & Knowledge',
+				   '15 Media & Communication',
+				   '16 Culture, Values & Society'];
+
+
 
 	$html = <<<EOT
-	<div class="title-area">
-		<h1 class="site-title" itemprop="headline">
-			<a href="/">$title</a>
-		</h1>
-	</div>
-	
+<div class="title-area">
+	<h1 class="site-title" itemprop="headline">
+		<a href="/">$title</a>
+	</h1>
+</div>
+
 <nav class="owid-nav">
 	<div class="dropdown">
-		<a>Topics</a>
-		<div class="dropdown-bg">
-			<div class="dropdown-second-bg"></div>
-		</div>
-		<div class="category-menu">
-			<ul>
-				<li><a>Population Growth & Vital Statistics</a></li>
-				<li>
-					<a>Health</a>
-					<div class="subcategory-menu">
-						<div class="submenu-title">Health</div>
-						<ul>
-							<li><a>World Population Growth</a></li>
-							<li><a>Future World Population Growth</a></li>
-							<li><a>Fertility Rates</a></li>
-							<li><a>Age Structure and Mortality By Age</a></li>
-							<li><a>Child Mortality</a></li>
-							<li><a>Infant Mortality</a></li>
-							<li><a>Life Expectancy</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a>Food & Agriculture</a></li>
-			</ul>
+		<a href="/data">Topics</a>
+		<div class="dropdown-contents">
+			<div class="dropdown-bg">
+				<div class="dropdown-second-bg"></div>
+			</div>
+			<div class="category-menu">
+				<ul>
+EOT;
+
+	foreach ($categories as $category) {
+		$category_page = get_page_by_title($category);		
+		if (!$category_page)
+			continue; // Shouldn't happen, but just in case
+
+		$category = preg_replace('/^\d+/', "", $category); // Strip the number out of the title
+		$html .= "<li>"
+			  	 . "<a>" . $category . "</a>"		 	
+				 . "<div class='subcategory-menu'>"
+				 	. "<div class='submenu-title'>" . $category . "</div>"
+				 	. "<ul>";
+
+		$pages = get_pages([
+			'child_of' => $category_page->ID,			
+		]);
+
+		foreach ($pages as $page) {
+			$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+		}
+
+		$html .= "</ul></div></li>";
+	}
+
+	$html .= <<<EOT
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div>
@@ -201,6 +229,48 @@ EOT;
 
 	echo($html);
 }
+
+function owid_pages() {
+	$pages = get_pages([
+		'child_of'    => 621,
+		'sort_column' => 'menu_order, post_title',
+	]);
+
+
+	$html = "<div class='owid-data'>";
+	$html .= "<div class='separator'><h1><span>Data Entries</span></h1><hr></div>";
+
+	$html .= '<ul>';
+	$category = null;
+
+	foreach ($pages as $page) {
+		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
+		if (preg_match('/^\d+/', $page->post_title)) {
+			if ($category)
+				$html .= "</div></li>";
+
+			$category = preg_replace('/^\d+/', '', $page->post_title);
+			$html .= "<li>"
+				  .	     "<h3>" . $category . "</h3>"
+				  .		 "<div class='link-container'>";
+		} else {
+			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
+			$isStarred = get_post_meta($page->ID, '_ino_star', true);
+			if ($isStarred) {
+				$html .= "<a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
+			} else {
+				$html .= "<a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
+			}
+
+		}
+	}
+
+	$html .= "</ul></div>";
+
+	echo($html);
+}
+
+add_shortcode('owid_pages', 'owid_pages');
 
 
 //* Customize the entire footer
