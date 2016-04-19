@@ -216,6 +216,7 @@ EOT;
 	$html .= "</ul></div></li>"; // Close off final category
 
 	$html .= <<<EOT
+		<li class='end-link'><a href='/about'>About</a></li>
 		<li class='end-link'><a href='/data'>Browse All</a></li>
 	</ul>
 </div>

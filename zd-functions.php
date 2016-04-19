@@ -17,7 +17,7 @@
 
 	add_filter( 'genesis_search_text', 'sp_search_text' );
 	function sp_search_text( $text ) {
-	   return esc_attr( 'Poverty, violence, health, education, air pollution...' );
+	   return esc_attr( 'Poverty, violence, health...' );
 	}
 
 	add_action( 'pre_get_posts',  'set_posts_per_page'  );
