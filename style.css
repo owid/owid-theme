@@ -927,14 +927,7 @@ Common Classes
 	font-size: 24px;
 	font-weight: 400;
 	margin-bottom: 20px;
-	
 }
-
-.footer-widgets .widget-title {
-	color: #fff;
-	font-size: 48px;
-}
-
 
 .home-odd .widget-title {
 	font-size: 128px;
@@ -944,12 +937,9 @@ Common Classes
 }
 
 
-.title-author-byline {
-	
+.title-author-byline {	
 	margin-top: 0px;
 	font-size: 20px;
-	text-align: right;
-	
 }
 
 .title-author-byline a {
@@ -1183,20 +1173,11 @@ Site Header
 
 .site-header {
 	/*background-color: #002147;*/
-	background-color: rgba(0,33,71,.9);
-	left: 0;
-	position: fixed;
-	top: 0;
 	width: 100%;
 	
 	z-index: 999;
 	border-bottom: 4px solid #FF4012;
 
-}
-
-.site-header .wrap {
-	max-width: 1140px;
-	
 }
 
 
@@ -1255,11 +1236,6 @@ Site Header
 
 /* Widget Area
 --------------------------------------------- */
-
-.site-header .widget-area {
-	float: left;
-	text-align: left;
-}
 
 .site-header .widget-area,
 .site-header .widget-area a {
@@ -1342,6 +1318,7 @@ Site Navigation
 
 .genesis-nav-menu .sub-menu a {
 	padding: 5px; /* Height of each Menu*/
+	position: relative;
 	width: 300px;
 	font-size: 14px !important;
 }
@@ -1351,13 +1328,8 @@ Site Navigation
 }
 
 .genesis-nav-menu .sub-menu .sub-menu {
-	margin: 0px -300px 0 0;
-	width: 100%;
-	height: 387px;
-	position: absolute;
-	top: 0px;
+	margin: -25px 0 0 -300px;
 	left: auto;
-	right: 0px;
 }
 
 .genesis-nav-menu .menu-item:hover {
@@ -1366,12 +1338,6 @@ Site Navigation
 
 .genesis-nav-menu .menu-item:hover > .sub-menu {
 	opacity: 1;
-}
-
-.genesis-nav-menu > li > ul {
-	display: block !important;
-	opacity: 1 !important;
-	left: 0px !important;
 }
 
 .genesis-nav-menu > .first > a {
@@ -1474,13 +1440,7 @@ Content Area
 }
 
 .home-odd .quotes-heading {
-	font-size: 34px;
 	margin-bottom: 16px;
-}
-
-.home-odd .quotes {
-	font-size: 34px;
-	
 }
 
 
@@ -1492,17 +1452,6 @@ Content Area
 .home-odd .quotes a:hover{
 	color: #1059E5;
 }
-
-.home-even {
-	clear: both;
-	font-size: 38px;
-	overflow: hidden;
-	padding: 90px 0 100px;
-	text-align: center;
-	line-height:1.2;
-	
-}
-
 
 
 .home-even .widget,
@@ -1550,7 +1499,6 @@ Content Area
 .home-section-1,
 .home-section-3,
 .home-section-5 {
-	background-attachment: fixed;
 	background-color: #001936;
 	background-position: 50% 0px;
 	background-repeat: no-repeat;
@@ -2029,10 +1977,6 @@ Footer Widgets
 	color: #000 !important;
 }
 
-.footer-widgets .widget {
-	margin-bottom: 40px;
-}
-
 .footer-widgets p:last-child,
 .footer-widgets .widget:last-child {
 	margin-bottom: 0;
@@ -2050,19 +1994,12 @@ Site Footer
 
 }
 
-.site-footer a {
-	color: #5B7FFF;
-}
-
 .site-footer p {
 	color: #fff;
 	max-width: 1000px;
 	margin: 0 auto;
 }
 
-.site-footer a:hover {
-	color: #f04848;
-}
 
 .site-footer p {
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -2246,7 +2183,7 @@ Media Queries
 
 @media only screen and (max-width: 1400px) {
 	.entry-title {
-		font-size: 45px;
+		font-size: 46px;
 	}
 }
 
@@ -2314,7 +2251,7 @@ Media Queries
 
 	
 	.entry-title {
-		font-size: 45px;
+		font-size: 46px;
 	}
 
 	h3 {
@@ -2347,35 +2284,11 @@ Media Queries
 		width: 100%;
 	}
 
-	.site-inner,
-	.wrap {
-		padding: 0 5%;
-	}
-
-
-
-
-
+	
 	.genesis-nav-menu .sub-menu {
 		display: none; /* no drop down menu */
 	}
-
 	
-	.home-even,
-	.home-odd {
-		padding: 90px 0 100px;
-	}
-
-	.parallax-home .simple-social-icons ul li {
-		margin: 0 20px 20px !important;
-	}
-	
-	
-	
-	
-	.site-header {	
-		background-color: rgba(0,33,71,1);	
-	}
 	
 	/* the stuff above added by Max */
 	
@@ -2395,7 +2308,6 @@ Media Queries
 	}
 
 	.site-header {
-		padding-bottom: 5px;
 		position: static;
 	}
 
@@ -2478,30 +2390,8 @@ Media Queries
 
 
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 480px) {	
 
-	.footer-widgets .widget-title,
-	.home-even .widget-title,
-	.home-odd .widget-title {
-		font-size: 36px;
-		
-	}
-	
-	.title-author-byline {
-		margin-top:10px;
-		font-size: 14px;
-		text-align: center;
-	}
-
-	.home-even,
-	.home-odd {
-		font-size: 18px;
-	}
-	
-	.home-odd .quotes {
-	font-size: 18px;	
-	}
-	
 	.toc_sitemap {
 		margin-top: -80px;		
 		margin-left: -40px;
@@ -2574,9 +2464,6 @@ h6 {
 }
 .content p {
 	text-align: justify;
-}
-.site-header {
-	padding: 0 20px;
 }
 iframe {
 	background-color: #fff;
@@ -3082,6 +2969,22 @@ blockquote {
 	color: #FBD043;	
 }
 
+.owid-data a.starred:after {
+	font-family: FontAwesome;
+	content: "\f005";
+	position: relative;
+	right: -5px;
+	color: #3b77c3;	
+}
+
+#topics-dropdown.mobile a.starred:after {
+	font-family: FontAwesome;
+	content: "\f005";
+	position: relative;
+	right: -5px;
+	color: white;		
+}
+
 /* MISPY: Special styling of internal and external links */
 
 a[href*="ourworldindata.org"] {
@@ -3109,11 +3012,6 @@ a[href*="ourworldindata.org"]:hover {
 	text-decoration: underline;
 }
 
-.entry-content p a[href*="ourworldindata.org"]:before,
-.entry-content p a[href*="ourworldindata.org"]:after {
-    content: "\2009";
-}
-
 /* Wikipedia external link style */
 .entry-content a[href^="http://"]:not([href*="ourworldindata.org"]), 
 .side-matter a[href^="http://"]:not([href*="ourworldindata.org"]), 
@@ -3129,6 +3027,14 @@ a[href*="ourworldindata.org"]:hover {
 	color: #36b;
 }
 
+.site-footer a {
+	color: #5B7FFF;
+}
+
+.site-footer a:hover {
+	color: #f04848;
+}
+
 .title-author-byline {	
 	margin-top: 0px;
 	font-size: 20px;
@@ -3141,22 +3047,100 @@ a[href*="ourworldindata.org"]:hover {
 	font-weight: 400;
 }
 
-/* MISPY: Custom expanding nav menu for header */
+/* MISPY: Customized header w/ responsive expanding nav menu */
 
-nav.owid-nav {
+.desktop {
+	display: none;
+}
+
+div.title-area {
+	display: none;
+}
+
+header.site-header .widget-area {
+	display: none;
+	float: right;
+}
+
+header.site-header .widget-area:hover .genesis-nav-menu > li > ul {
+	left: 0;
+	opacity: 1;
+}
+
+@media screen and (min-width: 800px) {
+	.mobile {
+		display: none !important;
+	}
+
+	.desktop {
+		display: initial;
+	}
+
+	header.site-header {
+		padding: 0 20px;
+		background-color: rgba(0,33,71,1);	
+	}
+
+	header.site-header .widget-area {
+		display: block;
+	}
+
+	.site-header .wrap {
+		max-width: 1140px;
+	}
+
+	.genesis-nav-menu > li > a {
+		height: 46px;
+		line-height: 46px;
+		padding: 0px 20px;
+	}
+
+	#menu-item-1877::after {
+		top: 10px;
+	}
+}
+
+@media (max-width: 400px) {
+	h1.owid-title {
+		max-width: calc(100% - 100px);
+		font-size: 22px;
+	}
+}
+
+header.site-header {
+	min-height: 49px; /* 45 + border */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+nav.owid-nav {	
 	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	height: 45px;
-	padding: 10px 0;
+	height: 46px;
+	background-color: rgba(0,33,71,1);	
+}
+
+.owid-title {
+	float: left;
+	margin: 0;
+	padding-left: 15px;
+	padding-right: 15px;
+
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    height: 100%;
+    line-height: 46px;
+}
+
+.owid-title a {
+    color: white;
 }
 
 nav.owid-nav a {
 	outline: 0;
 }
 
-nav.owid-nav > div {
-	display: inline-block;
+nav.owid-nav .dropdown {
+	float: right;
 	height: 100%;
 }
 
@@ -3164,7 +3148,8 @@ nav.owid-nav > div > a {
 	text-transform: uppercase;
 	color: white;
 	font-size: 20px;
-	padding: 17px 20px;
+	height: 100%;
+	line-height: 46px;
 }
 
 nav.owid-nav .dropdown > a {
@@ -3172,7 +3157,11 @@ nav.owid-nav .dropdown > a {
 	cursor: pointer;
 }
 
-nav.owid-nav .dropdown > a:hover, nav.owid-nav .dropdown.active > a {
+nav.owid-nav .dropdown-bg {
+	display: none;
+}
+
+/*nav.owid-nav .dropdown > a:hover, nav.owid-nav .dropdown.active > a {
 	background-color: #f04848;
 }
 
@@ -3184,7 +3173,7 @@ nav.owid-nav .dropdown > a::after {
     content: "\f140";
     font: normal 24px/1 'dashicons';
     margin: 0 auto;	
-}
+}*/
 
 nav.owid-nav .dropdown-contents {
 	display: none;
@@ -3194,8 +3183,12 @@ nav.owid-nav .dropdown.active .dropdown-contents {
 	display: block;
 }
 
-nav.owid-nav .dropdown-bg, nav.owid-nav .category-menu {
+/*nav.owid-nav .dropdown-bg, nav.owid-nav .category-menu {
 	top: 54px;
+}*/
+
+nav.owid-nav .dropdown.active {
+	width: 100%;
 }
 
 nav.owid-nav .dropdown-bg {
@@ -3215,10 +3208,14 @@ nav.owid-nav .dropdown-second-bg {
 }
 
 nav.owid-nav .category-menu {
-	position: absolute;
 	background: white;
-	width: 280px;
+	width: 100%;
 }
+
+/*nav.owid-nav .category-menu {
+	position: absolute;
+	width: 280px;
+}*/
 
 nav.owid-nav .category-menu > ul > li {
 	/* Add a little bit of spacing between the menu items */
@@ -3239,9 +3236,9 @@ nav.owid-nav .category-menu > ul > li > a:hover {
 	font-weight: bold;
 }
 
-nav.owid-nav .category-menu > ul > li:hover > .subcategory-menu {
+/*nav.owid-nav .category-menu > ul > li:hover > .subcategory-menu {
 	display: block;
-}
+}*/
 
 nav.owid-nav .subcategory-menu {
 	display: none;
@@ -3285,8 +3282,192 @@ nav.owid-nav .subcategory-menu > ul > li > a {
 	width: auto;
 }
 
+
 nav.owid-nav .subcategory-menu > ul > li > a:hover {
 	background: #2C8D7B;	
+}
+
+/* --- */
+
+nav.owid-nav > ul {
+	float: right;
+}
+
+nav.owid-nav > ul > li {
+	display: inline-block;
+	border-left: 1px solid white;
+}
+
+nav.owid-nav > ul > li > a:not(.desktop) {
+	display: inline-block;
+	height: 46px;
+	line-height: 46px;
+	width: 46px;
+	color: white;
+	text-align: center;
+	font-size: 26px;
+}
+
+nav.owid-nav li.nav-button i {
+	pointer-events: none;
+}
+
+#topics-dropdown.mobile {
+	display: none;
+
+}
+#topics-dropdown.mobile > ul > li {
+	border-bottom: 1px solid #ddd;	
+}
+
+#topics-dropdown.mobile > ul > li > a {
+	display: block;
+	padding: 8px 15px 8px 20px;	
+}
+
+#topics-dropdown.mobile div.topics {
+	background: #cc181e;
+	text-align: center;
+}
+
+#topics-dropdown.mobile div.topics h2 {
+	margin: 0;
+	color: white;
+	font-size: 20px;	
+	padding: 10px 15px 10px 20px;	
+}
+
+#topics-dropdown.mobile li.category {
+	border-bottom: 1px solid #ddd;
+}
+
+#topics-dropdown.mobile li.category > a {
+	display: block;
+	position: relative;
+	cursor: pointer;
+	color: #2082a2;
+	font-size: 15px;
+}
+
+#topics-dropdown.mobile li.category > a > span {
+	filter: brightness(0.9) saturate(0.5);
+	-webkit-filter: brightness(0.9) saturate(0.5);	
+}
+
+#topics-dropdown.mobile li.category > a:hover {
+	background: #F7F7F7;	
+}
+
+#topics-dropdown.mobile li.category > a::after {
+	content: "\f105";
+	font-family: FontAwesome;	
+	position: absolute;
+	right: 15px;
+	font-size: 24px;
+	top: 0px;
+	filter: brightness(0.9) saturate(0.5);
+	-webkit-filter: brightness(0.9) saturate(0.5);	
+}
+
+#topics-dropdown.mobile .subcategory-menu {
+	filter: saturate(60%);
+	-webkit-filter: saturate(60%);
+	display: none;
+}
+
+#topics-dropdown.mobile li.category.active > a::after {
+	content: "\f107";
+}
+
+#topics-dropdown.mobile li.category.active .subcategory-menu {
+	display: block;
+}
+
+#topics-dropdown.mobile .subcategory-menu {
+	background: #2082a2;
+}
+
+#topics-dropdown.mobile .submenu-title {
+	display: none;
+}
+
+#topics-dropdown.mobile .subcategory-menu li > a {
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	font-size: 14px;
+	border-bottom: none !important;
+}
+
+#topics-dropdown.mobile .subcategory-menu li > a:hover {
+	background: rgba(255, 255, 255, 0.15);
+}
+
+#topics-dropdown.mobile li.end-link > a {
+	text-align: center;	
+	color: #444;
+}
+
+#search-dropdown {
+	display: none;
+}
+
+*::-webkit-input-placeholder {
+    color: #999;
+}
+*:-moz-placeholder {
+    color: #999;
+}
+*::-moz-placeholder {
+    color: #999;
+}
+*:-ms-input-placeholder {
+    color: #999;
+}
+
+#search-dropdown form {
+	position: relative;
+	height: 46px;
+}
+
+#search-dropdown input {
+	float: left;
+	width: calc(100% - 60px);
+	line-height: 100%;
+	height: 100%;
+	font-size: 14px;
+	border: none !important;
+}
+
+#search-dropdown input:hover {
+	border-right: 1px solid #ddd;
+}
+
+#search-dropdown button {
+	display: block;
+	float: right;
+	background: none !important;
+	color: #ccc;
+	height: 100%;
+	padding: 0 20px;
+}
+
+/* HACK (Mispy): Fix search autozooming on iPhone Safari.
+   http://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone */
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  select,
+  textarea,
+  input {
+    font-size: 16px !important;
+  }
 }
 
 /* MISPY: Data entry listing for /data */
@@ -3333,6 +3514,13 @@ div.owid-data hr {
     margin-right: 20px;
 }
 
+div.owid-data p {
+	text-align: center;
+	font-size: 15px !important;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 div.owid-data ul {
 	padding-left: 20px;
 	padding-right: 20px;
@@ -3345,13 +3533,28 @@ div.owid-data li {
 	margin-bottom: 5px;
 }
 
+div.owid-data li:last-child {
+	margin-bottom: 30px;
+}
+
 div.owid-data h3 {
-	padding: 3px 10px;
-	padding-top: 25px;
+	margin-top: 25px;
 	margin-bottom: 0;
 	font-size: 16px;
 	color: #002147;
-	opacity: 0.7;
+	text-align: center;
+	position: relative;	
+}
+
+div.owid-data h3 > span {
+	margin-right: 15px;
+}
+
+div.owid-data h3 > span::after {
+	font-family: FontAwesome;
+	position: relative;
+	right: -5px;
+	opacity: 0.5;
 }
 
 div.owid-data .link-container {
@@ -3363,7 +3566,7 @@ div.owid-data .link-container {
 div.owid-data a {
 	display: block;
 	box-sizing: border-box;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #ddd !important;
 	border-right: 1px solid #ddd;
 	padding: 5px 10px;
 	background: none !important;
@@ -3372,81 +3575,275 @@ div.owid-data a {
 }
 
 div.owid-data a:hover {
-	background: #cc181e !important;
 	color: white !important;
 	/*padding-bottom: 2px;*/
 }
 
-div.owid-data a.starred:after {
-	font-family: FontAwesome;
-	content: "\f005";
-	position: relative;
-	right: -5px;
-	color: #193659;	
+div.owid-data i.fa-star {
+	color: #3b77c3;
 }
 
-div.owid-data h3::before {
-	font-family: FontAwesome;
-	position: relative;
-	left: 0px;	
-	color: #193659;
-	font-size: 90%;
+/* Population Growth & Vital Statistics */
+div.owid-data li:nth-of-type(1) h3 > span::after {
+	content: "\f007";
+}
+div.owid-data li:nth-of-type(1) h3,
+#topics-dropdown li.category:nth-of-type(1) > a  {
+	color: #2082a2;
+}
+div.owid-data li:nth-of-type(1) .link-container {
+	border-top: 2px solid #2082a2;
+}
+div.owid-data li:nth-of-type(1) a:hover,
+#topics-dropdown li.category:nth-of-type(1) .subcategory-menu {
+	background: #2082a2 !important;
 }
 
-div.owid-data li:nth-child(1) h3::before {
-	content: "\f0c0";
-}
-div.owid-data li:nth-child(2) h3::before {
+/* Health */
+div.owid-data li:nth-of-type(2) h3 > span::after {
 	content: "\f21e";
 }
-div.owid-data li:nth-child(3) h3::before {
-	content: "\f0f5";
+div.owid-data li:nth-of-type(2) h3,
+#topics-dropdown li.category:nth-of-type(2) > a  {
+	color: #cc0000;
 }
-div.owid-data li:nth-child(4) h3::before {
-	content: "\f0e7";
+div.owid-data li:nth-of-type(2) .link-container {
+	border-top: 2px solid #cc0000;
 }
-div.owid-data li:nth-child(5) h3::before {
+div.owid-data li:nth-of-type(2) a:hover,
+#topics-dropdown li.category:nth-of-type(2) .subcategory-menu {
+	background: #cc0000 !important;
+}
+
+/* Food & Agriculture */
+div.owid-data li:nth-of-type(3) h3 > span::after {
+	content: "\f06c";
+}
+div.owid-data li:nth-of-type(3) h3,
+#topics-dropdown li.category:nth-of-type(3) > a  {
+	color: #689920;
+}
+div.owid-data li:nth-of-type(3) .link-container {
+	border-top: 2px solid #689920;
+}
+div.owid-data li:nth-of-type(3) a:hover,
+#topics-dropdown li.category:nth-of-type(3) .subcategory-menu {
+	background: #689920 !important;
+}
+
+/* Resources & Energy */
+div.owid-data li:nth-of-type(4) h3 > span::after {
+	content: "\f085";
+}
+div.owid-data li:nth-of-type(4) h3,
+#topics-dropdown li.category:nth-of-type(4) > a  {
+	color: #e37f3f;
+}
+div.owid-data li:nth-of-type(4) .link-container {
+	border-top: 2px solid #e37f3f;
+}
+div.owid-data li:nth-of-type(4) a:hover,
+#topics-dropdown li.category:nth-of-type(4) .subcategory-menu {
+	background: #e37f3f !important;
+}
+
+/* Environmental Change */
+div.owid-data li:nth-of-type(5) h3 > span::after {
 	content: "\f1bb";
 }
-div.owid-data li:nth-child(6) h3::before {
+div.owid-data li:nth-of-type(5) h3,
+#topics-dropdown li.category:nth-of-type(5) > a  {
+	color: #013220;
+}
+div.owid-data li:nth-of-type(5) .link-container {
+	border-top: 2px solid #013220;
+}
+div.owid-data li:nth-of-type(5) a:hover,
+#topics-dropdown li.category:nth-of-type(5) .subcategory-menu {
+	background: #013220 !important;
+}
+
+/* Technology & Infrastructure */
+div.owid-data li:nth-of-type(6) h3 > span::after {
 	content: "\f0c3";
 }
-div.owid-data li:nth-child(7) h3::before {
+div.owid-data li:nth-of-type(6) h3,
+#topics-dropdown li.category:nth-of-type(6) > a  {
+	color: #2774c6;
+}
+div.owid-data li:nth-of-type(6) .link-container {
+	border-top: 2px solid #2774c6;
+}
+div.owid-data li:nth-of-type(6) a:hover,
+#topics-dropdown li.category:nth-of-type(6) .subcategory-menu {
+	background: #2774c6 !important;
+}
+
+/* Growth & Distribution of Prosperity */
+div.owid-data li:nth-of-type(7) h3 > span::after {
 	content: "\f201";
 }
-div.owid-data li:nth-child(8) h3::before {
+div.owid-data li:nth-of-type(7) h3,
+#topics-dropdown li.category:nth-of-type(7) > a  {
+	color: #009655;
+}
+div.owid-data li:nth-of-type(7) .link-container {
+	border-top: 2px solid #009655;
+}
+div.owid-data li:nth-of-type(7) a:hover,
+#topics-dropdown li.category:nth-of-type(7) .subcategory-menu {
+	background: #009655 !important;
+}
+
+/* Economic Development, Work & Standard of Living */
+div.owid-data li:nth-of-type(8) h3 > span::after {
 	content: "\f1ae";
 }
-div.owid-data li:nth-child(9) h3::before {
+div.owid-data li:nth-of-type(8) h3,
+#topics-dropdown li.category:nth-of-type(8) > a  {
+	color: #d2bc00;
+}
+div.owid-data li:nth-of-type(8) .link-container {
+	border-top: 2px solid #d2bc00;
+}
+div.owid-data li:nth-of-type(8) a:hover,
+#topics-dropdown li.category:nth-of-type(8) .subcategory-menu {
+	background: #d2bc00 !important;
+}
+
+/* The Public Sector & Economic System */
+div.owid-data li:nth-of-type(9) h3 > span::after {
 	content: "\f0d6";
 }
-div.owid-data li:nth-child(10) h3::before {
+div.owid-data li:nth-of-type(9) h3,
+#topics-dropdown li.category:nth-of-type(9) > a  {
+	color: #eb6400;
+}
+div.owid-data li:nth-of-type(9) .link-container {
+	border-top: 2px solid #eb6400;
+}
+div.owid-data li:nth-of-type(9) a:hover,
+#topics-dropdown li.category:nth-of-type(9) .subcategory-menu {
+	background: #eb6400 !important;
+}
+
+/* Global Interconnections */
+div.owid-data li:nth-of-type(10) h3 > span::after {
 	content: "\f20e";
 }
-div.owid-data li:nth-child(11) h3::before {
+div.owid-data li:nth-of-type(10) h3,
+#topics-dropdown li.category:nth-of-type(10) > a  {
+	color: #17393d;
+}
+div.owid-data li:nth-of-type(10) .link-container {
+	border-top: 2px solid #17393d;
+}
+div.owid-data li:nth-of-type(10) a:hover,
+#topics-dropdown li.category:nth-of-type(10) .subcategory-menu {
+	background: #17393d !important;
+}
+
+/* War & Peace */
+div.owid-data li:nth-of-type(11) h3 > span::after {
 	content: "\f1e2";
 }
-div.owid-data li:nth-child(12) h3::before {
+div.owid-data li:nth-of-type(11) h3,
+#topics-dropdown li.category:nth-of-type(11) > a  {
+	color: #660000;
+}
+div.owid-data li:nth-of-type(11) .link-container {
+	border-top: 2px solid #660000;
+}
+div.owid-data li:nth-of-type(11) a:hover,
+#topics-dropdown li.category:nth-of-type(11) .subcategory-menu {
+	background: #660000 !important;
+}
+
+/* Political Regimes */
+div.owid-data li:nth-of-type(12) h3 > span::after {
 	content: "\f19c";
 }
-div.owid-data li:nth-child(13) h3::before {
+div.owid-data li:nth-of-type(12) h3,
+#topics-dropdown li.category:nth-of-type(12) > a  {
+	color: #1b0655;
+}
+div.owid-data li:nth-of-type(12) .link-container {
+	border-top: 2px solid #1b0655;
+}
+div.owid-data li:nth-of-type(12) a:hover,
+#topics-dropdown li.category:nth-of-type(12) .subcategory-menu {
+	background: #1b0655 !important;
+}
+
+/* Violence & Rights */
+div.owid-data li:nth-of-type(13) h3 > span::after {
 	content: "\f24e";
 }
-div.owid-data li:nth-child(14) h3::before {
+div.owid-data li:nth-of-type(13) h3,
+#topics-dropdown li.category:nth-of-type(13) > a  {
+	color: #cc235c;
+}
+div.owid-data li:nth-of-type(13) .link-container {
+	border-top: 2px solid #cc235c;
+}
+div.owid-data li:nth-of-type(13) a:hover,
+#topics-dropdown li.category:nth-of-type(13) .subcategory-menu {
+	background: #cc235c !important;
+}
+
+/* Education & Knowledge */
+div.owid-data li:nth-of-type(14) h3 > span::after {
 	content: "\f19d";
 }
-div.owid-data li:nth-child(15) h3::before {
+div.owid-data li:nth-of-type(14) h3,
+#topics-dropdown li.category:nth-of-type(14) > a  {
+	color: #012d8e;
+}
+div.owid-data li:nth-of-type(14) .link-container {
+	border-top: 2px solid #012d8e;
+}
+div.owid-data li:nth-of-type(14) a:hover,
+#topics-dropdown li.category:nth-of-type(14) .subcategory-menu {
+	background: #012d8e !important;
+}
+
+/* Media & Communication */
+div.owid-data li:nth-of-type(15) h3 > span::after {
 	content: "\f086";
 }
-div.owid-data li:nth-child(16) h3::before {
-	content: "\f118";
+div.owid-data li:nth-of-type(15) h3,
+#topics-dropdown li.category:nth-of-type(15) > a  {
+	color: #0089be;
+}
+div.owid-data li:nth-of-type(15) .link-container {
+	border-top: 2px solid #0089be;
+}
+div.owid-data li:nth-of-type(15) a:hover,
+#topics-dropdown li.category:nth-of-type(15) .subcategory-menu {
+	background: #0089be !important;
+}
+
+/* Culture, Values & Society */
+div.owid-data li:nth-of-type(16) h3 > span::after {
+	content: "\f164";
+}
+div.owid-data li:nth-of-type(16) h3,
+#topics-dropdown li.category:nth-of-type(16) > a {
+	color: #d76db6;
+}
+div.owid-data li:nth-of-type(16) .link-container {
+	border-top: 2px solid #d76db6;
+}
+div.owid-data li:nth-of-type(16) a:hover,
+#topics-dropdown li.category:nth-of-type(16) .subcategory-menu {
+	background: #d76db6 !important;
 }
 
 div.owid-data a.starred:hover:after {
 	color: white;	
 }
 
-@media screen and (min-width: 48em) {
+@media screen and (min-width: 800px) {
 	div.owid-data .link-container {	
 		display: flex;
 		flex-flow: row wrap;
@@ -3459,5 +3856,139 @@ div.owid-data a.starred:hover:after {
 	div.owid-data a {
 		width: 33.3333%;
 		display: inline-block;
+	}
+}
+
+/* MISPY: Front page mobile-default responsiveness and data entry listing */
+
+.home-section-1 {
+	padding: 60px 10px;
+	text-align: center;
+	background-position: 50%;
+	background-size: 250% 250%;
+}
+
+body.home .mobile.subheading {
+	font-family: Georgia;
+	color: rgb(255, 203, 31);
+	font-size: 22px;
+}
+
+/* The big blue opening image in particular has more stuff than we need on mobile */
+.home-section-1 .widget-title {
+	display: none;
+}
+
+.home-section-1 br {
+	display: none;
+}
+
+.home-section-1 #search-3 {
+	display: none;
+}
+
+.home-section-1 .down-arrow {
+	display: none;
+}
+
+.home-section-1 .title-author-byline {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 16px;
+}
+
+.home-section-2 {
+	padding-top: 0;
+}
+
+body.home .one-line-on-home {
+	display: none;
+}
+
+body.home h2 {
+	font-size: 28px;
+	margin-top: 0;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+body.home p {
+	text-align: center;
+}
+
+#featured-grid-2 {
+	margin-top: 0;
+}
+
+div.owid-presentations h3::before {
+	content: none !important;
+}
+div.owid-presentations li:nth-of-type(1) .link-container {
+	border-top: 2px solid #333;
+}
+
+div.owid-presentations li:nth-of-type(1) h3 {
+	color: #333;
+}
+div.owid-presentations li:nth-of-type(1) a:hover {
+	background: #333 !important;
+}
+
+.home-section-5 .quotes-heading {
+	font-size: 24px;
+}
+
+.home-section-5,
+.footer-widgets,
+.site-footer {
+	padding: 40px 20px;
+	font-size: 18px;
+}
+
+.footer-widgets .widget-title {
+	color: #fff;
+}
+
+@media screen and (min-width: 800px) {
+	body.home h2 {
+		font-size: 52px;
+	}
+
+	.home-section-1 {
+		padding: 140px 100px;
+		text-align: center;
+		background-position: 50% 0px;
+		background-size: cover;
+	}
+
+	.home-section-1 #text-3 .widget-title {
+		display: initial;
+	}
+
+	.home-section-1 br {
+		display: initial;
+	}
+
+	.home-section-1 #search-3 {
+		display: initial;
+	}
+
+	.home-section-1 .down-arrow {
+		display: initial;
+	}
+
+	.home-section-1 .title-author-byline {
+		text-align: right;
+		font-size: 20px;
+	}
+
+	.home-section-5,
+	.footer-widgets {
+		padding: 80px 40px;
+		font-size: 32px;
+	}
+
+	.footer-widgets .widget-title {
+		font-size: 46px;
 	}
 }

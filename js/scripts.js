@@ -1,9 +1,21 @@
 ;(function($) {
 	"use strict";
 
-	$("nav.owid-nav .dropdown").on("click", function(ev) {
+	$("nav.owid-nav li.nav-button a").on("click", function(ev) {
 		ev.preventDefault();
-		$("nav.owid-nav .dropdown").toggleClass("active");
+		var toExpand = $(ev.target).attr("data-expand");
+		$(toExpand).toggle();
+		$(toExpand).find('input').focus();
+
+		if (toExpand == "#search-dropdown") {
+			$("#topics-dropdown").hide();
+		} else {
+			$("#search-dropdown").hide();		
+		}
+	});
+
+	$("#topics-dropdown .category > a").on('click', function(ev) {
+		$(ev.target).closest('.category').toggleClass('active');
 	});
 
 	//menu

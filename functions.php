@@ -152,84 +152,79 @@ genesis_register_sidebar( array(
 ) );
 
 /* MISPY: Custom Amazon-style header topics menu */
-remove_action('genesis_header', 'genesis_do_header' );
+//remove_action('genesis_header', 'genesis_do_header' );
 add_action('genesis_header', 'sp_custom_header' );
 function sp_custom_header() {
 	$title = "Our World in Data";
-	$categories = ['1 Population Growth & Vital Statistics', 
-				   '2 Health',
-				   '3 Food & Agriculture',
-				   '4 Resources & Energy',
-				   '5 Environmental Change',
-				   '6 Technology & Infrastructure',
-				   '7 Growth & Distribution of Prosperity',
-				   '8 Economic Development, Work & Standard of Living',
-				   '9 The Public Sector & Economic System',
-				   '10 Global Interconnections',
-				   '11 War & Peace',
-				   '12 Political Regmines',
-				   '13 Violence & Rights',
-				   '14 Education & Knowledge',
-				   '15 Media & Communication',
-				   '16 Culture, Values & Society'];
 
-
+	$pages = get_pages([
+		'child_of'    => 621,
+		'sort_column' => 'menu_order, post_title',
+	]);
 
 	$html = <<<EOT
-<div class="title-area">
-	<h1 class="site-title" itemprop="headline">
+<nav class="owid-nav">
+	<h1 class="owid-title" itemprop="headline">
 		<a href="/">$title</a>
 	</h1>
-</div>
 
-<nav class="owid-nav">
-	<div class="dropdown">
-		<a href="/data">Topics</a>
-		<div class="dropdown-contents">
-			<div class="dropdown-bg">
-				<div class="dropdown-second-bg"></div>
-			</div>
-			<div class="category-menu">
-				<ul>
+	<ul class="mobile">
+		<li class="nav-button">
+			<a href="/search" data-expand="#search-dropdown"><i class='fa fa-search'></i></a>
+		</li><li class="nav-button">
+			<a href="/data" data-expand="#topics-dropdown" class='mobile'><i class='fa fa-bars'></i></a>
+			<!--<a href="/data" class='desktop'>Topics</a>-->
+		</li>
+	</ul>
+</nav>
+<div id="search-dropdown" class="mobile">
+	<form action="/">
+		<input type="search" name="s" placeholder="Search..."></input>
+		<button type="submit">
+			<i class="fa fa-search"></i>
+		</button>
+	</form>
+</div>
+<div id="topics-dropdown" class="mobile">
+	<ul>
+		<div class='topics'><h2>Topics</h2></div>
 EOT;
 
-	foreach ($categories as $category) {
-		$category_page = get_page_by_title($category);		
-		if (!$category_page)
-			continue; // Shouldn't happen, but just in case
+	foreach ($pages as $page) {
+		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
+		if (preg_match('/^\d+/', $page->post_title)) {
+			if ($category)
+				$html .= "</ul></div></li>"; // Close off previous category
 
-		$category = preg_replace('/^\d+/', "", $category); // Strip the number out of the title
-		$html .= "<li>"
-			  	 . "<a>" . $category . "</a>"		 	
-				 . "<div class='subcategory-menu'>"
-				 	. "<div class='submenu-title'>" . $category . "</div>"
-				 	. "<ul>";
-
-		$pages = get_pages([
-			'child_of' => $category_page->ID,			
-		]);
-
-		foreach ($pages as $page) {
-			$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			$category = preg_replace('/^\d+/', '', $page->post_title);
+			$html .= "<li class='category'>"
+				  	 . "<a><span>" . $category . "</span></a>"		 	
+					 . "<div class='subcategory-menu'>"
+					 	. "<div class='submenu-title'>" . $category . "</div>"
+					 	. "<ul>";
+		} else {
+			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
+			$isStarred = get_post_meta($page->ID, '_ino_star', true);
+			if ($isStarred) {
+				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			} else {
+				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			}
 		}
-
-		$html .= "</ul></div></li>";
 	}
 
+	$html .= "</ul></div></li>"; // Close off final category
+
 	$html .= <<<EOT
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div>
-		<a href="/about">About</a>
-	</div>
-</nav>
+		<li class='end-link'><a href='/data'>Browse All</a></li>
+	</ul>
+</div>
 EOT;
 
 	echo($html);
 }
 
+/* MISPY: Output a nice listing of all the data entries for /data. */
 function owid_pages() {
 	$pages = get_pages([
 		'child_of'    => 621,
@@ -238,7 +233,7 @@ function owid_pages() {
 
 
 	$html = "<div class='owid-data'>";
-	$html .= "<div class='separator'><h1><span>Data Entries</span></h1><hr></div>";
+	$html .= "<div class='separator'><h1><span>Data Entries</span></h1><hr><p>Entries marked with <i class='fa fa-star'></i> are complete. Others are ongoing collections of visualizations.</p></div>";
 
 	$html .= '<ul>';
 	$category = null;
