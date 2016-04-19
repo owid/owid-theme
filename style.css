@@ -3742,7 +3742,8 @@ nav.owid-nav li.nav-button i {
 
 /* War & Peace */
 .owid-data li:nth-of-type(11) h3 > span::after {
-	content: "\f1e2";
+	font-family: fontello;
+	content: "\e800";
 }
 .owid-data li:nth-of-type(11) h3,
 #topics-dropdown li.category:nth-of-type(11) > a  {
