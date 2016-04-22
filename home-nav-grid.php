@@ -10,27 +10,62 @@ class Home_Grid_Nav_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_details = array(
 			'classname' => 'Home_Grid_Nav_Widget',
-			'description' => 'http://thewirecutter.com/ like navigation'
+			'description' => 'Our World in Data home index'
 		);
 		parent::__construct( 'Home_Grid_Nav_Widget', 'Home Grid Nav Widget', $widget_details );
  	}
 
- 	public function form( $instance ) {
+ 	public function form($instance) {
  		// Backend Form
  	}
 
- 	public function update( $new_instance, $old_instance ) {  
+ 	public function update($new_instance, $old_instance) {  
  		return $new_instance;
  	}
 
- 	public function widget( $args, $instance ) {
+ 	public function widget($args, $instance) {
+		$html = "";
+
+ 		/* First thing on the home page is a short list of blog posts indicating various updates */
+ 		$posts = get_posts([ 			
+
+ 		]);
+
+ 		$html .= "<br><div class='owid-updates'>"
+ 			  .	 "    <ul>";
+
+ 		foreach ($posts as $post) {
+ 			setup_postdata($post);
+
+ 			// If a manually defined excerpt is available, make sure to use that
+ 			$excerpt = $post->post_excerpt;
+ 
+ 			if (!$excerpt) {
+ 				// Autogenerate an excerpt containing the first sentence and first graphic in the post.
+ 				$excerpt = "<a href ='" . get_the_permalink($post) . "'>" . preg_replace('/([^?!.]*.).*/', '\\1', get_the_excerpt($post)) . "</a>";
+
+	 			preg_match("/(<img[^>]*>|<iframe.*?<\/iframe>)/", get_the_content($post), $matches);
+	 			if (sizeof($matches) > 0) {
+	 				$excerpt .= "<a href='" . get_the_permalink($post) . "'>" . $matches[0] . "</a>";
+	 			}
+ 			}
+
+
+ 			$html .= "<li class='post'>"
+ 				  .	 "    <h3><a href='" . get_the_permalink($post) . "'>" . get_the_title($post) . "</a></h3>"
+ 				  .	 "    <div class='metadata'><time>" . get_the_date("d M", $post) . "</time> by <span>" . get_the_author($post) . "</span></div>"
+ 				  .  "    <div class='preview'>" . $excerpt . "</div>";
+ 			$html .= "</li>";
+ 		}
+
+ 		$html .= "</ul><hr></div>";
+
+ 		/* Now we make the big data entries listing */
 		$pages = get_pages([
 			'child_of'    => 621,
 			'sort_column' => 'menu_order, post_title',
 		]);
 
-
-		$html = "";
 
 		/*$html .= "<div class='owid-blog'><h2>Life Expectancy</h2><time></time><p>Life expectancy has increased rapidly since the Enlightenment. Estimates suggest that in a pre-modern, poor world, life expectancy was around 30 years in all regions of the world. In the early 19th century, life expectancy started...</p><div><a>Read more...</a></div><hr></div>";*/
 
@@ -59,7 +94,6 @@ class Home_Grid_Nav_Widget extends WP_Widget {
 				} else {
 					$html .= "<a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
 				}
-
 			}
 		}
 

@@ -813,6 +813,10 @@ Common Classes
 	float: left;
 }
 
+.author-box {
+	display: none;
+}
+
 .author-box .avatar {
 	height: 88px;
 	width: 88px;
@@ -2995,6 +2999,17 @@ a[href*="ourworldindata.org"]:hover {
 	color: #f04848;
 }
 
+a[href*="192.168.1.11"] {
+	border-bottom: 1px dotted #002147;
+	color: #002147;
+}
+
+a[href*="192.168.1.11"]:hover {
+	border-bottom: 1px dotted #f04848;
+	text-decoration: none;
+	color: #f04848;
+}
+
 .site-title a:hover {
 	border-bottom: none;
 }
@@ -3905,7 +3920,7 @@ body.home .one-line-on-home {
 }
 
 body.home h2 {
-	font-size: 28px;
+	font-size: 26px;
 	margin-top: 0;
 	margin-bottom: 0;
 	text-align: center;
@@ -3950,7 +3965,11 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 
 @media screen and (min-width: 800px) {
 	body.home h2 {
-		font-size: 52px;
+		font-size: 42px;
+	}
+
+	body.home h3 {
+		font-size: 28px;
 	}
 
 	.home-section-1 {
@@ -3981,7 +4000,7 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 		font-size: 20px;
 	}
 
-	.owid-data h3 {
+	body.home .owid-data h3 {
 		font-size: 18px;
 	}
 
@@ -3998,4 +4017,50 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	.footer-widgets .widget-title {
 		font-size: 46px;
 	}
+}
+
+/* Blog post updates listing on front page */
+
+.owid-updates {
+	max-width: 980px;
+	padding: 0 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body.home .owid-updates h2 {
+	margin-bottom: 30px;
+	padding-top: 30px;
+}
+
+.owid-updates a {
+	border-bottom: 0 !important;
+}
+
+.owid-updates li {
+	margin-bottom: 20px;
+}
+
+.owid-updates h3 {
+	margin-bottom: 0;
+}
+
+.owid-updates img, .owid-updates iframe {
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+
+.owid-updates iframe {
+	width: 100% !important;
+	margin-left: 0;
+}
+
+.owid-updates .metadata {
+	font-size: 80%;
+	color: rgba(0,0,0,.5);
+	margin-bottom: 10px;
+}
+
+.entry-footer {
+	display: none;
 }
