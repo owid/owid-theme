@@ -34,31 +34,53 @@ class Home_Grid_Nav_Widget extends WP_Widget {
  		$html .= "<br><div class='owid-updates'>"
  			  .	 "    <ul>";
 
- 		foreach ($posts as $post) {
- 			setup_postdata($post);
+		query_posts('posts_per_page=3');
+ 		if (have_posts()) {
+ 			while (have_posts()) {
+ 				the_post();
+	 			// If a manually defined excerpt is available, make sure to use that
+	 			$excerpt = get_post()->post_excerpt;
+	 
+	 			if (!$excerpt) {
+	 				// Autogenerate an excerpt containing the first sentence and first graphic in the post.
+	 				$excerpt = "<p>";
 
- 			// If a manually defined excerpt is available, make sure to use that
- 			$excerpt = $post->post_excerpt;
- 
- 			if (!$excerpt) {
- 				// Autogenerate an excerpt containing the first sentence and first graphic in the post.
- 				$excerpt = "<a href ='" . get_the_permalink($post) . "'>" . preg_replace('/([^?!.]*.).*/', '\\1', get_the_excerpt($post)) . "</a>";
+	 				$content = get_the_content();
+	 				$inTag = false;
+	 				$inSentence = false;
+	 				for ($i = 0; $i < strlen($content); $i++) {
+	 					$ch = $content[$i];
 
-	 			preg_match("/(<img[^>]*>|<iframe.*?<\/iframe>)/", get_the_content($post), $matches);
-	 			if (sizeof($matches) > 0) {
-	 				$excerpt .= "<a href='" . get_the_permalink($post) . "'>" . $matches[0] . "</a>";
+	 					if ($ch == '<') $inTag = true;
+	 					if ($ch == '>') $inTag = false;
+
+	 					if (!$inTag && preg_match('/[A-Z]/', $ch))
+	 						$inSentence = true;
+
+	 					if ($inSentence)
+	 						$excerpt .= $ch;
+
+	 					if (!$inTag && preg_match('/[.!?]/', $ch))
+	 						break;
+
+	 				}
+
+	 				$excerpt .= "</p>";
+
+		 			preg_match("/(<img[^>]*>|<iframe.*?<\/iframe>)/", get_the_content($post), $matches);
+		 			if (sizeof($matches) > 0)
+		 				$excerpt .= "<a href='" . get_the_permalink() . "'>" . $matches[0] . "</a>";
 	 			}
+
+	 			$html .= "<li class='post'>"
+	 				  .	 "    <h3><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>"
+	 				  .	 "    <div class='metadata'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span></div>"
+	 				  .  "    <div class='entry-content'>" . $excerpt . "</div>";
+	 			$html .= "</li>";
  			}
-
-
- 			$html .= "<li class='post'>"
- 				  .	 "    <h3><a href='" . get_the_permalink($post) . "'>" . get_the_title($post) . "</a></h3>"
- 				  .	 "    <div class='metadata'><time>" . get_the_date("d M", $post) . "</time> by <span>" . get_the_author($post) . "</span></div>"
- 				  .  "    <div class='preview'>" . $excerpt . "</div>";
- 			$html .= "</li>";
  		}
 
- 		$html .= "</ul><hr></div>";
+ 		$html .= "</ul><br><hr></div>";
 
  		/* Now we make the big data entries listing */
 		$pages = get_pages([

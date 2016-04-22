@@ -3014,13 +3014,13 @@ a[href*="192.168.1.11"]:hover {
 	border-bottom: none;
 }
 
-.entry-content p  a[href*="ourworldindata.org"] {
+.entry-content p a[href*="ourworldindata.org"] {
 	background: #002147;
 	border-bottom: 3px solid #FF4012;
 	color: white;
 }
 
-.entry-content p  a[href*="ourworldindata.org"]:hover {
+.entry-content p a[href*="ourworldindata.org"]:hover {
 	text-decoration: underline;
 }
 
@@ -4033,7 +4033,12 @@ body.home .owid-updates h2 {
 	padding-top: 30px;
 }
 
-.owid-updates a {
+body.home .owid-updates p {
+	text-align: left;
+	padding: 0;
+}
+
+.owid-updates h3 > a {
 	border-bottom: 0 !important;
 }
 
@@ -4046,7 +4051,6 @@ body.home .owid-updates h2 {
 }
 
 .owid-updates img, .owid-updates iframe {
-	margin-top: 20px;
 	margin-bottom: 0;
 }
 
@@ -4055,7 +4059,7 @@ body.home .owid-updates h2 {
 	margin-left: 0;
 }
 
-.owid-updates .metadata {
+.entry-meta {
 	font-size: 80%;
 	color: rgba(0,0,0,.5);
 	margin-bottom: 10px;
@@ -4063,4 +4067,20 @@ body.home .owid-updates h2 {
 
 .entry-footer {
 	display: none;
+}
+
+h1.entry-title {
+	margin-top: 20px;
+}
+
+@media screen and (min-width: 800px) {
+	h1.entry-title {
+		margin-top: 0;
+	}
+
+	article.post h1.entry-title {
+		font-size: 40px;
+		margin-bottom: 0;
+		text-align: left;
+	}
 }

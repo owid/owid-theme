@@ -5,6 +5,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 //* Setup Theme
 include_once( get_stylesheet_directory() . '/lib/theme-defaults.php' );
 
+
 //* Set Localization (do not remove)
 load_child_theme_textdomain( 'parallax', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'parallax' ) );
 
@@ -316,6 +317,11 @@ function max_byline($posttitle) {
   }
 }
 
+add_filter('genesis_post_info', 'remove_meta');
+function remove_meta($meta) {
+	echo "<p class='entry-meta'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span>";
+}
+
 /* MAX: Remove Author Box on Posts */
 //* Remove the author box on single posts XHTML Themes
 remove_action( 'genesis_after_post', 'genesis_do_author_box_single' );
@@ -323,9 +329,6 @@ remove_action( 'genesis_after_post', 'genesis_do_author_box_single' );
 remove_action( 'genesis_after_entry', 'genesis_do_author_box_single', 8 ); 
 //* Remove the post info function
 remove_action( 'genesis_before_post_content', 'genesis_post_info' ); 
-
-add_action ('genesis_entry_footer', 'genesis_do_author_box_single' );
-
 
 /* zdenek */
 include_once( get_stylesheet_directory() . '/home-nav-grid.php' );
