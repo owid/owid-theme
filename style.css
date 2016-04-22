@@ -4073,6 +4073,10 @@ h1.entry-title {
 	margin-top: 20px;
 }
 
+article.post h1.entry-title {
+	text-align: left;	
+}
+
 @media screen and (min-width: 800px) {
 	h1.entry-title {
 		margin-top: 0;

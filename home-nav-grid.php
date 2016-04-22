@@ -74,7 +74,7 @@ class Home_Grid_Nav_Widget extends WP_Widget {
 
 	 			$html .= "<li class='post'>"
 	 				  .	 "    <h3><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>"
-	 				  .	 "    <div class='metadata'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span></div>"
+	 				  .	 "    <div class='entry-meta'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span></div>"
 	 				  .  "    <div class='entry-content'>" . $excerpt . "</div>";
 	 			$html .= "</li>";
  			}
