@@ -2471,10 +2471,9 @@ h6 {
 }
 iframe {
 	background-color: #fff;
+	position: relative;
+	z-index: 1;
 }
-	iframe[src*="chart-builder"] {
-		background-color: transparent;
-	}
 blockquote {
 	color: black;
 	font-style: italic;
@@ -2601,7 +2600,7 @@ blockquote {
 	.entry-content > h6, .entry-content .scroll-nav__section > h6,
 	.entry-content > ul, .entry-content .scroll-nav__section > ul,
 	.entry-content > ol, .entry-content .scroll-nav__section > ol {
-		overflow: auto;
+		overflow: visible;
 		padding: 0 24%;
 	}
 	.entry-content .scroll-nav__section > h5,
@@ -2614,6 +2613,7 @@ blockquote {
 		max-width: inherit;
 		width: 144% !important;
 		margin-left: -11%;
+		border: 1px solid #ccc !important;
 	}
 		.narrow_iframe iframe {
 			width: 100% !important;
