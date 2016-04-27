@@ -62,9 +62,9 @@ class Home_Grid_Nav_Widget extends WP_Widget {
 
 	 					if (!$inTag && preg_match('/[.!?]/', $ch))
 	 						break;
-
 	 				}
 
+	 				$excerpt .= "<a class='read-more' href='" . get_the_permalink() . "'> (more)</a>";
 	 				$excerpt .= "</p>";
 
 		 			preg_match("/(<img[^>]*>|<iframe.*?<\/iframe>)/", get_the_content($post), $matches);

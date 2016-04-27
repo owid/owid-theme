@@ -4088,3 +4088,12 @@ article.post h1.entry-title {
 		text-align: left;
 	}
 }
+
+body.home a.read-more {
+	background-image: none !important;
+	border-bottom: none;
+}
+
+body.home a.read-more:hover {
+	text-decoration: underline;
+}
