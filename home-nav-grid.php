@@ -68,8 +68,15 @@ class Home_Grid_Nav_Widget extends WP_Widget {
 	 				$excerpt .= "</p>";
 
 		 			preg_match("/(<img[^>]*>|<iframe.*?<\/iframe>)/", get_the_content($post), $matches);
-		 			if (sizeof($matches) > 0)
-		 				$excerpt .= "<a href='" . get_the_permalink() . "'>" . $matches[0] . "</a>";
+		 			if (sizeof($matches) > 0) {
+		 				if (preg_match("/(<img[^>]*)>/", $matches[0])) {
+		 					// Link <img>s to the post
+			 				$excerpt .= "<a href='" . get_the_permalink() . "'>" . $matches[0] . "</a>";
+		 				} else {
+		 					// Iframes can't be linked, sadly
+		 					$excerpt .= $matches[0];
+		 				}
+		 			}
 	 			}
 
 	 			$html .= "<li class='post'>"
