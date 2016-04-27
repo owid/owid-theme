@@ -3540,7 +3540,7 @@ nav.owid-nav li.nav-button i {
 }
 
 .owid-data li {
-	list-style-type: none;
+	list-style-type: none !important;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -4090,8 +4090,9 @@ article.post h1.entry-title {
 }
 
 body.home a.read-more {
-	background-image: none !important;
-	border-bottom: none;
+	background: none !important;
+	border-bottom: none !important;
+	color: #1059E5 !important;
 }
 
 body.home a.read-more:hover {
