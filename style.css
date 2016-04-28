@@ -2515,9 +2515,6 @@ blockquote {
 .entry-content .scroll-nav__section img {
     border: 1px solid #ccc !important;
 }
-	.entry-content .scroll-nav__section iframe[src*="chart-builder"] {
-		border: 0 !important;
-	}
 	.entry-content img[src*="quicklatex.com"] {
 		border: 0 !important;
 	}
