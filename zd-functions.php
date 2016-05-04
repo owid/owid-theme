@@ -89,10 +89,12 @@
 
 	/* HACK (Mispy): Just redirect back to the front page if it's an empty search. */
 	function search_redirect($query) {
-   		if ( !is_admin() && $query->is_main_query() ) {
-    			if ($query->is_search && empty(get_search_query())) {
-       		    		wp_redirect( home_url() ); exit;
-        		}
+   		if (!is_admin() && $query->is_main_query()) {
+   			$searchQuery = get_search_query();
+			if ($query->is_search && empty($searchQuery)) {
+	    		wp_redirect(home_url()); 
+	    		exit;
+    		}
   		}
 	}
 	add_action('pre_get_posts','search_redirect');
