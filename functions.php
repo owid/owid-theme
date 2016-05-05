@@ -33,10 +33,8 @@ function parallax_enqueue_scripts_styles() {
 	wp_enqueue_script( 'jquery-menu-aim', get_bloginfo( 'stylesheet_directory' ) . '/js/jquery.menu-aim.js', array( 'jquery' ), '1.0.0' );
 
 	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Montserrat|Sorts+Mill+Goudy', array(), CHILD_THEME_VERSION );
-	wp_enqueue_style( 'font-awesome-latest', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' );
 	wp_enqueue_style( 'fontello-custom', get_bloginfo('stylesheet_directory') . '/css/fontello.css' );
-
+	wp_enqueue_style( 'font-awesome-owid', get_bloginfo('stylesheet_directory') . '/css/font-awesome.min.css' );
 }
 
 //* Add HTML5 markup structure
