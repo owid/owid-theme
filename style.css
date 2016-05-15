@@ -2975,7 +2975,7 @@ blockquote {
 
 /* MISPY: Special styling of internal and external links */
 
-a[href*="ourworldindata.org"] {
+/*a[href*="ourworldindata.org"] {
 	border-bottom: 1px dotted #002147;
 	color: #002147;
 }
@@ -2995,7 +2995,7 @@ a[href*="192.168.1.11"]:hover {
 	border-bottom: 1px dotted #f04848;
 	text-decoration: none;
 	color: #f04848;
-}
+}*/
 
 .site-title a:hover {
 	border-bottom: none;
