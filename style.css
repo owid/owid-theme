@@ -101,7 +101,9 @@ input[type="search"] {
 }
 
 
+/* MISPY CLEANUP START */
 
+/* MISPY CLEANUP END */
 
 
 
@@ -116,7 +118,6 @@ body {
 	background-color: #fff;
 	color: #000;
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-	
 	font-size: 17px;
 	font-weight: 400;
 	line-height: 1.5;
@@ -329,14 +330,6 @@ h6 {
 
 /* These rules should in the end only apply to datamaps  */
 
-/*
-iframe { 
-    display: block;
-	margin-left: auto; 
-	margin-right: auto;
-
-}
-*/
 
 .narrow_iframe { 
     	display: block;
@@ -424,7 +417,6 @@ a[href$=jpg] img, a[href$=jpeg] img, a[href$=jpe] img, a[href$=png] img, a[href$
 }
 
 a[href$=jpg] img:hover, a[href$=jpeg] img:hover, a[href$=jpe] img:hover, a[href$=png] img:hover, a[href$=gif] img:hover {
-
 	opacity: 1;
 	-o-transition-duration: 0.2s;
 	-moz-transition-duration: 0.2s;
@@ -582,62 +574,6 @@ input[type="search"]::-webkit-search-results-button {
 	display: none;
 }
 
-/* Buttons
---------------------------------------------- */
-
-.footer-widgets a.button,
-.footer-widgets button,
-.footer-widgets input[type="button"],
-.footer-widgets input[type="reset"],
-.footer-widgets input[type="submit"],
-.home-even a.button,
-.home-odd a.button {
-	background: transparent;
-	clear: both;
-	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-
-	font-size: 18px;
-	font-weight: 400;
-	letter-spacing: 1px;
-	margin-top: 20px;
-	padding: 15px 25px;
-	text-transform: uppercase;
-}
-
-.footer-widgets a.button,
-.footer-widgets button,
-.footer-widgets input[type="button"],
-.footer-widgets input[type="reset"],
-.footer-widgets input[type="submit"],
-.home-odd a.button {
-	border: 3px solid #fff;
-	color: #fff !important;
-}
-
-.footer-widgets a.button:hover,
-.home-odd a.button:hover {
-	background-color: #fff;
-	color: #000 !important;
-}
-
-.footer-widgets button:hover,
-.footer-widgets input:hover[type="button"],
-.footer-widgets input:hover[type="reset"],
-.footer-widgets input:hover[type="submit"] {
-	background-color: #fff !important;
-	color: #000 !important;
-}
-
-.home-even a.button {
-	border: 3px solid #000;
-	color: #000;
-}
-
-.home-even a.button:hover {
-	background-color: #000;
-	color: #fff;
-}
 
 /* Tables
 --------------------------------------------- */
@@ -4049,3 +3985,4 @@ body.home a.read-more {
 body.home a.read-more:hover {
 	text-decoration: underline;
 }
+
