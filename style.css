@@ -1595,43 +1595,47 @@ p.entry-meta {
 	background-color: #f04848;
 	color: #fff;
 }
-/*
-Sidebar
----------------------------------------------------------------------------------------------------- */
 
-.sidebar {
-	float: right;
-	width: 20%;
-	padding-left:10px;
-	padding-right:15px;
+/* SIDE - MATTER 
+------------------------------------------------------------ */
+
+/* (Zahl im Text) Selects superscript tags enclosing in-text reference numerals. Target a specific element by appending `sup.side-matter-sup-` with its number, e.g. `sup.side-matter-sup-3`. */
+sup.side-matter-sup {
+	color: orangered;
+	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 14px !important;
+	padding-left:0.5px;	
+
 }
 
-.sidebar-content .sidebar {
-	float: left;
-}
-
-.sidebar p:last-child {
-	margin-bottom: 0;
-}
-
-.sidebar p {
-	margin: 0 0 6px 0;
-}
+/* (Zahl an der Seite) Selects ordered list of sidenotes, including sidenote numerals. Note that this tag is not always enclosed in the Side Matter widget; it can also be generated using the custom action `side_matter_list_notes`. */
+ol.side-matter-list {
+	color: orangered;
+	line-height: 0.9;
+	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px !important;
 	
-	
-.sidebar li {
-	list-style-type: none;
-	margin-bottom: 6px;
-	word-wrap: break-word;
+
+	font-weight: bold;
+
 }
 
-.sidebar ul > li:last-child {
-	margin-bottom: 0;
+/* (Text an der Seite - ohne Zahl) Selects sidenote text only (but not list numerals). Use this to style sidenote text separately from sidenote numerals. Target the text of a specific sidenote by appending `div.side-matter-text-` with the sidenote number, e.g. `div.side-matter-text-2`. (This replaces the `span.side-matter` tag used in earlier versions.) */
+div.side-matter-text {
+	color: #616161;
+	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	line-height: 1.2;	
+	padding-bottom: 10px;
+	font-weight: normal;
+
 }
 
-.sidebar .widget {
-	margin-bottom: 40px;
-}
+
+
+
+
 
 
 /*
@@ -1710,6 +1714,13 @@ Media Queries
 
 @media only screen and (max-width: 1140px) {
 
+	/*
+	.site-inner,
+	.wrap {
+		max-width: 960px;
+	}
+*/
+		
 	.site-header .widget-area {
 		width: 360px;
 	}
@@ -1726,16 +1737,30 @@ Media Queries
 		background-size:         auto;
 	}
 
+	/*
+	.content {
+		width: 520px;
+	}
+	*/
+
 	.full-width-content .content {
 		padding: 0 110px;
 	}
 
+	
+	
+	
+	
+	
 	.page .content {
 		padding-top: 40px;
 		padding-right: 20px;
 		padding-left: 20px;
 	}
-			
+	
+	
+	
+		
 	.home-odd .widget-title {
 		font-size: 80px;
 	}
@@ -1787,7 +1812,12 @@ Media Queries
 	}
 	
 	
-	/* the stuff above added by Max */	
+	/* the stuff above added by Max */
+	
+	
+	
+	
+	
 
 	.content {
 		border-right: none;
@@ -1966,6 +1996,10 @@ blockquote {
 	color: black;
 	font-style: italic;
 }
+/*.entry-content .scroll-nav__section:nth-of-type(2n+1) {
+	padding-bottom: 20px;
+	background-color: #f2f2f2;
+}*/
 .entry-content .scroll-nav__section {
 	overflow: auto;
 }
@@ -1973,6 +2007,19 @@ blockquote {
 	padding-top: 40px !important;
 	padding-bottom: 20px !important;
 }
+/* background altering - pure css not used */
+/*.entry-content .scroll-nav__section:nth-of-type(2n) .scroll-nav__sub-section:nth-of-type(2n+1):not(:nth-of-type(1)) {
+	background-color: #f2f2f2;
+}
+.entry-content .scroll-nav__section:nth-of-type(2n+1) {
+	background-color: #f2f2f2;
+}
+	.entry-content .scroll-nav__section:nth-of-type(2n+1) .scroll-nav__sub-section:nth-of-type(2n) {
+		background-color: #e5e5e5;
+	}*/
+/*.entry-content .scroll-nav__sub-section:nth-of-type(2n+1) {
+	background-color: #f2f2f2;
+}*/
 /* background altering - js enabled */
 .entry-content .scroll-nav__section.dark,
 .entry-content .scroll-nav__section.light .scroll-nav__sub-section:nth-of-type(2n) {
@@ -2133,6 +2180,95 @@ blockquote {
 			.genesis-nav-menu .menu-item.active > a {
 				background-color: #f04848;
 			}
+
+/**
+*	HOMEPAGE NAVIGATION GRID
+**/
+.home-nav-grid-wrapper {
+	position: relative;
+	max-width: 1140px;
+	margin: 50px auto 40px;
+	text-align: center;
+	line-height: 1.4;
+}
+	.home-nav-grid-wrapper a {
+		color: #000000;
+	}
+	.home-nav-grid-wrapper .page_item_has_children {
+		margin-bottom: 40px;
+		text-align: left;
+		vertical-align: top;
+		font-size: 20px;
+	}
+		.home-nav-grid-wrapper .nav-grid-digit,
+		.home-nav-grid-wrapper .nav-grid-title {
+			display: block;
+		}
+			.home-nav-grid-wrapper .nav-grid-digit {
+				width: 40px;
+				height: 40px;
+				position: relative;
+				padding-left: 0;
+				padding-top: 5px;
+				margin-bottom: 15px;
+				text-align: center;
+				background-color: rgba(0,33,71,.9);
+				color: #ffffff;
+				border-radius: 50%;
+			}
+		.home-nav-grid-wrapper .page_item_has_children > a {
+			font-weight: 500;
+			cursor: default;
+		}
+		.home-nav-grid-wrapper .children {
+			margin-top: 15px;
+			font-size: 14px;
+		}
+		.home-nav-grid-wrapper .children li {
+			display: inline;
+			display: block;
+			margin-right: 5px;
+			position: relative;
+		}
+			.home-nav-grid-wrapper .children li a:hover {
+				text-decoration: underline;
+			}
+
+	@media only screen and (min-width: 768px) {
+		
+		.home-nav-grid-wrapper {
+			/*display: -ms-flexbox;
+			-ms-flex-direction: column;
+			-ms-flex-wrap: wrap;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			height: 1550px;*/
+		}
+		.home-nav-grid-wrapper ol {
+			position: relative;
+			width: 100%;	
+			margin: 0px 40px;
+			/*make sure whitespace of inline-block things doens't mess up things */
+			font-size: 0;
+		}
+		.home-nav-grid-wrapper .page_item_has_children {
+			display: inline-block;
+			width: 50%;
+			padding-right: 40px;
+		}
+	}
+	@media only screen and (min-width: 1024px) {
+		.home-nav-grid-wrapper {
+			height: 950px;
+		}
+		.home-nav-grid-wrapper .page_item_has_children {
+			width: 25%;
+			/*width: 33.3%;*/
+		}
+	}
+
+
 
 /* id headers */
 .deep-link {
