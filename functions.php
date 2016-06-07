@@ -155,7 +155,7 @@ genesis_register_sidebar( array(
 //remove_action('genesis_header', 'genesis_do_header' );
 add_action('genesis_header', 'sp_custom_header' );
 function sp_custom_header() {
-	$title = "Our World in Data";
+	$title = "Our World In Data";
 
 	$pages = get_pages([
 		'child_of'    => 621,
@@ -164,11 +164,25 @@ function sp_custom_header() {
 
 	$html = <<<EOT
 <nav class="owid-nav">
+	<ul class="desktop right">
+		<li>
+			<a href="/search"><i class="fa fa-search"></i><span>Search</span></a>
+		</li>
+		<li>
+			<a href="/about">About</a>
+		</li>
+		<li>
+			<a href="/support">Donate</a>
+		</li>
+	</ul>
+
+
 	<h1 class="owid-title" itemprop="headline">
-		<a href="/">$title</a>
+		<a href="/"><i class="fa fa-globe"></i><span>$title</span></a>
 	</h1>
 
-	<ul class="mobile">
+
+	<ul class="mobile right">
 		<li class="nav-button">
 			<a href="/search" data-expand="#search-dropdown"><i class='fa fa-search'></i></a>
 		</li><li class="nav-button">
@@ -176,6 +190,29 @@ function sp_custom_header() {
 			<!--<a href="/data" class='desktop'>Topics</a>-->
 		</li>
 	</ul>
+
+	<hr>
+
+	<div class="categories">
+		<ul>
+			<li><a>Population</a></li>
+			<li><a>Health</a></li>
+			<li><a>Food</a></li>
+			<li><a>Energy</a></li>
+			<li><a>Environment</a></li>
+			<li><a>Technology</a></li>
+			<li><a>Growth</a></li>
+			<li><a>Work</a></li>
+			<li><a>Public Sector</a></li>
+			<li><a>Interconnections</a></li>
+			<li><a>Peace</a></li>
+			<li><a>Regimes</a></li>
+			<li><a>Rights</a></li>
+			<li><a>Education</a></li>
+			<li><a>Media</a></li>
+			<li><a>Culture</a></li>
+		</ul>
+	</div>
 </nav>
 <div id="search-dropdown" class="mobile">
 	<form action="/">
