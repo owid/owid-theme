@@ -3101,13 +3101,10 @@ nav.owid-nav li.nav-button i {
 	    -webkit-touch-callout: none; /* iOS Safari */
 	}
 
-	#category-nav a, #entries-nav a {
-	}
-
 	#category-nav li.active > a,
 	#entries-nav li.active > a {
-		font-weight: bold;
-	}
+		text-shadow: 1px 0px 0px black;
+   	}
 
 
 	#entries-nav a {

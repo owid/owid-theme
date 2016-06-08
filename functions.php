@@ -227,7 +227,7 @@ EOT;
 				$html .= "</ul></li>"; // Close off previous category
 
 			$category = $shortCategories[trim(preg_replace('/^\d+/', '', $page->post_title))];
-			$html .= "<li class='category'>"
+			$html .= "<li class='category' title='" . $category . "'>"
 				  	 . "<a><span>" . $category . "</span></a>"		 	
 					 . "<ul class='entries'><hr>";
 		} else {
