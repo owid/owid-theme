@@ -3051,7 +3051,7 @@ nav.owid-nav li.nav-button i {
 	}
 
 	header.site-header, nav.owid-nav {
-		background: #ededed !important;
+		background: white !important;
 		color: #333 !important;
 		border-bottom: none !important;
 	}
@@ -3075,12 +3075,12 @@ nav.owid-nav li.nav-button i {
 
 	nav.owid-nav {
 		height: auto;
-		padding: 10px;
+		padding: 20px;
 	}
 
 	nav.owid-nav ul.desktop li {
 		display: inline-block;
-		margin-right: 28px;
+		margin-left: 28px;
 	}
 
 	nav.owid-nav ul.desktop li > a {
@@ -3108,8 +3108,13 @@ nav.owid-nav li.nav-button i {
 		border-bottom: 2px solid transparent;
 	}
 
-	nav.owid-nav div li > a:hover {
+	nav.owid-nav div li > a:hover,
+	nav.owid-nav div li.active > a {
 		border-color: #fec400;
+	}
+
+	#category-nav ul.entries {
+		display: none;
 	}
 
 }

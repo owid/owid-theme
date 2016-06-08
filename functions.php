@@ -193,26 +193,56 @@ function sp_custom_header() {
 
 	<hr>
 
-	<div class="categories">
-		<ul>
-			<li><a>Population</a></li>
-			<li><a>Health</a></li>
-			<li><a>Food</a></li>
-			<li><a>Energy</a></li>
-			<li><a>Environment</a></li>
-			<li><a>Technology</a></li>
-			<li><a>Growth</a></li>
-			<li><a>Work</a></li>
-			<li><a>Public Sector</a></li>
-			<li><a>Interconnections</a></li>
-			<li><a>Peace</a></li>
-			<li><a>Regimes</a></li>
-			<li><a>Rights</a></li>
-			<li><a>Education</a></li>
-			<li><a>Media</a></li>
-			<li><a>Culture</a></li>
-		</ul>
-	</div>
+	<div id="category-nav" class="desktop"><ul>
+EOT;
+
+	$shortCategories = [
+		"Population Growth & Vital Statistics" => "Population",
+		"Health" => "Health",
+		"Food & Agriculture" => "Food",
+		"Resources & Energy" => "Energy",
+		"Environmental Change" => "Environment",
+		"Technology & Infrastructure" => "Technology",
+		"Growth & Distribution of Prosperity" => "Growth",
+		"Economic Development, Work & Standard of Living" => "Work",
+		"The Public Sector & Economic System" => "Public Sector",
+		"Global Interconnections" => "Globalization",
+		"War & Peace" => "Peace",
+		"Political Regimes" => "Regimes",
+		"Violence & Rights" => "Rights",
+		"Education & Knowledge" => "Knowledge",
+		"Media & Communication" => "Media",
+		"Culture, Values & Society" => "Culture"
+	];
+
+	foreach ($pages as $page) {
+		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
+		if (preg_match('/^\d+/', $page->post_title)) {
+			if ($category)
+				$html .= "</ul></li>"; // Close off previous category
+
+			$category = $shortCategories[trim(preg_replace('/^\d+/', '', $page->post_title))];
+			$html .= "<li class='category'>"
+				  	 . "<a><span>" . $category . "</span></a>"		 	
+					 . "<ul class='entries'><hr>";
+		} else {
+			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
+			$isStarred = get_post_meta($page->ID, '_ino_star', true);
+			if ($isStarred) {
+				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			} else {
+				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			}
+		}
+	}
+
+	$html .= "</ul></li>";
+
+	// Now for mobile stuff
+
+	$html .= <<<EOT
+	</ul></div>
+	<div id="entries-nav"></div>
 </nav>
 <div id="search-dropdown" class="mobile">
 	<form action="/">
@@ -227,6 +257,7 @@ function sp_custom_header() {
 		<div class='topics'><h2>Topics</h2></div>
 EOT;
 
+	$category = null;
 	foreach ($pages as $page) {
 		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
 		if (preg_match('/^\d+/', $page->post_title)) {

@@ -18,24 +18,34 @@
 		$(ev.target).closest('.category').toggleClass('active');
 	});
 
-	//menu
-	$( ".genesis-nav-menu .sub-menu" ).menuAim({
-		activate: function( row ) {
-			var $row = $( row ),
-				$submenu = $row.find( ".sub-menu" );
-			$row.addClass( "active" );
-			$submenu.show();
-		},
-		deactivate: function( row ) {
-			var $row = $( row ),
-				$submenu = $row.find( ".sub-menu" );
-			$row.removeClass( "active" );
-			$submenu.hide();
-		},
-		exitMenu: function() { return true; },
-		submenuDirection: "right"
+	// Header nav menu for selecting entries by category
+	$("#category-nav li.category > a").on('click', function(ev) {
+		var $category = $(ev.target).closest("li.category");
+		$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);
+		$("#category-nav li.category").removeClass("active");
+		$category.addClass("active");
 	});
 
+	// If we're already on a page, show it in the nav
+	$("#category-nav ul.entries a").each(function() {
+		$entry = $(this);
+		if ($("h1.entry-title").text() == $entry.text()) {
+			var $ul = $entry.closest("ul.entries");
+			$("#entries-nav").html($ul[0].outerHTML);
+
+			$("#entries-nav li:contains(" + $entry.text() + ")").addClass("active");
+			$entry.closest(".category").addClass("active");
+		}
+	});
+
+	// Clear selection
+	$("header.site-header").on("click", function(ev) {
+		if (!$(ev.target).closest("li").length) {
+			$("#category-nav li.category").removeClass("active");
+			$("#entries-nav").empty();
+		}
+	});
+	
 
 	var $entry = $( ".entry" );
 	$entry.scrollNav({ 
