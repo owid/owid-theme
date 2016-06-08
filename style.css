@@ -262,7 +262,6 @@ h2,
 h3,
 h4,
 h5 {
-	color: #000;
 	font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
 	line-height: 1.2;
 	margin: 0 0 20px;
@@ -812,32 +811,6 @@ Common Classes
 .home-even .widget-title  {
 	font-size: 58px;
 	margin-bottom: 0px;
-}
-
-#featured-grid-2 {
-	margin-top:90px;
-	max-width: 760px;
-	
-}
-
-#featured-grid-2 img {
-	border: 2px solid #002147;
-	box-shadow:  1px 3px 20px rgba(50,50,50,0.61);
-
-}
-
-
-#featured-grid-2  img:hover {
-
-	opacity: 1;
-	-o-transition-duration: 0.2s;
-	-moz-transition-duration: 0.2s;
-	-webkit-transition: -webkit-transform 0.2s;
-	-webkit-box-shadow: 0px 0px 4px #000;
-	-moz-box-shadow: 0px 0px 4px #000;
-	box-shadow: 0px 0px 4px #000;
-	z-index: 10;
-	border: 2px solid rgba(50,50,50,1);
 }
 
 /* WordPress
@@ -2578,10 +2551,6 @@ a[href*="192.168.1.11"]:hover {
 /* OWID Mobile Header Menus
 --------------------------------------------- */
 
-.desktop {
-	display: none;
-}
-
 div.title-area {
 	display: none;
 }
@@ -2973,18 +2942,22 @@ nav.owid-nav li.nav-button i {
 	float: right;
 }
 
+@media screen and (max-width: 800px) {
+	.desktop {
+		display: none !important;
+	}
+}
+
 @media screen and (min-width: 800px) {
 	.mobile {
 		display: none !important;
 	}
 
-	.desktop {
-		display: initial;
-	}
-
 	header.site-header {
 		padding: 0 20px;
 		background-color: rgba(0,33,71,1);	
+		position: relative;
+		z-index: 1;
 	}
 
 	header.site-header .widget-area {
@@ -3145,7 +3118,67 @@ nav.owid-nav li.nav-button i {
 		display: none;
 	}
 
+	.title-author-byline {
+		text-align: right;
+	    font-size: 20px;
+	    color: white;
+	}
+
+	#entries-nav {
+		position: absolute;
+		background: white;
+		left: 0;
+		width: 100%;
+		display: none;
+		box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.3);
+	}
+
+	#entries-nav ul {
+		max-width: 1140px;		
+		padding-bottom: 0.5em;
+		margin: auto;
+	}
 }
+
+#homepage-cover {
+	background-image: url(/wp-content/uploads/2015/01/WorldMapDark2.png);
+    background-position: 50% 0px;
+    background-size: cover;
+	height: 600px;
+	padding: 140px 100px;
+	text-align: center;
+}
+
+#homepage-cover .lead-in {
+	color: rgb(255, 203, 31);		
+    max-width: 1140px;
+    margin: 0 auto;	
+}
+
+#homepage-cover h1 {
+	font-size: 128px;
+	margin: 0;
+	line-height: 0.9;
+}
+
+#homepage-cover .subheading {
+	font-size: 25px;
+	line-height: 1.2;
+}
+
+/*#homepage-cover {
+	position: relative;
+}
+
+#homepage-cover:before {
+    display: block;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.2);
+    z-index: 1;
+}*/
 
 
 
