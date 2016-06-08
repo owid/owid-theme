@@ -166,7 +166,12 @@ function sp_custom_header() {
 <nav class="owid-nav">
 	<ul class="desktop right">
 		<li>
-			<a href="/search"><i class="fa fa-search"></i><span>Search</span></a>
+			<form id="search-nav" action="/">
+				<input type="search" name="s" placeholder="Search..."></input>
+				<button type="submit">
+					<i class="fa fa-search"></i>
+				</button>
+			</form>
 		</li>
 		<li>
 			<a href="/about">About</a>
@@ -204,10 +209,10 @@ EOT;
 		"Environmental Change" => "Environment",
 		"Technology & Infrastructure" => "Technology",
 		"Growth & Distribution of Prosperity" => "Growth",
-		"Economic Development, Work & Standard of Living" => "Work",
+		"Economic Development, Work & Standard of Living" => "Life",
 		"The Public Sector & Economic System" => "Public Sector",
 		"Global Interconnections" => "Globalization",
-		"War & Peace" => "Peace",
+		"War & Peace" => "War",
 		"Political Regimes" => "Regimes",
 		"Violence & Rights" => "Rights",
 		"Education & Knowledge" => "Knowledge",
