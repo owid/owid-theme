@@ -29,6 +29,11 @@
 		$category.addClass("active");
 	});
 
+	// HACK (Mispy): Prevent bolding on selection from shifting elements
+	/*$('#category-nav li.category > a').each(function(){
+	    $(this).parent().width($(this).width() + 8);
+	});*/	
+
 	// If we're already on a page, show it in the nav
 	$("#category-nav ul.entries a").each(function() {
 		$entry = $(this);
@@ -37,18 +42,21 @@
 			$("#entries-nav").html($ul[0].outerHTML);
 			$("#entries-nav").show();
 
-			$("#entries-nav li:contains(" + $entry.text() + ")").addClass("active");
+			$("#entries-nav li").each(function() {
+				if ($("h1.entry-title").text() == $(this).text())
+					$(this).addClass("active");
+			});
 			$entry.closest(".category").addClass("active");
 		}
 	});
 
 	// Clear selection
-	$("html").on("click", function(ev) {
+	/*$("html").on("click", function(ev) {
 		if (!$(ev.target).closest("a").length) {
 			$("#category-nav li.category").removeClass("active");
 			$("#entries-nav").hide();
 		}
-	});
+	});*/
 	
 
 	var $entry = $( ".entry" );

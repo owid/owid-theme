@@ -196,8 +196,6 @@ function sp_custom_header() {
 		</li>
 	</ul>
 
-	<hr>
-
 	<div id="category-nav" class="desktop"><ul>
 EOT;
 
