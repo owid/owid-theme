@@ -56,73 +56,33 @@ function parallax_homepage_widgets() {
 		<div class="title-author-byline">A web publication by <a href="http://www.MaxRoser.com/about" target="_blank">Max Roser</a>.</div>
 	</div>
 </div>
+<div id="homepage-content">
+	<h3><a href="/grapher/latest">Latest Visualization</a></h3>
+	<iframe src="/grapher/latest" width="100%" height="660px"></iframe>
 EOT;
 
 
-		/* First thing on the home page is a short list of blog posts indicating various updates */
-		$posts = get_posts([ 			
+	// Blog sidebar
+	$posts = get_posts([]);
 
-		]);
-
-		$html .= "<br><div class='owid-updates'>"
-			  .	 "    <ul>";
+	$html .= "<div id='homepage-blog'>"
+		  .	 "    <ul>";
 
 	query_posts('posts_per_page=3');
-		if (have_posts()) {
-			while (have_posts()) {
-				the_post();
- 			// If a manually defined excerpt is available, make sure to use that
- 			$excerpt = get_post()->post_excerpt;
- 
- 			if (!$excerpt) {
- 				// Autogenerate an excerpt containing the first sentence and first graphic in the post.
- 				$excerpt = "<p>";
-
- 				$content = get_the_content();
- 				$inTag = false;
- 				$inSentence = false;
- 				for ($i = 0; $i < strlen($content); $i++) {
- 					$ch = $content[$i];
-
- 					if ($ch == '<') $inTag = true;
- 					if ($ch == '>') $inTag = false;
-
- 					if (!$inTag && preg_match('/[A-Z]/', $ch))
- 						$inSentence = true;
-
- 					if ($inSentence)
- 						$excerpt .= $ch;
-
- 					if (!$inTag && preg_match('/[.!?]/', $ch))
- 						break;
- 				}
-
- 				$excerpt .= " <a class='read-more' href='" . get_the_permalink() . "'>(more)</a>";
- 				$excerpt .= "</p>";
-
-	 			preg_match("/(<img[^>]*>|<iframe.*?<\/iframe>)/", get_the_content($post), $matches);
-	 			if (sizeof($matches) > 0) {
-	 				if (preg_match("/(<img[^>]*)>/", $matches[0])) {
-	 					// Link <img>s to the post
-		 				$excerpt .= "<a href='" . get_the_permalink() . "'>" . $matches[0] . "</a>";
-	 				} else {
-	 					// Iframes can't be linked, sadly
-	 					$excerpt .= $matches[0];
-	 				}
-	 			}
- 			}
+	if (have_posts()) {
+		while (have_posts()) {
+			the_post();
 
  			$html .= "<li class='post'>"
  				  .	 "    <h3><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>"
- 				  .	 "    <div class='entry-meta'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span></div>"
- 				  .  "    <div class='entry-content'>" . $excerpt . "</div>";
+ 				  .	 "    <div class='entry-meta'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span></div>";
  			$html .= "</li>";
-			}
 		}
+	}
 
-		$html .= "</ul><br><hr></div>";
+	$html .= "</ul></div>";
 
-		/* Now we make the big data entries listing */
+	/* Now we make the big data entries listing */
 	$pages = get_pages([
 		'child_of'    => 621,
 		'sort_column' => 'menu_order, post_title',
@@ -174,6 +134,7 @@ EOT;
 
     $html .= "</div></li></ul></div>";
 
+    $html .= "</div>";
 
 	echo($html);
 }
