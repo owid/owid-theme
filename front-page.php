@@ -58,7 +58,7 @@ function parallax_homepage_widgets() {
 </div>
 <div id="homepage-content">
 	<h3><a href="/grapher/latest">Latest Visualization</a></h3>
-	<iframe src="/grapher/latest" width="100%" height="660px"></iframe>
+	<iframe src="https://ourworldindata.org/grapher/latest" width="100%" height="660px"></iframe>
 EOT;
 
 
@@ -92,8 +92,8 @@ EOT;
 	]);
 
 	$html .= <<<EOT
-	<div class="owid-data">
-		<h3><a href="/data">Data Entries</a></h3>		
+	<div id="homepage-entries">
+		<h3><a href="/data">Entries</a></h3>		
 		<ul>
 EOT;
 
@@ -107,19 +107,19 @@ EOT;
 		// HACK (Mispy): Identify top-level categories by whether they start with a number.
 		if (preg_match('/^\d+/', $page->post_title)) {
 			if ($category)
-				$html .= "</div></li>";
+				$html .= "</ul></li>";
 
 			$category = preg_replace('/^\d+/', '', $page->post_title);
-			$html .= "<li>"
+			$html .= "<li class='category'>"
 				  .	     "<h4><span>" . $category . "</span></h4>"
-				  .		 "<div class='link-container'>";
+				  .		 "<ul>";
 		} else {
 			// NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin 
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
-				$html .= "<a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
+				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
 			} else {
-				$html .= "<a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
+				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
 			}
 		}
 	}

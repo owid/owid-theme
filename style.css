@@ -3035,10 +3035,34 @@ header.site-header {
 		color: #d10a11;
 	}
 
-	#homepage-content .owid-data {
+	#homepage-entries {
 		float: left;
 		width: 70%;
 		padding: 10px 20px;
+		font-size: 14px;
+	}
+
+	#homepage-entries h4 {
+		font-size: 20px;
+		margin-bottom: 10px;
+	}
+
+	#homepage-entries > ul { 
+		column-width: 220px;
+	    -webkit-column-width: 220px;
+	    -moz-column-width: 220px;
+ 	    -ms-column-width: 220px;
+	}
+
+	#homepage-entries li.category {
+		display: inline-block;
+		word-wrap: break-word;
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	#homepage-entries li > a:hover {
+		text-decoration: underline;
 	}
 
 	#homepage-content .owid-presentations {
