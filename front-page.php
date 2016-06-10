@@ -65,17 +65,20 @@ EOT;
 	// Blog sidebar
 	$posts = get_posts([]);
 
-	$html .= "<div id='homepage-blog'>"
-		  .	 "    <ul>";
+	$html .= <<<EOT
+	<div id="homepage-blog" class="right">
+		<h3><a href="/blog">Blog</a></h3>
+		<ul>
+EOT;
 
-	query_posts('posts_per_page=3');
+	query_posts('posts_per_page=6');
 	if (have_posts()) {
 		while (have_posts()) {
 			the_post();
 
  			$html .= "<li class='post'>"
- 				  .	 "    <h3><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>"
- 				  .	 "    <div class='entry-meta'><time>" . get_the_date("d M") . "</time> by <span>" . get_the_author() . "</span></div>";
+ 				  .	 "    <h4><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h4>"
+ 				  .	 "    <div class='entry-meta'><time>" . get_the_date("F d, Y") . "</time></div>";
  			$html .= "</li>";
 		}
 	}
@@ -88,11 +91,16 @@ EOT;
 		'sort_column' => 'menu_order, post_title',
 	]);
 
+	$html .= <<<EOT
+	<div class="owid-data">
+		<h3><a href="/data">Data Entries</a></h3>		
+		<ul>
+EOT;
 
-	$html .= "<div class='owid-data'>";
-	$html .= "<div class='separator'><h2><span>Data Entries</span></h2><p>Research and visualisations by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p></div>";
+//	$html .= "<div class='owid-data'>";
+//	$html .= "<div class='separator'><h3><a href="/data">Data Entries</span></h2><p>Research and visualisations by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p></div>";
 
-	$html .= '<ul>';
+//	$html .= '<ul>';
 	$category = null;
 
 	foreach ($pages as $page) {
@@ -103,7 +111,7 @@ EOT;
 
 			$category = preg_replace('/^\d+/', '', $page->post_title);
 			$html .= "<li>"
-				  .	     "<h3><span>" . $category . "</span></h3>"
+				  .	     "<h4><span>" . $category . "</span></h4>"
 				  .		 "<div class='link-container'>";
 		} else {
 			// NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin 
@@ -119,11 +127,11 @@ EOT;
 	$html .= "</ul></div>";
 	
 	$html .= "<div class='owid-data owid-presentations'>"
-		  .	     "<h2>Presentations</h2>"
+		  .	     "<h3><a>Presentations</a></h3>"
 		  .		 "<p>Visual histories spanning multiple topics.</p>"
 		  .		 "<ul>";
 
-    $html .= "<li><h3>Visual History of...</h3>"
+    $html .= "<li><h4>Visual History of...</h4>"
           .  "<div class='link-container'>";
 
     $html .= "<a href='/VisualHistoryOf/Violence.html'>War & Violence</a>"
