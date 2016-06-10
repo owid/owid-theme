@@ -3,7 +3,7 @@
 
 	$("header.site-header").addClass("overlay");
 
-	$("nav.owid-nav li.nav-button a").on("click", function(ev) {
+	$("#owid-topbar li.nav-button a").on("click", function(ev) {
 		ev.preventDefault();
 		var toExpand = $(ev.target).attr("data-expand");
 		$(toExpand).toggle();

@@ -163,38 +163,83 @@ function sp_custom_header() {
 	]);
 
 	$html = <<<EOT
-<nav class="owid-nav">
-	<ul class="desktop right">
-		<li>
-			<form id="search-nav" action="/">
-				<input type="search" name="s" placeholder="Search..."></input>
-				<button type="submit">
-					<i class="fa fa-search"></i>
-				</button>
-			</form>
-		</li>
-		<li>
-			<a href="/about">About</a>
-		</li>
-		<li>
-			<a href="/support">Donate</a>
-		</li>
-	</ul>
+	<nav id="owid-topbar">
+		<ul class="desktop right">
+			<li>
+				<form id="search-nav" action="/">
+					<input type="search" name="s" placeholder="Search..."></input>
+					<button type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</form>
+			</li>
+			<li>
+				<a href="/about">About</a>
+			</li>
+			<li>
+				<a href="/support">Donate</a>
+			</li>
+		</ul>
 
+		<h1 id="owid-title" itemprop="headline">
+			<a href="/"><i class="fa fa-globe"></i><span>$title</span></a>
+		</h1>
 
-	<h1 class="owid-title" itemprop="headline">
-		<a href="/"><i class="fa fa-globe"></i><span>$title</span></a>
-	</h1>
+		<ul class="mobile right">
+			<li class="nav-button">
+				<a href="/search" data-expand="#search-dropdown"><i class='fa fa-search'></i></a>
+			</li><li class="nav-button">
+				<a href="/data" data-expand="#topics-dropdown" class='mobile'><i class='fa fa-bars'></i></a>
+				<!--<a href="/data" class='desktop'>Topics</a>-->
+			</li>
+		</ul>
+	</nav>
 
+	<div id="topics-dropdown" class="mobile">
+		<ul>
+			<div class='topics'><h2>Topics</h2></div>
+EOT;
 
-	<ul class="mobile right">
-		<li class="nav-button">
-			<a href="/search" data-expand="#search-dropdown"><i class='fa fa-search'></i></a>
-		</li><li class="nav-button">
-			<a href="/data" data-expand="#topics-dropdown" class='mobile'><i class='fa fa-bars'></i></a>
-			<!--<a href="/data" class='desktop'>Topics</a>-->
-		</li>
-	</ul>
+	foreach ($pages as $page) {
+		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
+		if (preg_match('/^\d+/', $page->post_title)) {
+			if ($category)
+				$html .= "</ul></div></li>"; // Close off previous category
+
+			$category = preg_replace('/^\d+/', '', $page->post_title);
+			$html .= "<li class='category'>"
+				  	 . "<a><span>" . $category . "</span></a>"		 	
+					 . "<div class='subcategory-menu'>"
+					 	. "<div class='submenu-title'>" . $category . "</div>"
+					 	. "<ul>";
+		} else {
+			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
+			$isStarred = get_post_meta($page->ID, '_ino_star', true);
+			if ($isStarred) {
+				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			} else {
+				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+			}
+		}
+	}
+
+	$html .= "</ul></div></li>"; // Close off final category
+
+	$html .= <<<EOT
+			<li class='end-link'><a href='/about'>About</a></li>
+			<li class='end-link'><a href='/support'>Donate</a></li>
+			<li class='end-link'><a href='/data'>Browse All</a></li>
+		</ul>
+	</div>
+
+	<div id="search-dropdown" class="mobile">
+		<form action="/">
+			<input type="search" name="s" placeholder="Search..."></input>
+			<button type="submit">
+				<i class="fa fa-search"></i>
+			</button>
+		</form>
+	</div>		
 
 	<div id="category-nav" class="desktop"><ul>
 EOT;
@@ -206,18 +251,19 @@ EOT;
 		"Resources & Energy" => "Energy",
 		"Environmental Change" => "Environment",
 		"Technology & Infrastructure" => "Technology",
-		"Growth & Distribution of Prosperity" => "Growth",
-		"Economic Development, Work & Standard of Living" => "Life",
+		"Growth & Distribution of Prosperity" => "Growth & Inequality",
+		"Economic Development, Work & Standard of Living" => "Work & Life",
 		"The Public Sector & Economic System" => "Public Sector",
-		"Global Interconnections" => "Globalization",
-		"War & Peace" => "War",
-		"Political Regimes" => "Regimes",
-		"Violence & Rights" => "Rights",
-		"Education & Knowledge" => "Knowledge",
+		"Global Interconnections" => "Global Connections",
+		"War & Peace" => "War & Peace",
+		"Political Regimes" => "Politics",
+		"Violence & Rights" => "Violence & Rights",
+		"Education & Knowledge" => "Education",
 		"Media & Communication" => "Media",
 		"Culture, Values & Society" => "Culture"
 	];
 
+	$category = null;
 	foreach ($pages as $page) {
 		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
 		if (preg_match('/^\d+/', $page->post_title)) {
@@ -245,52 +291,7 @@ EOT;
 
 	$html .= <<<EOT
 	</ul></div>
-	<div id="entries-nav"></div>
-</nav>
-<div id="search-dropdown" class="mobile">
-	<form action="/">
-		<input type="search" name="s" placeholder="Search..."></input>
-		<button type="submit">
-			<i class="fa fa-search"></i>
-		</button>
-	</form>
-</div>
-<div id="topics-dropdown" class="mobile">
-	<ul>
-		<div class='topics'><h2>Topics</h2></div>
-EOT;
-
-	$category = null;
-	foreach ($pages as $page) {
-		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
-		if (preg_match('/^\d+/', $page->post_title)) {
-			if ($category)
-				$html .= "</ul></div></li>"; // Close off previous category
-
-			$category = preg_replace('/^\d+/', '', $page->post_title);
-			$html .= "<li class='category'>"
-				  	 . "<a><span>" . $category . "</span></a>"		 	
-					 . "<div class='subcategory-menu'>"
-					 	. "<div class='submenu-title'>" . $category . "</div>"
-					 	. "<ul>";
-		} else {
-			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
-			$isStarred = get_post_meta($page->ID, '_ino_star', true);
-			if ($isStarred) {
-				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			} else {
-				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			}
-		}
-	}
-
-	$html .= "</ul></div></li>"; // Close off final category
-
-	$html .= <<<EOT
-		<li class='end-link'><a href='/about'>About</a></li>
-		<li class='end-link'><a href='/data'>Browse All</a></li>
-	</ul>
-</div>
+	<div id="entries-nav" class="desktop"></div>
 EOT;
 
 	echo($html);
