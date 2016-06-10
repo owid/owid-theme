@@ -94,6 +94,7 @@ EOT;
 	$html .= <<<EOT
 	<div id="homepage-entries">
 		<h3><a href="/data">Entries</a></h3>		
+		<p>Collections of data and research by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p>
 		<ul>
 EOT;
 
@@ -117,7 +118,7 @@ EOT;
 			// NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin 
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
-				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+				$html .= "<li class='starred'><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
 			} else {
 				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
 			}

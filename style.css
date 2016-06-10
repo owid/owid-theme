@@ -2719,7 +2719,7 @@ header.site-header {
 	float: right;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1500px) {
 	.desktop {
 		display: none !important;
 	}
@@ -2767,7 +2767,7 @@ header.site-header {
 }
 
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1500px) {
 	.mobile {
 		display: none !important;
 	}
@@ -2912,7 +2912,8 @@ header.site-header {
 	}
 
 	#category-nav a:hover, #entries-nav a:hover,
-	#category-nav li.active a, #entries-nav li.active a {
+	#category-nav li.active a, #entries-nav li.active a,
+	#category-nav li.selected a {
 		border-color: #d10a11;
 	}
 
@@ -3061,6 +3062,24 @@ header.site-header {
 		margin-bottom: 20px;
 	}
 
+	#homepage-entries li.category li {
+		line-height: 1.2;
+		margin-bottom: 5px;
+	}
+
+	#homepage-entries li.starred:after {
+		font-family: FontAwesome;
+		content: "\f005";
+		position: relative;
+		right: -3px;
+		color: #3b77c3;	
+	}
+
+
+	#homepage-entries i.fa-star {
+		color: #3b77c3;			
+	}
+
 	#homepage-entries li > a:hover {
 		text-decoration: underline;
 	}
@@ -3078,6 +3097,30 @@ header.site-header {
 
 	#homepage-content .owid-presentations div > a {
 		width: 100%;
+	}
+
+	.owid-data .link-container {	
+		display: flex;
+		flex-flow: row wrap;
+	    display: -webkit-flex;
+	    -webkit-flex-flow: row wrap;
+	    display: -ms-flexbox;
+	    -ms-flex-flow: row wrap;
+	}
+
+	.owid-data li a {
+		width: 33.3333%;
+		display: inline-block;
+	}
+
+	h1.entry-title {
+		margin-top: 0;
+	}
+
+	article.post h1.entry-title {
+		font-size: 40px;
+		margin-bottom: 0;
+		text-align: left;
 	}
 }
 
@@ -3444,22 +3487,6 @@ header.site-header {
 	color: white;	
 }
 
-@media screen and (min-width: 800px) {
-	.owid-data .link-container {	
-		display: flex;
-		flex-flow: row wrap;
-	    display: -webkit-flex;
-	    -webkit-flex-flow: row wrap;
-	    display: -ms-flexbox;
-	    -ms-flex-flow: row wrap;
-	}
-
-	.owid-data li a {
-		width: 33.3333%;
-		display: inline-block;
-	}
-}
-
 /* MISPY: Front page mobile-default responsiveness and data entry listing */
 
 .home-section-1 {
@@ -3553,17 +3580,6 @@ article.post h1.entry-title {
 	text-align: left;	
 }
 
-@media screen and (min-width: 800px) {
-	h1.entry-title {
-		margin-top: 0;
-	}
-
-	article.post h1.entry-title {
-		font-size: 40px;
-		margin-bottom: 0;
-		text-align: left;
-	}
-}
 
 body.home a.read-more {
 	background: none !important;
