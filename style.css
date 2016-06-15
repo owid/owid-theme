@@ -1589,33 +1589,73 @@ Site Footer
 ---------------------------------------------------------------------------------------------------- */
 
 .site-footer {
-	background-color: #000;
+	background-color: #e8e8e8;
 	padding: 40px 0;
-	text-align: center;
-
 }
 
-.site-footer p {
-	color: #fff;
-	max-width: 1000px;
-	margin: 0 auto;
+.site-footer .wrap {
+	max-width: 1170px;
+	padding: 0px 20px;
 }
 
-
-.site-footer p {
-	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 13px;
-	letter-spacing: 1px;
-	margin-bottom: 0;
-	text-transform: uppercase;
+.site-footer .column {
+	width: 40%;
+	float: left;
+	padding: 0 12px;
 }
 
-.site-footer img.centered,
-.site-footer .aligncenter {
+.site-footer h6 {
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 20px;
+	color: #000;
+	font-size: 18px;
+}
+
+#footer-email-signup input {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+	padding: 0 .7em;
+}
+
+#footer-email-signup input:first-child {
+	width: 65%;
+}
+
+#footer-email-signup input.button {
+	width: 32%;
+	margin-left: -2%;
+	background-color: #c0023e;
+	color: white;
+	cursor: pointer;
+}
+
+#footer-email-signup input.button:hover {
+	background-color: #5b011d;
+}
+
+.site-footer .column:last-child {
+	width: 20%;
+}
+
+.site-footer .column:last-child a {
 	display: block;
-	margin: 10px auto 15px;
 }
 
+.site-footer .supporters {
+	text-align: center;
+	padding: 0 12px;
+	clear: both;
+}
+
+.site-footer .supporters img {
+	display: inline-block;
+	vertical-align: middle;
+	padding-right: 10px;
+	height: 120px;
+}
 
 /*
 Media Queries
@@ -3083,7 +3123,7 @@ header.site-header {
 		margin-bottom: 10px;
 	}
 
-	#homepage-twitter .social a {
+	.social a {
 		font-size: 24px;
 		background-color: #c0023e;
 		color: white;
@@ -3095,7 +3135,8 @@ header.site-header {
 		border-radius: 4px;
 	}
 
-	#homepage-twitter .social a:hover {
+	.social a:hover {
+		color: white;
 		background-color: #5b011d;
 	}
 

@@ -348,24 +348,36 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 add_action( 'genesis_footer', 'sp_custom_footer' );
 function sp_custom_footer() {
 	?>
-	<p>More information about this project can be found at the <a href="http://www.ourworldindata.org/about/">About page</a>.<br>
-	<p>Click <a href="http://ourworldindata.org/copyrights-disclaimer-of-warranties-and-limitation-of-liability/">here to find the relevant information on copyrights, the disclaimer of warranties and the limitation of liability</a>.<br>
-	
-	Max Roser (<a href="http://www.MaxRoser.com">www.MaxRoser.com</a>) is the author of OurWorldInData.org<br>
-	<br>
-	
-	OurWorldInData is based at the <a href="http://www.oxfordmartin.ox.ac.uk/">Oxford Martin School</a><br>
-					 <a href="http://www.oxfordmartin.ox.ac.uk"><img class="aligncenter size-large wp-image-4122" alt="OMS" src="http://ourworldindata.org/wp-content/uploads/2016/01/ourworldindata_oms_white_verydarkonly-750x398.png" width="450" /></a><br>
-	and supported by the <a href="http://www.inet.ox.ac.uk/">Institute for New Economic Thinking at the Oxford Martin School</a><br>
-				 <a href="http://www.inet.ox.ac.uk/"><img class="aligncenter size-large wp-image-4122" alt="INET_Brand_Final-03" src="http://www.ourworldindata.org/wp-content/uploads/2014/03/explainingprogress_inet_brand_final-03-750x177.png" width="450" /></a><br>
-	and the <a href="http://www.nuffieldfoundation.org/">Nuffield Foundation</a>:<br>
-				 <a href="http://www.nuffieldfoundation.org/"><img class="aligncenter size-large wp-image-4122" alt="Nuffield Foundation" src="http://ourworldindata.org/wp-content/uploads/2015/01/ourworldindata_nuffield-logo-white-trans_small.png" width="450" /></a><br>
-
-
-	The Nuffield Foundation is an endowed charitable trust that aims to improve social well-being in the widest sense. It has funded this project, but the views expressed are those of the authors and not necessarily those of the Foundation.<br>
-<br>
-	Invited Experts may log in <a href="http://www.ourworldindata.org/wp-login.php">here</a>.<br>
-	</p>
+	<div>
+		<div class="column">
+			<h4>Our World In Data</h4>
+			<p>OWID is an online publication developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">University of Oxford</a> which illustrates how living conditions are changing around the world. More information can be found on the <a href="/about">about page</a>.</p>
+		</div>
+		<div class="column">
+			<h6>Sign up to stay informed</h6>
+			<form id="footer-email-signup">
+				<input type="text" value="Email"><input class="button" type="submit" value="Subscribe">
+			</form>
+			<h6>Follow OWID</h6>
+	    	<div class="social">
+	    		<a href="https://twitter.com/MaxCRoser"><i class="fa fa-twitter"></i></a>
+	    		<a href="https://www.facebook.com/OurWorldinData"><i class="fa fa-facebook"></i></a>
+	    	</div>			
+		</div>
+		<div class="column">
+			<h6>Links</h6>
+			<a href="/data">Entries</a>
+			<a href="/blog">Blog</a>
+			<a href="/support">Donate</a>
+			<a href="/wp-admin">Login</a>
+		</div>
+	</div>
+	<div class="supporters">
+		<h6>Supported By</h6>
+		<!--<img src="/wp-content/themes/parallax-pro/images/oxford-martin-school.png">-->
+		<img src="/wp-content/themes/parallax-pro/images/inet-oxford.png">
+		<img src="/wp-content/themes/parallax-pro/images/nuffield-foundation.png">		
+	</div>
 	<?php
 }
 
