@@ -3005,13 +3005,17 @@ header.site-header {
 	}
 
 	#homepage-content {
-		padding: 40px 2rem 0 2rem;
+		padding: 40px 2rem 40px 2rem;
 		max-width: 1170px;
 		margin: auto;
 	}
 
 	#homepage-content h3 > a {
 		color: #c0023e;
+	}
+
+	#homepage-content h3 > a:hover {
+		color: #5b011d;		
 	}
 
 	#homepage-content iframe {
@@ -3036,52 +3040,22 @@ header.site-header {
 		color: #d10a11;
 	}
 
+	#homepage-blog > a {
+		color: #c0023e;
+	}
+
+	#homepage-blog > a:hover {
+		color: #5b011d;
+	}
+
 	#homepage-entries {
 		float: left;
 		width: 70%;
 		padding: 10px 20px;
-		font-size: 14px;
 	}
 
-	#homepage-entries h4 {
-		font-size: 20px;
-		margin-bottom: 10px;
-	}
-
-	#homepage-entries > ul { 
-		column-width: 220px;
-	    -webkit-column-width: 220px;
-	    -moz-column-width: 220px;
- 	    -ms-column-width: 220px;
-	}
-
-	#homepage-entries li.category {
-		display: inline-block;
-		word-wrap: break-word;
-		width: 100%;
-		margin-bottom: 20px;
-	}
-
-	#homepage-entries li.category li {
-		line-height: 1.2;
-		margin-bottom: 5px;
-	}
-
-	#homepage-entries li.starred:after {
-		font-family: FontAwesome;
-		content: "\f005";
-		position: relative;
-		right: -3px;
-		color: #3b77c3;	
-	}
-
-
-	#homepage-entries i.fa-star {
-		color: #3b77c3;			
-	}
-
-	#homepage-entries li > a:hover {
-		text-decoration: underline;
+	#homepage-entries div > a {
+		font-size: 15px;
 	}
 
 	#homepage-content .owid-presentations {
@@ -3097,6 +3071,32 @@ header.site-header {
 
 	#homepage-content .owid-presentations div > a {
 		width: 100%;
+	}
+
+	#homepage-twitter {
+		float: right;
+		width: 30%;
+		padding: 10px 20px;
+	}
+
+	#homepage-twitter .social {
+		margin-bottom: 10px;
+	}
+
+	#homepage-twitter .social a {
+		font-size: 24px;
+		background-color: #c0023e;
+		color: white;
+		display: inline-block;
+		width: 36px;
+		height: 36px;
+		line-height: 36px;
+		text-align: center;
+		border-radius: 4px;
+	}
+
+	#homepage-twitter .social a:hover {
+		background-color: #5b011d;
 	}
 
 	.owid-data .link-container {	

@@ -13,7 +13,6 @@ add_action( 'genesis_meta', 'parallax_home_genesis_meta' );
  *
  */
 function parallax_home_genesis_meta() {
-
 	if ( is_active_sidebar( 'home-section-1' ) || is_active_sidebar( 'home-section-2' ) || is_active_sidebar( 'home-section-3' ) || is_active_sidebar( 'home-section-4' ) || is_active_sidebar( 'home-section-5' ) ) {
 		//* Add parallax-home body class
 		add_filter( 'body_class', 'parallax_body_class' );
@@ -38,7 +37,6 @@ function parallax_home_genesis_meta() {
 
 		//* Add homepage widgets
 		add_action( 'genesis_loop', 'parallax_homepage_widgets' );
-
 	}
 }
 
@@ -56,7 +54,7 @@ function parallax_homepage_widgets() {
 		<div class="title-author-byline">A web publication by <a href="http://www.MaxRoser.com/about" target="_blank">Max Roser</a>.</div>
 	</div>
 </div>
-<div id="homepage-content">
+<div id="homepage-content" class="clearfix">
 	<h3><a href="/grapher/latest">Latest Visualization</a></h3>
 	<iframe src="https://ourworldindata.org/grapher/latest" width="100%" height="660px"></iframe>
 EOT;
@@ -83,7 +81,11 @@ EOT;
 		}
 	}
 
-	$html .= "</ul></div>";
+	$html .= <<<EOT
+		</ul>
+		<a href="/blog">More →</a>
+	</div>
+EOT;
 
 	/* Now we make the big data entries listing */
 	$pages = get_pages([
@@ -92,9 +94,9 @@ EOT;
 	]);
 
 	$html .= <<<EOT
-	<div id="homepage-entries">
+	<div id="homepage-entries" class="owid-data">
 		<h3><a href="/data">Entries</a></h3>		
-		<p>Collections of data and research by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p>
+		<p>Collections of research and data by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p>
 		<ul>
 EOT;
 
@@ -108,19 +110,19 @@ EOT;
 		// HACK (Mispy): Identify top-level categories by whether they start with a number.
 		if (preg_match('/^\d+/', $page->post_title)) {
 			if ($category)
-				$html .= "</ul></li>";
+				$html .= "</div></li>";
 
 			$category = preg_replace('/^\d+/', '', $page->post_title);
 			$html .= "<li class='category'>"
 				  .	     "<h4><span>" . $category . "</span></h4>"
-				  .		 "<ul>";
+				  .		 "<div class='link-container'>";
 		} else {
 			// NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin 
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
-				$html .= "<li class='starred'><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+				$html .= "<a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
 			} else {
-				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
+				$html .= "<a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
 			}
 		}
 	}
@@ -142,6 +144,17 @@ EOT;
           .  "<a href='/VisualHistoryOf/AfricaInData.html'>Africa</a>";
 
     $html .= "</div></li></ul></div>";
+
+    $html .= <<<EOT
+    <div id="homepage-twitter">
+    	<h3><a href="https://twitter.com/MaxCRoser">Follow us</a></h3>
+    	<div class="social">
+    		<a href="https://twitter.com/MaxCRoser"><i class="fa fa-twitter"></i></a>
+    		<a href="https://www.facebook.com/OurWorldinData"><i class="fa fa-facebook"></i></a>
+    	</div>
+    	<a class="twitter-timeline" data-height="600" href="https://twitter.com/MaxCRoser">Tweets by MaxCRoser</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+EOT;
 
     $html .= "</div>";
 

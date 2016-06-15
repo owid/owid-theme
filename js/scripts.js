@@ -24,7 +24,11 @@
 			});
 		}
 
-		showDefaultState();
+		showDefaultState();		
+		// Since the expanding menu is absolutely positioned, push the rest of the page down a bit
+		$(".site-inner").css("margin-top", 
+			parseInt($(".site-inner").css("margin-top")) + $("#entries-nav").height() + "px");
+
 
 		$("#category-nav li.category > a").on('mouseover', function(ev) {
 			var $category = $(ev.target).closest("li.category");
