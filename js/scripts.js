@@ -5,6 +5,10 @@
 		// Desktop menu
 		function showDefaultState() {	
 			$("#entries-nav").hide();
+
+			if ($("header.site-header .mobile:visible").length)
+				return;
+
 			$("#category-nav li.category").removeClass("active").removeClass("selected");
 
 			// If we're already on a page, show it in the nav
@@ -44,8 +48,6 @@
 				}
 			});
 		});		
-
-
 
 		// Mobile menu
 		$("#owid-topbar li.nav-button a").on("click", function(ev) {

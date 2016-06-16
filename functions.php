@@ -1,155 +1,57 @@
 <?php
 //* Start the engine
-include_once( get_template_directory() . '/lib/init.php' );
-
+include_once(get_template_directory() . '/lib/init.php');
 //* Setup Theme
-include_once( get_stylesheet_directory() . '/lib/theme-defaults.php' );
-
-
+include_once(get_stylesheet_directory() . '/lib/theme-defaults.php');
 //* Set Localization (do not remove)
-load_child_theme_textdomain( 'parallax', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'parallax' ) );
-
-//* Add Image upload to WordPress Theme Customizer
-add_action( 'customize_register', 'parallax_customizer' );
-function parallax_customizer(){
-
-	require_once( get_stylesheet_directory() . '/lib/customize.php' );
-	
-}
+load_child_theme_textdomain('parallax', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'parallax'));
 
 //* Include Section Image CSS
-include_once( get_stylesheet_directory() . '/lib/output.php' );
+include_once(get_stylesheet_directory() . '/lib/output.php');
 
 //* Child theme (do not remove)
-define( 'CHILD_THEME_NAME', 'Parallax Pro Theme' );
-define( 'CHILD_THEME_URL', 'http://my.studiopress.com/themes/parallax/' );
-define( 'CHILD_THEME_VERSION', '1.2' );
+define('CHILD_THEME_NAME', 'OWID Theme' );
+define('CHILD_THEME_URL', 'https://ourworldindata.org');
+define('CHILD_THEME_VERSION', '1.2');
 
 //* Enqueue scripts and styles
-add_action( 'wp_enqueue_scripts', 'parallax_enqueue_scripts_styles' );
-function parallax_enqueue_scripts_styles() {
+add_action('wp_enqueue_scripts', 'owid_enqueue_scripts_styles');
+function owid_enqueue_scripts_styles() {
+	$template_dir = get_stylesheet_directory_uri();
 
-	wp_enqueue_script( 'parallax-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
-	wp_enqueue_script( 'jquery-menu-aim', get_bloginfo( 'stylesheet_directory' ) . '/js/jquery.menu-aim.js', array( 'jquery' ), '1.0.0' );
-
-	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_style( 'fontello-custom', get_bloginfo('stylesheet_directory') . '/css/fontello.css' );
-	wp_enqueue_style( 'font-awesome-owid', get_bloginfo('stylesheet_directory') . '/css/font-awesome.min.css' );
+	wp_enqueue_style('fontello-custom', $template_dir . '/css/fontello.css');
+	wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
+	wp_enqueue_script("scrollNav", $template_dir . "/js/jquery.scrollNav.js", null, null, true);
+	wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, null, true);
 }
 
 //* Add HTML5 markup structure
-add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
-
+add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption'));
 //* Add viewport meta tag for mobile browsers
-add_theme_support( 'genesis-responsive-viewport' );
+add_theme_support('genesis-responsive-viewport');
 
-//* Reposition the primary navigation menu
-remove_action( 'genesis_after_header', 'genesis_do_nav' );
-add_action( 'genesis_before_content_sidebar_wrap', 'genesis_do_nav' );
-
-//* Reposition the secondary navigation menu
-remove_action( 'genesis_after_header', 'genesis_do_subnav' );
-add_action( 'genesis_footer', 'genesis_do_subnav', 7 );
-
-//* Reduce the secondary navigation menu to one level depth
-add_filter( 'wp_nav_menu_args', 'parallax_secondary_menu_args' );
-function parallax_secondary_menu_args( $args ){
-
-	if( 'secondary' != $args['theme_location'] )
-	return $args;
-
-	$args['depth'] = 1;
-	return $args;
-
+// Increase the number of search results on the search page
+$search_results_per_page = 20;
+add_action('pre_get_posts', 'set_posts_per_page');
+function set_posts_per_page($query) {
+	global $search_results_per_page;
+	if ($query->is_search) {
+		$query->query_vars['posts_per_page'] = $search_results_per_page;
+	}
+	return $query;
 }
 
-//* Unregister layout settings
-genesis_unregister_layout( 'content-sidebar-sidebar' );
-genesis_unregister_layout( 'sidebar-content-sidebar' );
-genesis_unregister_layout( 'sidebar-sidebar-content' );
-
-//* Add support for additional color styles
-add_theme_support( 'genesis-style-selector', array(
-	'parallax-pro-blue'   => __( 'Parallax Pro Blue', 'parallax' ),
-	'parallax-pro-green'  => __( 'Parallax Pro Green', 'parallax' ),
-	'parallax-pro-orange' => __( 'Parallax Pro Orange', 'parallax' ),
-	'parallax-pro-pink'   => __( 'Parallax Pro Pink', 'parallax' ),
-) );
-
-//* Unregister secondary sidebar
-unregister_sidebar( 'sidebar-alt' );
-
-//* Add support for custom header
-add_theme_support( 'custom-header', array(
-	'width'           => 360,
-	'height'          => 70,
-	'header-selector' => '.site-title a',
-	'header-text'     => false,
-) );
-
-//* Add support for structural wraps
-add_theme_support( 'genesis-structural-wraps', array(
-	'header',
-	'nav',
-	'subnav',
-	'footer-widgets',
-	'footer',
-) );
-
-//* Modify the size of the Gravatar in the author box
-add_filter( 'genesis_author_box_gravatar_size', 'parallax_author_box_gravatar' );
-function parallax_author_box_gravatar( $size ) {
-
-	return 176;
-
+/* HACK (Mispy): Just redirect back to the front page if it's an empty search. */
+function search_redirect($query) {
+		if (!is_admin() && $query->is_main_query()) {
+			$searchQuery = get_search_query();
+		if ($query->is_search && empty($searchQuery)) {
+    		wp_redirect(home_url()); 
+    		exit;
+		}
+		}
 }
-
-//* Modify the size of the Gravatar in the entry comments
-add_filter( 'genesis_comment_list_args', 'parallax_comments_gravatar' );
-function parallax_comments_gravatar( $args ) {
-
-	$args['avatar_size'] = 120;
-
-	return $args;
-
-}
-
-//* Add support for 3-column footer widgets
-add_theme_support( 'genesis-footer-widgets', 1 );
-
-//* Add support for after entry widget
-add_theme_support( 'genesis-after-entry-widget-area' );
-
-//* Relocate after entry widget
-remove_action( 'genesis_after_entry', 'genesis_after_entry_widget_area' );
-add_action( 'genesis_after_entry', 'genesis_after_entry_widget_area', 5 );
-
-//* Register widget areas
-genesis_register_sidebar( array(
-	'id'          => 'home-section-1',
-	'name'        => __( 'Home Section 1', 'parallax' ),
-	'description' => __( 'This is the home section 1 section.', 'parallax' ),
-) );
-genesis_register_sidebar( array(
-	'id'          => 'home-section-2',
-	'name'        => __( 'Home Section 2', 'parallax' ),
-	'description' => __( 'This is the home section 2 section.', 'parallax' ),
-) );
-genesis_register_sidebar( array(
-	'id'          => 'home-section-3',
-	'name'        => __( 'Home Section 3', 'parallax' ),
-	'description' => __( 'This is the home section 3 section.', 'parallax' ),
-) );
-genesis_register_sidebar( array(
-	'id'          => 'home-section-4',
-	'name'        => __( 'Home Section 4', 'parallax' ),
-	'description' => __( 'This is the home section 4 section.', 'parallax' ),
-) );
-genesis_register_sidebar( array(
-	'id'          => 'home-section-5',
-	'name'        => __( 'Home Section 5', 'parallax' ),
-	'description' => __( 'This is the home section 5 section.', 'parallax' ),
-) );
+add_action('pre_get_posts', 'search_redirect');	
 
 /* MISPY: Custom Amazon-style header topics menu */
 //remove_action('genesis_header', 'genesis_do_header' );
@@ -190,14 +92,13 @@ function sp_custom_header() {
 				<a href="/search" data-expand="#search-dropdown"><i class='fa fa-search'></i></a>
 			</li><li class="nav-button">
 				<a href="/data" data-expand="#topics-dropdown" class='mobile'><i class='fa fa-bars'></i></a>
-				<!--<a href="/data" class='desktop'>Topics</a>-->
 			</li>
 		</ul>
 	</nav>
 
 	<div id="topics-dropdown" class="mobile">
 		<ul>
-			<div class='topics'><h2>Topics</h2></div>
+			<header><h2>Entries</h2></header>
 EOT;
 
 	foreach ($pages as $page) {
@@ -342,17 +243,44 @@ function owid_pages() {
 
 add_shortcode('owid_pages', 'owid_pages');
 
+/* MISPY: Custom /blog listing of posts. */
 
-//* Customize the entire footer
-remove_action( 'genesis_footer', 'genesis_do_footer' );
-add_action( 'genesis_footer', 'sp_custom_footer' );
-function sp_custom_footer() {
+function owid_blog() {
+	$html = "";
+
+	query_posts('posts_per_page=3');
+
+	$html .= "<div id='blog-index'>";
+	if (have_posts()) {
+		while (have_posts()) {
+			the_post();
+
+ 			$html .= "<div class='post'>"
+ 				  .	 "    <h4><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h4>"
+ 				  .	 "    <div class='entry-meta'><time>" . get_the_date("F d, Y") . "</time></div>"
+ 				  .  "    <div>" . get_the_content() . "</div>"
+ 				  .  "</div>";
+		}
+	}
+	$html .= "</div>";
+
+	wp_reset_query();
+
+	echo $html;
+}
+add_shortcode('owid_blog', 'owid_blog');
+
+// Customize the entire footer
+remove_action('genesis_footer', 'genesis_do_footer');
+add_action('genesis_footer', 'owid_footer');
+function owid_footer() {
 	?>
 	<div class="clearfix">
 		<div class="column">
 			<h4><a href="/">Our World In Data</a></h4>
-			<p>OWID is an online publication developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">University of Oxford</a> which shows how living conditions are changing around the world. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
-		</div>
+			<p>OWID is an online publication developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">Oxford Martin School</a> which shows how living conditions are changing around the world. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
+			<hr>
+		</div>		
 		<div class="column">
 			<h6>Sign up to stay informed</h6>
 
@@ -379,6 +307,7 @@ function sp_custom_footer() {
 	    		<a href="https://twitter.com/MaxCRoser"><i class="fa fa-twitter"></i></a>
 	    		<a href="https://www.facebook.com/OurWorldinData"><i class="fa fa-facebook"></i></a>
 	    	</div>			
+	    	<hr>
 		</div>
 		<div class="column links">
 			<h6>Links</h6>
@@ -387,6 +316,7 @@ function sp_custom_footer() {
 			<a href="/support">Donate</a>
 			<a href="/about">About</a>
 			<a href="/wp-admin">Login</a>
+			<hr>
 		</div>
 	</div>
 	<div class="supporters">
@@ -396,10 +326,6 @@ function sp_custom_footer() {
 	</div>
 	<?php
 }
-
-add_image_size('presentation-portfolio-large', 560, 373, TRUE);
-add_image_size('presentation-portfolio-medium', 360, 240, TRUE);
-
 
 /* MAX: Add Author Byline in Pages - so that it is citable (Exclude 'About-Page' and 'Data-Page' from this) */
 add_action ('genesis_before_entry', 'max_byline', 10);
@@ -429,7 +355,3 @@ remove_action( 'genesis_after_post', 'genesis_do_author_box_single' );
 remove_action( 'genesis_after_entry', 'genesis_do_author_box_single', 8 ); 
 //* Remove the post info function
 remove_action( 'genesis_before_post_content', 'genesis_post_info' ); 
-
-/* zdenek */
-include_once( get_stylesheet_directory() . '/home-nav-grid.php' );
-include_once( get_stylesheet_directory() . '/zd-functions.php' );

@@ -1,47 +1,28 @@
 <?php
-/**
- * This file adds the Home Page to the Parallax Pro Theme.
- *
- * @author StudioPress
- * @package Parallax
- * @subpackage Customizations
- */
-
-add_action( 'genesis_meta', 'parallax_home_genesis_meta' );
+add_action('genesis_meta', 'parallax_home_genesis_meta');
 /**
  * Add widget support for homepage. If no widgets active, display the default loop.
  *
  */
 function parallax_home_genesis_meta() {
-	if ( is_active_sidebar( 'home-section-1' ) || is_active_sidebar( 'home-section-2' ) || is_active_sidebar( 'home-section-3' ) || is_active_sidebar( 'home-section-4' ) || is_active_sidebar( 'home-section-5' ) ) {
 		//* Add parallax-home body class
-		add_filter( 'body_class', 'parallax_body_class' );
-		function parallax_body_class( $classes ) {
-		
+		add_filter('body_class', 'parallax_body_class');
+		function parallax_body_class($classes) {
    			$classes[] = 'parallax-home';
   			return $classes;
-  			
 		}
 
 		//* Force full width content layout
 		add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
-		//* Remove primary navigation
-		remove_action( 'genesis_before_content_sidebar_wrap', 'genesis_do_nav' );
-
-		//* Remove breadcrumbs
-		remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs');
-
 		//* Remove the default Genesis loop
 		remove_action( 'genesis_loop', 'genesis_do_loop' );
 
 		//* Add homepage widgets
-		add_action( 'genesis_loop', 'parallax_homepage_widgets' );
-	}
+		add_action('genesis_loop', 'owid_homepage');
 }
 
-//* Add markup for homepage widgets
-function parallax_homepage_widgets() {
+function owid_homepage() {
 	$html = "";
 
 	$html .= <<<EOT
@@ -59,12 +40,9 @@ function parallax_homepage_widgets() {
 	<iframe src="https://ourworldindata.org/grapher/latest" width="100%" height="660px"></iframe>
 EOT;
 
-
 	// Blog sidebar
-	$posts = get_posts([]);
-
 	$html .= <<<EOT
-	<div id="homepage-blog" class="right">
+	<div id="homepage-blog">
 		<h3><a href="/blog">Blog</a></h3>
 		<ul>
 EOT;
@@ -100,10 +78,6 @@ EOT;
 		<ul>
 EOT;
 
-//	$html .= "<div class='owid-data'>";
-//	$html .= "<div class='separator'><h3><a href="/data">Data Entries</span></h2><p>Research and visualisations by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p></div>";
-
-//	$html .= '<ul>';
 	$category = null;
 
 	foreach ($pages as $page) {
