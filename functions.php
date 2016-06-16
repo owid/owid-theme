@@ -43,7 +43,7 @@ function owid_pages() {
 
 
 	$html = "<div class='owid-data'>";
-	$html .= "<div class='separator'><h1><span>Data Entries</span></h1><hr><p>Entries marked with <i class='fa fa-star'></i> are complete. Others are ongoing collections of visualizations.</p></div>";
+	$html .= "<div class='separator'><h1><span>Data Entries</span></h1><hr><p>Ongoing collections of research and data by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p></div>";
 
 	$html .= '<ul>';
 	$category = null;
@@ -56,7 +56,7 @@ function owid_pages() {
 
 			$category = preg_replace('/^\d+/', '', $page->post_title);
 			$html .= "<li>"
-				  .	     "<h3>" . $category . "</h3>"
+				  .	     "<h4>" . $category . "</h4>"
 				  .		 "<div class='link-container'>";
 		} else {
 			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */

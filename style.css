@@ -100,10 +100,6 @@ ul {
 
 }
 
-li {
-	list-style-type: none;
-}
-
 b,
 strong {
 	font-weight: 700;
@@ -217,12 +213,6 @@ a[href$=jpg] img:hover, a[href$=jpeg] img:hover, a[href$=jpe] img:hover, a[href$
 	z-index: 10;
 }
 
-
-.home-even img {
-	opacity: .9;
-	
-}
-
 /* Forms
 --------------------------------------------- */
 
@@ -315,29 +305,31 @@ sup.side-matter-sup {
 
 /* (Zahl an der Seite) Selects ordered list of sidenotes, including sidenote numerals. Note that this tag is not always enclosed in the Side Matter widget; it can also be generated using the custom action `side_matter_list_notes`. */
 ol.side-matter-list {
-	margin-left: 20px;
 	color: orangered;
 	line-height: 0.9;
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 14px !important;
 	font-weight: bold;
+	margin-top: 30px;
+	border-top: 1px solid #ccc;
+	padding-top: 30px;
 }
 
 ol.side-matter-list li {
+	margin-left: 20px;	
 	padding-left: 5px;
+	margin-bottom: 20.16px;
 	list-style-type: decimal;
 	list-style-position: outside;
 }
 
-/* (Text an der Seite - ohne Zahl) Selects sidenote text only (but not list numerals). Use this to style sidenote text separately from sidenote numerals. Target the text of a specific sidenote by appending `div.side-matter-text-` with the sidenote number, e.g. `div.side-matter-text-2`. (This replaces the `span.side-matter` tag used in earlier versions.) */
-div.side-matter-text {
+ol.side-matter-list p {
+	margin: 0 0 10.7px;
+	line-height: 20.16px;
+	font-size: 12.6px;
 	color: #616161;
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 12px;
-	line-height: 1.2;	
-	padding-bottom: 10px;
 	font-weight: normal;
-
 }
 
 /* Site Header
@@ -807,12 +799,14 @@ header.site-header {
 	max-width: 1170px;
 	margin: auto;
 	padding: 0px 20px;
+	text-align: center;
 }
 
 .site-footer .column {
 	width: 45%;
-	float: left;
+	display: inline-block;
 	padding: 0 12px;
+	text-align: left;
 }
 
 .site-footer .links {
@@ -856,6 +850,7 @@ header.site-header {
 #mc_embed_signup input:first-child {
 	width: 65%;
 	border: 1px solid #ccc;
+	font-size: 16px;
 }
 
 #mc_embed_signup input.button {
@@ -864,6 +859,8 @@ header.site-header {
 	background-color: #c0023e;
 	color: white;
 	cursor: pointer;
+	font-size: 16px;
+	line-height: 16px;
 }
 
 #mc_embed_signup input.button:hover {
@@ -907,7 +904,7 @@ header.site-header {
 	font-weight: 400;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 950px) {
 	.site-footer .column {
 		width: 100%;
 	}
@@ -928,31 +925,45 @@ header.site-header {
 	}
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 950px) {
 	.site-footer hr {
 		display: none;
+	}
+
+	.site-footer .column.subscribe {
+		max-width: 400px;
+	}	
+
+	.site-footer .clearfix {
+		padding-bottom: 30px;
+		border-bottom: 1px solid #ccc;
+		margin-bottom: 30px;
 	}
 }
 
 /* Blog Index Page (on /blog)
 --------------------------------------------- */
 
-body.blog main {
+body.blog main, body.single-post main {
 	background: #eee;
 	padding: 20px;
+	padding-top: 2rem;
+	background: #f6f6f6 url("/wp-content/themes/owid-theme/images/blog-pattern.png");
+	border-bottom: 1px solid #ddd;
 }
 
-#blog-index {
+body.blog article, body.single-post article {
 	max-width: 980px;
 	margin: auto;
 }
 
-#blog-index article {
+body.blog article, body.single-post article {
 	background: white;
 	margin-bottom: 30px;
+	border-top: 5px solid #ccc;	
 }
 
-#blog-index h1.entry-title {
+body.blog h1.entry-title, body.single-post h1.entry-title {
 	margin: 0;
 }
 
@@ -1016,9 +1027,6 @@ body.search main > * {
 }
 
 
-	iframe {
-		border: 1px solid #ccc !important;
-	}
 
 #fancybox-frame {
 	width: 100% !important;
@@ -1134,11 +1142,11 @@ body.search main > * {
 	text-decoration: underline;
 }
 
-.entry-content p a[href*="ourworldindata.org"] {
+.entry-content p a[href*="ourworldindata.org"]:not(.image) {
 	border-bottom: 2px solid #c0023e;
 }
 
-.entry-content p a[href*="ourworldindata.org"]:hover {
+.entry-content p a[href*="ourworldindata.org"]:not(.image):hover {
 	text-decoration: none;
 	border-color: #5b011d;
 }
@@ -1743,6 +1751,20 @@ body.search main > * {
 	color: white;	
 }
 
+/* Special for /entries page */
+
+.page-id-621 header.entry-header {
+	display: none;
+}
+
+.page-id-621 p {
+	text-align: center;
+}
+
+.page-id-621 article {
+	max-width: 980px;
+}
+
 /* MISPY: Front page mobile-default responsiveness and data entry listing */
 
 body.home .mobile.subheading {
@@ -1862,7 +1884,7 @@ img {
 
 body.page h1.entry-title {
 	text-align: center;
-	font-size: 2.6rem;
+	font-size: 3rem;
 }
 
 article.post, article.page {
@@ -1878,12 +1900,6 @@ article.post, article.page {
     padding-bottom: 5px;
     margin-bottom: 40px;
     background: lightgrey;    
-}
-
-.entry-content img {
-	height: auto;
-	display: block;
-	margin: auto;
 }
 
 .entry-content h3 {
@@ -1923,3 +1939,28 @@ h5 {
 	top: -30px;
 }
 
+.entry-content ol, .entry-content ul {
+    margin-bottom: 30px;
+    margin-left: 40px;
+    font-weight: normal!important;
+    font-size: 17px!important;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif!important;
+}
+
+.entry-content ol > li {
+	margin-bottom: 10px;
+}
+
+.entry-content img.aligncenter {
+	display: block;
+	margin: auto;
+	padding: 10px;
+}
+
+iframe, .entry-content img.aligncenter {
+	border: 1px solid #ccc !important;
+}
+
+img {
+	height: auto;
+}

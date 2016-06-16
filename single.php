@@ -10,6 +10,7 @@ get_header(); ?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<header class="entry-header">
 				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+			  	<div class='entry-meta'><time><?php the_date("F d, Y"); ?></time> by <?php the_author(); ?></div>
 			</header><!-- .entry-header -->
 
 			<div class="entry-content">

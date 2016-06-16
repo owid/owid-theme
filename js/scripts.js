@@ -42,7 +42,7 @@
 			$category.addClass("selected");
 
 			$("body").on('mousemove.entries', function(ev) {
-				if (!$(ev.target).closest("header.site-header").length) {
+				if (!$(ev.target).closest("#entries-nav, #category-nav").length) {
 					$("body").off('mousemove.entries');
 					showDefaultState();
 				}
@@ -96,4 +96,5 @@
 	    if ($(evt.target).find("input[type=search]").val() == '')
 	        evt.preventDefault();
 	});
+
 })(jQuery);

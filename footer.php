@@ -12,7 +12,7 @@
 					<p>OWID is an online publication developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">Oxford Martin School</a> which shows how living conditions are changing around the world. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
 					<hr>
 				</div>		
-				<div class="column">
+				<div class="column subscribe">
 					<h6>Sign up to stay informed</h6>
 
 					<!-- Begin MailChimp Signup Form -->
