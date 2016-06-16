@@ -27,7 +27,7 @@ get_header(); ?>
 					<footer class="entry-footer">
 					</footer><!-- .entry-footer -->
 				</article><!-- #post-## -->
-			<?php endwhile ?>;
+			<?php endwhile; ?>
 
 			<?php the_posts_pagination([
 			'prev_text'          => '« Prev',        

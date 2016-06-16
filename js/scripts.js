@@ -4,7 +4,6 @@
 	var EntriesHeaderMenu = function() {
 		// Desktop menu
 		function showDefaultState() {	
-			console.log("???");
 			$("#topics-dropdown").hide();
 			$("#entries-nav").hide();
 
@@ -69,8 +68,17 @@
 			$(ev.target).closest('.category').toggleClass('active');
 		});
 
-		// Stop mobile-desktop transition from being weird
-		$(window).on("resize", showDefaultState);
+		// HACK (Mispy): Stop mobile-desktop transition from being weird.
+		// Also make sure it's a real resize event, as mobile Chrome seems
+		// to fire them on scroll as well.
+		var origWidth = $(window).width();
+		$(window).on("resize", function() {
+			var width = $(window).width();
+			if (origWidth != width) {
+				showDefaultState();
+				origWidth = width;
+			}
+		});
 	}
 
 	EntriesHeaderMenu();
@@ -102,4 +110,25 @@
 	        evt.preventDefault();
 	});
 
+	// Resize iframes to match their content as needed
+	// Only works for our own embeds due to cross-domain restrictions
+	var resizeIframes = function() {		
+		$("iframe").each(function() {
+			try {
+				var chartView = $(this).get(0).contentWindow.$("#chart-view").get(0);
+				var scrollHeight = chartView.scrollHeight;
+				var currentHeight = chartView.clientHeight;
+
+				if (scrollHeight != currentHeight) {
+					$(this).css("height", parseInt($(this).css("height")) + (scrollHeight - currentHeight) + "px");
+				}				
+			} catch (err) {
+			}
+		});
+	};
+
+	$(window).on("resize", resizeIframes);
+	window.onmessage = function(msg) { 
+		resizeIframes();
+	};
 })(jQuery);
