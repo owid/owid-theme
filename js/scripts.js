@@ -4,6 +4,8 @@
 	var EntriesHeaderMenu = function() {
 		// Desktop menu
 		function showDefaultState() {	
+			console.log("???");
+			$("#topics-dropdown").hide();
 			$("#entries-nav").hide();
 
 			if ($("header.site-header .mobile:visible").length)
@@ -66,6 +68,9 @@
 		$("#topics-dropdown .category > a").on('click', function(ev) {
 			$(ev.target).closest('.category').toggleClass('active');
 		});
+
+		// Stop mobile-desktop transition from being weird
+		$(window).on("resize", showDefaultState);
 	}
 
 	EntriesHeaderMenu();
