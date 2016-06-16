@@ -1,26 +1,6 @@
+<?php get_header(); ?>
+
 <?php
-add_action('genesis_meta', 'parallax_home_genesis_meta');
-/**
- * Add widget support for homepage. If no widgets active, display the default loop.
- *
- */
-function parallax_home_genesis_meta() {
-		//* Add parallax-home body class
-		add_filter('body_class', 'parallax_body_class');
-		function parallax_body_class($classes) {
-   			$classes[] = 'parallax-home';
-  			return $classes;
-		}
-
-		//* Force full width content layout
-		add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
-
-		//* Remove the default Genesis loop
-		remove_action( 'genesis_loop', 'genesis_do_loop' );
-
-		//* Add homepage widgets
-		add_action('genesis_loop', 'owid_homepage');
-}
 
 function owid_homepage() {
 	$html = "";
@@ -133,6 +113,7 @@ EOT;
     $html .= "</div>";
 
 	echo($html);
-}
+} ?>
 
-genesis();
+<?php owid_homepage(); ?>
+<?php get_footer(); ?>

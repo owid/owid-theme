@@ -13,7 +13,7 @@
 
 			// If we're already on a page, show it in the nav
 			$("#category-nav ul.entries a").each(function() {
-				$entry = $(this);
+				var $entry = $(this);
 				if ($("h1.entry-title").text() == $entry.text()) {
 					var $ul = $entry.closest("ul.entries");
 					$("#entries-nav").html($ul[0].outerHTML);
@@ -30,8 +30,8 @@
 
 		showDefaultState();		
 		// Since the expanding menu is absolutely positioned, push the rest of the page down a bit
-		$(".site-inner").css("margin-top", 
-			parseInt($(".site-inner").css("margin-top")) + $("#entries-nav").height() + "px");
+		$(".site-main").css("margin-top", 
+			parseInt($(".site-main").css("margin-top")) + $("#entries-nav").height() + "px");
 
 
 		$("#category-nav li.category > a").on('mouseover', function(ev) {
@@ -70,21 +70,6 @@
 
 	EntriesHeaderMenu();
 
-
-	// HACK (Mispy): Prevent bolding on selection from shifting elements
-	/*$('#category-nav li.category > a').each(function(){
-	    $(this).parent().width($(this).width() + 8);
-	});*/	
-
-	// Clear selection
-	/*$("html").on("click", function(ev) {
-		if (!$(ev.target).closest("a").length) {
-			$("#category-nav li.category").removeClass("active");
-			$("#entries-nav").hide();
-		}
-	});*/
-	
-
 	if (!$(".blog-index").length) {
 		$(".entry").scrollNav({ 
 			subSections: 'h3, h4'
@@ -103,4 +88,12 @@
 	window.openFancyBox = function( url ) {
 		$.fancybox.show( url );
 	};
-} )( jQuery );
+
+	$(".starred").attr("title", "Starred pages are our best and most complete entries.");
+
+	// Don't let user enter empty search query
+	$(".search-form").on("submit", function(evt) {
+	    if ($(evt.target).find("input[type=search]").val() == '')
+	        evt.preventDefault();
+	});
+})(jQuery);

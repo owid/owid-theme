@@ -1,84 +1,17 @@
 /*
-	Theme Name: Parallax Pro Theme
-	Theme URI: http://my.studiopress.com/themes/parallax/
-	Description: A mobile responsive and HTML5 theme built for the Genesis Framework.
-	Author: StudioPress
-	Author URI: http://www.studiopress.com/
+	Theme Name: Our World In Data
+	Theme URI: https://ourworldindata.org;
+	Description: A responsive custom theme for Our World In Data
+	Author: Jaiden Mispy
+	Author URI: https://ourworldindata.org
 
 	Version: 1.2
 
-	Tags: black, white, blue, green, orange, pink, one-column, two-columns, responsive-layout, custom-header, custom-menu, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, premise-landing-page
+	Tags: responsive layout
 
-	Template: genesis
-	Template Version: 2.1
-
-	License: GPL-2.0+
-	License URI: http://www.opensource.org/licenses/gpl-license.php 
+	License: MIT
+	License URI: https://opensource.org/licenses/MIT
 */
-
-
-/* Table of Contents
-
-	- HTML5 Reset
-		- Baseline Normalize
-		- Box Sizing
-		- Float Clearing
-	- Defaults
-		- Typographical Elements
-		- Headings
-		- Objects
-		- Gallery
-		- Forms
-		- Buttons
-		- Tables
-	- Structure and Layout
-		- Site Containers
-		- Column Widths and Positions
-		- Column Classes
-	- Common Classes
-		- Avatar
-		- Genesis
-		- Search Form
-		- Titles
-		- WordPress
-	- Widgets
-		- Simple Social Icons
-	- Plugins
-		- Genesis eNews Extended
-		- Jetpack
-	- Site Header
-		- Title Area
-		- Widget Area
-	- Site Navigation
-		- Header Navigation
-		- Primary Navigation
-		- Secondary Navigation
-		- Responsive Menu
-	- Content Area
-		- Homepage
-		- Pricing Table
-		- Content
-		- Entries
-		- Entry Meta
-		- After Entry
-		- Pagination
-		- Content Boxes
-		- Comments
-	- Sidebar
-	- Footer Widgets
-	- Site Footer
-	- Theme Colors
-		- Parallax Pro Blue
-		- Parallax Pro Green
-		- Parallax Pro Orange
-		- Parallax Pro Pink
-	- Media Queries
-		- Retina Display
-		- Max-width: 1139px
-		- Max-width: 1023px
-		- Max-width: 768px
-	- Zdenek's modifications
-
 
 /*
 HTML5 Reset
