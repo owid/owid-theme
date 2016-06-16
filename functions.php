@@ -1,6 +1,6 @@
 <?php
 //* Set Localization (do not remove)
-load_child_theme_textdomain('owid', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'owid'));
+load_child_theme_textdomain('owid', apply_filters('child_theme_textdomain', get_stylesheet_directory() . '/languages', 'owid'));
 //* Include Section Image CSS
 include_once(get_stylesheet_directory() . '/lib/output.php');
 
@@ -13,7 +13,6 @@ wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, null, true)
 
 // Increase the number of search results on the search page
 $search_results_per_page = 20;
-add_action('pre_get_posts', 'set_posts_per_page');
 function set_posts_per_page($query) {
 	global $search_results_per_page;
 	if ($query->is_search) {
@@ -21,6 +20,7 @@ function set_posts_per_page($query) {
 	}
 	return $query;
 }
+add_action('pre_get_posts', 'set_posts_per_page');
 
 /* HACK (Mispy): Just redirect back to the front page if it's an empty search. */
 function search_redirect($query) {
@@ -33,7 +33,6 @@ function search_redirect($query) {
 		}
 }
 add_action('pre_get_posts', 'search_redirect');	
-
 
 /* MISPY: Output a nice listing of all the data entries for /data. */
 function owid_pages() {
@@ -75,21 +74,6 @@ function owid_pages() {
 
 	echo($html);
 }
-
-/* MAX: Add Author Byline in Pages - so that it is citable (Exclude 'About-Page' and 'Data-Page' from this) */
-add_action ('genesis_before_entry', 'max_byline', 10);
-function max_byline($posttitle) {
-	if ( !is_page('about') &&  !is_page('data') &&  !is_page('owid-grapher') &&  !is_page('web-developer') && !is_page('support') && !is_page('job-offer-quantitative-social-scientist-for-ourworldindata-org-at-the-university-of-oxford') && !is_page ('job-offer-web-developer-for-ourworldindata-org-at-the-university-of-oxford') && is_page() ) {
-    $authors = coauthors(null, null, null, null, false);
-
-    if (strpos($authors, "Max Roser") === false) {
-      $authors = $authors . " and Max Roser";
-    }
-
-    $posttitle = 'Please cite the original source – including the original data source – and this entry on Our World In Data.<br>This entry can be cited as '.$authors.' ('.get_the_modified_date('Y').') – &lsquo;'.get_the_title($ID).'&rsquo;. <em>Published online at OurWorldInData.org.</em> Retrieved from: '.get_permalink().' [Online Resource]';
-
-    echo "<div class=\"post-byline\">$posttitle</div>";
-  }
-}
+add_shortcode('owid_pages', 'owid_pages');
 
 ?>
