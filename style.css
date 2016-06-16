@@ -1223,6 +1223,10 @@ body.search main > * {
 	font-size: 20px;
 }
 
+#homepage-blog li {
+	list-style-type: none;
+}
+
 #homepage-blog li a {
 	color: #222;
 }
@@ -1260,14 +1264,15 @@ body.search main > * {
 	}
 
 	#homepage-cover h1 {
-		font-size: 128px;
-		margin: 0;
+		font-size: 4rem;
 		line-height: 0.9;
 	}
 
 	#homepage-cover .subheading {
 		font-size: 25px;
 		line-height: 1.2;
+		max-width: 880px;
+		margin: auto;
 	}
 
 	#homepage-blog {
@@ -1888,7 +1893,7 @@ body.page h1.entry-title {
 }
 
 article.post, article.page {
-	max-width: 1080px;
+	max-width: 980px;
 	margin: auto;
 	padding: 1.5rem;	
 }

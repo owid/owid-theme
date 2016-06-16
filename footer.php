@@ -2,14 +2,13 @@
 /**
  * The template for displaying the footer
  */
-?>
-
+?> 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="wrap">
 			<div class="clearfix">
 				<div class="column">
-					<h4><a href="/">Our World In Data</a></h4>
-					<p>OWID is an online publication developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">Oxford Martin School</a> which shows how living conditions are changing around the world. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
+				<h4><a href="/">Our World In Data</a></h4>
+					<p>OWID is an online publication developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">Oxford Martin School</a> which explores the history and continued development of human civilization at a global scale. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
 					<hr>
 				</div>		
 				<div class="column subscribe">

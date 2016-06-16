@@ -8,8 +8,8 @@ function owid_homepage() {
 	$html .= <<<EOT
 <div id="homepage-cover">
 	<div class="lead-in">
-		<h1 class="desktop">Our World In Data</h1>
-		<div class="desktop subheading" style="font-family: Georgia;">Data visualisations and empirical research that tell you how and why living conditions around the world are changing.</div>
+		<h1 class="desktop">Our world is changing</h1>
+		<div class="desktop subheading" style="font-family: Georgia;">Explore the ongoing history of human civilization at the broadest level, through research and data visualization.</div>
 		<div class="mobile subheading">Living conditions around the world are changing rapidly. Explore how and why.</div>
 		<img class="down-arrow" src="http://ourworldindata.org/wp-content/uploads/2015/01/oldOWID_arrowdown.png" alt=“Y" style=“height:40px">
 		<div class="title-author-byline">A web publication by <a href="http://www.MaxRoser.com/about" target="_blank">Max Roser</a>.</div>
