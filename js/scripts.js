@@ -85,10 +85,11 @@
 	});*/
 	
 
-	var $entry = $( ".entry" );
-	$entry.scrollNav({ 
-		subSections: 'h3, h4'
-	});
+	if (!$(".blog-index").length) {
+		$(".entry").scrollNav({ 
+			subSections: 'h3, h4'
+		});		
+	}
 	
 	//remove hashtags from menu
 	var $menuItems = $( ".scroll-nav" ).find( ".scroll-nav__item a, .scroll-nav__sub-item a" );

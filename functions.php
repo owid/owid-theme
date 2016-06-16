@@ -1,8 +1,4 @@
 <?php
-//* Start the engine
-include_once(get_template_directory() . '/lib/init.php');
-//* Setup Theme
-include_once(get_stylesheet_directory() . '/lib/theme-defaults.php');
 //* Set Localization (do not remove)
 load_child_theme_textdomain('parallax', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'parallax'));
 
@@ -241,37 +237,14 @@ function owid_pages() {
 	echo($html);
 }
 
-add_shortcode('owid_pages', 'owid_pages');
-
-/* MISPY: Custom /blog listing of posts. */
-
-function owid_blog() {
-	$html = "";
-
-	query_posts('posts_per_page=3');
-
-	$html .= "<div id='blog-index'>";
-	if (have_posts()) {
-		while (have_posts()) {
-			the_post();
-
- 			$html .= "<div class='post'>"
- 				  .	 "    <h4><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h4>"
- 				  .	 "    <div class='entry-meta'><time>" . get_the_date("F d, Y") . "</time></div>"
- 				  .  "    <div>" . get_the_content() . "</div>"
- 				  .  "</div>";
-		}
-	}
-	$html .= "</div>";
-
-	wp_reset_query();
-
-	echo $html;
-}
-add_shortcode('owid_blog', 'owid_blog');
 
 // Customize the entire footer
+
 remove_action('genesis_footer', 'genesis_do_footer');
+add_filter('genesis_footer_creds_text', 'sp_footer_creds_filter');
+function sp_footer_creds_filter($creds) {
+	return '';
+}
 add_action('genesis_footer', 'owid_footer');
 function owid_footer() {
 	?>
