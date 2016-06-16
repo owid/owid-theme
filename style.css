@@ -56,6 +56,7 @@ body {
 	font-weight: 400;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
+	word-wrap: break-word;
 }
 
 a,
@@ -764,7 +765,7 @@ header.site-header {
 @media (max-width: 400px) {
 	#owid-title {
 		max-width: calc(100% - 100px);
-		font-size: 22px;
+		font-size: 20px;
 	}
 }
 
@@ -843,13 +844,14 @@ header.site-header {
 	height: 30px;
 	line-height: 30px;
 	vertical-align: middle;
-	padding: 0 .7em;
+	padding: 0;
 }
 
 #mc_embed_signup input:first-child {
 	width: 65%;
 	border: 1px solid #ccc;
 	font-size: 16px;
+	padding: 0 .7rem;
 }
 
 #mc_embed_signup input.button {
@@ -858,8 +860,9 @@ header.site-header {
 	background-color: #c0023e;
 	color: white;
 	cursor: pointer;
-	font-size: 16px;
-	line-height: 16px;
+	-webkit-appearance: none;
+	border-color: #999;
+	font-size: 12px;
 }
 
 #mc_embed_signup input.button:hover {
@@ -1152,12 +1155,12 @@ body.search main > * {
 }
 
 /* Wikipedia external link style */
-.entry-content a[href^="http://"]:not([href*="ourworldindata.org"]), 
-.side-matter a[href^="http://"]:not([href*="ourworldindata.org"]), 
-.entry-content a[href^="https://"]:not([href*="ourworldindata.org"]), 
-.side-matter a[href^="https://"]:not([href*="ourworldindata.org"]), 
-.entry-content a[href^="//"]:not([href*="ourworldindata.org"]), 
-.side-matter a[href^="//"]:not([href*="ourworldindata.org"]) {
+.entry-content a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]), 
+.side-matter a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]), 
+.entry-content a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]), 
+.side-matter a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]), 
+.entry-content a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]), 
+.side-matter a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]) {
 	background-position: center right;
 	background-repeat: no-repeat;
 	background-image: linear-gradient(transparent,transparent),url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%3E%3Cpath%20fill%3D%22%23fff%22%20stroke%3D%22%235b011d%22%20d%3D%22M1.5%204.518h5.982V10.5H1.5z%22%2F%3E%3Cpath%20d%3D%22M5.765%201H11v5.39L9.427%207.937l-1.31-1.31L5.393%209.35l-2.69-2.688%202.81-2.808L4.2%202.544z%22%20fill%3D%22%235b011d%22%2F%3E%3Cpath%20d%3D%22M9.995%202.004l.022%204.885L8.2%205.07%205.32%207.95%204.09%206.723l2.882-2.88-1.85-1.852z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
@@ -1243,6 +1246,10 @@ body.search main > * {
 	color: #5b011d;
 }
 
+#homepage-blog a.more {
+	font-size: 17px;
+}
+
 @media screen and (min-width: 980px) {
 	#homepage-cover .mobile {
 		display: none;
@@ -1285,6 +1292,10 @@ body.search main > * {
 		float: left;
 		width: 70%;
 		padding: 10px 20px;
+	}
+
+	#homepage-entries p {
+		font-size: 17px;
 	}
 
 	#homepage-entries div > a {
@@ -1889,11 +1900,11 @@ img {
 
 body.page h1.entry-title {
 	text-align: center;
-	font-size: 3rem;
+	font-size: 3.2rem;
 }
 
 article.post, article.page {
-	max-width: 980px;
+	max-width: 1080px;
 	margin: auto;
 	padding: 1.5rem;	
 }
@@ -1905,6 +1916,7 @@ article.post, article.page {
     padding-bottom: 5px;
     margin-bottom: 40px;
     background: lightgrey;    
+    font-size: 16px;
 }
 
 .entry-content h3 {
@@ -1968,4 +1980,8 @@ iframe, .entry-content img.aligncenter {
 
 img {
 	height: auto;
+}
+
+.entry-content p {
+	font-size: 17px;
 }

@@ -41,7 +41,7 @@ EOT;
 
 	$html .= <<<EOT
 		</ul>
-		<a href="/blog">More →</a>
+		<a class="more" href="/blog">More →</a>
 	</div>
 EOT;
 
