@@ -53,8 +53,8 @@ EOT;
 
 	$html .= <<<EOT
 	<div id="homepage-entries" class="owid-data">
-		<h3><a href="/data">Entries</a></h3>		
-		<p>Collections of research and data by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p>
+		<h3><a href="/entries">Entries</a></h3>		
+		<p>Ongoing collections of research and data by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p>
 		<ul>
 EOT;
 
