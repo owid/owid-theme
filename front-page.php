@@ -16,8 +16,8 @@ function owid_homepage() {
 	</div>
 </div>
 <div id="homepage-content" class="clearfix">
-	<h3><a href="https://ourworldindata.org/grapher/latest">Latest Visualization</a></h3>
-	<iframe src="https://ourworldindata.org/grapher/latest" width="100%" height="660px"></iframe>
+	<h3><a href="/grapher/latest">Latest Visualization</a></h3>
+	<iframe src="/grapher/latest" width="100%" height="660px"></iframe>
 EOT;
 
 	// Blog sidebar

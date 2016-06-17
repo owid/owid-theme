@@ -898,7 +898,7 @@ header.site-header {
 
 .title-author-byline {	
 	margin-top: 0px;
-	font-size: 20px;
+	font-size: 1rem;
 	text-align: right;
 }
 
@@ -1184,7 +1184,7 @@ body.search main > * {
 }
 
 #homepage-content {
-	padding: 40px 1.5rem 40px 1.5rem;
+	padding: 30px 1rem 30px 1rem;
 	max-width: 1170px;
 	margin: auto;
 }
@@ -1960,9 +1960,9 @@ h5 {
 .entry-content ol, .entry-content ul {
     margin-bottom: 30px;
     margin-left: 40px;
-    font-weight: normal!important;
-    font-size: 17px!important;
-    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif!important;
+    font-weight: normal !important;
+    font-size: 17px !important;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif !important;
 }
 
 .entry-content ol > li {
@@ -1976,7 +1976,7 @@ h5 {
 }
 
 iframe, .entry-content img.aligncenter {
-	border: 1px solid #ccc !important;
+	border: 1px solid #ccc;
 }
 
 img {
@@ -1985,4 +1985,13 @@ img {
 
 .entry-content p {
 	font-size: 17px;
+}
+
+@media only screen and (max-width: 980px) {
+	iframe {
+		border-left: none;
+		border-right: none;		
+		padding-top: 0.6rem;
+		padding-bottom: 0.6rem;
+	}
 }
