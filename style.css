@@ -874,20 +874,6 @@ header.site-header {
 	display: block;
 }
 
-.site-footer .supporters {
-	text-align: center;
-	margin-top: 10px;
-	padding: 0 12px;
-	clear: both;
-}
-
-.site-footer .supporters img {
-	display: inline-block;
-	vertical-align: middle;
-	padding-right: 10px;
-	height: 120px;
-}
-
 .site-footer a {
 	color: #5B7FFF;
 }
@@ -896,15 +882,44 @@ header.site-header {
 	color: #f04848;
 }
 
-.title-author-byline {	
-	margin-top: 0px;
-	font-size: 1rem;
-	text-align: right;
+.site-footer .supporters {
+	text-align: center;
+	margin-top: 10px;
+	clear: both;
+	margin: auto;
+	font-size: 14px;
 }
 
-.title-author-byline a {
-	color: #FF4012;
-	font-weight: 400;
+.site-footer .supporters p {
+	margin-bottom: 0.8rem;
+}
+
+.site-footer .supporters .donation-thanks {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.site-footer .supporters-left, .site-footer .supporters-right {
+	display: inline-block;
+	width: 45%;
+	vertical-align: top;
+}
+
+.site-footer .supporters-right img {
+	max-height: 105px;
+}
+
+.site-footer .supporters-left {
+	margin-right: 10px;
+}
+
+.site-footer .supporters-right {
+	margin-left: 10px;
+}
+
+.site-footer .nuffield-disclaimer {
+	font-size: 12px;
+	font-style: italic;
 }
 
 @media screen and (max-width: 950px) {
@@ -919,14 +934,11 @@ header.site-header {
 		margin-bottom: 14px;
 	}
 
-	.site-footer .supporters img {
-		height: auto;
-	}
-
 	.site-footer p {
 		font-size: 14px;
 	}
 }
+
 
 @media screen and (min-width: 950px) {
 	.site-footer hr {
@@ -941,6 +953,20 @@ header.site-header {
 		padding-bottom: 30px;
 		border-bottom: 1px solid #ccc;
 		margin-bottom: 30px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.site-footer .supporters-left, .site-footer .supporters-right {
+		display: block;
+		width: 100%;
+		margin: 0;
+	}
+
+	.site-footer .supporters-right {
+		margin-top: 14px;
+		border-top: 1px solid #aaa;
+		padding-top: 14px;
 	}
 }
 
@@ -1189,8 +1215,16 @@ body.search main > * {
 	float: right;
 }
 
-#homepage-cover .title-author-byline {
-	color: white;	
+.title-author-byline {	
+	margin-top: 0px;
+	font-size: 1rem;
+	text-align: right;
+	color: white;
+}
+
+.title-author-byline a {
+	color: #FF4012;
+	font-weight: 400;
 }
 
 #homepage-content {
