@@ -36,6 +36,7 @@
 			    	<div class="social">
 			    		<a href="https://twitter.com/MaxCRoser"><i class="fa fa-twitter"></i></a>
 			    		<a href="https://www.facebook.com/OurWorldinData"><i class="fa fa-facebook"></i></a>
+   				 		<a href="/feed/"><i class="fa fa-feed"></i></a>
 			    	</div>			
 			    	<hr>
 				</div>
