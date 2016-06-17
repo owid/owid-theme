@@ -805,6 +805,7 @@ header.site-header {
 .site-footer .column {
 	width: 45%;
 	display: inline-block;
+	vertical-align: top;
 	padding: 0 12px;
 	text-align: left;
 }
@@ -1299,7 +1300,7 @@ body.search main > * {
 	}
 
 	#homepage-entries div > a {
-		font-size: 15px;
+		font-size: 14px;
 	}
 
 	#homepage-entries span {
