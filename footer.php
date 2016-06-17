@@ -3,12 +3,13 @@
  * The template for displaying the footer
  */
 ?> 
+	</main>
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="wrap">
 			<div class="clearfix">
 				<div class="column">
 				<h4><a href="/">Our World In Data</a></h4>
-					<p>OWID is an online publication which explores the history and continued development of human civilization at a global scale. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
+					<p>Our World In Data is an online publication by <a href="http://maxroser.com/about">Max Roser</a> which explores the development of human living conditions at a global scale. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely reusable by journalists or educators.</p>
 					<hr>
 				</div>		
 				<div class="column subscribe">

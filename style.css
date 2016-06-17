@@ -793,6 +793,7 @@ header.site-header {
 .site-footer {
 	background-color: #f9f9f9;
 	padding: 1.5rem 0;
+	border-top: 1px solid #eee;
 }
 
 .site-footer .wrap {
@@ -973,12 +974,31 @@ header.site-header {
 /* Blog Index Page (on /blog)
 --------------------------------------------- */
 
+header.blog-header h1 {
+	text-align: center;
+
+	background: url(/wp-content/uploads/2015/01/WorldMapDark2.png);
+	color: white;
+	margin: auto;
+	margin-bottom: 1rem;
+	font-size: 1.8rem;
+	height: 5rem;
+	line-height: 5rem;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+header.blog-header h1 > a {
+	color: white;
+}
+
 body.blog main, body.single-post main {
-	background: #eee;
-	padding: 1rem;
-	padding-top: 2rem;
 	background: #f6f6f6 url("/wp-content/themes/owid-theme/images/blog-pattern.png");
 	border-bottom: 1px solid #ddd;
+}
+
+body.blog .site-content, body.single-post .site-content {
+	padding: 1rem;
+	padding-top: 1rem;	
 }
 
 body.blog article, body.single-post article {
@@ -989,11 +1009,17 @@ body.blog article, body.single-post article {
 body.blog article, body.single-post article {
 	background: white;
 	margin-bottom: 1rem;
+	border: 1px solid #ddd;
 	border-top: 5px solid #ccc;	
 }
 
 body.blog h1.entry-title, body.single-post h1.entry-title {
 	margin: 0;
+}
+
+#blog-index {
+	max-width: 1170px;
+	margin: auto;
 }
 
 h1.entry-title > a {
@@ -1033,8 +1059,36 @@ h1.entry-title > a:hover {
 		padding: 1rem;
 	}	
 
-	body.blog main, body.single-post main {
+	body.blog .site-content, body.single-post .site-content {
 		padding: 0.5rem;
+	}
+
+	#blog-sidebar {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 800px) {
+	#blog-content {
+		max-width: 1170px;
+		margin: auto;
+	}
+
+
+	#blog-sidebar {
+		background: white;
+	}
+
+	#blog-sidebar h3 {
+		margin-bottom: 14px;
+	}
+
+	#blog-sidebar h3 > a {
+		color: #c0023e;
+	}
+
+	#blog-sidebar h3 > a:hover {
+		color: #5b011d;		
 	}
 }
 
@@ -1295,6 +1349,10 @@ body.search main > * {
 	font-size: 17px;
 }
 
+#homepage-cover {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);	
+}
+
 @media screen and (min-width: 980px) {
 	#homepage-cover .mobile {
 		display: none;
@@ -1398,11 +1456,6 @@ body.search main > * {
 @media screen and (max-width: 980px) {
 	#homepage-cover .desktop {
 		display: none;
-	}
-
-	.title-author-byline {
-		text-align: right;
-	    font-size: 20px;
 	}
 
 	#homepage-cover {

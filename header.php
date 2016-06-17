@@ -52,6 +52,9 @@ function owid_header() {
 				</form>
 			</li>
 			<li>
+				<a href="/blog">Blog</a>
+			</li>
+			<li>
 				<a href="/about">About</a>
 			</li>
 			<li>
@@ -179,3 +182,5 @@ EOT;
 owid_header();
 ?>
 	</header>
+
+<main id="main" class="site-main" role="main">
