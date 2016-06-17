@@ -949,7 +949,7 @@ header.site-header {
 
 body.blog main, body.single-post main {
 	background: #eee;
-	padding: 20px;
+	padding: 1rem;
 	padding-top: 2rem;
 	background: #f6f6f6 url("/wp-content/themes/owid-theme/images/blog-pattern.png");
 	border-bottom: 1px solid #ddd;
@@ -962,7 +962,7 @@ body.blog article, body.single-post article {
 
 body.blog article, body.single-post article {
 	background: white;
-	margin-bottom: 30px;
+	margin-bottom: 1rem;
 	border-top: 5px solid #ccc;	
 }
 
@@ -1000,6 +1000,16 @@ h1.entry-title > a:hover {
 .pagination .page-numbers:hover {
 	color: #fff;
 	background: #f04848;	
+}
+
+@media only screen and (max-width: 800px) {
+	body.blog article, body.single-post article {
+		padding: 1rem;
+	}	
+
+	body.blog main, body.single-post main {
+		padding: 0.5rem;
+	}
 }
 
 @media only screen {
@@ -1988,6 +1998,10 @@ img {
 }
 
 @media only screen and (max-width: 980px) {
+	article.post, article.page {
+		padding: 1rem;	
+	}
+
 	iframe {
 		border-left: none;
 		border-right: none;		
