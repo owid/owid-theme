@@ -895,9 +895,17 @@ header.site-header {
 	margin-bottom: 0.8rem;
 }
 
-.site-footer .supporters .donation-thanks {
+.site-footer .donation-thanks {
 	font-size: 16px;
 	font-weight: bold;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 30px;
+}
+
+.site-footer .donation-thanks > p {
+	max-width: 700px;
+	margin: auto;	
 }
 
 .site-footer .supporters-left, .site-footer .supporters-right {
@@ -907,7 +915,7 @@ header.site-header {
 }
 
 .site-footer .supporters-right img {
-	max-height: 105px;
+	max-height: 100px;
 }
 
 .site-footer .supporters-left {
@@ -916,6 +924,10 @@ header.site-header {
 
 .site-footer .supporters-right {
 	margin-left: 10px;
+}
+
+.site-footer .supporters-right p {
+	margin-bottom: 5px; 
 }
 
 .site-footer .nuffield-disclaimer {

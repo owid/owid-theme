@@ -24,7 +24,10 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 	<?php wp_head(); ?>
-	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+	<link rel="stylesheet" type="text/css" media="all" href="<?php 
+		echo get_stylesheet_uri();
+    	echo '?v='.filemtime(get_stylesheet_directory() . '/style.css'); 
+    ?>" />
 
 	<!-- Hide until JS rendering -->
 	<style>
