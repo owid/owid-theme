@@ -2,6 +2,21 @@
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+	<title><?php 
+		if (!is_front_page()) {
+			
+			$title = get_the_title();
+			if (is_home())
+				$title = "Blog";
+
+			if ($title) {
+				echo $title;
+				echo " - "; 
+			}		
+		}
+
+		bloginfo('name');
+	?></title>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
