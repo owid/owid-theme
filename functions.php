@@ -9,7 +9,7 @@ $template_dir = get_stylesheet_directory_uri();
 wp_enqueue_style('fontello-custom', $template_dir . '/css/fontello.css');
 wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
 wp_enqueue_script("scrollNav", $template_dir . "/js/jquery.scrollNav.js", null, null, true);
-wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, null, true);
+wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, '?v=' . filemtime(get_stylesheet_directory() . '/js/scripts.js'), true);
 
 // Increase the number of search results on the search page
 $search_results_per_page = 20;
