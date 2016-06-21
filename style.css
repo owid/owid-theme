@@ -2114,18 +2114,20 @@ iframe {
 	width: 100%;
 	max-width: 1170px;
 	margin: auto;
-	padding: 1.5rem;	
 }
 
 nav.entry-toc {
-	font-size: 16px;
+	font-size: 15px;
 }
 
 nav.entry-toc h3 {
+	margin-bottom: 0;
 }
 
 nav.entry-toc li {
 	margin-left: 20px;
+	color: #333;
+	margin-top: 10px;
 }
 
 nav.entry-toc li > a {
@@ -2137,6 +2139,7 @@ nav.entry-toc li.active {
 }
 
 nav.entry-toc li.subsection {
+	margin-top: 2px;
 	margin-left: 40px;
 }
 
@@ -2144,6 +2147,8 @@ nav.entry-toc li.subsection {
 	.owid-entry article.page {
 		float: left;
 		width: 70%;
+		border-right: 1px solid #eee;
+		padding: 1.5rem;
 	}
 
 	nav.entry-toc {
@@ -2152,6 +2157,7 @@ nav.entry-toc li.subsection {
 		padding-left: 30px;		
 		max-height: 90vh;
 		overflow-y: auto;		
+		padding-top: 1.5rem;
 	}
 }
 

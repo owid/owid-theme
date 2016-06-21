@@ -65,7 +65,7 @@
 			headings.forEach(function($heading, i) {
 				// HACK (Mispy): The +5 is so being right on top of the heading after you
 				// click a link in the TOC still counts as being under it
-				if ($heading.offset().top <= scrollTop+5)
+				if ($heading.offset().top <= scrollTop+5+$("#wpadminbar").outerHeight())
 					lastHeadingIndex = i;
 			});
 
@@ -183,6 +183,15 @@
 	EntriesHeaderMenu();
 	OWIDScrollNav();
 	$(window).on('resize.toc', OWIDScrollNav);
+	$(window).on('hashchange', function() {
+		console.log("hi");	
+		var $bar = $("#wpadminbar");
+		if ($bar.length) {
+			setTimeout(function() {
+				$(window).scrollTop($(window).scrollTop() - $bar.outerHeight());
+			}, 0)
+		}
+	});
 
 	//remove hashtags from menu
 	var $menuItems = $( ".scroll-nav" ).find( ".scroll-nav__item a, .scroll-nav__sub-item a" );
