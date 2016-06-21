@@ -25,9 +25,7 @@
 		var $ol = $("<ol></ol>").appendTo($nav);		
 		$entry.find("h2, h3").each(function(i) {
 			var $heading = $(this);
-			var href = $heading.find("a.deep-link").attr("href");
-
-			var $li = $('<li><a href="' + href + '">' + $heading.text() + '</a></li>').appendTo($ol);
+			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.text() + '</a></li>').appendTo($ol);
 
 			if ($heading.is('h2')) {
 				$li.addClass('section');

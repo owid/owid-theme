@@ -2112,7 +2112,7 @@ iframe {
 
 .owid-entry {
 	width: 100%;
-	max-width: 1170px;
+	max-width: 1366px;
 	margin: auto;
 }
 
@@ -2154,7 +2154,7 @@ nav.entry-toc li.subsection {
 	nav.entry-toc {
 		float: right;
 		width: 30%;
-		padding-left: 30px;		
+		padding: 20px;		
 		max-height: 90vh;
 		overflow-y: auto;		
 		padding-top: 1.5rem;
