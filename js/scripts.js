@@ -1,6 +1,104 @@
 ;(function($) {
 	"use strict";
 
+	// Construct scroll-friendly nav sidebar for entries. Should be idempotent so it
+	// can be called again to reconstruct on window resize
+	var OWIDScrollNav = function() {
+		var $entry = $("article.page"),
+			$nav = $("nav.entry-toc");
+
+		if (!$entry.length || !$nav.length) return;
+
+		// Cleanup any existing stuff
+		$nav.empty();
+		$nav.attr('style', '');
+		$(window).off('scroll.toc');		
+
+		// HACK (Mispy): These have weird placeholder text in them that interferes.
+		$(".deep-link").html("");
+
+		// Keep track of sections so we can find the closest one
+		var headings = [],
+			currentHeadingIndex = null;
+
+		$nav.append("<h3>Contents</h3>");
+		var $ol = $("<ol></ol>").appendTo($nav);		
+		$entry.find("h2, h3").each(function(i) {
+			var $heading = $(this);
+			var href = $heading.find("a.deep-link").attr("href");
+
+			var $li = $('<li><a href="' + href + '">' + $heading.text() + '</a></li>').appendTo($ol);
+
+			if ($heading.is('h2')) {
+				$li.addClass('section');
+			} else {
+				$li.addClass('subsection');
+			}
+
+			headings.push($(this));
+		});
+
+		var onScroll = function() {
+			var scrollTop = $(document).scrollTop(),
+				scrollBottom = scrollTop + $(window).height(),
+				mainOffset = $("main").offset(),
+				navOffset = $nav.offset(),
+				navHeight = $nav.height(),
+				footerOffset = $("footer.site-footer").offset(),
+				isFixed = $nav.css('position') == 'fixed',
+				defaultTop = 10 + $("#wpadminbar").outerHeight();
+
+			// Fix the TOC once we scroll past the header
+			if (scrollTop > mainOffset.top && !isFixed) {		
+				$nav.css({
+					position: 'fixed',
+					top: defaultTop + 'px',
+					left: navOffset.left,
+					width: $nav.outerWidth() + 'px'
+				});			
+			} else if (scrollTop < mainOffset.top && isFixed) {
+				$nav.attr('style', '');
+			}
+
+			// Figure out where in the document we are
+			var lastHeadingIndex = null;
+			headings.forEach(function($heading, i) {
+				// HACK (Mispy): The +5 is so being right on top of the heading after you
+				// click a link in the TOC still counts as being under it
+				if ($heading.offset().top <= scrollTop+5)
+					lastHeadingIndex = i;
+			});
+
+			if (lastHeadingIndex != currentHeadingIndex) {
+				$nav.find("li.active").removeClass("active");
+				currentHeadingIndex = lastHeadingIndex;
+				if (currentHeadingIndex !== null)
+					$nav.find("li").eq(currentHeadingIndex).addClass("active");
+			}
+
+			// Ensure TOC doesn't overlap the footer
+			var currentTop = parseFloat($nav.css('top')),
+				currentTopAdjustment = currentTop - defaultTop, 
+				footerMargin = 50,
+				unadjustedOverlapHeight = (navOffset.top - currentTopAdjustment + navHeight) - (footerOffset.top - footerMargin);
+
+			if (unadjustedOverlapHeight > 0) {
+				$nav.css({
+					top: (defaultTop - unadjustedOverlapHeight) + 'px'
+				});
+			} else {
+				$nav.css({
+					top: defaultTop + 'px'
+				});
+			}		
+		};
+
+		if ($nav.css("float") != "none") {
+			onScroll();
+			$(window).on('scroll.toc', onScroll);			
+		}
+	};
+
 	var EntriesHeaderMenu = function() {
 		// Desktop menu
 		function showDefaultState() {	
@@ -79,16 +177,13 @@
 				origWidth = width;
 			}
 		});
-	}
+	};
+
 
 	EntriesHeaderMenu();
+	OWIDScrollNav();
+	$(window).on('resize.toc', OWIDScrollNav);
 
-	if (!$(".blog-index").length) {
-		$(".entry").scrollNav({ 
-			subSections: 'h3, h4'
-		});		
-	}
-	
 	//remove hashtags from menu
 	var $menuItems = $( ".scroll-nav" ).find( ".scroll-nav__item a, .scroll-nav__sub-item a" );
 	$.each( $menuItems, function( i, v ) {
@@ -106,7 +201,7 @@
 
 	// Don't let user enter empty search query
 	$(".search-form").on("submit", function(evt) {
-	    if ($(evt.target).find("input[type=search]").val() == '')
+	    if ($(evt.target).find("input[type=search]").val() === '')
 	        evt.preventDefault();
 	});
 

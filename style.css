@@ -2013,7 +2013,7 @@ body.page h1.entry-title {
 	font-size: 3.2rem;
 }
 
-article.post, article.page {
+article.post {
 	max-width: 1080px;
 	margin: auto;
 	padding: 1.5rem;	
@@ -2103,5 +2103,60 @@ iframe {
 @media only screen and (max-width: 980px) {
 	article.post, article.page {
 		padding: 1rem;	
+	}
+}
+
+
+/* Page Navigation Sidebar
+--------------------------------------------- */
+
+.owid-entry {
+	width: 100%;
+	max-width: 1170px;
+	margin: auto;
+	padding: 1.5rem;	
+}
+
+nav.entry-toc {
+	font-size: 16px;
+}
+
+nav.entry-toc h3 {
+}
+
+nav.entry-toc li {
+	margin-left: 20px;
+}
+
+nav.entry-toc li > a {
+	color: inherit;
+}
+
+nav.entry-toc li.active {
+	color: #c0023e;
+}
+
+nav.entry-toc li.subsection {
+	margin-left: 40px;
+}
+
+@media only screen and (min-width: 1024px) {
+	.owid-entry article.page {
+		float: left;
+		width: 70%;
+	}
+
+	nav.entry-toc {
+		float: right;
+		width: 30%;
+		padding-left: 20px;		
+		max-height: 90vh;
+		overflow-y: auto;		
+	}
+}
+
+@media only screen and (max-width: 1024px) {
+	nav.entry-toc {
+		display: none;
 	}
 }

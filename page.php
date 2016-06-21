@@ -13,9 +13,9 @@
 
 get_header(); ?>
 
-<main id="main" class="site-main" role="main">
-
-	<?php while (have_posts()) : the_post(); ?>
+<?php while (have_posts()) : the_post(); ?>
+	<div class="owid-entry clearfix">
+		<nav class="entry-toc"><!-- populated by JS --></nav>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<header class="entry-header">
 				<?php
@@ -44,7 +44,7 @@ get_header(); ?>
 				<?php do_action('side_matter_list_notes'); ?>
 			</footer><!-- .entry-footer -->
 		</article><!-- #post-## -->
-	<?php endwhile; ?>
-</main><!-- .site-main -->
+	</div>
+<?php endwhile; ?>
 
 <?php get_footer(); ?>
