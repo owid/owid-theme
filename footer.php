@@ -8,8 +8,8 @@
 		<div class="wrap">
 			<div class="clearfix">
 				<div class="column">
-				<h4><a href="/">Our World In Data</a></h4>
-					<p>Our World In Data is an online publication by <a href="http://maxroser.com/about">Max Roser</a> which explores the development of human living conditions at a global scale. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely usable by everyone (including journalists, authors, bloggers, lecturers, or educators).</p>
+				<h4><a href="/">Our World in Data</a></h4>
+					<p>Our World in Data is an online publication by <a href="http://maxroser.com/about">Max Roser</a> which explores the development of human living conditions at a global scale. Our work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">CC BY-SA</a> and freely usable by everyone (including journalists, authors, bloggers, lecturers, or educators).</p>
 					<hr>
 				</div>		
 				<div class="column subscribe">
@@ -53,6 +53,7 @@
 			</div>
 			<div class="donation-thanks">
 				<p>We are supported by the <a href="/support">generous donations of readers</a>. Without these donations our work would not be possible. Thank you!</p>
+				<hr>
 			</div>
 			<div class="supporters">
 				<div class="supporters-left">

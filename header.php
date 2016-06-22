@@ -51,7 +51,7 @@
 	<header class="site-header">
 <?php 
 function owid_header() {
-	$title = "Our World In Data";
+	$title = "Our World in Data";
 
 	$pages = get_pages([
 		'child_of'    => 621,

@@ -4,14 +4,14 @@
 	// Construct scroll-friendly nav sidebar for entries. Should be idempotent so it
 	// can be called again to reconstruct on window resize
 	var OWIDScrollNav = function() {
-		var $entry = $("article.page"),
-			$nav = $("nav.entry-toc");
+		var $entry = $(".owid-entry article.page"),
+			$sidebar = $(".owid-entry .entry-sidebar");
 
-		if (!$entry.length || !$nav.length) return;
+		if (!$entry.length || !$sidebar.length) return;
 
 		// Cleanup any existing stuff
-		$nav.empty();
-		$nav.attr('style', '');
+		$sidebar.find("nav").empty();
+		$sidebar.attr('style', '');
 		$(window).off('scroll.toc');		
 
 		// HACK (Mispy): These have weird placeholder text in them that interferes.
@@ -21,10 +21,14 @@
 		var headings = [],
 			currentHeadingIndex = null;
 
-		$nav.append("<h3>Contents</h3>");
-		var $ol = $("<ol></ol>").appendTo($nav);		
+		$sidebar.find("nav").append("<h3>Contents</h3>");
+		var $ol = $("<ol></ol>").appendTo($sidebar.find("nav"));		
 		$entry.find("h2, h3").each(function(i) {
 			var $heading = $(this);
+			
+			if ($heading.is("#endnotes") && !$("ol.side-matter-list").is(":visible"))
+				return;
+
 			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.text() + '</a></li>').appendTo($ol);
 
 			if ($heading.is('h2')) {
@@ -40,22 +44,22 @@
 			var scrollTop = $(document).scrollTop(),
 				scrollBottom = scrollTop + $(window).height(),
 				mainOffset = $("main").offset(),
-				navOffset = $nav.offset(),
-				navHeight = $nav.height(),
+				navOffset = $sidebar.offset(),
+				navHeight = $sidebar.height(),
 				footerOffset = $("footer.site-footer").offset(),
-				isFixed = $nav.css('position') == 'fixed',
+				isFixed = $sidebar.css('position') == 'fixed',
 				defaultTop = 10 + $("#wpadminbar").outerHeight();
 
 			// Fix the TOC once we scroll past the header
 			if (scrollTop > mainOffset.top && !isFixed) {		
-				$nav.css({
+				$sidebar.css({
 					position: 'fixed',
 					top: defaultTop + 'px',
 					left: navOffset.left,
-					width: $nav.outerWidth() + 'px'
+					width: $sidebar.outerWidth() + 'px'
 				});			
 			} else if (scrollTop < mainOffset.top && isFixed) {
-				$nav.attr('style', '');
+				$sidebar.attr('style', '');
 			}
 
 			// Figure out where in the document we are
@@ -68,36 +72,38 @@
 			});
 
 			if (lastHeadingIndex != currentHeadingIndex) {
-				$nav.find("li.active").removeClass("active");
+				$sidebar.find("li.active").removeClass("active");
 				currentHeadingIndex = lastHeadingIndex;
 				if (currentHeadingIndex !== null)
-					$nav.find("li").eq(currentHeadingIndex).addClass("active");
+					$sidebar.find("li").eq(currentHeadingIndex).addClass("active");
 			}
 
 			// Ensure TOC doesn't overlap the footer
-			var currentTop = parseFloat($nav.css('top')),
+			var currentTop = parseFloat($sidebar.css('top')),
 				currentTopAdjustment = currentTop - defaultTop, 
-				footerMargin = 50,
+				footerMargin = 80,
 				unadjustedOverlapHeight = (navOffset.top - currentTopAdjustment + navHeight) - (footerOffset.top - footerMargin);
 
 			if (unadjustedOverlapHeight > 0) {
-				$nav.css({
+				$sidebar.css({
 					top: (defaultTop - unadjustedOverlapHeight) + 'px'
 				});
 			} else {
-				$nav.css({
+				$sidebar.css({
 					top: defaultTop + 'px'
 				});
 			}		
 		};
 
-		if ($nav.css("float") != "none") {
+		if ($sidebar.css("float") != "none") {
 			onScroll();
 			$(window).on('scroll.toc', onScroll);			
 		}
 	};
 
 	var EntriesHeaderMenu = function() {
+		var canHoverMenu = false;
+
 		// Desktop menu
 		function showDefaultState() {	
 			$("#topics-dropdown").hide();
@@ -125,13 +131,7 @@
 			});
 		}
 
-		showDefaultState();		
-		// Since the expanding menu is absolutely positioned, push the rest of the page down a bit
-		$(".site-main").css("margin-top", 
-			parseInt($(".site-main").css("margin-top")) + $("#entries-nav").height() + "px");
-
-
-		$("#category-nav li.category > a").on('mouseover', function(ev) {
+		function onCategoryActivate(ev) {
 			var $category = $(ev.target).closest("li.category");
 			$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);
 			$("#entries-nav").show();
@@ -139,12 +139,12 @@
 			$category.addClass("selected");
 
 			$("body").on('mousemove.entries', function(ev) {
-				if (!$(ev.target).closest("#entries-nav, #category-nav").length) {
+				if (!$(ev.target).closest("#entries-nav, #category-nav").length && canHoverMenu) {
 					$("body").off('mousemove.entries');
 					showDefaultState();
 				}
-			});
-		});		
+			});			
+		}
 
 		// Mobile menu
 		$("#owid-topbar li.nav-button a").on("click", function(ev) {
@@ -160,9 +160,27 @@
 			}
 		});
 
-		$("#topics-dropdown .category > a").on('click', function(ev) {
-			$(ev.target).closest('.category').toggleClass('active');
-		});
+
+		function onResize() {
+			// Use a hover menu if the screen is wide enough to have all the categories on one line
+			// Otherwise, we should use a click menu
+			canHoverMenu = $("#category-nav").height() < 50;
+
+			$("#category-nav li.category > a").off('mouseover');
+			$("#category-nav li.category > a").off('click');
+
+			if (canHoverMenu)
+				$("#category-nav li.category > a").on('mouseover', onCategoryActivate);
+			else
+				$("#category-nav li.category > a").on('click', onCategoryActivate);
+
+			$("#topics-dropdown .category > a").off('click');
+			$("#topics-dropdown .category > a").on('click', function(ev) {
+				$(ev.target).closest('.category').toggleClass('active');
+			});
+
+			showDefaultState();
+		}
 
 		// HACK (Mispy): Stop mobile-desktop transition from being weird.
 		// Also make sure it's a real resize event, as mobile Chrome seems
@@ -171,10 +189,15 @@
 		$(window).on("resize", function() {
 			var width = $(window).width();
 			if (origWidth != width) {
-				showDefaultState();
+				onResize();
 				origWidth = width;
 			}
 		});
+
+		onResize();
+		// Since the expanding menu is absolutely positioned, push the rest of the page down a bit
+		$(".site-main").css("margin-top", 
+			parseInt($(".site-main").css("margin-top")) + $("#entries-nav").height() + "px");		
 	};
 
 
@@ -187,7 +210,7 @@
 		if ($bar.length) {
 			setTimeout(function() {
 				$(window).scrollTop($(window).scrollTop() - $bar.outerHeight());
-			}, 0)
+			}, 0);
 		}
 	});
 

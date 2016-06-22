@@ -89,7 +89,7 @@ a {
 }
 
 p {
-	margin: 0 0 30px;
+	margin: 0 0 29px;
 	padding: 0;
 }
 
@@ -147,26 +147,19 @@ h6 {
 /* iFrames
 --------------------------------------------- */
 
-/* These rules should in the end only apply to datamaps  */
-
+/* MISPY: This styling is for mainly for the old non-grapher nvd3 stuff. */
 
 .narrow_iframe { 
-    	display: block;
+	display: block;
 	margin: 0 auto;
 	max-width: 750px;
-
-
 }
 
-
-/*The style of the caption of IFrames
---------------------------------------------- */
-
 address {
-    	padding-left: 8px;
+	padding-left: 8px;
 	padding-top: 7px !important;
 	margin-top: -38px !important;
-	margin-bottom: 60px;
+	margin-bottom: 30px;
 
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-style: normal !important;	
@@ -174,21 +167,20 @@ address {
 	font-size: 10px !important;
 	
 	color: #1059E5;
-    	background-color:#FAFAFA;
+	background-color:#FAFAFA;
 	text-align: left;
 
 }
 
 .narrow_iframe address {
-	margin-top: -25px !important;
+	margin-top: -10px !important;
 }
 
 address a {
-		color: #1059E5; 
-		padding-right: 30px;
-		
-
+	color: #1059E5; 
+	padding-right: 30px;		
 }
+
 address a:hover {
 		color: #FF4012; 
 }
@@ -295,7 +287,6 @@ th {
 
 /* (Zahl im Text) Selects superscript tags enclosing in-text reference numerals. Target a specific element by appending `sup.side-matter-sup-` with its number, e.g. `sup.side-matter-sup-3`. */
 sup.side-matter-sup {
-	color: orangered;
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size: 14px !important;
@@ -305,7 +296,7 @@ sup.side-matter-sup {
 
 /* (Zahl an der Seite) Selects ordered list of sidenotes, including sidenote numerals. Note that this tag is not always enclosed in the Side Matter widget; it can also be generated using the custom action `side_matter_list_notes`. */
 ol.side-matter-list {
-	color: orangered;
+	color: #c0023e;
 	line-height: 0.9;
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 14px !important;
@@ -315,7 +306,7 @@ ol.side-matter-list {
 	padding-top: 30px;
 }
 
-ol.side-matter-list li {
+ol.side-matter-list > li {
 	margin-left: 20px;	
 	padding-left: 5px;
 	margin-bottom: 20.16px;
@@ -323,7 +314,8 @@ ol.side-matter-list li {
 	list-style-position: outside;
 }
 
-ol.side-matter-list p {
+ol.side-matter-list p,
+ol.side-matter-list > li li {
 	margin: 0 0 10.7px;
 	line-height: 20.16px;
 	font-size: 12.6px;
@@ -377,7 +369,7 @@ header.site-header {
 
 /* Site Header - Desktop */
 
-@media only screen and (min-width: 1490px) {
+@media only screen and (min-width: 920px) {
 	header.site-header .mobile {
 		display: none;
 	}
@@ -560,7 +552,7 @@ header.site-header {
 
 /* Site Header - Mobile */
 
-@media only screen and (max-width: 1490px) {
+@media only screen and (max-width: 920px) {
 	header.site-header .desktop {
 		display: none;
 	}
@@ -896,11 +888,8 @@ header.site-header {
 }
 
 .site-footer .donation-thanks {
-	font-size: 16px;
 	font-weight: bold;
-	padding-bottom: 30px;
-	border-bottom: 1px solid #ccc;
-	margin-bottom: 30px;
+	padding: 0 1rem;	
 }
 
 .site-footer .donation-thanks > p {
@@ -963,6 +952,13 @@ header.site-header {
 	}	
 
 	.site-footer .clearfix {
+		padding-bottom: 30px;
+		border-bottom: 1px solid #ccc;
+		margin-bottom: 30px;
+	}
+
+	.site-footer .donation-thanks {
+		font-size: 16px;
 		padding-bottom: 30px;
 		border-bottom: 1px solid #ccc;
 		margin-bottom: 30px;
@@ -1248,14 +1244,18 @@ body.search main > * {
 	text-decoration: underline;
 }
 
-.entry-content p a[href*="ourworldindata.org"]:not(.image) {
+.entry-content p a[href*="ourworldindata.org"]:not(.image),
+.entry-content p a[href^="/"]:not(.image) {
 	border-bottom: 2px solid #c0023e;
 }
 
-.entry-content p a[href*="ourworldindata.org"]:not(.image):hover {
+.entry-content p a[href*="ourworldindata.org"]:not(.image):hover,
+.entry-content p a[href^="/"]:not(.image) {
 	text-decoration: none;
 	border-color: #5b011d;
 }
+
+
 
 /* Wikipedia external link style */
 .entry-content a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]), 
@@ -1555,9 +1555,8 @@ body.search main > * {
     margin-right: 20px;
 }
 
-
 .owid-data ul {
-	margin: 0;
+	margin: 0 !important;
 }
 
 .owid-data li {
@@ -1990,9 +1989,8 @@ h1 {
 
 h2 {
 	font-size: 1.8rem;
-	padding-top: 15px;
-	margin-top:50px;
-	margin-bottom: 60px;
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
 	text-align: center;
 }
 
@@ -2010,7 +2008,25 @@ img {
 
 body.page h1.entry-title {
 	text-align: center;
-	font-size: 3.2rem;
+	font-size: 3rem;
+	margin: 0;
+}
+
+body.page .authors-byline {
+	margin-top: 0.5rem;
+	text-align: center;
+}
+
+body.page .authors-byline a {
+	color: inherit;
+}
+
+body.page .authors-byline a:hover {
+	color: #c0023e;
+}
+
+body.page header.entry-header {
+	margin-bottom: 1.2rem;
 }
 
 article.post {
@@ -2019,22 +2035,14 @@ article.post {
 	padding: 1.5rem;	
 }
 
-.entry-header .post-byline {
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 40px;
-    background: lightgrey;    
-    font-size: 16px;
-}
-
 .entry-content h3 {
-	margin-top: 60px;
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
 }
 
 .entry-content h6 {
-	margin-top: 60px;
+	margin-top: 40px;
+	margin-bottom: 5px;
 }
 
 h5 {	
@@ -2062,6 +2070,7 @@ h5 {
 	border-bottom: 1px;
 	border-bottom-style: solid;
 	margin: 40px 24%;
+	margin-bottom: 0;
 	position: relative;
 	top: -30px;
 }
@@ -2100,9 +2109,20 @@ iframe {
 	border: none;
 }
 
+/* HACK (Mispy): Solve an issue with inconsistent WP markup.
+   Sometimes iframes are inside the same <p> element as their preceding text,
+   sometimes not. */
+iframe:not(:first-child) {
+	margin-top: 29px;
+}
+
 @media only screen and (max-width: 980px) {
 	article.post, article.page {
 		padding: 1rem;	
+	}
+
+	.deep-link {
+		display: none;
 	}
 }
 
@@ -2117,7 +2137,7 @@ iframe {
 }
 
 nav.entry-toc {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 nav.entry-toc h3 {
@@ -2127,7 +2147,7 @@ nav.entry-toc h3 {
 nav.entry-toc li {
 	margin-left: 20px;
 	color: #333;
-	margin-top: 10px;
+	margin-top: 6px;
 }
 
 nav.entry-toc li > a {
@@ -2143,25 +2163,40 @@ nav.entry-toc li.subsection {
 	margin-left: 40px;
 }
 
-@media only screen and (min-width: 1024px) {
+.citation-guideline {
+	margin-top: 30px;
+	border-top: 1px solid #ccc;
+	padding-top: 30px;
+	text-align: center;	
+	max-width: 900px;
+	margin: auto;
+	font-size: 18px;
+}
+
+article.page {
+	margin: auto;
+}
+
+@media only screen and (min-width: 980px) {
 	.owid-entry article.page {
 		float: left;
-		width: 70%;
+		width: 75%;
 		border-right: 1px solid #eee;
 		padding: 1.5rem;
+		padding-bottom: 50px;
 	}
 
-	nav.entry-toc {
+	.owid-entry .entry-sidebar {
 		float: right;
-		width: 30%;
+		width: 25%;
 		padding: 20px;		
-		max-height: 90vh;
+		max-height: 100vh;
 		overflow-y: auto;		
 		padding-top: 1.5rem;
 	}
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 980px) {
 	nav.entry-toc {
 		display: none;
 	}
