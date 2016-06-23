@@ -139,7 +139,7 @@
 			$category.addClass("selected");
 
 			$("body").on('mousemove.entries', function(ev) {
-				if (!$(ev.target).closest("#entries-nav, #category-nav").length && canHoverMenu) {
+				if (!$(ev.target).closest("header.site-header").length) {
 					$("body").off('mousemove.entries');
 					showDefaultState();
 				}
@@ -162,16 +162,16 @@
 
 
 		function onResize() {
-			// Use a hover menu if the screen is wide enough to have all the categories on one line
-			// Otherwise, we should use a click menu
+			// MISPY: Currently hover menu is disabled because it is too easy to cross over
+			// the categories when trying to get to the subcategories with the mouse
 			canHoverMenu = $("#category-nav").height() < 50;
 
 			$("#category-nav li.category > a").off('mouseover');
 			$("#category-nav li.category > a").off('click');
 
-			if (canHoverMenu)
-				$("#category-nav li.category > a").on('mouseover', onCategoryActivate);
-			else
+			//if (canHoverMenu)
+			//	$("#category-nav li.category > a").on('mouseover', onCategoryActivate);
+			//else
 				$("#category-nav li.category > a").on('click', onCategoryActivate);
 
 			$("#topics-dropdown .category > a").off('click');

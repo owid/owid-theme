@@ -1250,7 +1250,7 @@ body.search main > * {
 }
 
 .entry-content p a[href*="ourworldindata.org"]:not(.image):hover,
-.entry-content p a[href^="/"]:not(.image) {
+.entry-content p a[href^="/"]:not(.image):hover {
 	text-decoration: none;
 	border-color: #5b011d;
 }
@@ -2081,6 +2081,10 @@ h5 {
     font-weight: normal !important;
     font-size: 17px !important;
     font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif !important;
+}
+
+.entry-content ul ul {
+	margin-bottom: 0;
 }
 
 .entry-content ol > li {
