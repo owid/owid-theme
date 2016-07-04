@@ -203,6 +203,7 @@
 
 	EntriesHeaderMenu();
 	OWIDScrollNav();
+
 	$(window).on('resize.toc', OWIDScrollNav);
 	$(window).on('hashchange', function() {
 		console.log("hi");	
@@ -251,6 +252,10 @@
 			}
 		});
 	};
+
+	$(".citation-note").on('click', function() {
+		$(".citation-guideline").toggle();
+	});
 
 	$(window).on("resize", resizeIframes);
 	window.onmessage = function(msg) { 

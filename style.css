@@ -2167,14 +2167,30 @@ nav.entry-toc li.subsection {
 	margin-left: 40px;
 }
 
+body.page .authors-byline .citation-note {
+	opacity: .9;
+	color: #0645ad;
+	cursor: pointer;	
+  	user-select: none;           
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* IE/Edge */
+	-webkit-touch-callout: none; /* iOS Safari */
+}
+
+body.page .authors-byline .citation-note:hover {
+	color: #0645ad;
+}
+
 .citation-guideline {
-	margin-top: 30px;
-	border-top: 1px solid #ccc;
-	padding-top: 30px;
+	display: none;
 	text-align: center;	
 	max-width: 900px;
 	margin: auto;
+	border: 1px solid #ccc;
+	padding: 1em;
 	font-size: 18px;
+	margin-top: 1.2rem;
 }
 
 article.page {
