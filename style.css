@@ -2035,6 +2035,12 @@ article.post {
 	padding: 1.5rem;	
 }
 
+article.page {
+	max-width: 1024px;
+	margin: auto;
+	padding: 1.5rem;
+}
+
 .entry-content h3 {
 	margin-top: 1.5em;
 	margin-bottom: 0.5em;

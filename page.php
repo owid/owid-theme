@@ -13,7 +13,7 @@
 
 get_header(); ?>
 
-<?php $hasSidebar = !is_page('data'); ?>
+<?php $hasSidebar = !is_page('data') && !is_page('support'); ?>
 
 <?php while (have_posts()) : the_post(); ?>
 	<div class="<?php if ($hasSidebar) { echo('owid-entry'); } ?> clearfix">
@@ -24,12 +24,10 @@ get_header(); ?>
 		</div>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<header class="entry-header">
-				<?php
-				?>
-
 				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-				<div class='authors-byline'><a href="/about/#the-team"><?php
-					if (!is_page('about') && !is_page('data') &&  !is_page('owid-grapher') && !is_page('support') && is_page()) {
+				<?php if (!is_page('about') && !is_page('data') && !is_page('owid-grapher') && !is_page('support') && is_page()) : ?>
+
+					<div class='authors-byline'><a href="/about/#the-team"><?php
 					    $authors = coauthors(null, null, null, null, false);
 
 					    if (strpos($authors, "Max Roser") === false) {
@@ -37,8 +35,26 @@ get_header(); ?>
 					    }
 
 					    echo $authors;
-					}
-				?></a></div>
+
+					    echo ' <a class="citation-note"><sup>[cite]</sup></a>';
+					?></a></div>
+
+
+					<div class="citation-guideline">
+					<?php
+					    $authors = coauthors(null, null, null, null, false);
+
+					    if (strpos($authors, "Max Roser") === false) {
+					      $authors = $authors . " and Max Roser";
+					    }
+
+					    $posttitle = 'OWID presents work from many different people and organizations. When citing this entry, please also cite the original data source. This entry can be cited as:<br><br>'.$authors.' ('.get_the_modified_date('Y').') – &lsquo;'.get_the_title($ID).'&rsquo;. <em>Published online at OurWorldInData.org.</em> Retrieved from: '.get_permalink().' [Online Resource]';
+
+					    echo $posttitle;
+					?>
+
+					</div>
+				<?php endif ?>				
 			</header><!-- .entry-header -->
 
 			<div class="entry-content">
@@ -48,24 +64,6 @@ get_header(); ?>
 			<footer class="entry-footer">
 				<h2 id="endnotes" style="visibility: hidden; margin: 0; padding: 0; height: 0;">Endnotes</h2>
 				<?php do_action('side_matter_list_notes'); ?>
-
-				<?php if (!is_page('about') && !is_page('data') && !is_page('owid-grapher') && !is_page('support') && is_page()) : ?>
-					<h2 id="citation-guidelines" style="visibility: hidden; margin: 0; padding: 0; height: 0;">Citation guidelines</h2>
-					<div class="citation-guideline">
-					<?php
-					    $authors = coauthors(null, null, null, null, false);
-
-					    if (strpos($authors, "Max Roser") === false) {
-					      $authors = $authors . " and Max Roser";
-					    }
-
-					    $posttitle = 'Please cite the original source – including the original data source – and this entry on Our World in Data.<br>This entry can be cited as '.$authors.' ('.get_the_modified_date('Y').') – &lsquo;'.get_the_title($ID).'&rsquo;. <em>Published online at OurWorldInData.org.</em> Retrieved from: '.get_permalink().' [Online Resource]';
-
-					    echo $posttitle;
-					?>
-
-					</div>
-				<?php endif ?>
 			</footer><!-- .entry-footer -->
 		</article><!-- #post-## -->
 	</div>
