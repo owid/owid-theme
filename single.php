@@ -22,7 +22,7 @@ get_header(); ?>
 			</div><!-- .entry-content -->
 
 			<footer class="entry-footer">
-				<h2 id="endnotes" style="visibility: hidden; margin: 0; padding: 0; height: 0;">Endnotes</h2>
+				<h2 id="footnotes">Footnotes</h2>
 				<?php do_action('side_matter_list_notes'); ?>
 			</footer><!-- .entry-footer -->
 		</article><!-- #post-## -->

@@ -14,7 +14,7 @@
 */
 
 /*
-HTML5 Reset
+HTML5 p
 ---------------------------------------------------------------------------------------------------- */
 
 /* Baseline Normalize
@@ -285,6 +285,15 @@ th {
 /* Footnotes
 --------------------------------------------- */
 
+h2#footnotes {
+	border-top: 3px solid #ccc;
+	padding-top: 15px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: left;
+	font-size: 20px;
+}
+
 /* (Zahl im Text) Selects superscript tags enclosing in-text reference numerals. Target a specific element by appending `sup.side-matter-sup-` with its number, e.g. `sup.side-matter-sup-3`. */
 sup.side-matter-sup {
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -301,15 +310,12 @@ ol.side-matter-list {
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 14px !important;
 	font-weight: bold;
-	margin-top: 30px;
-	border-top: 1px solid #ccc;
-	padding-top: 30px;
+	padding-left: 1rem;
 }
 
 ol.side-matter-list > li {
 	margin-left: 20px;	
 	padding-left: 5px;
-	margin-bottom: 20.16px;
 	list-style-type: decimal;
 	list-style-position: outside;
 }
