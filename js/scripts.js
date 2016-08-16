@@ -261,4 +261,29 @@
 	window.onmessage = function(msg) { 
 		resizeIframes();
 	};
+
+	$("a.side-matter-ref sup").removeAttr("title");
+
+	$("a.side-matter-ref sup").tooltip({
+		html: true,
+		delay: { show: 100, hide: 500 },
+		placement: 'auto right',
+		trigger: 'manual',
+		title: function() {
+			var selector = $(this).closest('a.side-matter-ref').attr('href');
+			return $(selector).find('.side-matter-text').html();
+		}
+	});
+
+	$("a.side-matter-ref sup").on("mouseover", function() {
+		var $sup = $(this);
+		$sup.tooltip('show');
+
+		$("body").on("mouseover.tooltip", function(evt) {
+			if (!$(evt.target).closest(".tooltip").length && !$(evt.target).closest(".side-matter-ref").length) {
+				$sup.tooltip('hide');
+				$('body').off('mouseover.tooltip');
+			}
+		});
+	});
 })(jQuery);

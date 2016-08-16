@@ -9,6 +9,8 @@ $template_dir = get_stylesheet_directory_uri();
 wp_enqueue_style('fontello-custom', $template_dir . '/css/fontello.css');
 wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
 wp_enqueue_script("scrollNav", $template_dir . "/js/jquery.scrollNav.js", null, null, true);
+// Bootstrap tooltip, for footnotes on hover
+wp_enqueue_script("tooltip", $template_dir . "/js/tooltip.js", null, null, true);
 wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, '?v=' . filemtime(get_stylesheet_directory() . '/js/scripts.js'), true);
 
 // Increase the number of search results on the search page
@@ -24,13 +26,13 @@ add_action('pre_get_posts', 'set_posts_per_page');
 
 /* HACK (Mispy): Just redirect back to the front page if it's an empty search. */
 function search_redirect($query) {
-		if (!is_admin() && $query->is_main_query()) {
-			$searchQuery = get_search_query();
+	if (!is_admin() && $query->is_main_query()) {
+		$searchQuery = get_search_query();
 		if ($query->is_search && empty($searchQuery)) {
     		wp_redirect(home_url()); 
     		exit;
 		}
-		}
+	}
 }
 add_action('pre_get_posts', 'search_redirect');	
 
