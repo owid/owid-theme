@@ -5,11 +5,11 @@ RSYNC="rsync -havz --no-perms --progress --delete --delete-excluded --exclude-fr
 if [ "$1" == "test" ]; then
   NAME="owid-theme"
   ROOT="/var/www"
-  HOST="root@terra"
+  HOST="owid@terra"
 elif [ "$1" == "live" ]; then
   NAME="owid-theme"
-  ROOT="/home/explain3"
-  HOST="explain3@whm.ourworldindata.org"
+  ROOT="/home/owid"
+  HOST="owid@terra"
 else
   echo "Please select either live or test."
   exit 1
@@ -27,4 +27,3 @@ ssh -t $HOST 'bash -e -s' <<EOF
   mv $LIVE_TARGET $OLD_REPO
   mv $TMP_NEW $LIVE_TARGET
 EOF
-
