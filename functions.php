@@ -13,6 +13,8 @@ wp_enqueue_script("scrollNav", $template_dir . "/js/jquery.scrollNav.js", null, 
 wp_enqueue_script("tooltip", $template_dir . "/js/tooltip.js", null, null, true);
 wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, '?v=' . filemtime(get_stylesheet_directory() . '/js/scripts.js'), true);
 
+add_theme_support('post-thumbnails');
+
 // Increase the number of search results on the search page
 $search_results_per_page = 20;
 function set_posts_per_page($query) {
