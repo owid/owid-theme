@@ -19,11 +19,14 @@
 	?></title>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 	<?php wp_head(); ?>
+
+
 	<link rel="stylesheet" type="text/css" media="all" href="<?php 
 		echo get_stylesheet_uri();
     	echo '?v='.filemtime(get_stylesheet_directory() . '/style.css'); 
@@ -63,7 +66,7 @@ function owid_header() {
 		<ul class="desktop right">
 			<li>
 				<form id="search-nav" action="/">
-					<input type="search" name="s" placeholder="Search..."></input>
+					<input type="search" name="s" placeholder="Search...">
 					<button type="submit">
 						<i class="fa fa-search"></i>
 					</button>
@@ -80,7 +83,7 @@ function owid_header() {
 			</li>
 		</ul>
 
-		<h1 id="owid-title" itemprop="headline">
+		<h1 id="owid-title">
 			<a href="/"><i class="fa fa-globe"></i><span>$title</span></a>
 		</h1>
 
@@ -95,7 +98,7 @@ function owid_header() {
 
 	<div id="topics-dropdown" class="mobile">
 		<ul>
-			<header><h2>Entries</h2></header>
+			<li class="header"><h2>Entries</h2></li>
 EOT;
 
 	foreach ($pages as $page) {
@@ -132,7 +135,7 @@ EOT;
 
 	<div id="search-dropdown" class="mobile">
 		<form action="/">
-			<input type="search" name="s" placeholder="Search..."></input>
+			<input type="search" name="s" placeholder="Search...">
 			<button type="submit">
 				<i class="fa fa-search"></i>
 			</button>
@@ -173,7 +176,7 @@ EOT;
 				$category = $shortCategories[$category];
 			$html .= "<li class='category' title='" . $category . "'>"
 				  	 . "<a><span>" . $category . "</span></a>"		 	
-					 . "<ul class='entries'><hr>";
+					 . "<ul class='entries'><li><hr></li>";
 		} else {
 			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
@@ -201,4 +204,4 @@ owid_header();
 ?>
 	</header>
 
-<main id="main" class="site-main" role="main">
+<main id="main" class="site-main">

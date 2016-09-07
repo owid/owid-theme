@@ -4,7 +4,7 @@
  */
 ?> 
 	</main>
-	<footer id="colophon" class="site-footer" role="contentinfo">
+	<footer id="colophon" class="site-footer">
 		<div class="wrap">
 			<div class="clearfix">
 				<div class="column">

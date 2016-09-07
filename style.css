@@ -478,7 +478,7 @@ header.site-header {
 		font-weight: bold;
 		}
 
-		#entries-nav li::after {
+		#entries-nav li:not(:first-child)::after {
 	    content: " · ";
 	    font-weight: bold;   		
 		}
@@ -582,12 +582,12 @@ header.site-header {
 		padding: 8px 15px 8px 20px;	
 	}
 
-	#topics-dropdown.mobile header {
+	#topics-dropdown.mobile li.header {
 		background: #cc181e;
 		text-align: center;
 	}
 
-	#topics-dropdown.mobile header h2 {
+	#topics-dropdown.mobile li.header h2 {
 		margin: 0;
 		color: white;
 		font-size: 20px;	

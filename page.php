@@ -36,8 +36,8 @@ get_header(); ?>
 
 					    echo $authors;
 
-					    echo ' <a class="citation-note"><sup>[cite]</sup></a>';
-					?></a></div>
+					    echo ' </a><a class="citation-note"><sup>[cite]</sup></a>';
+					?></div>
 
 
 					<div class="citation-guideline">
