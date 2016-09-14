@@ -36,6 +36,12 @@ function search_redirect($query) {
 }
 add_action('pre_get_posts', 'search_redirect');	
 
+/* MISPY: Send cache control headers for CloudFlare (works in combination with Sunny plugin to expire cache) */
+add_action('send_headers', 'add_header_cf');
+function add_header_cf() {
+	header('Cache-Control: s-maxage=14400, max-age=0, public');
+}
+
 /* MISPY: Output a nice listing of all the data entries for /data. */
 function owid_pages() {
 	$pages = get_pages([
