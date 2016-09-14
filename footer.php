@@ -73,9 +73,29 @@
 
 	<?php wp_footer(); ?>
 
+	<div id="wpadminbar" style="display: none;">
+	    <div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar" tabindex="0">
+	        <ul id="wp-admin-bar-root-default" class="ab-top-menu">
+	            <li id="wp-admin-bar-site-name" class="menupop">
+	                <a class="ab-item" aria-haspopup="true" href="/wp-admin/">Our World In Data</a>
+	            </li>
+	            <?php if (is_page()): ?>
+		            <li id="wp-admin-bar-edit"><a class="ab-item" href="/wp-admin/post.php?post=<?php echo(the_ID()) ?>&#038;action=edit">Edit Page</a></li>
+		        <?php elseif (is_single()): ?>
+		            <li id="wp-admin-bar-edit"><a class="ab-item" href="/wp-admin/post.php?post=<?php echo(the_ID()) ?>&#038;action=edit">Edit Post</a></li>
+		        <?php endif ?>
+	        </ul>
+	    </div>
+	</div>
+
 	<script>
 		$("body").css('visibility', 'inherit');
 		$("body").hide().fadeIn();
+
+		if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1) {
+			$('#wpadminbar').show();
+			$('html').css('margin-top', '32px');
+		}
 	</script>
 </body>
 </html>

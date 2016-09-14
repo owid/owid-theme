@@ -91,11 +91,11 @@ EOT;
     $html .= "<li><h4>Visual History of...</h4>"
           .  "<div class='link-container'>";
 
-    $html .= "<a href='/VisualHistoryOf/Violence.html'>War & Violence</a>"
-          .  "<a href='/VisualHistoryOf/Poverty.html'>World Poverty</a>"
-          .  "<a href='/VisualHistoryOf/Health.html'>Global Health</a>"
-          .  "<a href='/VisualHistoryOf/Hunger.html'>World Hunger & Food Provision</a>"
-          .  "<a href='/VisualHistoryOf/AfricaInData.html'>Africa</a>";
+    $html .= "<a href='/slides/war-and-violence'>War & Violence</a>"
+          .  "<a href='/slides/world-poverty'>World Poverty</a>"
+          .  "<a href='/slides/global-health'>Global Health</a>"
+          .  "<a href='/slides/hunger-and-food-provision'>World Hunger & Food Provision</a>"
+          .  "<a href='/slides/africa-in-data'>Africa</a>";
 
     $html .= "</div></li></ul></div>";
 

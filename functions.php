@@ -1,8 +1,6 @@
 <?php
 //* Set Localization (do not remove)
 load_child_theme_textdomain('owid', apply_filters('child_theme_textdomain', get_stylesheet_directory() . '/languages', 'owid'));
-//* Include Section Image CSS
-include_once(get_stylesheet_directory() . '/lib/output.php');
 
 //* Enqueue scripts and styles
 $template_dir = get_stylesheet_directory_uri();
