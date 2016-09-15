@@ -34,7 +34,7 @@ get_header(); ?>
 					      $authors = $authors . " and Max Roser";
 					    }
 
-					    echo $authors;
+					    echo 'by ' . $authors;
 
 					    echo ' </a><a class="citation-note"><sup>[cite]</sup></a>';
 					?></div>

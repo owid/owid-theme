@@ -3,8 +3,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RSYNC="rsync -havz --no-perms --progress --delete --delete-excluded --exclude-from=$DIR/.rsync-ignore"
 
 if [ "$1" == "test" ]; then
-  NAME="owid-theme"
-  ROOT="/var/www"
+  NAME="test-owid-theme"
+  ROOT="/home/owid"
   HOST="owid@terra"
 elif [ "$1" == "live" ]; then
   NAME="owid-theme"

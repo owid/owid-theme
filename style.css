@@ -13,9 +13,10 @@
 	License URI: https://opensource.org/licenses/MIT
 */
 
-/*
-HTML5 p
----------------------------------------------------------------------------------------------------- */
+/* Google Fonts
+--------------------------------------------- */
+
+@import 'https://fonts.googleapis.com/css?family=Merriweather';
 
 /* Baseline Normalize
 	normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css
@@ -1971,6 +1972,8 @@ body.page h1.entry-title {
 body.page .authors-byline {
 	margin-top: 0.5rem;
 	text-align: center;
+	font-family: Merriweather, serif;
+	font-style: italic;
 }
 
 body.page .authors-byline a {
