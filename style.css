@@ -2101,7 +2101,7 @@ iframe:not(:first-child) {
 
 .owid-entry {
 	width: 100%;
-	max-width: 1366px;
+	max-width: 1300px;
 	margin: auto;
 }
 
