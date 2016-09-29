@@ -2200,6 +2200,10 @@ h2#footnotes {
 	font-size: 20px;
 }
 
+h2#footnotes:only-child {
+	display: none;
+}
+
 /* Taken from Bootstrap tooltip css */
 .tooltip {
   position: absolute;
