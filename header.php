@@ -55,12 +55,9 @@
 	<header class="site-header">
 <?php 
 function owid_header() {
-	$title = "Our World in Data";
+	$title = "Our World In Data";
 
-	$pages = get_pages([
-		'child_of'    => 621,
-		'sort_column' => 'menu_order, post_title',
-	]);
+	$categories = get_entries_by_category();
 
 	$html = <<<EOT
 	<nav id="owid-topbar">
@@ -102,30 +99,25 @@ function owid_header() {
 			<li class="header"><h2>Entries</h2></li>
 EOT;
 
-	foreach ($pages as $page) {
-		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
-		if (preg_match('/^\d+/', $page->post_title)) {
-			if ($category)
-				$html .= "</ul></div></li>"; // Close off previous category
+	foreach ($categories as $category) {
+		$html .= "<li class='category'>"
+			  	 . "<a><span>" . $category->name . "</span></a>"		 	
+				 . "<div class='subcategory-menu'>"
+				 	. "<div class='submenu-title'>" . $category->name . "</div>"
+				 	. "<ul>";
 
-			$category = preg_replace('/^\d+/', '', $page->post_title);
-			$html .= "<li class='category'>"
-				  	 . "<a><span>" . $category . "</span></a>"		 	
-					 . "<div class='subcategory-menu'>"
-					 	. "<div class='submenu-title'>" . $category . "</div>"
-					 	. "<ul>";
-		} else {
+		foreach ($category->pages as $page) {
 			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
 				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
 			} else {
 				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			}
+			}				
 		}
-	}
 
-	$html .= "</ul></div></li>"; // Close off final category
+		$html .= "</ul></div></li>"; // Close off previous category
+	}
 
 	$html .= <<<EOT
 			<li class='end-link'><a href='/about'>About</a></li>
@@ -146,52 +138,23 @@ EOT;
 	<div id="category-nav" class="desktop"><ul>
 EOT;
 
-	$shortCategories = [
-		"Population Growth & Vital Statistics" => "Population",
-		"Health" => "Health",
-		"Food & Agriculture" => "Food",
-		"Resources & Energy" => "Energy",
-		"Environmental Change" => "Environment",
-		"Technology & Infrastructure" => "Technology",
-		"Growth & Distribution of Prosperity" => "Growth & Inequality",
-		"Economic Development, Work & Standard of Living" => "Work & Life",
-		"The Public Sector & Economic System" => "Public Sector",
-		"Global Interconnections" => "Global Connections",
-		"War & Peace" => "War & Peace",
-		"Political Regimes" => "Politics",
-		"Violence & Rights" => "Violence & Rights",
-		"Education & Knowledge" => "Education",
-		"Media & Communication" => "Media",
-		"Culture, Values & Society" => "Culture"
-	];
-
-	$category = null;
-	foreach ($pages as $page) {
-		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
-		if (preg_match('/^\d+/', $page->post_title)) {
-			if ($category)
-				$html .= "</ul></li>"; // Close off previous category
-
-			$category = trim(preg_replace('/^\d+/', '', $page->post_title));
-			if (isset($shortCategories[$category]))
-				$category = $shortCategories[$category];
-			$html .= "<li class='category' title='" . $category . "'>"
-				  	 . "<a><span>" . $category . "</span></a>"		 	
+	foreach ($categories as $category) {
+			$html .= "<li class='category' title='" . $category->name . "'>"
+				  	 . "<a><span>" . $category->name . "</span></a>"		 	
 					 . "<ul class='entries'><li><hr></li>";
-		} else {
+
+		foreach ($category->pages as $page) {
 			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
 				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
 			} else {
 				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			}
+			}				
 		}
+
+		$html .= "</ul></li>"; // Close off previous category
 	}
-
-	$html .= "</ul></li>";
-
-	// Now for mobile stuff
 
 	$html .= <<<EOT
 	</ul></div>

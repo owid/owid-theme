@@ -48,7 +48,7 @@ get_header(); ?>
 					      $authors = $authors . " and Max Roser";
 					    }
 
-					    $posttitle = 'OWID presents work from many different people and organizations. When citing this entry, please also cite the original data source. This entry can be cited as:<br><br>'.$authors.' ('.get_the_modified_date('Y').') – &lsquo;'.get_the_title($ID).'&rsquo;. <em>Published online at OurWorldInData.org.</em> Retrieved from: '.get_permalink().' [Online Resource]';
+					    $posttitle = 'OWID presents work from many different people and organizations. When citing this entry, please also cite the original data source. This entry can be cited as:<br><br>'.$authors.' ('.get_the_modified_date('Y').') – &lsquo;'.get_the_title().'&rsquo;. <em>Published online at OurWorldInData.org.</em> Retrieved from: '.get_permalink().' [Online Resource]';
 
 					    echo $posttitle;
 					?>

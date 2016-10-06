@@ -58,20 +58,14 @@ EOT;
 		<ul>
 EOT;
 
-	$category = null;
+	$categories = get_entries_by_category();
+	foreach ($categories as $category) {
+		$html .= "<li>"
+			  .	     "<h4>" . $category->name . "</h4>"
+			  .		 "<div class='link-container'>";
 
-	foreach ($pages as $page) {
-		// HACK (Mispy): Identify top-level categories by whether they start with a number.
-		if (preg_match('/^\d+/', $page->post_title)) {
-			if ($category)
-				$html .= "</div></li>";
-
-			$category = preg_replace('/^\d+/', '', $page->post_title);
-			$html .= "<li class='category'>"
-				  .	     "<h4><span>" . $category . "</span></h4>"
-				  .		 "<div class='link-container'>";
-		} else {
-			// NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin 
+		foreach ($category->pages as $page) {
+			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
 				$html .= "<a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
@@ -79,6 +73,8 @@ EOT;
 				$html .= "<a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
 			}
 		}
+
+		$html .= "</div></li>";
 	}
 
 	$html .= "</ul></div>";

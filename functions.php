@@ -43,31 +43,46 @@ function add_header_cf() {
 	header('Cache-Control: public, max-age=7200, s-maxage=604800');
 }
 
-/* MISPY: Output a nice listing of all the data entries for /data. */
-function owid_pages() {
-	$pages = get_pages([
-		'child_of'    => 621,
-		'sort_column' => 'menu_order, post_title',
+function get_entries_by_category() {
+	$parent_category = get_categories([
+		'name' => 'Entries'
+	])[0];
+
+	$categories = get_categories([
+		'child_of' => $parent_category->cat_ID
 	]);
 
+	$entries_by_category = [];
 
+	foreach ($categories as $category) {
+		$pages = get_posts([
+			'posts_per_page' => 1000,
+			'post_type' => 'page',
+			'category' => $category->cat_ID,
+			'orderby' => 'menu_order',
+			'order' => 'ASC'				
+		]);
+
+		$entries_by_category[] = (object)[ 'name' => $category->name, 'pages' => $pages ];
+	}
+
+	return $entries_by_category;
+}
+
+/* MISPY: Output a nice listing of all the data entries for /data. */
+function owid_pages() {
 	$html = "<div class='owid-data'>";
 	$html .= "<div class='separator'><h1><span>Data Entries</span></h1><hr><p>Ongoing collections of research and data by topic. Entries marked with <i class='fa fa-star'></i> are the most complete.</p></div>";
 
 	$html .= '<ul>';
-	$category = null;
 
-	foreach ($pages as $page) {
-		// HACK (Mispy): Identify top-level categories by whether they start with a number. */
-		if (preg_match('/^\d+/', $page->post_title)) {
-			if ($category)
-				$html .= "</div></li>";
+	$categories = get_entries_by_category();
+	foreach ($categories as $category) {
+		$html .= "<li>"
+			  .	     "<h4>" . $category->name . "</h4>"
+			  .		 "<div class='link-container'>";
 
-			$category = preg_replace('/^\d+/', '', $page->post_title);
-			$html .= "<li>"
-				  .	     "<h4>" . $category . "</h4>"
-				  .		 "<div class='link-container'>";
-		} else {
+		foreach ($category->pages as $page) {
 			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
 			$isStarred = get_post_meta($page->ID, '_ino_star', true);
 			if ($isStarred) {
@@ -75,10 +90,10 @@ function owid_pages() {
 			} else {
 				$html .= "<a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a>";
 			}
-
 		}
-	}
 
+		$html .= "</div></li>";
+	}
 	$html .= "</ul></div>";
 
 	echo($html);
