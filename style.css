@@ -2362,3 +2362,11 @@ ol.side-matter-list > li li {
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: normal;
 }
+
+/* Hide feedback button on mobile */
+
+@media only screen and (max-width: 920px) {
+	#un-button {
+		display: none !important;
+	}
+}
