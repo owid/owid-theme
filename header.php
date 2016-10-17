@@ -63,8 +63,9 @@ function owid_header() {
 	<nav id="owid-topbar">
 		<ul class="desktop right">
 			<li>
-				<form id="search-nav" action="/">
-					<input type="search" name="s" placeholder="Search...">
+				<form id="search-nav" action="https://google.com/search" method="GET">
+					<input type="hidden" name="sitesearch" value="ourworldindata.org">
+					<input type="search" name="q" placeholder="Search...">
 					<button type="submit">
 						<i class="fa fa-search"></i>
 					</button>
