@@ -36,6 +36,7 @@ get_header(); ?>
 			]) ?>  
 
 		<?php else : ?>
+			<?php status_header(404) ?>
 			<h1 class="page-title no-results">No results found for <?php echo esc_html(get_search_query()) ?></h1>
 		<?php endif; ?>
 
