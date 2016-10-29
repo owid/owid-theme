@@ -2034,10 +2034,10 @@ h5 {
 	padding-bottom: 8px;
 	border-bottom: 1px;
 	border-bottom-style: solid;
-	margin: 40px 24%;
 	margin-bottom: 0;
 	position: relative;
-	top: -30px;
+	top: -40px;
+	padding-top: 20px;
 }
 
 .entry-content ol, .entry-content ul {
