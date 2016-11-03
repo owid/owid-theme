@@ -295,7 +295,7 @@
 
     		if (src.indexOf('grapher') != -1) {
 	    		$iframe.addClass('no-print');
-	    		$iframe.after("<img class='aligncenter size-large print-only' src='" + imgUrl + "'>");    			
+	    		$iframe.after("<img class='aligncenter size-large print-only' style='padding: 5px;' src='" + imgUrl + "'>");    			
     		}
     	});
 
