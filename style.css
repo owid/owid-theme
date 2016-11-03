@@ -2370,3 +2370,17 @@ ol.side-matter-list > li li {
 		display: none !important;
 	}
 }
+
+/* Printing
+--------------------------------------------- */
+
+@media print {
+	header.site-header,
+	footer.site-footer,
+	#un-button,
+	.citation-note,
+	.entry-sidebar,
+	address {
+		display: none !important;
+	}
+}
