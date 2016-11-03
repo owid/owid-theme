@@ -2374,13 +2374,24 @@ ol.side-matter-list > li li {
 /* Printing
 --------------------------------------------- */
 
+.print-only {
+	display: none !important;
+}
+
 @media print {
 	header.site-header,
 	footer.site-footer,
 	#un-button,
 	.citation-note,
 	.entry-sidebar,
-	address {
+	address,
+	#wpadminbar,
+	.no-print {
 		display: none !important;
+	}
+
+
+	.print-only {
+		display: block !important;
 	}
 }

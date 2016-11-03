@@ -286,4 +286,21 @@
 			}
 		});
 	});
+
+    var beforePrint = function() {
+    	$("iframe").each(function() {
+    		var $iframe = $(this),
+    			src = $iframe.attr('src') || $iframe.attr('data-src'),
+    			imgUrl = src.replace(/$|(?=\?)/, '.png');
+
+    		if (src.indexOf('grapher') != -1) {
+	    		$iframe.addClass('no-print');
+	    		$iframe.after("<img class='aligncenter size-large print-only' src='" + imgUrl + "'>");    			
+    		}
+    	});
+
+    	printReady = true;
+    };    
+
+    beforePrint();
 })(jQuery);
