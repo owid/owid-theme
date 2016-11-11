@@ -294,15 +294,9 @@ table.tablepress {
     font-size: 14px;
 }
 
-table.tablepress:not(.tablepress-responsive-all) {
-    background-color: #f9f9f9;
-    border: 1px solid #aaa;
-    border-collapse: collapse;	
-}
-
 table.tablepress th {
-    background-color: #f2f2f2;
     text-align: center;	
+	background: none;
 }
 
 table.tablepress th,
@@ -313,7 +307,22 @@ table.tablepress td {
 table.tablepress:not(.tablepress-responsive-all) th,
 table.tablepress:not(.tablepress-responsive-all) td {
     text-align: center;
-    border: 1px solid #aaa;
+}
+
+table.tablepress:not(.tablepress-responsive-all) th {
+	border-bottom: 1px solid #333;
+}
+
+table.tablepress:not(.tablepress-responsive-all) tr:last-child td {
+	border-bottom: 1px solid #333;	
+}
+
+table.tablepress .even td {
+	background: #EBF2FA;
+}
+
+table.tablepress .odd td {
+	background: none;
 }
 
 table.tablepress-responsive-all th:first-child {
