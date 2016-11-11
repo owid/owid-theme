@@ -112,24 +112,16 @@ i {
 	font-style: italic;
 }
 
-blockquote {
-    border-left: 3px solid rgba(0,33,71,1);
-    padding: 1.2rem;
-    font-family: Helvetica, sans-serif;
-    background-color: transparent;
-    font-size: 1em;
-    font-style: normal;
-    font-weight: 100;
-    letter-spacing: normal;
-    line-height: 1.6;
-    margin: 1.2rem 0;
-    padding: .6rem 1.2rem;
-    text-transform: none;    
-    color: #333;
-}
 
-blockquote > p:last-child {
-	margin-bottom: 0;
+blockquote::before {
+    content: "\201C";
+    display: block;
+    font-size: 90px;
+    height: 0;
+    left: -40px;
+    position: relative;
+    top: -30px;
+    color: #666;
 }
 
 /* ----------------------------------------------------------- */	
