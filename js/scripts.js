@@ -299,7 +299,11 @@
     		}
     	});
 
-    	printReady = true;
+    	$("img").each(function() {
+    		var src = $(this).attr('data-src');
+    		if (src && src != $(this).attr('src'))
+    			$(this).attr('src', src);
+    	});
     };    
 
     beforePrint();

@@ -113,18 +113,23 @@ i {
 }
 
 blockquote {
-	color: #999;
-	margin: 40px;
+    border-left: 3px solid rgba(0,33,71,1);
+    padding: 1.2rem;
+    font-family: Helvetica, sans-serif;
+    background-color: transparent;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 100;
+    letter-spacing: normal;
+    line-height: 1.6;
+    margin: 1.2rem 0;
+    padding: .6rem 1.2rem;
+    text-transform: none;    
+    color: #333;
 }
 
-blockquote::before {
-	content: "\201C";
-	display: block;
-	font-size: 30px;
-	height: 0;
-	left: -20px;
-	position: relative;
-	top: -10px;
+blockquote > p:last-child {
+	margin-bottom: 0;
 }
 
 /* ----------------------------------------------------------- */	
@@ -2045,9 +2050,9 @@ h5 {
 .entry-content ol, .entry-content ul {
     margin-bottom: 30px;
     margin-left: 40px;
-    font-weight: normal !important;
-    font-size: 17px !important;
-    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif !important;
+    font-weight: normal;
+    font-size: 17px;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
 .entry-content ul ul {
@@ -2396,11 +2401,13 @@ ol.side-matter-list > li li {
 		display: block !important;
 	}
 
-	.entry-content p {
+	body, .entry-content p, .entry-content ol, .entry-content ul {
 		font: 12pt "Times New Roman", Times, serif;
 		line-height: 1.3;
 	}	
-
+	h6 {
+		font-size: 16pt;	
+	}
 	h2, h3, h4, h5, h6 {
 		page-break-after: avoid;
 	}
