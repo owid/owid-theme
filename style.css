@@ -288,6 +288,38 @@ th {
 	font-weight: 700;
 }
 
+table.tablepress {
+	margin: 1em 0;
+    color: #000;
+    font-size: 14px;
+}
+
+table.tablepress:not(.tablepress-responsive-all) {
+    background-color: #f9f9f9;
+    border: 1px solid #aaa;
+    border-collapse: collapse;	
+}
+
+table.tablepress th {
+    background-color: #f2f2f2;
+    text-align: center;	
+}
+
+table.tablepress th,
+table.tablepress td {
+    padding: 0.2em 0.4em;	
+}
+
+table.tablepress:not(.tablepress-responsive-all) th,
+table.tablepress:not(.tablepress-responsive-all) td {
+    text-align: center;
+    border: 1px solid #aaa;
+}
+
+table.tablepress-responsive-all th:first-child {
+	background: none;
+}
+
 /* Site Header
 --------------------------------------------- */
 
