@@ -89,12 +89,8 @@
 	</div>
 
 	<script>
-		$("body").css('visibility', 'inherit');
-		$("body").hide().fadeIn();
-
 		if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1) {
 			$('#wpadminbar').show();
-			$('html').css('margin-top', '32px');
 		}
 	</script>
 </body>

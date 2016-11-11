@@ -34,17 +34,6 @@
     <link rel="stylesheet" type="text/css" href="/wp-includes/css/admin-bar.min.css?ver=4.6.1">
     <link rel="stylesheet" type="text/css" href="/wp-includes/css/dashicons.min.css?ver=4.6.1">
 
-	<!-- Hide until JS rendering -->
-	<style>
-	    body { visibility: hidden; }
-	</style>
-
-	<noscript>
-	    <style>
-	          body { visibility: inherit; }
-	    </style>
-	</noscript>
-
 	<script>
 		window.$ = jQuery;
 	</script>
@@ -53,10 +42,40 @@
 <body <?php body_class(); ?>>
 	<header class="site-header">
 <?php 
+
+function category_menu($category) {	
+	$html = "";
+
+	$activePageName = get_query_var('pagename');
+
+	if ($category) {
+		foreach ($category->pages as $page) {
+			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
+			$isStarred = get_post_meta($page->ID, '_ino_star', true);
+			$isActive = $page->post_name == $activePageName;
+
+			$html .= '<li class="' . ($isActive ? 'active' : '') . '"><a class="' . ($isStarred ? 'starred' : '') . '" href="' . get_page_link($page->ID) . '">' . $page->post_title . '</a></li>';
+		}			
+	}
+
+	return $html;
+}
+
 function owid_header() {
 	$title = "Our World In Data";
 
 	$categories = get_entries_by_category();
+
+	$activePageName = get_query_var('pagename');
+	$activeCategory = null;
+	foreach ($categories as $category) {
+		foreach ($category->pages as $page) {
+			if ($page->post_name == $activePageName) {
+				$activeCategory = $category;
+				break;
+			}
+		}
+	}
 
 	$html = <<<EOT
 	<nav id="owid-topbar">
@@ -100,21 +119,13 @@ function owid_header() {
 EOT;
 
 	foreach ($categories as $category) {
-		$html .= "<li class='category'>"
+		$html .= "<li class='category" . ($category == $activeCategory ? " active" : "") . "'>"
 			  	 . "<a><span>" . $category->name . "</span></a>"		 	
 				 . "<div class='subcategory-menu'>"
 				 	. "<div class='submenu-title'>" . $category->name . "</div>"
 				 	. "<ul>";
 
-		foreach ($category->pages as $page) {
-			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
-			$isStarred = get_post_meta($page->ID, '_ino_star', true);
-			if ($isStarred) {
-				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			} else {
-				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			}				
-		}
+		$html .= category_menu($category);
 
 		$html .= "</ul></div></li>"; // Close off previous category
 	}
@@ -139,27 +150,21 @@ EOT;
 EOT;
 
 	foreach ($categories as $category) {
-			$html .= "<li class='category' title='" . $category->name . "'>"
+			$html .= "<li class='category" . ($category == $activeCategory ? " active" : "") . "' title='" . $category->name . "'>"
 				  	 . "<a><span>" . $category->name . "</span></a>"		 	
 					 . "<ul class='entries'><li><hr></li>";
 
-		foreach ($category->pages as $page) {
-			/* NOTE (Mispy): Starred metadata comes from the Admin Starred Posts plugin */
-			$isStarred = get_post_meta($page->ID, '_ino_star', true);
-			if ($isStarred) {
-				$html .= "<li><a class='starred' href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			} else {
-				$html .= "<li><a href='" . get_page_link($page->ID) . "'>" . $page->post_title . "</a></li>";
-			}				
-		}
+		$html .= category_menu($category);
 
 		$html .= "</ul></li>"; // Close off previous category
 	}
 
-	$html .= <<<EOT
-	</ul></div>
-	<div id="entries-nav" class="desktop"></div>
-EOT;
+	$html .= "</ul></div>";
+	$html .= '<div id="entries-nav" class="desktop">';
+	if ($activeCategory) {
+		$html .= '<ul class="entries"><li><hr></li>' . category_menu($activeCategory);
+	}
+	$html .= '</div>';
 
 	echo($html);
 }

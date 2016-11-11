@@ -393,7 +393,6 @@ header.site-header {
 	header.site-header, #entries-nav {
 		background: rgba(0,33,71,1) !important;
 		color: white !important;
-		border-bottom: 4px solid #FF4012;
 	}
 
 	header.site-header {
@@ -531,12 +530,9 @@ header.site-header {
 	}
 
 	#entries-nav {
-		position: absolute;
 		background: white;
 		left: 0;
 		width: 100%;
-		display: none;
-		padding-bottom: 10px;
 		/*box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.3);*/
 	}
 
@@ -776,6 +772,9 @@ header.site-header {
   }
 }
 
+#wpadminbar {
+	background: rgba(35,40,45,0.8) !important;
+}
 /* Site Footer
 --------------------------------------------- */
 

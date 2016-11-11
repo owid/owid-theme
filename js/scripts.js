@@ -48,7 +48,7 @@
 				navHeight = $sidebar.height(),
 				footerOffset = $("footer.site-footer").offset(),
 				isFixed = $sidebar.css('position') == 'fixed',
-				defaultTop = 10 + $("#wpadminbar").outerHeight();
+				defaultTop = 10;
 
 			// Fix the TOC once we scroll past the header
 			if (scrollTop > mainOffset.top && !isFixed) {		
@@ -67,7 +67,7 @@
 			headings.forEach(function($heading, i) {
 				// HACK (Mispy): The +5 is so being right on top of the heading after you
 				// click a link in the TOC still counts as being under it
-				if ($heading.offset().top <= scrollTop+5+$("#wpadminbar").outerHeight())
+				if ($heading.offset().top <= scrollTop+5)
 					lastHeadingIndex = i;
 			});
 
@@ -131,8 +131,18 @@
 			});
 		}
 
+		var firstTime = true;
 		function onCategoryActivate(ev) {
 			var $category = $(ev.target).closest("li.category");
+			if (firstTime) {
+				$("#entries-nav").css({
+					'position': 'absolute',
+					'padding-bottom': '10px',
+					'border-bottom': '4px solid #FF4012'
+				});
+				$(".site-main").css("margin-top", parseInt($(".site-main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
+				firstTime = false;
+			}
 			$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);
 			$("#entries-nav").show();
 			$("#category-nav li.category").removeClass("active").removeClass("selected");
@@ -195,9 +205,6 @@
 		});
 
 		onResize();
-		// Since the expanding menu is absolutely positioned, push the rest of the page down a bit
-		$(".site-main").css("margin-top", 
-			parseInt($(".site-main").css("margin-top")) + $("#entries-nav").height() + "px");		
 	};
 
 
@@ -205,15 +212,6 @@
 	OWIDScrollNav();
 
 	$(window).on('resize.toc', OWIDScrollNav);
-	$(window).on('hashchange', function() {
-		console.log("hi");	
-		var $bar = $("#wpadminbar");
-		if ($bar.length) {
-			setTimeout(function() {
-				$(window).scrollTop($(window).scrollTop() - $bar.outerHeight());
-			}, 0);
-		}
-	});
 
 	//remove hashtags from menu
 	var $menuItems = $( ".scroll-nav" ).find( ".scroll-nav__item a, .scroll-nav__sub-item a" );
