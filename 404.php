@@ -1,3 +1,7 @@
+<?php 
+    status_header(404); 
+    nocache_headers();
+?>
 <!doctype html>
 <html>
 <head>
