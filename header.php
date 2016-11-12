@@ -26,12 +26,6 @@
 	<?php endif; ?>
 	<?php wp_head(); ?>
 
-
-	<link rel="stylesheet" type="text/css" media="all" href="<?php 
-		echo get_stylesheet_uri();
-    	echo '?v='.filemtime(get_stylesheet_directory() . '/style.css'); 
-    ?>">
-
 	<script>
 		window.$ = jQuery;
 	</script>
