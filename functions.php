@@ -2,10 +2,14 @@
 //* Set Localization (do not remove)
 load_child_theme_textdomain('owid', apply_filters('child_theme_textdomain', get_stylesheet_directory() . '/languages', 'owid'));
 
+/* Remove unnecessary stuff */
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_head', 'wp_shortlink_wp_head');
+remove_action('wp_print_styles', 'print_emoji_styles');
+
 //* Enqueue scripts and styles
 $template_dir = get_stylesheet_directory_uri();
 wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
-wp_enqueue_script("scrollNav", $template_dir . "/js/jquery.scrollNav.js", null, null, true);
 // Bootstrap tooltip, for footnotes on hover
 wp_enqueue_script("tooltip", $template_dir . "/js/tooltip.js", null, null, true);
 wp_enqueue_script("scripts", $template_dir . "/js/scripts.js", null, '?v=' . filemtime(get_stylesheet_directory() . '/js/scripts.js'), true);
