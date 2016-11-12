@@ -1188,29 +1188,8 @@ body.search main > * {
 		display: none;
 	}
 
-
-/* styling search results page */
-.search-results-header {
-	margin-top: 60px;
-	text-align: center;
-}
-	.search-entry-title {
-		padding-top: 50px;
-		font-size: 32px;
-	}
-	.search-post {}
-		.search-post a {
-			color: inherit;
-		}
-			.search-post a:hover {
-				color: #f04848;
-			}
-
-.down-arrow {
-    margin-top: 60px;
-}
 #un-button.un-bottom.css3 {
-	left: 0%;
+	left: 0 !important;
 	margin-left: 20px !important;
 	font-size: 16px;
 }
