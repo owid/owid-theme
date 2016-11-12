@@ -4,7 +4,6 @@ load_child_theme_textdomain('owid', apply_filters('child_theme_textdomain', get_
 
 //* Enqueue scripts and styles
 $template_dir = get_stylesheet_directory_uri();
-wp_enqueue_style('fontello-custom', $template_dir . '/css/fontello.css');
 wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
 wp_enqueue_script("scrollNav", $template_dir . "/js/jquery.scrollNav.js", null, null, true);
 // Bootstrap tooltip, for footnotes on hover

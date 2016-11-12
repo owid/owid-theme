@@ -1638,9 +1638,6 @@ body.search main > * {
 }
 
 /* Population Growth & Vital Statistics */
-.owid-data li:nth-of-type(1) h4 > span::after {
-	content: "\f007";
-}
 .owid-data li:nth-of-type(1) h4,
 #topics-dropdown li.category:nth-of-type(1) > a  {
 	color: #2082a2;
@@ -1654,9 +1651,6 @@ body.search main > * {
 }
 
 /* Health */
-.owid-data li:nth-of-type(2) h4 > span::after {
-	content: "\f21e";
-}
 .owid-data li:nth-of-type(2) h4,
 #topics-dropdown li.category:nth-of-type(2) > a  {
 	color: #cc0000;
@@ -1670,9 +1664,6 @@ body.search main > * {
 }
 
 /* Food & Agriculture */
-.owid-data li:nth-of-type(3) h4 > span::after {
-	content: "\f06c";
-}
 .owid-data li:nth-of-type(3) h4,
 #topics-dropdown li.category:nth-of-type(3) > a  {
 	color: #689920;
@@ -1686,9 +1677,6 @@ body.search main > * {
 }
 
 /* Resources & Energy */
-.owid-data li:nth-of-type(4) h4 > span::after {
-	content: "\f085";
-}
 .owid-data li:nth-of-type(4) h4,
 #topics-dropdown li.category:nth-of-type(4) > a  {
 	color: #e37f3f;
@@ -1702,9 +1690,6 @@ body.search main > * {
 }
 
 /* Environmental Change */
-.owid-data li:nth-of-type(5) h4 > span::after {
-	content: "\f1bb";
-}
 .owid-data li:nth-of-type(5) h4,
 #topics-dropdown li.category:nth-of-type(5) > a  {
 	color: #013220;
@@ -1718,9 +1703,6 @@ body.search main > * {
 }
 
 /* Technology & Infrastructure */
-.owid-data li:nth-of-type(6) h4 > span::after {
-	content: "\f0c3";
-}
 .owid-data li:nth-of-type(6) h4,
 #topics-dropdown li.category:nth-of-type(6) > a  {
 	color: #2774c6;
@@ -1734,9 +1716,6 @@ body.search main > * {
 }
 
 /* Growth & Distribution of Prosperity */
-.owid-data li:nth-of-type(7) h4 > span::after {
-	content: "\f201";
-}
 .owid-data li:nth-of-type(7) h4,
 #topics-dropdown li.category:nth-of-type(7) > a  {
 	color: #009655;
@@ -1750,9 +1729,6 @@ body.search main > * {
 }
 
 /* Economic Development, Work & Standard of Living */
-.owid-data li:nth-of-type(8) h4 > span::after {
-	content: "\f1ae";
-}
 .owid-data li:nth-of-type(8) h4,
 #topics-dropdown li.category:nth-of-type(8) > a  {
 	color: #d2bc00;
@@ -1766,9 +1742,6 @@ body.search main > * {
 }
 
 /* The Public Sector & Economic System */
-.owid-data li:nth-of-type(9) h4 > span::after {
-	content: "\f0d6";
-}
 .owid-data li:nth-of-type(9) h4,
 #topics-dropdown li.category:nth-of-type(9) > a  {
 	color: #eb6400;
@@ -1782,9 +1755,6 @@ body.search main > * {
 }
 
 /* Global Interconnections */
-.owid-data li:nth-of-type(10) h4 > span::after {
-	content: "\f20e";
-}
 .owid-data li:nth-of-type(10) h4,
 #topics-dropdown li.category:nth-of-type(10) > a  {
 	color: #17393d;
@@ -1798,10 +1768,6 @@ body.search main > * {
 }
 
 /* War & Peace */
-.owid-data li:nth-of-type(11) h4 > span::after {
-	font-family: fontello;
-	content: "\e800";
-}
 .owid-data li:nth-of-type(11) h4,
 #topics-dropdown li.category:nth-of-type(11) > a  {
 	color: #660000;
@@ -1815,9 +1781,6 @@ body.search main > * {
 }
 
 /* Political Regimes */
-.owid-data li:nth-of-type(12) h4 > span::after {
-	content: "\f19c";
-}
 .owid-data li:nth-of-type(12) h4,
 #topics-dropdown li.category:nth-of-type(12) > a  {
 	color: #1b0655;
@@ -1831,9 +1794,6 @@ body.search main > * {
 }
 
 /* Violence & Rights */
-.owid-data li:nth-of-type(13) h4 > span::after {
-	content: "\f24e";
-}
 .owid-data li:nth-of-type(13) h4,
 #topics-dropdown li.category:nth-of-type(13) > a  {
 	color: #cc235c;
@@ -1847,9 +1807,6 @@ body.search main > * {
 }
 
 /* Education & Knowledge */
-.owid-data li:nth-of-type(14) h4 > span::after {
-	content: "\f19d";
-}
 .owid-data li:nth-of-type(14) h4,
 #topics-dropdown li.category:nth-of-type(14) > a  {
 	color: #012d8e;
@@ -1863,9 +1820,6 @@ body.search main > * {
 }
 
 /* Media & Communication */
-.owid-data li:nth-of-type(15) h4 > span::after {
-	content: "\f086";
-}
 .owid-data li:nth-of-type(15) h4,
 #topics-dropdown li.category:nth-of-type(15) > a  {
 	color: #0089be;
@@ -1879,9 +1833,6 @@ body.search main > * {
 }
 
 /* Culture, Values & Society */
-.owid-data li:nth-of-type(16) h4 > span::after {
-	content: "\f164";
-}
 .owid-data li:nth-of-type(16) h4,
 #topics-dropdown li.category:nth-of-type(16) > a {
 	color: #d76db6;
