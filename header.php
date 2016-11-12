@@ -31,8 +31,6 @@
 		echo get_stylesheet_uri();
     	echo '?v='.filemtime(get_stylesheet_directory() . '/style.css'); 
     ?>">
-    <link rel="stylesheet" type="text/css" href="/wp-includes/css/admin-bar.min.css?ver=4.6.1">
-    <link rel="stylesheet" type="text/css" href="/wp-includes/css/dashicons.min.css?ver=4.6.1">
 
 	<script>
 		window.$ = jQuery;
