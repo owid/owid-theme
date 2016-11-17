@@ -1181,7 +1181,7 @@ body.search main > * {
 	h5:hover .deep-link,
 	h6:hover .deep-link {
 		opacity: 1.0;
-	}
+	}`
 
 	/* Deep links on source headings don't make much sense and look weird - Mispy */
 	h5 .deep-link {
