@@ -1,7 +1,7 @@
 ;(function($) {
 	"use strict";
 
-	function romanize (num) {
+	function romanize(num) {
 	    if (!+num)
 	        return false;
 	    var digits = String(+num).split(""),

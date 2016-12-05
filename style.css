@@ -1175,18 +1175,19 @@ body.search main > * {
 	opacity: 0.1;
 	vertical-align: middle;
 }
-	h2:hover .deep-link,
-	h3:hover .deep-link,
-	h4:hover .deep-link,
-	h5:hover .deep-link,
-	h6:hover .deep-link {
-		opacity: 1.0;
-	}`
 
-	/* Deep links on source headings don't make much sense and look weird - Mispy */
-	h5 .deep-link {
-		display: none;
-	}
+h2:hover .deep-link,
+h3:hover .deep-link,
+h4:hover .deep-link,
+h5:hover .deep-link,
+h6:hover .deep-link {
+	opacity: 1.0;
+}
+
+/* Deep links on source headings don't make much sense and look weird - Mispy */
+h5 .deep-link {
+	display: none;
+}
 
 #un-button.un-bottom.css3 {
 	left: 0 !important;
