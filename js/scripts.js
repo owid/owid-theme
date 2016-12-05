@@ -1,33 +1,75 @@
 ;(function($) {
 	"use strict";
 
+	function romanize (num) {
+	    if (!+num)
+	        return false;
+	    var digits = String(+num).split(""),
+	        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+	               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+	               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+	        roman = "",
+	        i = 3;
+	    while (i--)
+	        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+	    return Array(+digits.join("") + 1).join("M") + roman;
+	}
+
 	// Construct scroll-friendly nav sidebar for entries. Should be idempotent so it
 	// can be called again to reconstruct on window resize
 	var OWIDScrollNav = function() {
-		var $entry = $(".owid-entry article.page"),
-			$sidebar = $(".owid-entry .entry-sidebar");
+		var $page = $("article.page"),
+			$sidebar = $(".entry-sidebar");
 
-		if (!$entry.length || !$sidebar.length) return;
+		if (!$page.length || !$sidebar.length) return;
+
+		// Don't make sidebar unless there are enough headings
+		if ($page.find('h2').length < 2) return;
 
 		// Cleanup any existing stuff
 		$sidebar.find("nav").empty();
 		$sidebar.attr('style', '');
-		$(window).off('scroll.toc');		
+		$(window).off('scroll.toc');
 
 		// HACK (Mispy): These have weird placeholder text in them that interferes.
 		$(".deep-link").html("");
 
-		// Keep track of sections so we can find the closest one
-		var headings = [],
-			currentHeadingIndex = null;
+		// For CSS
+		$page.parent().addClass('page-with-sidebar');
 
+		// Keep track of sections so we can find the closest one
+		var headings = [];
+
+		// Start putting together ToC html
 		$sidebar.find("nav").append("<h3>Contents</h3>");
 		var $ol = $("<ol></ol>").appendTo($sidebar.find("nav"));		
-		$entry.find("h2, h3").each(function(i) {
+
+		var openHeadingIndex = 0, openSubheadingIndex = 0;
+		$page.find("h2, h3").each(function(i) {
 			var $heading = $(this);
 			
 			if ($heading.is("#endnotes") && !$("ol.side-matter-list").is(":visible"))
 				return;
+
+			if ($heading.is('h2')) {
+				openHeadingIndex += 1;
+				openSubheadingIndex = 0;
+			} else if ($heading.is('h3')) {
+				openSubheadingIndex += 1;
+			}
+
+			// Idempotently add number to heading
+			var origText = $heading.attr('data-text');
+			if (!origText) {
+				origText = $heading.text();
+				$heading.attr('data-text', origText);
+			}			
+
+			if ($heading.is('h2')) {
+				$heading.text(romanize(openHeadingIndex) + '. ' + origText);
+			} else {
+				$heading.text(romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + origText);
+			}
 
 			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.text() + '</a></li>').appendTo($ol);
 
@@ -40,6 +82,7 @@
 			headings.push($(this));
 		});
 
+		var currentHeadingIndex = null;
 		var onScroll = function() {
 			var scrollTop = $(document).scrollTop(),
 				scrollBottom = scrollTop + $(window).height(),
@@ -97,7 +140,7 @@
 
 		if ($sidebar.css("float") != "none") {
 			onScroll();
-			$(window).on('scroll.toc', onScroll);			
+			$(window).on('scroll.toc', onScroll);
 		}
 	};
 

@@ -2094,7 +2094,7 @@ iframe:not(:first-child) {
 /* Page Navigation Sidebar
 --------------------------------------------- */
 
-.owid-entry {
+.page-with-sidebar {
 	width: 100%;
 	max-width: 1300px;
 	margin: auto;
@@ -2109,9 +2109,10 @@ nav.entry-toc h3 {
 }
 
 nav.entry-toc li {
-	margin-left: 20px;
+	margin-left: 10px;
 	color: #333;
 	margin-top: 6px;
+	list-style-type: none;
 }
 
 nav.entry-toc li > a {
@@ -2124,7 +2125,7 @@ nav.entry-toc li.active {
 
 nav.entry-toc li.subsection {
 	margin-top: 2px;
-	margin-left: 40px;
+	margin-left: 30px;
 }
 
 body.page .authors-byline .citation-note {
@@ -2158,7 +2159,7 @@ article.page {
 }
 
 @media only screen and (min-width: 980px) {
-	.owid-entry article.page {
+	.page-with-sidebar article.page {
 		float: left;
 		width: 75%;
 		border-right: 1px solid #eee;
@@ -2166,7 +2167,7 @@ article.page {
 		padding-bottom: 50px;
 	}
 
-	.owid-entry .entry-sidebar {
+	.page-with-sidebar .entry-sidebar {
 		float: right;
 		width: 25%;
 		padding: 20px;		

@@ -13,10 +13,10 @@
 
 get_header(); ?>
 
-<?php $hasSidebar = !is_page('data') && !is_page('support'); ?>
+<?php $hasSidebar = in_array('category-entries', get_post_class()); ?>
 
 <?php while (have_posts()) : the_post(); ?>
-	<div class="<?php if ($hasSidebar) { echo('owid-entry'); } ?> clearfix">
+	<div class="<?php if ($hasSidebar) { echo('page-with-sidebar'); } ?> clearfix">
 		<div class="entry-sidebar">
 			<nav class="entry-toc">
 				<!-- populated by JS -->
