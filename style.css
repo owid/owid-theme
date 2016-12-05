@@ -252,9 +252,12 @@ input[type="search"]::-webkit-search-results-button {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	line-height: 2;
 	margin-bottom: 40px;
+	font-size: 16px;
 	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 tbody {
@@ -263,12 +266,9 @@ tbody {
 
 td,
 th {
-	text-align: left;
-}
-
-td {
-	border-top: 1px solid #ddd;
-	padding: 6px 0;
+	text-align: center;
+    border: 1px solid #aaa;
+    padding: 0.2em 0.4em;
 }
 
 th {
