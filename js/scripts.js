@@ -48,27 +48,31 @@
 		$page.find("h2, h3").each(function(i) {
 			var $heading = $(this);
 			
-			if ($heading.is("#endnotes") && !$("ol.side-matter-list").is(":visible"))
+			// Don't bother with the footnotes header if there are no footnotes
+			if ($heading.is("#footnotes") && !$("ol.side-matter-list").is(":visible"))
 				return;
 
-			if ($heading.is('h2')) {
-				openHeadingIndex += 1;
-				openSubheadingIndex = 0;
-			} else if ($heading.is('h3')) {
-				openSubheadingIndex += 1;
-			}
+			if (!$heading.is("#footnotes")) {
+				// Inject numbering into the text as well
+				if ($heading.is('h2')) {
+					openHeadingIndex += 1;
+					openSubheadingIndex = 0;
+				} else if ($heading.is('h3')) {
+					openSubheadingIndex += 1;
+				}
 
-			// Idempotently add number to heading
-			var origText = $heading.attr('data-text');
-			if (!origText) {
-				origText = $heading.text();
-				$heading.attr('data-text', origText);
-			}			
+				// Idempotently add number to heading
+				var origText = $heading.attr('data-text');
+				if (!origText) {
+					origText = $heading.text();
+					$heading.attr('data-text', origText);
+				}			
 
-			if ($heading.is('h2')) {
-				$heading.text(romanize(openHeadingIndex) + '. ' + origText);
-			} else {
-				$heading.text(romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + origText);
+				if ($heading.is('h2')) {
+					$heading.text(romanize(openHeadingIndex) + '. ' + origText);
+				} else {
+					$heading.text(romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + origText);
+				}
 			}
 
 			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.text() + '</a></li>').appendTo($ol);
