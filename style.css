@@ -1391,6 +1391,10 @@ body.search main > * {
 		line-height: 0.9;
 	}
 
+	#homepage-cover .down-arrow {
+		margin-top: 20px;
+	}
+
 	#homepage-cover .subheading {
 		font-size: 25px;
 		line-height: 1.2;
