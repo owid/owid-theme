@@ -151,7 +151,7 @@ h6 {
 address {
 	padding-left: 8px;
 	padding-top: 7px !important;
-	margin-top: -38px !important;
+	margin-top: -32px !important;
 	margin-bottom: 30px;
 
 	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -962,7 +962,6 @@ header.site-header {
 		font-size: 14px;
 	}
 }
-
 
 @media screen and (min-width: 950px) {
 	.site-footer hr {
@@ -2064,6 +2063,10 @@ h5 {
 
 .entry-content img.aligncenter {
 	border: 1px solid #ccc;
+}
+
+.entry-content iframe:not([src*=grapher]) {
+	border: 1px solid #ccc !important;	
 }
 
 img {
