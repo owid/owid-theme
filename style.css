@@ -2065,8 +2065,8 @@ h5 {
 	border: 1px solid #ccc;
 }
 
-.entry-content iframe:not([src*=grapher]) {
-	border: 1px solid #ccc !important;	
+.entry-content iframe:not([src*=grapher]):not([src*=builder]) {
+	border: 1px solid #ccc !important;
 }
 
 img {

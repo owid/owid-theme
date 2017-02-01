@@ -332,7 +332,7 @@
 		});
 	});
 
-    var beforePrint = function() {
+    /*var beforePrint = function() {
     	$("iframe").each(function() {
     		var $iframe = $(this),
     			src = $iframe.attr('src') || $iframe.attr('data-src'),
@@ -351,5 +351,5 @@
     	});
     };    
 
-    beforePrint();
+    beforePrint();*/
 })(jQuery);
