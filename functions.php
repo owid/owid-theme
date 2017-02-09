@@ -49,7 +49,7 @@ add_action('pre_get_posts', 'search_redirect');
 add_action('send_headers', 'add_header_cf');
 function add_header_cf() {
 	header('Pragma: cache');
-	header('Cache-Control: public, max-age=7200, s-maxage=604800');
+	header('Cache-Control: public, max-age=0, s-maxage=604800');
 }
 
 function get_entries_by_category() {
