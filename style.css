@@ -1333,6 +1333,10 @@ h5 .deep-link {
 	margin-bottom: 20px;
 }
 
+#homepage-latest {
+	padding: 10px 20px;	
+}
+
 #homepage-blog h4 {
 	margin-bottom: 0.25rem;
 	font-size: 20px;

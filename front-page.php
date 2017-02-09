@@ -13,12 +13,21 @@ function owid_homepage() {
 		<div class="mobile subheading">Living conditions around the world are changing rapidly. Explore how and why.</div>
 		<img class="down-arrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAM1BMVEUAAAD/zB//zB//zB//zB//zB//zB//zB//zB//zB//zB//zB//zB//zB//zB//zB//zB8l5oYuAAAAEHRSTlMAECAwQFBgcICPn6+/z9/vIxqCigAAAVxJREFUOMuFlcsWwyAIRFF8izr//7VdNK2KTeomJ+YGZggSon3ZkLJISZHpYdnc8V2juBvMCYCanCNiF8sAeviBmQz0YJYdL4BYzXGf7zPPHEMF9QPlG03kux+BtMkD4rxbQHJjJXlgzbCC2zPT13gKJAY+mjMq3YMU0a4yY5gnkORKXqBKoEGLvlwewCtU3J38AhmViBrsP5A6DJmPpycww5ND/g96JIoI/0GLSglbfxb7Bm3ZSIgGM5IRMUkJOkEGeu8dqhQnSO19YlQpIIeZ8AbDYUaXxwwAuk080lnwAgDlLDg1GPVhMVv1K9wQZd0U7bDCaL/arByZr46tp2/teVyBd4+sJcpHXFapxlAZ2jyu4eG4jplADYCU6G447Pq937iinM4hZcw6pFSpeKAfE5YFZ/+bCsi26wrQ+GY0jxqdJTIulH4zmomIuIw57FH904+BY6oikpIW/AINdBKzcQVAtQAAAABJRU5ErkJggg==
 " alt=“Y">
-		<div class="title-author-byline">A web publication by <a href="http://www.MaxRoser.com/about" target="_blank">Max Roser</a>.</div>
+		<div class="title-author-byline">A web publication by <a href="http://www.MaxRoser.com/about" target="_blank" rel="noopener">Max Roser</a>.</div>
 	</div>
 </div>
 <div id="homepage-content" class="clearfix">
-	<h3><a href="/grapher/latest">Latest Visualization</a></h3>
-	<iframe src="/grapher/latest" width="100%" height="660px"></iframe>
+	<div class="epitaph" style="padding: 10px 20px;">
+		<div style="max-width: 800px; margin: auto; border: 1px solid #666; padding: 20px; margin-bottom: 30px;">
+			<p>We mourn the death of <strong>Hans Rosling</strong> (1942-2017), co-founder of Gapminder.</p>
+			<p>An energetic educator, a clear thinker, and a generous man, Hans's enthusiasm and sincerity have been - and will continue to be - a true inspiration for our work.</p>
+			<p style="margin-bottom: 0;">Find out more about the very important work of Hans Rosling and the Gapminder team at <a href="https://gapminder.org">Gapminder.org</a></p>
+		</div>
+	</div>
+	<div id="homepage-latest">
+		<h3><a href="/grapher/latest">Latest Visualization</a></h3>
+		<iframe src="/grapher/latest" width="100%" height="660px"></iframe>
+	</div>
 EOT;
 
 	// Blog sidebar
