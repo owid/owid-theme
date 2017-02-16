@@ -53,7 +53,7 @@ function category_menu($category) {
 }
 
 function owid_header() {
-	$title = "Our World In Data";
+	$title = "Our World in Data";
 
 	$categories = get_entries_by_category();
 
