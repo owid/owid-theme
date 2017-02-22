@@ -1127,6 +1127,15 @@ h1.entry-title > a:hover {
 	}
 }
 
+.blog-info {
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding: 10px 0px;
+	margin-bottom: 20px;
+	font-size: 0.7em;
+	text-align: center;
+}
+
 /* Search Results Page
 --------------------------------------------- */
 
