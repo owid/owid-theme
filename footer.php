@@ -55,12 +55,7 @@
 				</div>
 			</div>
 			<div class="supporters">
-				<div class="supporters-left">
-					<p>Our World in Data is developed at the <a href="http://www.oxfordmartin.ox.ac.uk/research/programmes/world-data">Oxford Martin School</a> and the <a href="http://www.inet.ox.ac.uk/">Institute for New Economic Thinking</a> at the University of Oxford.</p>
-				</div>
-				<div class="supporters-right">
-					<p><strong>We are supported by the <a href="/support">generous donations of readers</a>. Without these donations our work would not be possible. Thank you!</strong></p>
-				</div>
+				<p><strong>We are supported by the <a href="/support">generous donations of readers</a>. Without these donations our work would not be possible. Thank you!</strong></p>
 				<hr>
 				<div style="display: flex; align-items: center; justify-content: center; padding-left: 4%;">
 					<div style="max-width: 45%; margin-right: 10px;">
