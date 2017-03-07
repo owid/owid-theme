@@ -48,11 +48,11 @@ function search_redirect($query) {
 }
 add_action('pre_get_posts', 'search_redirect');	
 
-/* MISPY: Send cache control headers for CloudFlare (works in combination with Sunny plugin to expire cache) */
+/* MISPY: Send cache control headers for CloudFlare (works in combination with plugin to expire cache) */
 add_action('send_headers', 'add_header_cf');
 function add_header_cf() {
 	header('Pragma: cache');
-	header('Cache-Control: public, max-age=0, s-maxage=604800');
+	header('Cache-Control: public, max-age=0, s-maxage=31536000');
 }
 
 function get_entries_by_category() {
