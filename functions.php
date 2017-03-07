@@ -7,6 +7,9 @@ remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_head', 'wp_shortlink_wp_head');
 remove_action('wp_print_styles', 'print_emoji_styles');
 
+// Disable admin bar for cloudflare caching
+add_filter('show_admin_bar', '__return_false');
+
 add_action( 'wp_enqueue_scripts', 'owid_enqueue_scripts_styles' );
 function owid_enqueue_scripts_styles() {
 	//* Enqueue scripts and styles
