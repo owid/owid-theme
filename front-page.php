@@ -17,13 +17,6 @@ function owid_homepage() {
 	</div>
 </div>
 <div id="homepage-content" class="clearfix">
-	<div class="epitaph" style="padding: 10px 20px;">
-		<div style="max-width: 800px; margin: auto; border: 1px solid #666; padding: 20px; margin-bottom: 30px;">
-			<p>We mourn the death of <strong>Hans Rosling</strong> (1948–2017), co-founder of Gapminder.</p>
-			<p>An energetic educator, a clear thinker, and a generous man, Hans' enthusiasm and sincerity have been — and will continue to be — a true inspiration for our work.</p>
-			<p style="margin-bottom: 0;">Find out more about the very important work of Hans Rosling and the Gapminder team at <a href="https://gapminder.org">Gapminder.org</a></p>
-		</div>
-	</div>
 	<div id="homepage-latest">
 		<h3><a href="/grapher/latest">Latest Visualization</a></h3>
 		<iframe src="/grapher/latest" width="100%" height="660px"></iframe>
