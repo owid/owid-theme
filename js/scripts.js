@@ -64,18 +64,20 @@
 				// Idempotently add number to heading
 				var origText = $heading.attr('data-text');
 				if (!origText) {
-					origText = $heading.text();
+					origText = $heading.html();
 					$heading.attr('data-text', origText);
-				}			
+				}
+
+				console.log(origText)
 
 				if ($heading.is('h2')) {
-					$heading.text(romanize(openHeadingIndex) + '. ' + origText);
+					$heading.html(romanize(openHeadingIndex) + '. ' + origText);
 				} else {
-					$heading.text(romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + origText);
+					$heading.html(romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + origText);
 				}
 			}
 
-			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.text() + '</a></li>').appendTo($ol);
+			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.html() + '</a></li>').appendTo($ol);
 
 			if ($heading.is('h2')) {
 				$li.addClass('section');
