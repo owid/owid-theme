@@ -44,7 +44,7 @@
 		$sidebar.find("nav").append("<h3>Contents</h3>");
 		var $ol = $("<ol></ol>").appendTo($sidebar.find("nav"));		
 
-		var openHeadingIndex = 0, openSubheadingIndex = 0;
+		var openHeadingIndex = 0, openSubheadingIndex = 0, headingText = "";
 		$page.find("h2, h3").each(function(i) {
 			var $heading = $(this);
 			
@@ -62,22 +62,30 @@
 				}
 
 				// Idempotently add number to heading
-				var origText = $heading.attr('data-text');
-				if (!origText) {
-					origText = $heading.html();
-					$heading.attr('data-text', origText);
+				var origHtml = $heading.attr('data-text');
+				if (!origHtml) {
+					origHtml = $heading.html();
+					$heading.attr('data-text', origHtml);
 				}
 
-				console.log(origText)
+				// Some fiddly stuff to remove deep link 
+				var $headingMod = $("<div/>").append(origHtml)
+				var $deepLink = $headingMod.find('.deep-link')
+				var deepLinkHtml = $("<div/>").append($deepLink).html()
+				headingText = $headingMod.html()
 
 				if ($heading.is('h2')) {
-					$heading.html(romanize(openHeadingIndex) + '. ' + origText);
+					headingText = romanize(openHeadingIndex) + '. ' + headingText;
 				} else {
-					$heading.html(romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + origText);
+					headingText = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingText;
 				}
+
+				$heading.html(deepLinkHtml + headingText)
+			} else {
+				headingText = $heading.html()
 			}
 
-			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + $heading.html() + '</a></li>').appendTo($ol);
+			var $li = $('<li><a href="#' + $heading.attr("id") + '">' + headingText.trim() + '</a></li>').appendTo($ol);
 
 			if ($heading.is('h2')) {
 				$li.addClass('section');
