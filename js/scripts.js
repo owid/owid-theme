@@ -3,7 +3,7 @@
 
 	function romanize(num) {
 	    if (!+num)
-	        return false;
+	        return "";
 	    var digits = String(+num).split(""),
 	        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
 	               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
@@ -74,10 +74,12 @@
 				var deepLinkHtml = $("<div/>").append($deepLink).html()
 				headingText = $headingMod.html()
 
-				if ($heading.is('h2')) {
-					headingText = romanize(openHeadingIndex) + '. ' + headingText;
-				} else {
-					headingText = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingText;
+				if (openHeadingIndex > 0) {
+					if ($heading.is('h2')) {
+						headingText = romanize(openHeadingIndex) + '. ' + headingText;
+					} else {
+						headingText = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingText;
+					}					
 				}
 
 				$heading.html(deepLinkHtml + headingText)
