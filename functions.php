@@ -25,28 +25,35 @@ function owid_enqueue_scripts_styles() {
 
 add_theme_support('post-thumbnails');
 
-// Increase the number of search results on the search page
-$search_results_per_page = 20;
-function set_posts_per_page($query) {
-	global $search_results_per_page;
-	if ($query->is_search) {
-		$query->query_vars['posts_per_page'] = $search_results_per_page;
-	}
-	return $query;
-}
-add_action('pre_get_posts', 'set_posts_per_page');
+/* MISPY: Modified version of the "Add IDs to Header Tags" plugin, so it works with inline html in headings. */
 
-/* HACK (Mispy): Just redirect back to the front page if it's an empty search. */
-function search_redirect($query) {
-	if (!is_admin() && $query->is_main_query()) {
-		$searchQuery = get_search_query();
-		if ($query->is_search && empty($searchQuery)) {
-    		wp_redirect(home_url()); 
-    		exit;
-		}
+add_filter( 'the_content', 'add_ids_to_header_tags' );
+function add_ids_to_header_tags( $content ) {
+	if ( ! is_singular() ) {
+		return $content;
 	}
+
+	$pattern = '#(?P<full_tag><(?P<tag_name>h\d)(?P<tag_extra>[^>]*)>(?P<tag_contents>.*?)</h\d>)#i';
+	if ( preg_match_all( $pattern, $content, $matches, PREG_SET_ORDER ) ) {
+		$find = array();
+		$replace = array();
+		foreach( $matches as $match ) {
+			if ( strlen( $match['tag_extra'] ) && false !== stripos( $match['tag_extra'], 'id=' ) ) {
+				continue;
+			}
+			$find[]    = $match['full_tag'];
+			$id        = sanitize_title( $match['tag_contents'] );
+			$id_attr   = sprintf( ' id="%s"', $id );
+			$extra = sprintf( ' <a class="deep-link" href="#%s"># </a>', $id );
+
+			$replace[] = sprintf( '<%1$s%2$s%3$s>%4$s%5$s</%1$s>', $match['tag_name'], $match['tag_extra'], $id_attr, $extra,  $match['tag_contents']);
+		}
+		$content = str_replace( $find, $replace, $content );
+	}
+
+	return $content;
 }
-add_action('pre_get_posts', 'search_redirect');	
+
 
 /* MISPY: Send cache control headers for CloudFlare (works in combination with plugin to expire cache) */
 add_action('send_headers', 'add_header_cf');
