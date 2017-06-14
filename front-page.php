@@ -30,11 +30,11 @@ EOT;
 		<ul>
 EOT;
 
-	query_posts('posts_per_page=6');
+
+	query_posts('posts_per_page=6&post_status=publish');
 	if (have_posts()) {
 		while (have_posts()) {
 			the_post();
-			if (get_post_status() == 'private') continue;
 
  			$html .= "<li class='post'>"
  				  .	 "    <h4><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h4>"

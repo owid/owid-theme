@@ -2,6 +2,15 @@
 //* Set Localization (do not remove)
 load_child_theme_textdomain('owid', apply_filters('child_theme_textdomain', get_stylesheet_directory() . '/languages', 'owid'));
 
+
+/* The default WP post visibility behavior causes issues with caching */
+function published_only( $query ) {
+    if ($query->is_home() && $query->is_main_query()) {
+        $query->set('post_status', 'publish');
+    }
+}
+add_action('pre_get_posts', 'published_only');
+
 /* Remove unnecessary stuff */
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_head', 'wp_shortlink_wp_head');

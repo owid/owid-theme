@@ -1,6 +1,6 @@
 <?php
 /**
- * The /blog page
+ * Single blog post
  */
 
 get_header(); ?>
@@ -10,7 +10,7 @@ get_header(); ?>
 </header>
 
 <div class="site-content">
-	<?php while ( have_posts() ) : the_post(); ?>
+	<?php while (have_posts()) : the_post(); ?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<header class="entry-header">
 				<h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
