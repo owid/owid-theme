@@ -67,8 +67,10 @@ function add_ids_to_header_tags( $content ) {
 /* MISPY: Send cache control headers for CloudFlare (works in combination with plugin to expire cache) */
 add_action('send_headers', 'add_header_cf');
 function add_header_cf() {
-	header('Pragma: cache');
-	header('Cache-Control: public, max-age=0, s-maxage=31536000');
+	if (!is_user_logged_in()) {
+		header('Pragma: cache');
+		header('Cache-Control: public, max-age=0, s-maxage=31536000');				
+	}
 }
 
 function get_entries_by_category() {
