@@ -21,7 +21,7 @@
 		var $page = $("article.page"),
 			$sidebar = $(".entry-sidebar");
 
-		if (!$page.length || !$sidebar.length) return;
+		if (!$page.length || !$sidebar.length || $(".no-sidebar").length) return;
 
 		// Don't make sidebar unless there are enough headings
 		if ($page.find('h2').length < 2) return;

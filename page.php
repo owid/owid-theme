@@ -26,7 +26,6 @@ get_header(); ?>
 			<header class="entry-header">
 				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 				<?php if (!is_page('about') && !is_page('data') && !is_page('owid-grapher') && !is_page('support') && is_page()) : ?>
-
 					<div class='authors-byline'><a href="/about/#the-team"><?php
 					    $authors = coauthors(null, null, null, null, false);
 
