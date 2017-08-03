@@ -16,12 +16,6 @@ get_header(); ?>
 				<h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
 			  	<div class='entry-meta'><time><?php the_date("F d, Y"); ?></time> by <?php
 					$coauthors = coauthors(null, null, null, null, false);
-
-					// tmp hack
-					if ($coauthors == 'Max Roser and Jaiden Mispy') {
-						$coauthors = "Jaiden Mispy and Max Roser";
-					}
-
 					echo $coauthors;
 			  	?></div>
 
