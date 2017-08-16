@@ -2069,6 +2069,10 @@ h5 {
 	margin-bottom: 0;
 }
 
+.entry-content ul > li {
+	margin-bottom: 5px;
+}
+
 .entry-content ol > li {
 	margin-bottom: 10px;
 }

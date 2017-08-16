@@ -90,7 +90,7 @@ function get_entries_by_category() {
 			'post_type' => 'page',
 			'category' => $category->cat_ID,
 			'orderby' => 'menu_order',
-			'order' => 'ASC'				
+			'order' => 'ASC'
 		]);
 
 		$entries_by_category[] = (object)[ 'name' => $category->name, 'pages' => $pages ];
