@@ -1141,29 +1141,9 @@ h1.entry-title > a:hover {
 	text-align: center;
 }
 
-/* Search Results Page
---------------------------------------------- */
-
-body.search h1.page-title {
-	margin-top: 1.5rem;
-	text-align: center;
-	padding: 0px 20px;
-}
-
-body.search h1.entry-title {
-	margin: 0;
-}
-
 main.site-main {
 	min-height: 500px;
 }
-
-body.search main > * {
-	max-width: 980px;
-	margin: auto;
-}
-
-
 
 #fancybox-frame {
 	width: 100% !important;
@@ -1248,35 +1228,35 @@ h5 .deep-link {
 
 /* MISPY: Special styling of internal and external links */
 
-.entry-content a,
-.entry-footer a {
+.article-content a,
+.article-footer a {
 	color: #c0023e;
 }
 
-.entry-content a:hover,
-.entry-footer a:hover {
+.article-content a:hover,
+.article-footer a:hover {
 	color: #5b011d;
 	text-decoration: underline;
 }
 
-.entry-content p a[href*="ourworldindata.org"]:not(.image),
-.entry-content p a[href^="/"]:not(.image) {
+.article-content p a[href*="ourworldindata.org"]:not(.image),
+.article-content p a[href^="/"]:not(.image) {
 	border-bottom: 2px solid #c0023e;
 }
 
-.entry-content p a[href*="ourworldindata.org"]:not(.image):hover,
-.entry-content p a[href^="/"]:not(.image):hover {
+.article-content p a[href*="ourworldindata.org"]:not(.image):hover,
+.article-content p a[href^="/"]:not(.image):hover {
 	text-decoration: none;
 	border-color: #5b011d;
 }
 
 /* Wikipedia external link style */
 @media screen {
-	.entry-content a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
+	.article-content a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
 	.side-matter a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.entry-content a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
+	.article-content a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
 	.side-matter a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.entry-content a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
+	.article-content a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
 	.side-matter a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image) {
 		background-position: center right;
 		background-repeat: no-repeat;
@@ -1852,7 +1832,7 @@ h5 .deep-link {
 
 /* Special for /entries page */
 
-.page-id-621 header.entry-header {
+.page-id-621 header.article-header {
 	display: none;
 }
 
@@ -1947,32 +1927,32 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 /* Pages & Posts
 --------------------------------------------- */
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+.article-header > h1,
+.article-content > h2,
+.article-content > h3,
+.article-content > h4,
+.article-content > h5 {
 	font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
 	line-height: 1.2;
 	margin: 0 0 20px;
 }
 
-h1 {
+.article-header > h1 {
 	font-size: 2rem;
 }
 
-h2 {
+.article-content > h2 {
 	font-size: 1.8rem;
 	margin-top: 1.5em;
 	margin-bottom: 0.5em;
 	text-align: center;
 }
 
-h3 {
+.article-content > h3 {
 	font-size: 1.5rem;
 }
 
-h4 {
+.article-content > h4 {
 	font-size: 1.2rem;
 }
 
@@ -1980,28 +1960,28 @@ img {
 	max-width: 100%;
 }
 
-body.page h1.entry-title {
+article.page h1.entry-title {
 	text-align: center;
 	font-size: 3rem;
 	margin: 0;
 }
 
-body.page .authors-byline {
+article.page .authors-byline {
 	margin-top: 0.5rem;
 	text-align: center;
 	font-family: Palatino, Georgia, serif;
 	font-style: italic;
 }
 
-body.page .authors-byline a {
+article.page .authors-byline a {
 	color: inherit;
 }
 
-body.page .authors-byline a:hover {
+article.page .authors-byline a:hover {
 	color: #c0023e;
 }
 
-body.page header.entry-header {
+article.page header.article-header {
 	margin-bottom: 1.2rem;
 }
 
@@ -2017,12 +1997,12 @@ article.page {
 	padding: 1.5rem;
 }
 
-.entry-content h3 {
+.article-content h3 {
 	margin-top: 1.5em;
 	margin-bottom: 0.5em;
 }
 
-.entry-content h6 {
+.article-content h6 {
 	margin-top: 40px;
 	margin-bottom: 5px;
 }
@@ -2057,7 +2037,7 @@ h5 {
 	padding-top: 20px;
 }
 
-.entry-content ol, .entry-content ul {
+.article-content ol, .article-content ul {
     margin-bottom: 30px;
     margin-left: 40px;
     font-weight: normal;
@@ -2065,48 +2045,47 @@ h5 {
     font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
-.entry-content ul ul {
+.article-content ul ul {
 	margin-bottom: 0;
 }
 
-.entry-content ul > li {
+.article-content > p > ul > li {
 	margin-bottom: 5px;
 }
 
-.entry-content ol > li {
+.article-content ol > li {
 	margin-bottom: 10px;
 }
 
-.entry-content img.aligncenter {
+.article-content img.aligncenter {
 	display: block;
 	margin: auto;
 	padding: 10px;
 }
 
-.entry-content img.aligncenter {
+.article-content img.aligncenter {
 	border: 1px solid #ccc;
 }
 
-.entry-content iframe {
+.article-content iframe {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+	border: 1px solid #ccc !important;
 }
 
-.entry-content iframe[src*=grapher], .entry-content iframe[src*=builder] {
+.article-content figure {
+	margin-left: 0;
+	margin-right: 0;
 	max-width: 850px;	
 	max-height: 600px;
-}
-
-.entry-content iframe:not([src*=grapher]):not([src*=builder]) {
-	border: 1px solid #ccc !important;
 }
 
 img {
 	height: auto;
 }
 
-.entry-content p {
+.article-content p {
 	font-size: 17px;
 }
 
@@ -2229,6 +2208,8 @@ article.page {
 --------------------------------------------- */
 
 h2#footnotes {
+	font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
+	line-height: 1.2;
 	border-top: 3px solid #ccc;
 	padding-top: 15px;
 	margin-top: 10px;
@@ -2431,7 +2412,7 @@ ol.side-matter-list > li li {
 		display: block !important;
 	}
 
-	body, .entry-content p, .entry-content ol, .entry-content ul {
+	body, .article-content p, .article-content ol, .article-content ul {
 		font: 12pt "Times New Roman", Times, serif;
 		line-height: 1.3;
 	}	

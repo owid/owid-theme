@@ -133,7 +133,7 @@ add_shortcode('owid_pages', 'owid_pages');
 function contributors() {
 	?>
 		<style>
-			.entry-header {
+			.article-header {
 				display: none;
 			}
 
@@ -141,7 +141,7 @@ function contributors() {
 				margin-bottom: 0;
 			}
 
-			.entry-content ul {
+			.article-content ul {
 				margin: 0;
 			}
 

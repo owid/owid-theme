@@ -23,7 +23,7 @@ get_header(); ?>
 			</nav>
 		</div>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-			<header class="entry-header">
+			<header class="article-header">
 				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 				<?php if (!is_page('about') && !is_page('data') && !is_page('owid-grapher') && !is_page('support') && is_page()) : ?>
 					<div class='authors-byline'><a href="/about/#the-team"><?php
@@ -54,16 +54,16 @@ get_header(); ?>
 
 					</div>
 				<?php endif ?>				
-			</header><!-- .entry-header -->
+			</header><!-- .article-header -->
 
-			<div class="entry-content">
+			<div class="article-content">
 				<?php the_content(); ?>
-			</div><!-- .entry-content -->
+			</div><!-- .article-content -->
 
-			<footer class="entry-footer">
+			<footer class="article-footer">
 				<h2 id="footnotes">Footnotes</h2>
 				<?php do_action('side_matter_list_notes'); ?>
-			</footer><!-- .entry-footer -->
+			</footer><!-- .article-footer -->
 		</article><!-- #post-## -->
 	</div>
 <?php endwhile; ?>

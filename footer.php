@@ -69,6 +69,19 @@
 		</div><!-- .wrap -->
 	</footer><!-- .site-footer -->
 
+	<script>
+		var iframes = Array.prototype.slice.apply(document.getElementsByTagName("iframe"))
+        for (var iframe of iframes) {
+			var dataSrc = iframe.getAttribute('data-src');
+			var figure = document.createElement('figure')
+			figure.setAttribute('data-grapher-src', dataSrc.replace(/.*(?=\/grapher\/)/, ''));
+			figure.setAttribute('style', iframe.getAttribute('style'));
+			iframe.parentNode.replaceChild(figure, iframe)
+		}
+	</script>
+
+	<script src="/grapher/embedCharts.js"></script>
+
 	<?php wp_footer(); ?>
 
 	<div id="wpadminbar" style="display: none;">
