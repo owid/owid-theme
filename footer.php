@@ -73,7 +73,7 @@
 		var iframes = Array.prototype.slice.apply(document.getElementsByTagName("iframe"))
         for (var iframe of iframes) {
 			var dataSrc = iframe.getAttribute('data-src');
-			if (dataSrc && dataSrc.match(/grapher/)) {
+			if (dataSrc && dataSrc.match(/\/grapher\//)) {
 				var figure = document.createElement('figure')
 				figure.setAttribute('data-grapher-src', dataSrc.replace(/.*(?=\/grapher\/)/, ''));
 				figure.setAttribute('style', iframe.getAttribute('style'));
