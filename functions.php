@@ -63,7 +63,6 @@ function add_ids_to_header_tags( $content ) {
 	return $content;
 }
 
-
 /* MISPY: Send cache control headers for CloudFlare (works in combination with plugin to expire cache) */
 add_action('send_headers', 'add_header_cf');
 function add_header_cf() {
@@ -81,6 +80,20 @@ function get_entries_by_category() {
 	$categories = get_categories([
 		'child_of' => $parent_category->cat_ID
 	]);
+
+	// MISPY: We can't use the category ordering plugin for this since it conflicts with co-authors plus (as of 2017-10-17)
+	// So we order manually.
+	$categoryOrder = ["Population", "Health", "Food", "Energy", "Environment", "Technology", "Growth &amp; Inequality", "Work &amp; Life", "Public Sector", "Global Connections", "War &amp; Peace", "Politics", "Violence &amp; Rights", "Education", "Media", "Culture"];
+
+	usort($categories, function($a, $b) use ($categoryOrder) {
+		$aIndex = array_search($a->name, $categoryOrder);
+		$bIndex = array_search($b->name, $categoryOrder);
+
+		if ($aIndex == $bIndex) {
+			return 0;
+		}
+		return ($aIndex < $bIndex) ? -1 : 1;
+	});
 
 	$entries_by_category = [];
 
