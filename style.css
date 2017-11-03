@@ -1047,12 +1047,13 @@ body.blog ul.posts {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	margin-bottom: 1em;
 }
 
 body.blog li.post {
 	list-style-type: none;
 	width: calc(33.3333% - 2em);
-	margin-bottom: 1em;
+	margin-bottom: 2em;
 }
 
 body.blog li.post h3 {
@@ -1083,7 +1084,7 @@ body.blog li.post a:hover img {
 body.blog li.post img {
 	border: 1px solid #e0e0e0;
 	width: 100%;
-	height: 200px;
+	height: 215px;
 	object-fit: cover;	
 }
 
