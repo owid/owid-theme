@@ -1082,7 +1082,7 @@ body.blog li.post a:hover img {
 
 body.blog li.post img {
 	border: 1px solid #e0e0e0;
-	max-height: 300px;
+	height: 200px;
 	object-fit: cover;	
 }
 
