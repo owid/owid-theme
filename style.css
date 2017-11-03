@@ -1005,7 +1005,7 @@ header.site-header {
 	}
 }
 
-/* Blog Index Page (on /blog)
+/* Blog posts and blog index page (on /blog)
 --------------------------------------------- */
 
 header.blog-header h1 {
@@ -1026,35 +1026,106 @@ header.blog-header h1 > a {
 	color: white;
 }
 
-body.blog main, body.single-post main {
+body.blog main {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+body.blog .site-content {
+	max-width: 1120px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body.blog h2 {
+    font-family: Georgia, "Times New Roman", Serif;
+    font-weight: 400;
+    margin-bottom: 14px;
+}
+
+body.blog ul.posts {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+body.blog li.post {
+	list-style-type: none;
+	width: calc(33.3333% - 2em);
+	margin-bottom: 1em;
+}
+
+body.blog li.post h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 19px;
+	line-height: 24px;
+	font-family: Georgia, "Times New Roman", Serif;
+	font-weight: 400;
+}
+
+body.blog li.post .entry-meta {
+	font-size: 14px;
+}
+
+body.blog li.post a {
+	color: inherit;
+}
+
+body.blog li.post a:hover h3 {
+	color: #d10a11;
+}
+
+body.blog li.post a:hover img {
+	border: 1px solid #999;	
+}
+
+body.blog li.post img {
+	border: 1px solid #e0e0e0;
+	max-height: 300px;
+	object-fit: cover;	
+}
+
+@media only screen and (min-width: 768px) {
+	body.blog main {
+		margin-top: 40px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	body.blog li.post {
+		width: 100%;
+		padding-bottom: 30px;
+		border-bottom: 1px solid #e0e0e0;
+		margin-bottom: 30px;
+	}
+}
+
+
+body.single-post main {
 	background: #f6f6f6 url("/wp-content/themes/owid-theme/images/blog-pattern.png");
 	border-bottom: 1px solid #ddd;
 }
 
-body.blog .site-content, body.single-post .site-content {
+body.single-post .site-content {
 	padding: 1rem;
 	padding-top: 1rem;	
 }
 
-body.blog article, body.single-post article {
+body.single-post article {
 	max-width: 980px;
 	margin: auto;
 }
 
-body.blog article, body.single-post article {
+body.single-post article {
 	background: white;
 	margin-bottom: 1rem;
 	border: 1px solid #ddd;
 	border-top: 5px solid #ccc;	
 }
 
-body.blog h1.entry-title, body.single-post h1.entry-title {
+body.single-post h1.entry-title {
 	margin: 0;
-}
-
-#blog-index {
-	max-width: 1170px;
-	margin: auto;
 }
 
 h1.entry-title > a {
