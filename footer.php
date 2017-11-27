@@ -32,8 +32,7 @@
 							    <div style="position: absolute; left: -5000px;"><input type="text" name="b_18058af086319ba6afad752ec_2e166c1fc1" tabindex="-1" value=""></div>
 						    </div>
 						</form>
-						</div>
-					<script type='text/javascript' src='/wp-content/themes/owid-theme/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+					</div>
 					<!--End mc_embed_signup-->
 
 					<h6>Follow us</h6>
