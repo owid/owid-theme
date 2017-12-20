@@ -15,6 +15,7 @@ add_action('pre_get_posts', 'published_only');
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_head', 'wp_shortlink_wp_head');
 remove_action('wp_print_styles', 'print_emoji_styles');
+remove_filter('template_redirect', 'redirect_canonical');  
 
 // Disable admin bar for cloudflare caching
 add_filter('show_admin_bar', '__return_false');
