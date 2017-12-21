@@ -5,10 +5,12 @@ RSYNC="rsync -havz --no-perms --progress --delete --delete-excluded --exclude-fr
 if [ "$1" == "test" ]; then
   NAME="test-owid-theme"
   ROOT="/home/owid"
+  LIVE_TARGET="$ROOT/$NAME"
   HOST="owid@terra"
 elif [ "$1" == "live" ]; then
   NAME="owid-theme"
-  ROOT="/home/owid/ourworldindata.org/wp-content/themes"
+  ROOT="/home/owid"
+  LIVE_TARGET="/home/owid/ourworldindata.org/wp-content/themes"
   HOST="owid@terra"
 else
   echo "Please select either live or test."
@@ -18,7 +20,6 @@ fi
 OLD_REPO="$ROOT/tmp/$NAME-old"
 SYNC_TARGET="$ROOT/tmp/$NAME"
 TMP_NEW="$ROOT/tmp/$NAME-new"
-LIVE_TARGET="$ROOT/$NAME"
 
 ssh -t $HOST "rm -r $OLD_REPO"
 $RSYNC $DIR/ $HOST:$SYNC_TARGET
