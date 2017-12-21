@@ -22,7 +22,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/glob@^5.0.34":
+"@types/glob@*", "@types/glob@^5.0.34":
   version "5.0.34"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.34.tgz#ee626c9be3da877d717911c6101eee0a9871bbf4"
   dependencies:
@@ -37,6 +37,10 @@
 "@types/minimatch@*":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.2.tgz#09c06877e478a5d5f32ce5017c2eb2b33006f6f5"
+
+"@types/minimist@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
 
 "@types/node@*", "@types/node@^8.5.2":
   version "8.5.2"
@@ -54,6 +58,13 @@
   resolved "https://registry.yarnpkg.com/@types/request/-/request-2.0.9.tgz#125b8a60d8a439e8d87e6d1335c61cccdc18343a"
   dependencies:
     "@types/form-data" "*"
+    "@types/node" "*"
+
+"@types/shelljs@^0.7.7":
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.7.7.tgz#1f7bfa28947661afea06365db9b1135bbc903ec4"
+  dependencies:
+    "@types/glob" "*"
     "@types/node" "*"
 
 ajv@^5.1.0:
@@ -294,7 +305,7 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
+glob@^7.0.0, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -361,6 +372,10 @@ inflight@^1.0.4:
 inherits@2, inherits@~2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
+
+interpret@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
 
 is-typedarray@~1.0.0:
   version "1.0.0"
@@ -445,6 +460,10 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
+minimist@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+
 mkdirp@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
@@ -510,6 +529,12 @@ readable-stream@2.3.3:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
+rechoir@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/rechoir/-/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
+  dependencies:
+    resolve "^1.1.6"
+
 request-promise-core@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/request-promise-core/-/request-promise-core-1.1.1.tgz#3eee00b2c5aa83239cfb04c5700da36f81cd08b6"
@@ -552,7 +577,7 @@ request@^2.83.0:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-resolve@^1.3.2:
+resolve@^1.1.6, resolve@^1.3.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.5.0.tgz#1f09acce796c9a762579f31b2c1cc4c3cddf9f36"
   dependencies:
@@ -571,6 +596,14 @@ safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, s
 semver@^5.3.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
+
+shelljs@^0.7.8:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.8.tgz#decbcf874b0d1e5fb72e14b164a9683048e9acb3"
+  dependencies:
+    glob "^7.0.0"
+    interpret "^1.0.0"
+    rechoir "^0.6.2"
 
 sntp@2.x.x:
   version "2.1.0"

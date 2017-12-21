@@ -1,1 +1,0 @@
-{"version":3,"file":"bakeSite.js","sourceRoot":"","sources":["../src/bakeSite.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,mDAA+C;AAG/C;;;;YACU,KAAK,GAAG,IAAI,+BAAc,CAAC;gBAC7B,QAAQ,EAAE,gBAAgB;gBAC1B,YAAY,EAAE,eAAe;gBAC7B,MAAM,EAAE,wBAAwB;aACnC,CAAC,CAAA;YAEF,KAAK,CAAC,OAAO,EAAE,CAAA;YACf,KAAK,CAAC,GAAG,EAAE,CAAA;;;;CACd;AAED,IAAI,EAAE,CAAA"}

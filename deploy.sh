@@ -26,4 +26,5 @@ ssh -t $HOST 'bash -e -s' <<EOF
   cp -r $SYNC_TARGET $TMP_NEW
   mv $LIVE_TARGET $OLD_REPO
   mv $TMP_NEW $LIVE_TARGET
+  cd $LIVE_TARGET && yarn
 EOF

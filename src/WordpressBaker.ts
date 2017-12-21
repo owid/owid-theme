@@ -4,12 +4,14 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as glob from 'glob'
 import {without} from 'lodash'
+import * as shell from 'shelljs'
 
 // Static site generator using Wordpress
 
 export interface WPBakerProps {
     database: string
     wordpressUrl: string
+    wordpressDir: string
     outDir: string
     forceUpdate?: boolean
 }
@@ -76,8 +78,7 @@ export class WordpressBaker {
         const rows = await postsQuery
     
         await this.bakePost("/")
-        // Scrape in little batches to avoid overwhelming the server
-        let requests = []
+        let requestSlugs = []
         let postSlugs = []
         for (const row of rows) {
             const slug = (permalinks[row.ID] || row.post_name).replace(/\/$/, "")
@@ -87,9 +88,9 @@ export class WordpressBaker {
                 try {
                     const outPath = path.join(outDir, `${slug}.html`)
                     const stat = fs.statSync(outPath)
+//                    console.log(`${stat.mtime} ${row.post_modified} ${slug}`)
                     if (stat.mtime >= row.post_modified) {
                         // No newer version of this post, don't bother to bake
-                        //console.log(`304 ${slug}`)
                         continue
                     }
                 } catch (err) {
@@ -97,13 +98,16 @@ export class WordpressBaker {
                 }    
             }
 
-            requests.push(this.bakePost(slug))
+            requestSlugs.push(slug)
 
-            if (requests.length >= 10 || row === rows[rows.length-1]) {
-                await Promise.all(requests)
-                requests = []
-            }    
+            if (requestSlugs.length >= 10) {
+                // Scrape in little batches to avoid overwhelming the server
+                await Promise.all(requestSlugs.map(slug => this.bakePost(slug)))
+                requestSlugs = []
+            }
         }
+
+        await Promise.all(requestSlugs.map(slug => this.bakePost(slug)))
 
         // Delete any previously rendered posts that aren't in the database
         const existingSlugs = glob.sync(`${outDir}/**/*.html`).map(path => path.replace(`${outDir}/`, '').replace(".html", "")).filter(path => !path.startsWith('wp-') && path !== "index")
@@ -114,11 +118,31 @@ export class WordpressBaker {
         }
     }
 
+    async bakeAssets() {
+        const {wordpressDir, outDir} = this.props
+        shell.exec(`rsync -havz --delete ${wordpressDir}/wp-content ${outDir}/`)
+        shell.exec(`rsync -havz --delete ${wordpressDir}/wp-includes ${outDir}/`)
+    }
+
     async bakeAll() {
-        await Promise.all([
-            this.bakeRedirects(),
-            this.bakePosts()
-        ])
+        await this.bakePosts()
+        await this.bakeRedirects()
+        await this.bakeAssets()
+    }
+
+    exec(cmd: string) {
+        console.log(cmd)
+        shell.exec(cmd)
+    }
+
+    async deploy(authorEmail?: string, authorName?: string, commitMsg?: string) {
+        const {outDir} = this.props
+        if (authorEmail && authorName && commitMsg) {
+            this.exec(`cd ${outDir} && git add -A . && git commit --author='${authorName} <${authorEmail}>' -a -m '${commitMsg}'`)
+        } else {
+            this.exec(`cd ${outDir} && git add -A . && git commit -a -m "Automated update"`)
+        }
+        this.exec(`cd ${outDir} && git push origin master`)
     }
 
     end() {
