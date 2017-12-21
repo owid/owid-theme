@@ -8,7 +8,7 @@ if [ "$1" == "test" ]; then
   HOST="owid@terra"
 elif [ "$1" == "live" ]; then
   NAME="owid-theme"
-  ROOT="/home/owid"
+  ROOT="/home/owid/ourworldindata.org/wp-content/themes"
   HOST="owid@terra"
 else
   echo "Please select either live or test."
