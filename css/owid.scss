@@ -13,11 +13,7 @@
 	License URI: https://opensource.org/licenses/MIT
 */
 
-/* Baseline Normalize
-	normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css
---------------------------------------------- */
-
-progress,sub,sup{vertical-align:baseline}button,hr,input{overflow:visible}[type=checkbox],[type=radio],legend{box-sizing:border-box;padding:0}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{color:inherit;display:table;max-width:100%;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+@import 'normalize.css';
 
 /* Box Sizing
 --------------------------------------------- */
@@ -45,14 +41,49 @@ progress,sub,sup{vertical-align:baseline}button,hr,input{overflow:visible}[type=
 /* Typographical Elements
 --------------------------------------------- */
 
+html {
+	font-size: 14px;
+    line-height: 1.6em;
+    /* font-family: "Libre Franklin", "Helvetica Neue", sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;	
+	word-wrap: break-word;
+}
+
 body {
 	background-color: #fff;
-	color: #000;
-	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: 400;
-	line-height: 1.5;
-	-webkit-font-smoothing: antialiased;
-	word-wrap: break-word;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+article h1 {
+	font-size: 40px;
+	font-weight: 700;
+	line-height: 1.1em;
+}
+
+@media (min-width: 768px) {
+	article h1 {
+		font-size: 50px;
+	}
+}
+
+@media (min-width: 1024px) {
+	article {
+		font-size: 1.06rem;
+		line-height: 1.7em;
+	}
+
+	article h2 {
+		font-size: 36px;
+	}
 }
 
 a,
@@ -1961,55 +1992,6 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	margin-bottom: 10px;
 }
 
-/* rem-unit Responsiveness
---------------------------------------------- */
-
-@media screen and (min-width: 500px){
-  html{
-    font-size: 14px;
-  }
-}
-@media screen and (min-width: 570px){
-  html{
-    font-size: 15px;
-  }
-}
-@media screen and (min-width: 620px){
-  html{
-    font-size: 16px;
-  }
-}
-@media screen and (min-width: 680px){
-  html{
-    font-size: 17px;
-  }
-}
-@media screen and (min-width: 720px){
-  html{
-    font-size: 18px;
-  }
-}
-@media screen and (min-width: 800px){
-  html{
-    font-size: 19px;
-  }
-}
-@media screen and (min-width: 860px){
-  html{
-    font-size: 20px;
-  }
-}
-/*@media screen and (min-width: 920px){
-  html{
-    font-size: 21px;
-  }
-}
-@media screen and (min-width: 1000px){
-  html{
-    font-size: 22px;
-  }
-}*/
-
 /* Pages & Posts
 --------------------------------------------- */
 
@@ -2023,12 +2005,7 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	margin: 0 0 20px;
 }
 
-.article-header > h1 {
-	font-size: 2rem;
-}
-
 .article-content > h2 {
-	font-size: 1.8rem;
 	margin-top: 1.5em;
 	margin-bottom: 0.5em;
 	text-align: center;
@@ -2063,17 +2040,12 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	font-size: 22px;
 }
 
-.article-content > p {
-	font-size: 17px;
-}
-
 img {
 	max-width: 100%;
 }
 
 article.page h1.entry-title {
 	text-align: center;
-	font-size: 3rem;
 	margin: 0;
 }
 
@@ -2169,6 +2141,13 @@ article.page {
 	max-width: 850px;	
 	max-height: 600px;
 	overflow: hidden;
+}
+
+@media (max-width: 767px) {
+	.article-content figure {
+		height: 500px;
+		max-height: 500px;
+	}
 }
 
 img {
