@@ -150,6 +150,7 @@ export class WordpressBaker {
         const {wordpressDir, outDir} = this.props
         shell.exec(`rsync -havz --delete ${wordpressDir}/wp-content ${outDir}/`)
         shell.exec(`rsync -havz --delete ${wordpressDir}/wp-includes ${outDir}/`)
+        shell.exec(`rsync -havz --delete ${wordpressDir}/favicon* ${outDir}/`)
         shell.exec(`rsync -havz --delete ${wordpressDir}/slides/ ${outDir}/slides`)
     }
 
