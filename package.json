@@ -1,19 +1,25 @@
 {
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "build": "tsc; node-sass --recursive --output dist --source-map true --source-map-contents css",
+    "watch": "yarn build; ./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"node-sass --watch --recursive --output dist --source-map true --source-map-contents css\""
+  },
   "dependencies": {
     "@types/fs-extra": "^5.0.0",
     "@types/glob": "^5.0.34",
     "@types/lodash": "^4.14.91",
     "@types/minimist": "^1.2.0",
+    "@types/mysql": "^2.15.2",
     "@types/node": "^8.5.2",
     "@types/request-promise": "^4.1.39",
     "@types/shelljs": "^0.7.7",
+    "concurrently": "^3.5.1",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "mysql": "^2.15.0",
+    "node-sass": "^4.7.2",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "shelljs": "^0.7.8",

@@ -144,6 +144,19 @@ export class WordpressBaker {
             requests.push(this.bakePost(`blog/page/${i}`))
         }
         await Promise.all(requests)
+
+        // RSS feed
+        try {
+            const {outDir, wordpressUrl} = this.props
+            let feed = await request(`${wordpressUrl}/feed/`)
+
+            await fs.mkdirp(path.join(outDir, 'feed'))
+            const outPath = path.join(outDir, 'feed/index.xml')
+            await fs.writeFile(outPath, feed)
+            console.log(outPath)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     async bakeAssets() {
