@@ -30,6 +30,7 @@ export class WordpressBaker {
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
+            "/roser/* https://maxroser.com/roser/:splat 302",
             "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
             "/mispy/sdgs/* https://owid-sdgs.netlify.com/:splat 302",
             "/slides/Max_PPT_presentations/* https://maxroser.com/slides/Max_PPT_presentations/:splat 302",
