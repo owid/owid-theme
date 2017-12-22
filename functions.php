@@ -35,7 +35,7 @@ function build_static($post_ID, $post_after, $post_before) {
 	if ($post_after->post_status == "publish" || $post_before->post_status == "publish") {
 		global $wpdb;
 		$current_user = wp_get_current_user();
-		$cmd = "cd " . dirname(__FILE__) . " && node dist/src/postUpdatedHook.js " . escapeshellarg($wpdb->dbname) . " " . escapeshellarg(get_site_url()) . " " . escapeshellarg(get_home_path()) . " " . escapeshellarg($current_user->user_email) . " " . escapeshellarg($current_user->display_name) . " " . escapeshellarg($post_after->post_name) . " > /tmp/wp-static.log 2>&1 &";
+		$cmd = "cd " . dirname(__FILE__) . " && node dist/src/postUpdatedHook.js " . escapeshellarg($wpdb->dbname) . " http://localhost:80 " . escapeshellarg(get_home_path()) . " " . escapeshellarg($current_user->user_email) . " " . escapeshellarg($current_user->display_name) . " " . escapeshellarg($post_after->post_name) . " > /tmp/wp-static.log 2>&1 &";
 		error_log($cmd);
 		exec($cmd);	
 	}
