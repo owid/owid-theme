@@ -28,6 +28,9 @@ export class WordpressBaker {
         const {db, props} = this
         const redirects = [
             "http://owid.netlify.com* https://owid.netlify.com:splat",
+            "/chart-builder/* /grapher/:splat 301",
+            "/grapher/public/* /grapher/:splat 301",
+            "/grapher/view/* /grapher/:splat 301",
             "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200"
         ]
     
@@ -135,12 +138,12 @@ export class WordpressBaker {
         shell.exec(cmd)
     }
 
-    async deploy(authorEmail?: string, authorName?: string, commitMsg?: string) {
+    async deploy(commitMsg: string, authorEmail?: string, authorName?: string) {
         const {outDir} = this.props
         if (authorEmail && authorName && commitMsg) {
             this.exec(`cd ${outDir} && git add -A . && git commit --author='${authorName} <${authorEmail}>' -a -m '${commitMsg}'`)
         } else {
-            this.exec(`cd ${outDir} && git add -A . && git commit -a -m "Automated update"`)
+            this.exec(`cd ${outDir} && git add -A . && git commit -a -m '${commitMsg}'`)
         }
         this.exec(`cd ${outDir} && git push origin master`)
     }
