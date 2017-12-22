@@ -31,10 +31,10 @@ export class WordpressBaker {
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
             "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
+            "/mispy/sdgs/* https://owid-sdgs.netlify.com/:splat 302",
             "/slides/Max_PPT_presentations/* https://maxroser.com/slides/Max_PPT_presentations/:splat 302",
             "/slides/Max_Interactive_Presentations/* https://maxroser.com/slides/Max_Interactive_Presentations/:splat 302",
-            "/slides/* https://owid-slides.netlify.com/:splat 200",
-            "/mispy/sdgs/* https://owid-sdgs.netlify.com/:splat 200"
+            "/slides/* https://owid-slides.netlify.com/:splat 200"
         ]
     
         const rows = await db.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
