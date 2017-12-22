@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "tsc; node-sass --recursive --output dist --source-map true --source-map-contents css",
-    "watch": "yarn build; ./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"node-sass --watch --recursive --output dist --source-map true --source-map-contents css\""
+    "build": "webpack -p",
+    "watch": "./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"webpack -w\""
   },
   "dependencies": {
     "@types/fs-extra": "^5.0.0",
@@ -14,18 +14,28 @@
     "@types/request-promise": "^4.1.39",
     "@types/shelljs": "^0.7.7",
     "concurrently": "^3.5.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "mysql": "^2.15.0",
     "node-sass": "^4.7.2",
+    "normalize.css": "^7.0.0",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "sass-loader": "^6.0.6",
     "shelljs": "^0.7.8",
+    "style-loader": "^0.19.1",
+    "ts-loader": "^3.2.0",
     "tslint": "^5.7.0",
     "tslint-language-service": "^0.9.6",
     "tslint-loader": "^3.5.3",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-parallel-uglify-plugin": "^1.0.2"
   }
 }

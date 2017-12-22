@@ -24,7 +24,7 @@ add_action( 'wp_enqueue_scripts', 'owid_enqueue_scripts_styles' );
 function owid_enqueue_scripts_styles() {
 	//* Enqueue scripts and styles
 	$template_dir = get_stylesheet_directory_uri();
-	wp_enqueue_style('owid-theme', get_stylesheet_uri(), null, filemtime(get_stylesheet_directory() . '/style.css'));
+	wp_enqueue_style('owid-theme', $template_dir . '/dist/owid.css', null, filemtime(get_stylesheet_directory() . '/dist/owid.css'));
 	wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
 	// Bootstrap tooltip, for footnotes on hover
 	wp_enqueue_script("tooltip", $template_dir . "/js/tooltip.js", null, null, true);
