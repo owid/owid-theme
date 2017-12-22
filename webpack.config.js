@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "[name].js"
+        filename: "js/[name].js"
     },
   	resolve: {
         extensions: [".ts", ".tsx", ".js", ".css", ".scss"],
@@ -60,7 +60,7 @@ module.exports = {
     plugins: (isProduction ? [
         // This plugin extracts css files required in the entry points
         // into a separate CSS bundle for download
-        new ExtractTextPlugin('[name].css'),
+        new ExtractTextPlugin('css/[name].css'),
 
         // CSS optimization
         /*new OptimizeCssAssetsPlugin({
@@ -87,6 +87,6 @@ module.exports = {
             }
         }),
     ] : [
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('css/[name].css')
     ])
 }
