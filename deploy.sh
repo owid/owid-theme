@@ -37,7 +37,7 @@ then
     cp -r $SYNC_TARGET $TMP_NEW
     mv $FINAL_TARGET $OLD_REPO
     mv $TMP_NEW $FINAL_TARGET
-    cd $FINAL_TARGET && yarn && tsc
+    cd $FINAL_TARGET && yarn
     node dist/deployHook.js $WORDPRESS_DB $WORDPRESS_URL $WORDPRESS_DIR
 EOF
 fi

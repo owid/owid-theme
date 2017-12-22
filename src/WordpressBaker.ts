@@ -27,7 +27,6 @@ export class WordpressBaker {
     async bakeRedirects() {
         const {db, props} = this
         const redirects = [
-            "http://owid.netlify.com* https://owid.netlify.com:splat",
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
@@ -54,13 +53,19 @@ export class WordpressBaker {
     
             html = html.replace(new RegExp(wordpressUrl, 'g'), "")
                 .replace(new RegExp("http://", 'g'), "https://")
-                .replace(new RegExp("https://ourworldindata.org", 'g'), "https://owid.netlify.com")
-                .replace(new RegExp("/grapher/embedCharts.js", 'g'), "https://owid.netlify.com/grapher/embedCharts.js")
+                .replace(new RegExp("https://ourworldindata.org", 'g'), "https://static.ourworldindata.org")
+                .replace(new RegExp("/grapher/embedCharts.js", 'g'), "https://static.ourworldindata.org/grapher/embedCharts.js")
     
             await fs.writeFile(outPath, html)
             console.log(outPath)
         } catch (err) {
-            console.error(slug, err.message)
+            if (slug === "404") {
+                const outPath = path.join(outDir, `404.html`)
+                fs.writeFile(outPath, err.response.body)
+                console.log(outPath)
+            } else {
+                console.error(err)
+            }
         }
     }
     
@@ -80,6 +85,7 @@ export class WordpressBaker {
         const permalinks = await this.getPermalinks()
         const rows = await postsQuery
     
+        await this.bakePost("404")
         await this.bakePost("/")
         let requestSlugs = []
         let postSlugs = []
@@ -113,7 +119,7 @@ export class WordpressBaker {
         await Promise.all(requestSlugs.map(slug => this.bakePost(slug)))
 
         // Delete any previously rendered posts that aren't in the database
-        const existingSlugs = glob.sync(`${outDir}/**/*.html`).map(path => path.replace(`${outDir}/`, '').replace(".html", "")).filter(path => !path.startsWith('wp-') && path !== "index")
+        const existingSlugs = glob.sync(`${outDir}/**/*.html`).map(path => path.replace(`${outDir}/`, '').replace(".html", "")).filter(path => !path.startsWith('wp-') && path !== "index" && path !== "404")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
             console.log(`DELETING ${outDir}/${slug}.html`)
