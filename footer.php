@@ -45,11 +45,10 @@
 				</div>
 				<div class="column links">
 					<h6>Links</h6>
-					<a href="/data">Entries</a>
+					<a href="/">Entries</a>
 					<a href="/blog">Blog</a>
 					<a href="/support">Donate</a>
 					<a href="/about">About</a>
-					<a href="/wp-admin">Login</a>
 					<hr>
 				</div>
 			</div>
