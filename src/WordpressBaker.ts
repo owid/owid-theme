@@ -30,14 +30,13 @@ export class WordpressBaker {
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
-            "/roser/* https://maxroser.com/roser/:splat 302",
-            "/wp-content/uploads/nvd3/* https://maxroser.com/owidUploads/nvd3/:splat 302",
-            "/wp-content/uploads/datamaps/* https://maxroser.com/owidUploads/datamaps/:splat 302",
+            "/roser/* https://www.maxroser.com/roser/:splat 302",
+            "/wp-content/uploads/nvd3/* https://www.maxroser.com/owidUploads/nvd3/:splat 302",
+            "/wp-content/uploads/datamaps/* https://www.maxroser.com/owidUploads/datamaps/:splat 302",
             "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
             "/mispy/sdgs/* https://owid-sdgs.netlify.com/:splat 302",
-            "/slides/Max_PPT_presentations/* https://maxroser.com/slides/Max_PPT_presentations/:splat 302",
-            "/slides/Max_Interactive_Presentations/* https://maxroser.com/slides/Max_Interactive_Presentations/:splat 302",
-            "/slides/* https://owid-slides.netlify.com/:splat 200"
+            "/slides/Max_PPT_presentations/* https://www.maxroser.com/slides/Max_PPT_presentations/:splat 302",
+            "/slides/Max_Interactive_Presentations/* https://www.maxroser.com/slides/Max_Interactive_Presentations/:splat 302"
         ]
     
         const rows = await db.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
@@ -62,6 +61,8 @@ export class WordpressBaker {
                 .replace(new RegExp("http://", 'g'), "https://")
                 .replace(new RegExp("https://ourworldindata.org", 'g'), "https://static.ourworldindata.org")
                 .replace(new RegExp("/grapher/embedCharts.js", 'g'), "https://static.ourworldindata.org/grapher/embedCharts.js")
+                .replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
+                .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
     
             await fs.writeFile(outPath, html)
             console.log(outPath)
@@ -126,7 +127,8 @@ export class WordpressBaker {
         await Promise.all(requestSlugs.map(slug => this.bakePost(slug)))
 
         // Delete any previously rendered posts that aren't in the database
-        const existingSlugs = glob.sync(`${outDir}/**/*.html`).map(path => path.replace(`${outDir}/`, '').replace(".html", "")).filter(path => !path.startsWith('wp-') && path !== "index" && path !== "404")
+        const existingSlugs = glob.sync(`${outDir}/**/*.html`).map(path => path.replace(`${outDir}/`, '').replace(".html", ""))
+            .filter(path => !path.startsWith('wp-') && !path.startsWith('slides') && !path.startsWith('blog') && path !== "index" && path !== "404")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
             console.log(`DELETING ${outDir}/${slug}.html`)
@@ -134,16 +136,28 @@ export class WordpressBaker {
         }
     }
 
+    async bakeBlog() {
+        const posts = await this.db.query(`SELECT ID FROM wp_posts WHERE (post_type='post') AND post_status='publish'`)
+        const numPages = Math.ceil(posts.length/20)
+        const requests = []
+        for (let i = 2; i <= numPages; i++) {
+            requests.push(this.bakePost(`blog/page/${i}`))
+        }
+        await Promise.all(requests)
+    }
+
     async bakeAssets() {
         const {wordpressDir, outDir} = this.props
         shell.exec(`rsync -havz --delete ${wordpressDir}/wp-content ${outDir}/`)
         shell.exec(`rsync -havz --delete ${wordpressDir}/wp-includes ${outDir}/`)
+        shell.exec(`rsync -havz --delete ${wordpressDir}/slides/ ${outDir}/slides`)
     }
 
     async bakeAll() {
-        await this.bakePosts()
         await this.bakeRedirects()
         await this.bakeAssets()
+        await this.bakeBlog()
+        await this.bakePosts()
     }
 
     exec(cmd: string) {
