@@ -3,6 +3,7 @@ import * as React from 'react'
 import { SiteHeader, CategoryWithEntries } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import * as cheerio from 'cheerio'
+const wpautop = require('wpautop')
 
 export interface PageInfo {
     title: string
@@ -10,14 +11,19 @@ export interface PageInfo {
 }
 
 function rewriteHtml(html: string): { footnotes: string[], html: string } {
-    
+    //console.log(html.split(/(\r\n)+/).filter(p => p.match(/\w/)))
+    //html = html.split(/(\r\n)+/).filter(p => p.match(/\w/)).map(p => `<p>${p}</p>`).join("")
+
     // Footnotes
     const footnotes: string[] = []
-    html = html.replace(/\[ref\](.*?)\[\/ref\]/g, (_, footnote) => {
+    html = html.replace(/\[ref\]([\s\S]*?)\[\/ref\]/gm, (_, footnote) => {
         footnotes.push(footnote)
         const i = footnotes.length
         return `<a id="ref-${i}" class="side-matter side-matter-ref" href="#note-${i}"><sup class="side-matter side-matter-sup">${i}</sup></a>`
     })
+    
+    // Replicate wordpress formatting (thank gods there's an npm package)
+    html = wpautop(html)
 
     const $ = cheerio.load(html)
 
