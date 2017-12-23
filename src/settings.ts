@@ -6,10 +6,15 @@ require('module-alias').addAliases({
 require('dotenv').config()
 
 interface Settings {
+
+
     STATIC_ROOT: string
     WORDPRESS_URL: string
     WORDPRESS_DB_NAME: string
+    WORDPRESS_DIR: string
 
+    // The output directory for static bundle
+    BAKED_DIR: string
     // The root url to use in the static bundle output
     BAKED_URL: string
 

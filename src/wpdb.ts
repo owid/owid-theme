@@ -88,11 +88,12 @@ export async function getEntriesByCategory(): Promise<CategoryWithEntries[]> {
     }
 
     const pageRows = await wpdb.query(`
-        SELECT posts.ID, post_title, post_date, post_name, perma.meta_value AS custom_permalink, star.meta_value AS starred FROM wp_posts AS posts
-        LEFT JOIN wp_postmeta AS perma ON perma.post_id=ID AND perma.meta_key='custom_permalink'
+        SELECT posts.ID, post_title, post_date, post_name, star.meta_value AS starred FROM wp_posts AS posts
         LEFT JOIN wp_postmeta AS star ON star.post_id=ID AND star.meta_key='_ino_star'
         WHERE posts.post_type='page' AND posts.post_status='publish' ORDER BY posts.menu_order ASC
     `)
+
+    const permalinks = await getPermalinks()
 
     cachedEntries = categoryOrder.map(cat => {
         const rows = pageRows.filter(row => {
@@ -102,7 +103,7 @@ export async function getEntriesByCategory(): Promise<CategoryWithEntries[]> {
         
         const entries = rows.map(row => {
             return {
-                slug: row.custom_permalink||row.post_name,
+                slug: permalinks.get(row.ID, row.post_name),
                 title: row.post_title,
                 starred: row.starred == "1"
             }
@@ -117,6 +118,7 @@ export async function getEntriesByCategory(): Promise<CategoryWithEntries[]> {
     return cachedEntries
 }
 
+
 let cachedPermalinks: Map<number, string>
 export async function getCustomPermalinks() {
     if (cachedPermalinks) return cachedPermalinks
@@ -130,6 +132,14 @@ export async function getCustomPermalinks() {
     cachedPermalinks = permalinks
     return permalinks
 }    
+
+export async function getPermalinks() {
+    const permalinks = await getCustomPermalinks()
+
+    return {
+        get: (ID: number, post_name: string) => (permalinks.get(ID) || post_name).replace(/\/$/, "")
+    }
+}
 
 let cachedFeaturedImages: Map<number, string>
 export async function getFeaturedImages() {
@@ -149,6 +159,7 @@ export async function getFeaturedImages() {
 
 export interface FullPost {
     id: number
+    type: 'post'|'page'
     slug: string
     title: string
     date: Date
@@ -161,11 +172,12 @@ export interface FullPost {
 export async function getFullPost(row: any): Promise<FullPost> {
     const authorship = await getAuthorship()
     const featuredImages = await getFeaturedImages()
-    const permalinks = await getCustomPermalinks()
+    const permalinks = await getPermalinks()
 
     return {
         id: row.ID,
-        slug: permalinks.get(row.ID) || row.post_name,
+        type: row.post_type,
+        slug: permalinks.get(row.ID, row.post_name),
         title: row.post_title,
         date: new Date(row.post_date),
         authors: authorship.get(row.ID) || [],

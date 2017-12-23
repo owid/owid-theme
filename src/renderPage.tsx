@@ -21,18 +21,18 @@ async function renderPageById(id: number): Promise<string> {
         return ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} post={post}/>)
 }
 
-async function renderFrontPage() {
+export async function renderFrontPage() {
     const postRows = await wpdb.query(`
         SELECT ID, post_title, post_date, post_name FROM wp_posts
         WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC LIMIT 6`)
     
-    const permalinks = await wpdb.getCustomPermalinks()
+    const permalinks = await wpdb.getPermalinks()
 
     const posts = postRows.map(row => {
         return {
             title: row.post_title,
             date: new Date(row.post_date),
-            slug: permalinks.get(row.ID)||row.post_name
+            slug: permalinks.get(row.ID, row.post_name)            
         }
     })
 
@@ -48,20 +48,20 @@ async function renderBlog(pageNum: number) {
         SELECT ID, post_title, post_date, post_name FROM wp_posts
         WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC LIMIT ${postsPerPage} OFFSET ${postsPerPage*(pageNum-1)} `)
     
-    const permalinks = await wpdb.getCustomPermalinks()
     const authorship = await wpdb.getAuthorship()
+    const permalinks = await wpdb.getPermalinks()
 
-    const posts = postRows.map(row => {
-        return {
+    const posts = []
+    for (const row of postRows) {
+        posts.push({
             title: row.post_title,
             date: new Date(row.post_date),
-            slug: permalinks.get(row.ID)||row.post_name,
+            slug: permalinks.get(row.ID, row.post_name),
             authors: authorship.get(row.ID)||[]
-        }
-    })
+        })
+    }
 
     const entries = await wpdb.getEntriesByCategory()
-
     return ReactDOMServer.renderToStaticMarkup(<BlogIndexPage entries={entries} posts={posts}/>)
 }
 
@@ -82,4 +82,5 @@ async function main(target: string) {
     }
 }
 
-main(process.argv[2])
+if (require.main == module)
+    main(process.argv[2])

@@ -4,16 +4,20 @@ import * as path from 'path'
 import * as glob from 'glob'
 import {without, chunk} from 'lodash'
 import * as shell from 'shelljs'
+
 import * as wpdb from './wpdb'
+import { ArticlePage } from './views/ArticlePage'
+import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
+const { BAKED_DIR, WORDPRESS_URL, WORDPRESS_DIR } = settings
+import { renderFrontPage } from './renderPage'
+
+import * as React from 'react'
+import * as ReactDOMServer from 'react-dom/server'
 
 // Static site generator using Wordpress
 
 export interface WPBakerProps {
-    database: string
-    wordpressUrl: string
-    wordpressDir: string
-    outDir: string
     forceUpdate?: boolean
 }
 
@@ -43,52 +47,35 @@ export class WordpressBaker {
         const rows = await wpdb.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
         redirects.push(...rows.map(row => `${row.url} ${row.action_data} ${row.action_code}`))
 
-        const outPath = path.join(props.outDir, `_redirects`)
-        await fs.writeFile(path.join(props.outDir, `_redirects`), redirects.join("\n"))
-        this.stage(outPath)
+        await this.stageWrite(path.join(BAKED_DIR, `_redirects`), redirects.join("\n"))
     }
 
-    async bakePost(slug: string) {
-        const {wordpressUrl, outDir} = this.props
+    async bakePost(post: wpdb.FullPost) {
+        const entries = await wpdb.getEntriesByCategory()
+        const html = ReactDOMServer.renderToStaticMarkup(
+            post.type == 'post' ? <BlogPostPage entries={entries} post={post}/> : <ArticlePage entries={entries} post={post}/>
+        )
 
-        try {
-            let html = await request(`${wordpressUrl}/${slug}`)
-    
-            if (slug === "/") slug = "index"
-            const outPath = path.join(outDir, `${slug}.html`)
-            await fs.mkdirp(path.dirname(outPath))
-        
-            await fs.writeFile(outPath, html)
-            this.stage(outPath)
-        } catch (err) {
-            if (slug === "404") {
-                const outPath = path.join(outDir, `404.html`)
-                fs.writeFile(outPath, err.response.body)
-                this.stage(outPath)
-            } else {
-                console.error(err)
-            }
-        }
+        const outPath = path.join(BAKED_DIR, `${post.slug}.html`)
+        await fs.mkdirp(path.dirname(outPath))        
+        await this.stageWrite(outPath, html)
     }
     
     async bakePosts() {
-        const {outDir, forceUpdate} = this.props
-        const postsQuery = wpdb.query(`SELECT ID, post_name, post_modified FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
+        const {forceUpdate} = this.props
+        const postsQuery = wpdb.query(`SELECT * FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
     
-        const permalinks = await wpdb.getCustomPermalinks()
         const rows = await postsQuery
     
-        await this.bakePost("404")
-        await this.bakePost("/")
-        let requestSlugs = []
+        let bakingPosts = []
         let postSlugs = []
         for (const row of rows) {
-            const slug = (permalinks.get(row.ID) || row.post_name).replace(/\/$/, "")
-            postSlugs.push(slug)
+            const post = await wpdb.getFullPost(row)
+            postSlugs.push(post.slug)
 
-            if (!forceUpdate) {
+           /* if (!forceUpdate) {
                 try {
-                    const outPath = path.join(outDir, `${slug}.html`)
+                    const outPath = path.join(BAKED_DIR, `${post.slug}.html`)
                     const stat = fs.statSync(outPath)
 //                    console.log(`${stat.mtime} ${row.post_modified} ${slug}`)
                     if (stat.mtime >= row.post_modified) {
@@ -98,28 +85,32 @@ export class WordpressBaker {
                 } catch (err) {
                     // File likely doesn't exist, proceed
                 }    
-            }
+            }*/
 
-            requestSlugs.push(slug)
+            bakingPosts.push(post)
 
-            if (requestSlugs.length >= 10) {
+            if (bakingPosts.length >= 10) {
                 // Scrape in little batches to avoid overwhelming the server
-                await Promise.all(requestSlugs.map(slug => this.bakePost(slug)))
-                requestSlugs = []
+                await Promise.all(bakingPosts.map(post => this.bakePost(post)))
+                bakingPosts = []
             }
         }
 
-        await Promise.all(requestSlugs.map(slug => this.bakePost(slug)))
+        await Promise.all(bakingPosts.map(post => this.bakePost(post)))
 
         // Delete any previously rendered posts that aren't in the database
-        const existingSlugs = glob.sync(`${outDir}/**/*.html`).map(path => path.replace(`${outDir}/`, '').replace(".html", ""))
+        const existingSlugs = glob.sync(`${BAKED_DIR}/**/*.html`).map(path => path.replace(`${BAKED_DIR}/`, '').replace(".html", ""))
             .filter(path => !path.startsWith('wp-') && !path.startsWith('slides') && !path.startsWith('blog') && path !== "index" && path !== "404")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
-            const outPath = `${outDir}/${slug}.html`
+            const outPath = `${BAKED_DIR}/${slug}.html`
             await fs.unlink(outPath)
             this.stage(outPath, `DELETING ${outPath}`)
         }
+    }
+
+    async bakeFrontPage() {
+        return this.stageWrite(`${BAKED_DIR}/index.html`, await renderFrontPage())
     }
 
     async bakeBlog() {
@@ -133,31 +124,35 @@ export class WordpressBaker {
 
         // RSS feed
         try {
-            const {outDir, wordpressUrl} = this.props
-            let feed = await request(`${wordpressUrl}/feed/`)
+            let feed = await request(`${WORDPRESS_URL}/feed/`)
 
-            await fs.mkdirp(path.join(outDir, 'feed'))
-            const outPath = path.join(outDir, 'feed/index.xml')
-            await fs.writeFile(outPath, feed)
-            this.stage(outPath)
+            await fs.mkdirp(path.join(BAKED_DIR, 'feed'))
+            const outPath = path.join(BAKED_DIR, 'feed/index.xml')
+            this.stageWrite(outPath, feed)
         } catch (err) {
             console.error(err)
         }
     }
 
     async bakeAssets() {
-        const {wordpressDir, outDir} = this.props
-        shell.exec(`rsync -havz --delete ${wordpressDir}/wp-content ${outDir}/`)
-        shell.exec(`rsync -havz --delete ${wordpressDir}/wp-includes ${outDir}/`)
-        shell.exec(`rsync -havz --delete ${wordpressDir}/favicon* ${outDir}/`)
-        shell.exec(`rsync -havz --delete ${wordpressDir}/slides/ ${outDir}/slides`)
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content ${BAKED_DIR}/`)
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-includes ${BAKED_DIR}/`)
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/favicon* ${BAKED_DIR}/`)
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/slides/ ${BAKED_DIR}/slides`)
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-themes/owid-theme/404.html ${BAKED_DIR}/`)
     }
 
     async bakeAll() {
         await this.bakeRedirects()
         await this.bakeAssets()
-        await this.bakeBlog()
+        await this.bakeFrontPage()
+        //await this.bakeBlog()
         await this.bakePosts()
+    }
+
+    async stageWrite(outPath: string, content: string) {
+        await fs.writeFile(outPath, content)
+        this.stage(outPath)
     }
 
     stage(outPath: string, msg?: string) {
@@ -171,14 +166,13 @@ export class WordpressBaker {
     }
 
     async deploy(commitMsg: string, authorEmail?: string, authorName?: string) {
-        const {outDir} = this.props
         for (const files of chunk(this.stagedFiles, 100)) {
-            this.exec(`cd ${outDir} && git add -A ${files.join(" ")}`)
+            this.exec(`cd ${BAKED_DIR} && git add -A ${files.join(" ")}`)
         }
         if (authorEmail && authorName && commitMsg) {
-            this.exec(`cd ${outDir} && git add -A . && git commit --author='${authorName} <${authorEmail}>' -a -m '${commitMsg}' && git push origin master`)
+            this.exec(`cd ${BAKED_DIR} && git add -A . && git commit --author='${authorName} <${authorEmail}>' -a -m '${commitMsg}' && git push origin master`)
         } else {
-            this.exec(`cd ${outDir} && git add -A . && git commit -a -m '${commitMsg}' && git push origin master`)
+            this.exec(`cd ${BAKED_DIR} && git add -A . && git commit -a -m '${commitMsg}' && git push origin master`)
         }
     }
 
