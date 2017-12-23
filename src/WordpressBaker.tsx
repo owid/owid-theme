@@ -88,12 +88,6 @@ export class WordpressBaker {
             }*/
 
             bakingPosts.push(post)
-
-            if (bakingPosts.length >= 10) {
-                // Scrape in little batches to avoid overwhelming the server
-                await Promise.all(bakingPosts.map(post => this.bakePost(post)))
-                bakingPosts = []
-            }
         }
 
         await Promise.all(bakingPosts.map(post => this.bakePost(post)))
