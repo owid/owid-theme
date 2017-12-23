@@ -23,7 +23,8 @@ function rewriteHtml(html: string): { footnotes: string[], html: string } {
     })
     
     // Replicate wordpress formatting (thank gods there's an npm package)
-    html = wpautop(html)
+    if (!html.match(/<!--raw-->/))
+        html = wpautop(html)
 
     const $ = cheerio.load(html)
 

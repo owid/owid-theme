@@ -23,15 +23,9 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
                         </button>
                     </form>
                 </li>
-                <li>
-                    <a href="/blog">Blog</a>
-                </li>
-                <li>
-                    <a href="/about">About</a>
-                </li>
-                <li>
-                    <a href="/support">Donate</a>
-                </li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/support">Donate</a></li>
             </ul>
             <h1 id="owid-title">
                 <a href="/"><span>Our World in Data</span></a>
@@ -58,13 +52,13 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
                                 {category.entries.map(entry =>
                                     <li><a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a></li>
                                 )}
-                                <li className='end-link'><a href='/about'>About</a></li>
-                                <li className='end-link'><a href='/support'>Donate</a></li>
-                                <li className='end-link'><a href='/data'>Browse All</a></li>
                             </ul>
                         </div>
                     </li>
                 )}
+                <li className='end-link'><a href='/about'>About</a></li>
+                <li className='end-link'><a href='/support'>Donate</a></li>
+                <li className='end-link'><a href='/data'>Browse All</a></li>
             </ul>
         </div>
         <div id="search-dropdown" className="mobile">
