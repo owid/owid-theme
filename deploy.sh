@@ -12,7 +12,7 @@ elif [ "$1" == "live" ]; then
   ENV="live"
   HOST="owid@terra"
   WORDPRESS_DIR="/home/owid/ourworldindata.org"
-  WORDPRESS_URL="http://localhost:80"
+  WORDPRESS_URL="https://owid.cloud"
   WORDPRESS_DB="owid_wordpress"
 
   # Prompt for confirmation if deploying to live
@@ -38,6 +38,6 @@ then
     mv $FINAL_TARGET $OLD_REPO
     mv $TMP_NEW $FINAL_TARGET
     cd $FINAL_TARGET && yarn
-    node dist/src/deployHook.js $WORDPRESS_DB $WORDPRESS_URL $WORDPRESS_DIR
+    node dist/deployHook.js $WORDPRESS_DB $WORDPRESS_URL $WORDPRESS_DIR
 EOF
 fi

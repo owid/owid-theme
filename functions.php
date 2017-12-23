@@ -24,7 +24,7 @@ add_action( 'wp_enqueue_scripts', 'owid_enqueue_scripts_styles' );
 function owid_enqueue_scripts_styles() {
 	//* Enqueue scripts and styles
 	$template_dir = get_stylesheet_directory_uri();
-	wp_enqueue_style('owid-theme', $template_dir . '/dist/css/owid.css', null, filemtime(get_stylesheet_directory() . '/dist/css/owid.css'));
+	wp_enqueue_style('owid-theme', $template_dir . '/dist/css/style.css', null, filemtime(get_stylesheet_directory() . '/dist/css/style.css'));
 	wp_enqueue_style('font-awesome-owid', $template_dir . '/css/font-awesome.min.css');
 	// Bootstrap tooltip, for footnotes on hover
 	wp_enqueue_script("tooltip", $template_dir . "/js/tooltip.js", null, null, true);
@@ -35,7 +35,7 @@ function build_static($post_ID, $post_after, $post_before) {
 	if ($post_after->post_status == "publish" || $post_before->post_status == "publish") {
 		global $wpdb;
 		$current_user = wp_get_current_user();
-		$cmd = "cd " . dirname(__FILE__) . " && node dist/src/postUpdatedHook.js " . escapeshellarg($wpdb->dbname) . " http://localhost:80 " . escapeshellarg(get_home_path()) . " " . escapeshellarg($current_user->user_email) . " " . escapeshellarg($current_user->display_name) . " " . escapeshellarg($post_after->post_name) . " > /tmp/wp-static.log 2>&1 &";
+		$cmd = "cd " . dirname(__FILE__) . " && node dist/postUpdatedHook.js " . escapeshellarg($wpdb->dbname) . " https://owid.cloud " . escapeshellarg(get_home_path()) . " " . escapeshellarg($current_user->user_email) . " " . escapeshellarg($current_user->display_name) . " " . escapeshellarg($post_after->post_name) . " > /tmp/wp-static.log 2>&1 &";
 		error_log($cmd);
 		exec($cmd);	
 	}

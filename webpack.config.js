@@ -60,7 +60,7 @@ module.exports = {
     plugins: (isProduction ? [
         // This plugin extracts css files required in the entry points
         // into a separate CSS bundle for download
-        new ExtractTextPlugin('css/[name].css'),
+        new ExtractTextPlugin('css/style.css'),
 
         // CSS optimization
         /*new OptimizeCssAssetsPlugin({
@@ -74,7 +74,6 @@ module.exports = {
             uglifyJS: {
                 compress: {
                   warnings: false,
-                  screw_ie8: true,
                   conditionals: true,
                   unused: false,
                   comparisons: true,
@@ -87,6 +86,6 @@ module.exports = {
             }
         }),
     ] : [
-        new ExtractTextPlugin('css/[name].css')
+        new ExtractTextPlugin('css/style.css')
     ])
 }

@@ -3,7 +3,7 @@ import * as request from 'request-promise'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as glob from 'glob'
-import {without} from 'lodash'
+import {without, chunk} from 'lodash'
 import * as shell from 'shelljs'
 
 // Static site generator using Wordpress
@@ -19,6 +19,7 @@ export interface WPBakerProps {
 export class WordpressBaker {
     props: WPBakerProps
     db: DatabaseConnection
+    stagedFiles: string[] = []
     constructor(props: WPBakerProps) {
         this.props = props
         this.db = createConnection({ database: props.database })
@@ -44,7 +45,7 @@ export class WordpressBaker {
 
         const outPath = path.join(props.outDir, `_redirects`)
         await fs.writeFile(path.join(props.outDir, `_redirects`), redirects.join("\n"))
-        console.log(outPath)
+        this.stage(outPath)
     }
 
     async bakePost(slug: string) {
@@ -65,12 +66,12 @@ export class WordpressBaker {
                 .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
     
             await fs.writeFile(outPath, html)
-            console.log(outPath)
+            this.stage(outPath)
         } catch (err) {
             if (slug === "404") {
                 const outPath = path.join(outDir, `404.html`)
                 fs.writeFile(outPath, err.response.body)
-                console.log(outPath)
+                this.stage(outPath)
             } else {
                 console.error(err)
             }
@@ -131,8 +132,9 @@ export class WordpressBaker {
             .filter(path => !path.startsWith('wp-') && !path.startsWith('slides') && !path.startsWith('blog') && path !== "index" && path !== "404")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
-            console.log(`DELETING ${outDir}/${slug}.html`)
-            await fs.unlink(`${outDir}/${slug}.html`)
+            const outPath = `${outDir}/${slug}.html`
+            await fs.unlink(outPath)
+            this.stage(outPath, `DELETING ${outPath}`)
         }
     }
 
@@ -153,7 +155,7 @@ export class WordpressBaker {
             await fs.mkdirp(path.join(outDir, 'feed'))
             const outPath = path.join(outDir, 'feed/index.xml')
             await fs.writeFile(outPath, feed)
-            console.log(outPath)
+            this.stage(outPath)
         } catch (err) {
             console.error(err)
         }
@@ -174,6 +176,11 @@ export class WordpressBaker {
         await this.bakePosts()
     }
 
+    stage(outPath: string, msg?: string) {
+        console.log(msg||outPath)
+        this.stagedFiles.push(outPath)
+    }
+
     exec(cmd: string) {
         console.log(cmd)
         shell.exec(cmd)
@@ -181,12 +188,14 @@ export class WordpressBaker {
 
     async deploy(commitMsg: string, authorEmail?: string, authorName?: string) {
         const {outDir} = this.props
-        if (authorEmail && authorName && commitMsg) {
-            this.exec(`cd ${outDir} && git add -A . && git commit --author='${authorName} <${authorEmail}>' -a -m '${commitMsg}'`)
-        } else {
-            this.exec(`cd ${outDir} && git add -A . && git commit -a -m '${commitMsg}'`)
+        for (const files of chunk(this.stagedFiles, 100)) {
+            this.exec(`cd ${outDir} && git add -A ${files.join(" ")}`)
         }
-        this.exec(`cd ${outDir} && git push origin master`)
+        if (authorEmail && authorName && commitMsg) {
+            this.exec(`cd ${outDir} && git add -A . && git commit --author='${authorName} <${authorEmail}>' -a -m '${commitMsg}' && git push origin master`)
+        } else {
+            this.exec(`cd ${outDir} && git add -A . && git commit -a -m '${commitMsg}' && git push origin master`)
+        }
     }
 
     end() {
