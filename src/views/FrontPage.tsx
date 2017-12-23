@@ -1,19 +1,21 @@
 import * as settings from '../settings'
 import * as React from 'react'
-import { SiteHeader, CategoryWithEntries } from './SiteHeader'
+import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
+import { CategoryWithEntries } from '../wpdb'
+import { formatDate } from '../formatting'
 
 export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) => {
     const {entries, posts} = props
     return <html>
         <head>
-            <link rel="stylesheet" href={`${settings.STATIC_ROOT}/css/owid.css`} />
+            <link rel="stylesheet" href={`${settings.STATIC_ROOT}/owid.css`} />
         </head>
         <body>
             <SiteHeader entries={entries} />
 
             <main id="main" className="site-main">
-                <div id="homepage-cover" style={{ "background-image": "url(/wp-content/themes/owid-theme/images/WorldMapDark2.png)" }}>
+                <div id="homepage-cover">
                     <div className="lead-in">
                         <h1 className="desktop">Our world is changing</h1>
                         <div className="desktop subheading">Explore the ongoing history of human civilization at the broadest level, through research and data visualization.</div>
@@ -33,7 +35,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                             {posts.map(post => <li className="post">
                                 <h4><a href={`/${post.slug}`}>{post.title}</a></h4>
                                 <div className="entry-meta">
-                                    <time>{post.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' })}</time>
+                                    <time>{formatDate(post.date)}</time>
                                 </div>
                             </li>)}
                         </ul>
@@ -41,7 +43,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                     </div> 
                     <div id="homepage-entries" className="owid-data">
                         <h3><a href="/entries">Entries</a></h3>
-                        <p>Ongoing collections of research and data by topic. Entries marked with <i className='fa fa-star'></i> are the most complete.</p>
+                        <p>Ongoing collections of research and data by topic. Entries marked with <span className="star">⭑</span> are the most complete.</p>
                         <ul>
                             {entries.map(category => <li>
                                 <h4>{category.name}</h4>

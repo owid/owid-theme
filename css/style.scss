@@ -1044,7 +1044,7 @@ header.blog-header h1 {
 	text-align: center;
 	font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
 	
-	background: url(/wp-content/themes/owid-theme/images/WorldMapDark2.png);
+	background: url(../images/WorldMapDark2.png);
 	color: white;
 	margin: auto;
 	margin-bottom: 1rem;
@@ -1137,7 +1137,7 @@ body.blog li.post img {
 
 
 body.single-post main {
-	background: #f6f6f6 url("/wp-content/themes/owid-theme/images/blog-pattern.png");
+	background: #f6f6f6 url("..//images/blog-pattern.png");
 	border-bottom: 1px solid #ddd;
 }
 
@@ -1304,6 +1304,10 @@ h5 .deep-link {
 
 
 /* MISPY: Marking of starred high-quality entries */
+
+span.star {
+	color: #3b77c3;	
+}
 
 .owid-data a.starred:after {
 	content: "⭑";
@@ -1586,7 +1590,7 @@ h5 .deep-link {
 	}
 
 	#homepage-cover {
-		background-image: url(/wp-content/uploads/2015/01/WorldMapDark2.png);
+		background-image: url(../images/WorldMapDark2.png);
 	    background-position: 50% 0px;
 	    background-size: cover;
 		padding: 50px 1rem;

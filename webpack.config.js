@@ -60,7 +60,7 @@ module.exports = {
     plugins: (isProduction ? [
         // This plugin extracts css files required in the entry points
         // into a separate CSS bundle for download
-        new ExtractTextPlugin('css/[name].css'),
+        new ExtractTextPlugin('[name].css'),
 
         // CSS optimization
         /*new OptimizeCssAssetsPlugin({
@@ -86,7 +86,7 @@ module.exports = {
             }
         }),
     ] : [
-        new ExtractTextPlugin('css/[name].css')
+        new ExtractTextPlugin('[name].css')
     ]),
 
     devServer: {

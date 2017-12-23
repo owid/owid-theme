@@ -4,5 +4,20 @@ require('module-alias').addAliases({
 })
 
 require('dotenv').config()
-const env = process.env
+
+interface Settings {
+    STATIC_ROOT: string
+    WORDPRESS_URL: string
+    WORDPRESS_DB_NAME: string
+
+    // The root url to use in the static bundle output
+    BAKED_URL: string
+
+    // Are we currently baking a static bundle?
+    IS_BAKING: boolean
+
+    HTTPS_ONLY: boolean
+}
+
+const env: Settings = (process.env as any)
 export = env

@@ -1,10 +1,11 @@
-import {createConnection, DatabaseConnection} from './database'
 import * as request from 'request-promise'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as glob from 'glob'
 import {without, chunk} from 'lodash'
 import * as shell from 'shelljs'
+import * as wpdb from './wpdb'
+import * as settings from './settings'
 
 // Static site generator using Wordpress
 
@@ -18,15 +19,14 @@ export interface WPBakerProps {
 
 export class WordpressBaker {
     props: WPBakerProps
-    db: DatabaseConnection
     stagedFiles: string[] = []
     constructor(props: WPBakerProps) {
-        this.props = props
-        this.db = createConnection({ database: props.database })
+        this.props = props;
+        (settings as any).IS_BAKING = true
     }
 
     async bakeRedirects() {
-        const {db, props} = this
+        const {props} = this
         const redirects = [
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
@@ -40,7 +40,7 @@ export class WordpressBaker {
             "/slides/Max_Interactive_Presentations/* https://www.maxroser.com/slides/Max_Interactive_Presentations/:splat 302"
         ]
     
-        const rows = await db.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
+        const rows = await wpdb.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
         redirects.push(...rows.map(row => `${row.url} ${row.action_data} ${row.action_code}`))
 
         const outPath = path.join(props.outDir, `_redirects`)
@@ -57,14 +57,7 @@ export class WordpressBaker {
             if (slug === "/") slug = "index"
             const outPath = path.join(outDir, `${slug}.html`)
             await fs.mkdirp(path.dirname(outPath))
-    
-            html = html.replace(new RegExp(wordpressUrl, 'g'), "")
-                .replace(new RegExp("http://", 'g'), "https://")
-                .replace(new RegExp("https://ourworldindata.org", 'g'), "https://static.ourworldindata.org")
-                .replace(new RegExp("/grapher/embedCharts.js", 'g'), "https://static.ourworldindata.org/grapher/embedCharts.js")
-                .replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
-                .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
-    
+        
             await fs.writeFile(outPath, html)
             this.stage(outPath)
         } catch (err) {
@@ -78,20 +71,11 @@ export class WordpressBaker {
         }
     }
     
-    async getPermalinks() {
-        const rows = await this.db.query(`SELECT post_id, meta_value FROM wp_postmeta WHERE meta_key='custom_permalink'`)
-        const permalinks: {[postId: number]: string|undefined} = {}
-        for (const row of rows) {
-            permalinks[row.post_id] = row.meta_value
-        }
-        return permalinks
-    }
-    
     async bakePosts() {
         const {outDir, forceUpdate} = this.props
-        const postsQuery = this.db.query(`SELECT ID, post_name, post_modified FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
+        const postsQuery = wpdb.query(`SELECT ID, post_name, post_modified FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
     
-        const permalinks = await this.getPermalinks()
+        const permalinks = await wpdb.getCustomPermalinks()
         const rows = await postsQuery
     
         await this.bakePost("404")
@@ -99,7 +83,7 @@ export class WordpressBaker {
         let requestSlugs = []
         let postSlugs = []
         for (const row of rows) {
-            const slug = (permalinks[row.ID] || row.post_name).replace(/\/$/, "")
+            const slug = (permalinks.get(row.ID) || row.post_name).replace(/\/$/, "")
             postSlugs.push(slug)
 
             if (!forceUpdate) {
@@ -139,7 +123,7 @@ export class WordpressBaker {
     }
 
     async bakeBlog() {
-        const posts = await this.db.query(`SELECT ID FROM wp_posts WHERE (post_type='post') AND post_status='publish'`)
+        const posts = await wpdb.query(`SELECT ID FROM wp_posts WHERE (post_type='post') AND post_status='publish'`)
         const numPages = Math.ceil(posts.length/20)
         const requests = []
         for (let i = 2; i <= numPages; i++) {
@@ -199,6 +183,6 @@ export class WordpressBaker {
     }
 
     end() {
-        this.db.end()
+        wpdb.end()
     }
 }

@@ -1,13 +1,5 @@
 import * as React from 'react'
-
-export interface CategoryWithEntries {
-    name: string,
-    entries: {
-        slug: string,
-        title: string,
-        starred: boolean
-    }[]
-}
+import { CategoryWithEntries } from '../wpdb'
 
 export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
     const {entries} = props
