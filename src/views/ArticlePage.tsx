@@ -1,7 +1,7 @@
 import * as settings from '../settings'
 import * as React from 'react'
-import {SiteHeader} from './SiteHeader'
-import {SiteFooter} from './SiteFooter'
+import { SiteHeader, CategoryWithEntries } from './SiteHeader'
+import { SiteFooter } from './SiteFooter'
 import * as cheerio from 'cheerio'
 
 export interface PageInfo {
@@ -23,15 +23,15 @@ function rewriteHtml(html: string): string {
     return $.html()
 }
 
-export const ArticlePage = (props: { page: PageInfo }) => {
-    const {page} = props
+export const ArticlePage = (props: { entries: CategoryWithEntries[], page: PageInfo }) => {
+    const {entries, page} = props
     const contentHtml = rewriteHtml(page.content)
     return <html>
         <head>
             <link rel="stylesheet" href={`${settings.STATIC_ROOT}/css/owid.css`}/>
         </head>
         <body>
-            <SiteHeader/>
+            <SiteHeader entries={entries}/>
             <main id="main" className="site-main">
                 <div className="page-with-sidebar clearfix">
                     <div className="entry-sidebar">
@@ -46,6 +46,7 @@ export const ArticlePage = (props: { page: PageInfo }) => {
                     </article>
                 </div>
             </main>
+            <script src={`${settings.STATIC_ROOT}/js/owid.js`}/>
             <script src="/grapher/embedCharts.js"/>
             <SiteFooter/>
         </body>

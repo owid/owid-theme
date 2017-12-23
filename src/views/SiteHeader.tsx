@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface CategoryWithEntries {
+export interface CategoryWithEntries {
     name: string,
     entries: {
         slug: string,

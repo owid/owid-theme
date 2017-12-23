@@ -1,16 +1,7 @@
 import * as settings from '../settings'
 import * as React from 'react'
-import { SiteHeader } from './SiteHeader'
+import { SiteHeader, CategoryWithEntries } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
-
-interface CategoryWithEntries {
-    name: string,
-    entries: {
-        slug: string,
-        title: string,
-        starred: boolean
-    }[]
-}
 
 export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) => {
     const {entries, posts} = props

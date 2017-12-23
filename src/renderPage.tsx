@@ -13,7 +13,9 @@ async function renderPageById(id: number) {
             content: row.post_content
         }
 
-        console.log(ReactDOMServer.renderToStaticMarkup(<ArticlePage page={page}/>))
+        const entries = await getEntriesByCategory()
+
+        console.log(ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} page={page}/>))
     }
 }
 
