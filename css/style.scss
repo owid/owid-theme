@@ -1306,8 +1306,7 @@ h5 .deep-link {
 /* MISPY: Marking of starred high-quality entries */
 
 .owid-data a.starred:after {
-	font-family: FontAwesome;
-	content: "\f005";
+	content: "⭑";
 	position: relative;
 	right: -5px;
 	color: #3b77c3;	
