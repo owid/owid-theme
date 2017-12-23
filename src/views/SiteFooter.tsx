@@ -1,3 +1,4 @@
+import * as settings from '../settings'
 import * as React from 'react'
 
 export const SiteFooter = () => {
@@ -57,5 +58,7 @@ export const SiteFooter = () => {
                 </div>
             </div>
         </div>
+        <script src={`${settings.STATIC_ROOT}/js/owid.js`}/>
+        <script src="/grapher/embedCharts.js"/>
     </footer>
 }

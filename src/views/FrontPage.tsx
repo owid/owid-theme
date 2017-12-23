@@ -13,7 +13,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
             <SiteHeader entries={entries} />
 
             <main id="main" className="site-main">
-                <div id="homepage-cover">
+                <div id="homepage-cover" style={{ "background-image": "url(/wp-content/themes/owid-theme/images/WorldMapDark2.png)" }}>
                     <div className="lead-in">
                         <h1 className="desktop">Our world is changing</h1>
                         <div className="desktop subheading">Explore the ongoing history of human civilization at the broadest level, through research and data visualization.</div>
@@ -62,7 +62,8 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                         </div>
                         <a className="twitter-timeline" data-height="600" href="https://twitter.com/MaxCRoser">Tweets by MaxCRoser</a> <script async src="//platform.twitter.com/widgets.js"></script>
                     </div></div>
-            </main>            <SiteFooter />
+            </main>
+            <SiteFooter/>
         </body>
     </html>
 }

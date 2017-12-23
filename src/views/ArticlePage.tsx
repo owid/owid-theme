@@ -3,11 +3,14 @@ import * as React from 'react'
 import { SiteHeader, CategoryWithEntries } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import * as cheerio from 'cheerio'
+import {last} from 'lodash'
+const slugify = require('url-slug')
 const wpautop = require('wpautop')
 
 export interface PageInfo {
     title: string
     content: string
+    authors: string[]
 }
 
 function rewriteHtml(html: string): { footnotes: string[], html: string } {
@@ -36,12 +39,30 @@ function rewriteHtml(html: string): { footnotes: string[], html: string } {
         }    
     })
 
+    // Deep link the headings
+
+    $("h1, h2, h3, h4").each((_, el) => {
+        const slug = slugify($(el).text())
+        $(el).attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
+    })
+
     return { footnotes: footnotes, html: $.html() }
 }
 
 export const ArticlePage = (props: { entries: CategoryWithEntries[], page: PageInfo }) => {
     const {entries, page} = props
     const {footnotes, html} = rewriteHtml(page.content)
+
+    const authors = page.authors
+    if (authors.indexOf("Max Roser") === -1)
+        authors.push("Max Roser")
+
+    let authorsText = page.authors.slice(0, -1).join(", ")
+    if (authorsText.length == 0)
+        authorsText = page.authors[0]
+    else
+        authorsText += ` and ${last(page.authors)}`
+
     return <html>
         <head>
             <link rel="stylesheet" href={`${settings.STATIC_ROOT}/css/owid.css`}/>
@@ -57,6 +78,9 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], page: PageI
                     <article className="page">
                         <header className="article-header">
                             <h1 className="entry-title">{page.title}</h1>
+                            <div className="authors-byline">
+                                <a href="/about/#the-team">by {authorsText}</a>
+                            </div>
                         </header>
                         <div className="article-content" dangerouslySetInnerHTML={{__html: html}}/>
                         <footer className="article-footer">
@@ -74,8 +98,6 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], page: PageI
                     </article>
                 </div>
             </main>
-            <script src={`${settings.STATIC_ROOT}/js/owid.js`}/>
-            <script src="/grapher/embedCharts.js"/>
             <SiteFooter/>
         </body>
     </html>

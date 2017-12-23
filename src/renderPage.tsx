@@ -6,11 +6,30 @@ import * as ReactDOMServer from 'react-dom/server'
 import {decodeHTML} from 'entities'
 
 async function renderPageById(id: number) {
-    const rows = await wpdb.query(`SELECT * FROM wp_posts WHERE id=?`, [id])
+    const authorRows = await wpdb.query(`
+        SELECT object_id, terms.description FROM wp_term_relationships AS rels
+        LEFT JOIN wp_term_taxonomy AS terms ON terms.term_taxonomy_id=rels.term_taxonomy_id 
+        WHERE terms.taxonomy='author'
+    `)
+
+    const authorship = new Map<number, string[]>()
+    for (const row of authorRows) {
+        let authors = authorship.get(row.object_id)
+        if (!authors) {
+            authors = []
+            authorship.set(row.object_id, authors)
+        }
+        authors.push(row.description.split(" ").slice(0, 2).join(" "))
+    }
+
+    const rows = await wpdb.query(`
+        SELECT ID, post_title, post_content FROM wp_posts AS post WHERE ID=?
+    `, [id])
     for (const row of rows) {
         const page: PageInfo = {
             title: row.post_title,
-            content: row.post_content
+            content: row.post_content,
+            authors: authorship.get(row.ID) || []
         }
 
         const entries = await getEntriesByCategory()
@@ -90,7 +109,6 @@ async function renderFrontPage() {
     const permalinkRows = await wpdb.query(`SELECT post_id, meta_value FROM wp_postmeta WHERE meta_key='custom_permalink'`)
 
     const posts = postRows.map(row => {
-        console.log(row.post_date, new Date(row.post_date))
         return {
             title: row.post_title,
             date: new Date(row.post_date),
