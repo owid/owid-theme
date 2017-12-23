@@ -5,6 +5,7 @@
     "dev": "./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"webpack-dev-server\""
   },
   "dependencies": {
+    "@types/cheerio": "^0.22.6",
     "@types/fs-extra": "^5.0.0",
     "@types/glob": "^5.0.34",
     "@types/lodash": "^4.14.91",
@@ -15,6 +16,7 @@
     "@types/react-dom": "^16.0.3",
     "@types/request-promise": "^4.1.39",
     "@types/shelljs": "^0.7.7",
+    "cheerio": "^1.0.0-rc.2",
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
