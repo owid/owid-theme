@@ -5,6 +5,12 @@ import {BlogIndexPage} from './views/BlogIndexPage'
 import {FrontPage} from './views/FrontPage'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
+import * as url from 'url'
+import * as path from 'path'
+import * as glob from 'glob'
+import * as _ from 'lodash'
+import * as fs from 'fs-extra'
+import { WORDPRESS_DIR } from './settings'
 
 async function renderPageById(id: number): Promise<string> {
     const rows = await wpdb.query(`
@@ -50,14 +56,25 @@ async function renderBlog(pageNum: number) {
     
     const authorship = await wpdb.getAuthorship()
     const permalinks = await wpdb.getPermalinks()
+    const images = await wpdb.getFeaturedImages()
 
     const posts = []
     for (const row of postRows) {
+        let imageUrl = images.get(row.ID)
+        if (imageUrl) {
+            // Find a smaller version of this image
+            const pathname = url.parse(imageUrl).pathname as string
+            const paths = glob.sync(path.join(WORDPRESS_DIR, pathname.replace(/.png/, "*.png")))
+            const sortedPaths = _.sortBy(paths, path => fs.statSync(path).size)
+            imageUrl = sortedPaths[sortedPaths.length-3].replace(WORDPRESS_DIR, '')
+        }
+
         posts.push({
             title: row.post_title,
             date: new Date(row.post_date),
             slug: permalinks.get(row.ID, row.post_name),
-            authors: authorship.get(row.ID)||[]
+            authors: authorship.get(row.ID)||[],
+            imageUrl: imageUrl
         })
     }
 

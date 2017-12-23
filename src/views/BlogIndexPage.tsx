@@ -10,15 +10,17 @@ interface PostMeta {
     slug: string
     date: Date
     authors: string[]
+    imageUrl?: string
 }
 
 export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: PostMeta[] }) => {
     const {entries, posts} = props
+
     return <html>
         <head>
             <link rel="stylesheet" href={`${settings.STATIC_ROOT}/owid.css`} />
         </head>
-        <body>
+        <body className="blog">
             <SiteHeader entries={entries} />
 
             <main id="main" className="site-main">
@@ -28,7 +30,7 @@ export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: Po
                         {posts.map(post => 
                             <li className="post">
                                 <a href={`/${post.slug}`}>
-                                    {/*thumbnail*/}
+                                    {post.imageUrl && <img src={post.imageUrl}/>}
                                     <h3>{post.title}</h3>
                                     <div className="entry-meta">
                                         <time>{formatDate(post.date)}</time> by {formatAuthors(post.authors)}
