@@ -7,7 +7,8 @@ interface CategoryWithEntries {
     name: string,
     entries: {
         slug: string,
-        title: string
+        title: string,
+        starred: boolean
     }[]
 }
 
@@ -18,7 +19,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
             <link rel="stylesheet" href={`${settings.STATIC_ROOT}/css/owid.css`} />
         </head>
         <body>
-            <SiteHeader />
+            <SiteHeader entries={entries} />
 
             <main id="main" className="site-main">
                 <div id="homepage-cover">

@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@types/cheerio": "^0.22.6",
+    "@types/entities": "^1.1.0",
     "@types/fs-extra": "^5.0.0",
     "@types/glob": "^5.0.34",
     "@types/lodash": "^4.14.91",
@@ -20,6 +21,7 @@
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
+    "entities": "^1.1.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "font-awesome": "^4.7.0",

@@ -3,6 +3,7 @@ import {ArticlePage, PageInfo} from './views/ArticlePage'
 import {FrontPage} from './views/FrontPage'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
+import {decodeHTML} from 'entities'
 
 async function renderPageById(id: number) {
     const rows = await wpdb.query(`SELECT * FROM wp_posts WHERE id=?`, [id])
@@ -51,8 +52,6 @@ async function getEntriesByCategory() {
         cats.push(row.name)
     }
 
-    console.log(categoriesByPageId)
-
     const pageRows = await wpdb.query(`
         SELECT posts.ID, post_title, post_date, post_name, perma.meta_value AS custom_permalink, star.meta_value AS starred FROM wp_posts AS posts
         LEFT JOIN wp_postmeta AS perma ON perma.post_id=ID AND perma.meta_key='custom_permalink'
@@ -75,7 +74,7 @@ async function getEntriesByCategory() {
         })
 
         return {
-            name: cat,
+            name: decodeHTML(cat),
             entries: entries
         }
     })
