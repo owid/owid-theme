@@ -131,3 +131,46 @@ export async function getCustomPermalinks() {
     return permalinks
 }    
 
+let cachedFeaturedImages: Map<number, string>
+export async function getFeaturedImages() {
+    if (cachedFeaturedImages)
+        return cachedFeaturedImages
+
+    const rows = await wpdb.query(`SELECT wp_postmeta.post_id, wp_posts.guid FROM wp_postmeta INNER JOIN wp_posts ON wp_posts.ID=wp_postmeta.meta_value WHERE wp_postmeta.meta_key='_thumbnail_id'`)
+
+    const featuredImages = new Map<number, string>()
+    for (const row of rows) {
+        featuredImages.set(row.post_id, row.guid)
+    }
+
+    cachedFeaturedImages = featuredImages
+    return featuredImages
+}
+
+export interface FullPost {
+    id: number
+    slug: string
+    title: string
+    date: Date
+    authors: string[]
+    content: string
+    excerpt?: string
+    imageUrl?: string
+}
+
+export async function getFullPost(row: any): Promise<FullPost> {
+    const authorship = await getAuthorship()
+    const featuredImages = await getFeaturedImages()
+    const permalinks = await getCustomPermalinks()
+
+    return {
+        id: row.ID,
+        slug: permalinks.get(row.ID) || row.post_name,
+        title: row.post_title,
+        date: new Date(row.post_date),
+        authors: authorship.get(row.ID) || [],
+        content: row.post_content,
+        excerpt: row.post_excerpt,
+        imageUrl: featuredImages.get(row.ID)
+    }
+}

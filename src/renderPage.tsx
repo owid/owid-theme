@@ -7,27 +7,18 @@ import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 
 async function renderPageById(id: number): Promise<string> {
-    const authorship = await wpdb.getAuthorship()
-
     const rows = await wpdb.query(`
-        SELECT ID, post_title, post_date, post_content, post_type FROM wp_posts AS post WHERE ID=?
+        SELECT * FROM wp_posts AS post WHERE ID=?
     `, [id])
 
-    const row = rows[0]
-
-    const page = {
-        title: row.post_title,
-        content: row.post_content,
-        date: new Date(row.post_date),
-        authors: authorship.get(row.ID) || []
-    }
+    const post = await wpdb.getFullPost(rows[0])
 
     const entries = await wpdb.getEntriesByCategory()
 
     if (rows[0].post_type === 'post')
-        return ReactDOMServer.renderToStaticMarkup(<BlogPostPage entries={entries} page={page}/>)
+        return ReactDOMServer.renderToStaticMarkup(<BlogPostPage entries={entries} post={post}/>)
     else
-        return ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} page={page}/>)
+        return ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} post={post}/>)
 }
 
 async function renderFrontPage() {

@@ -1,8 +1,9 @@
 <?php 
 	the_post();
 
-	if (get_post_status() == 'publish') {
-		$url = str_replace("http://l:8080", "https://ourworldindata.org", get_the_permalink());
+	// Redirect from admin site for live urls
+	if (!is_preview() && strpos(get_the_permalink(), "https://owid.cloud") !== false) {
+		$url = str_replace("https://owid.cloud", "https://ourworldindata.org", get_the_permalink());
 		wp_redirect($url, 302);
 		exit;
 	}

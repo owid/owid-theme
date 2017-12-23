@@ -9,6 +9,20 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
     const {entries, posts} = props
     return <html>
         <head>
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:site_name" content="Our World in Data" />
+            <meta property="og:title" content="Our World in Data" />
+            <meta property="og:url" content={settings.BAKED_URL} />
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="Living conditions around the world are changing rapidly. Explore how and why." />
+            <meta property="og:image" content={`${settings.BAKED_URL}/wp-content/uploads/2016/06/OurWorldInData.png`}/>
+            <meta property="fb:app_id" content="1149943818390250" />
+
+            <meta name="twitter:title" content="Our World In Data" />
+            <meta name="twitter:url" content={settings.BAKED_URL}/>
+            <meta name="twitter:description" content="Living conditions around the world are changing rapidly. Explore how and why." />
+            <meta name="twitter:image" content={`${settings.BAKED_URL}/wp-content/uploads/2016/06/OurWorldInData.png`}/>
+            <meta name="twitter:card" content="summary_large_image" />
             <link rel="stylesheet" href={`${settings.STATIC_ROOT}/owid.css`} />
         </head>
         <body>

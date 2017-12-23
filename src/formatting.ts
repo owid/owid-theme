@@ -4,7 +4,7 @@ const wpautop = require('wpautop')
 import {last} from 'lodash'
 import * as settings from './settings'
 
-export function formatContent(html: string): { footnotes: string[], html: string } {
+export function formatContent(html: string): { footnotes: string[], excerpt: string, html: string } {
     //console.log(html.split(/(\r\n)+/).filter(p => p.match(/\w/)))
     //html = html.split(/(\r\n)+/).filter(ps=> p.match(/\w/)).map(p => `<p>${p}</p>`).join("")
 
@@ -47,13 +47,14 @@ export function formatContent(html: string): { footnotes: string[], html: string
     })
 
     // Deep link the headings
-
     $("h1, h2, h3, h4").each((_, el) => {
         const slug = urlSlug($(el).text())
         $(el).attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
     })
 
-    return { footnotes: footnotes, html: $.html() }
+    const excerpt = $($("p")[0]).text()
+
+    return { footnotes: footnotes, excerpt: excerpt, html: $.html() }
 }
 
 export function formatAuthors(authors: string[]): string {

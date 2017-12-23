@@ -1,26 +1,22 @@
 import * as settings from '../settings'
 import * as React from 'react'
+import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { formatContent, formatAuthors, formatDate } from '../formatting'
-import { CategoryWithEntries } from '../wpdb'
+import { CategoryWithEntries, FullPost } from '../wpdb'
 
-export interface PostInfo {
-    title: string
-    content: string
-    date: Date
-    authors: string[]
-}
+export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: FullPost }) => {
+    const {entries, post} = props
+    const {footnotes, excerpt, html} = formatContent(post.content)
+    const authorsText = formatAuthors(post.authors)
 
-export const BlogPostPage = (props: { entries: CategoryWithEntries[], page: PostInfo }) => {
-    const {entries, page} = props
-    const {footnotes, html} = formatContent(page.content)
-    const authorsText = formatAuthors(page.authors)
+    const pageTitle = post.title
+    const canonicalUrl = `${settings.BAKED_URL}/${post.slug}`
+    const pageDesc = post.excerpt || excerpt
 
     return <html>
-        <head>
-            <link rel="stylesheet" href={`${settings.STATIC_ROOT}/owid.css`}/>
-        </head>
+        <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
         <body className="single-post">
             <SiteHeader entries={entries}/>
             <main id="main" className="site-main">
@@ -32,9 +28,9 @@ export const BlogPostPage = (props: { entries: CategoryWithEntries[], page: Post
                 <div className="site-content">
                     <article className="post">
                         <header className="article-header">
-                            <h1 className="entry-title">{page.title}</h1>
+                            <h1 className="entry-title">{post.title}</h1>
                             <div className="entry-meta">
-                                <time>{formatDate(page.date)}</time> by {formatAuthors(page.authors)}
+                                <time>{formatDate(post.date)}</time> by {formatAuthors(post.authors)}
                             </div>
                         </header>
                         <div className="article-content" dangerouslySetInnerHTML={{__html: html}}/>
