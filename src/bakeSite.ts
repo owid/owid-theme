@@ -9,7 +9,6 @@ async function main() {
     })
 
     await baker.bakeAll()
-    await baker.deploy()
     baker.end()
 }
 
