@@ -48,11 +48,15 @@ export async function renderFrontPage() {
 }
 
 async function renderBlog(pageNum: number) {
-    const postsPerPage = 20
+    const postsPerPage = 21
 
-    const postRows = await wpdb.query(`
+    const allPostRows = await wpdb.query(`
         SELECT ID, post_title, post_date, post_name FROM wp_posts
-        WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC LIMIT ${postsPerPage} OFFSET ${postsPerPage*(pageNum-1)} `)
+        WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC
+    `)
+
+    const numPages = Math.ceil(allPostRows.length/postsPerPage)
+    const postRows = allPostRows.slice((pageNum-1)*postsPerPage, pageNum*postsPerPage)
     
     const authorship = await wpdb.getAuthorship()
     const permalinks = await wpdb.getPermalinks()
@@ -63,10 +67,14 @@ async function renderBlog(pageNum: number) {
         let imageUrl = images.get(row.ID)
         if (imageUrl) {
             // Find a smaller version of this image
-            const pathname = url.parse(imageUrl).pathname as string
-            const paths = glob.sync(path.join(WORDPRESS_DIR, pathname.replace(/.png/, "*.png")))
-            const sortedPaths = _.sortBy(paths, path => fs.statSync(path).size)
-            imageUrl = sortedPaths[sortedPaths.length-3].replace(WORDPRESS_DIR, '')
+            try {
+                const pathname = url.parse(imageUrl).pathname as string
+                const paths = glob.sync(path.join(WORDPRESS_DIR, pathname.replace(/.png/, "*.png")))
+                const sortedPaths = _.sortBy(paths, path => fs.statSync(path).size)
+                imageUrl = sortedPaths[sortedPaths.length-3].replace(WORDPRESS_DIR, '')    
+            } catch (err) {
+                // Just use the big one
+            }
         }
 
         posts.push({
@@ -79,7 +87,7 @@ async function renderBlog(pageNum: number) {
     }
 
     const entries = await wpdb.getEntriesByCategory()
-    return ReactDOMServer.renderToStaticMarkup(<BlogIndexPage entries={entries} posts={posts}/>)
+    return ReactDOMServer.renderToStaticMarkup(<BlogIndexPage entries={entries} posts={posts} pageNum={pageNum} numPages={numPages}/>)
 }
 
 async function main(target: string) {

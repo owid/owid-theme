@@ -4,6 +4,7 @@ import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { CategoryWithEntries } from '../wpdb'
 import { formatAuthors, formatDate } from '../formatting'
+import * as _ from 'lodash'
 
 interface PostMeta {
     title: string
@@ -13,8 +14,9 @@ interface PostMeta {
     imageUrl?: string
 }
 
-export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: PostMeta[] }) => {
-    const {entries, posts} = props
+export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: PostMeta[], pageNum: number, numPages: number }) => {
+    const {entries, posts, pageNum, numPages} = props
+    const pageNums = _.range(1, numPages+1)
 
     return <html>
         <head>
@@ -39,7 +41,14 @@ export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: Po
                             </li>
                         )}
                 	</ul>
-                    {/* pagination */}
+                    <nav className="navigation pagination" role="navigation">
+                        <h2 className="screen-reader-text">Posts navigation</h2>
+                        <div className="nav-link">
+                            {pageNums.map(num => 
+                                <a className={"page-numbers" + (num === pageNum ? " current" : "")} href={num === 1 ? '/blog/' : `/blog/page/${num}`}>{num}{" "}</a>
+                            )}
+                        </div>
+                    </nav>
                 </div>
             </main>
             <SiteFooter/>
