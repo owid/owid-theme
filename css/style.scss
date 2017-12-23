@@ -1313,8 +1313,7 @@ h5 .deep-link {
 }
 
 #entries-nav a.starred:after {
-	font-family: FontAwesome;
-	content: "\f005";
+	content: "⭑";
 	position: relative;
 	right: -5px;
 	color: white;		
@@ -1325,8 +1324,7 @@ h5 .deep-link {
 }
 
 #topics-dropdown.mobile a.starred:after {
-	font-family: FontAwesome;
-	content: "\f005";
+	content: "⭑";
 	position: relative;
 	right: -5px;
 	color: white;		

@@ -9,7 +9,16 @@ export interface PageInfo {
     content: string
 }
 
-function rewriteHtml(html: string): string {
+function rewriteHtml(html: string): { footnotes: string[], html: string } {
+    
+    // Footnotes
+    const footnotes: string[] = []
+    html = html.replace(/\[ref\](.*?)\[\/ref\]/g, (_, footnote) => {
+        footnotes.push(footnote)
+        const i = footnotes.length
+        return `<a id="ref-${i}" class="side-matter side-matter-ref" href="#note-${i}"><sup class="side-matter side-matter-sup">${i}</sup></a>`
+    })
+
     const $ = cheerio.load(html)
 
     // Replace grapher iframes with iframeless embedding figure elements
@@ -20,12 +29,12 @@ function rewriteHtml(html: string): string {
         }    
     })
 
-    return $.html()
+    return { footnotes: footnotes, html: $.html() }
 }
 
 export const ArticlePage = (props: { entries: CategoryWithEntries[], page: PageInfo }) => {
     const {entries, page} = props
-    const contentHtml = rewriteHtml(page.content)
+    const {footnotes, html} = rewriteHtml(page.content)
     return <html>
         <head>
             <link rel="stylesheet" href={`${settings.STATIC_ROOT}/css/owid.css`}/>
@@ -42,7 +51,19 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], page: PageI
                         <header className="article-header">
                             <h1 className="entry-title">{page.title}</h1>
                         </header>
-                        <div className="article-content" dangerouslySetInnerHTML={{__html: contentHtml}}/>
+                        <div className="article-content" dangerouslySetInnerHTML={{__html: html}}/>
+                        <footer className="article-footer">
+                            <h2 id="footnotes">Footnotes</h2>
+                            <ol className="side-matter side-matter-list" style={{'list-style-type': 'decimal', opacity: 1}}>
+                                {footnotes.map((footnote, i) =>
+                                    <li id={`note-${i+1}`} className="side-matter side-matter-note" style={{'margin-top': '0px'}}>
+                                        <div className="side-matter side-matter-text">
+                                            <p dangerouslySetInnerHTML={{__html: footnote}}/>
+                                        </div>
+                                    </li>
+                                )}
+                            </ol>
+                        </footer>
                     </article>
                 </div>
             </main>
