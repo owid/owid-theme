@@ -43,7 +43,7 @@ var OWIDScrollNav = function() {
 			mainOffset = $("main").offset(),
 			navOffset = $sidebar.offset(),
 			navHeight = $sidebar.height(),
-			footerOffset = $("footer.site-footer").offset(),
+			footerOffset = $("footer.SiteFooter").offset(),
 			isFixed = $sidebar.css('position') == 'fixed',
 			defaultTop = 10;
 
@@ -137,7 +137,7 @@ var EntriesHeaderMenu = function() {
 				'padding-bottom': '10px',
 				'border-bottom': '4px solid #FF4012'
 			});
-			$(".site-main").css("margin-top", parseInt($(".site-main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
+			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
 			firstTime = false;
 		}
 		$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);

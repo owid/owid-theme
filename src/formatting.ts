@@ -74,6 +74,7 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
     })
 
     // Table of contents and deep links
+    const hasToc = post.type === 'page' && post.slug !== 'about'
     let openHeadingIndex = 0
     let openSubheadingIndex = 0
     const tocHeadings: { text: string, slug: string, isSubheading: boolean }[] = []
@@ -85,28 +86,30 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
         const slug = urlSlug(headingText)
 
         // Table of contents
-        if ($heading.is("#footnotes") && footnotes.length > 0) {
-            tocHeadings.push({ text: headingText, slug: "footnotes", isSubheading: false })
-        } else if (!$heading.is('h1') && !$heading.is('h4')) {
-            // Inject numbering into the text as well
-            if ($heading.is('h2')) {
-                openHeadingIndex += 1;
-                openSubheadingIndex = 0;
-            } else if ($heading.is('h3')) {
-                openSubheadingIndex += 1;
-            }
-
-            if (openHeadingIndex > 0) {
+        if (hasToc) {
+            if ($heading.is("#footnotes") && footnotes.length > 0) {
+                tocHeadings.push({ text: headingText, slug: "footnotes", isSubheading: false })
+            } else if (!$heading.is('h1') && !$heading.is('h4')) {
+                // Inject numbering into the text as well
                 if ($heading.is('h2')) {
-                    headingHtml = romanize(openHeadingIndex) + '. ' + headingHtml;
-                    $heading.html(headingHtml)
-                    tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: false })
-                } else {
-                    headingHtml = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingHtml;
-                    $heading.html(headingHtml)
-                    tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: true })
-                }					
-            }
+                    openHeadingIndex += 1;
+                    openSubheadingIndex = 0;
+                } else if ($heading.is('h3')) {
+                    openSubheadingIndex += 1;
+                }
+    
+                if (openHeadingIndex > 0) {
+                    if ($heading.is('h2')) {
+                        headingHtml = romanize(openHeadingIndex) + '. ' + headingHtml;
+                        $heading.html(headingHtml)
+                        tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: false })
+                    } else {
+                        headingHtml = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingHtml;
+                        $heading.html(headingHtml)
+                        tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: true })
+                    }					
+                }
+            }    
         }
 
         // Deep link

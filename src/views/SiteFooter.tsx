@@ -2,7 +2,7 @@ import * as settings from '../settings'
 import * as React from 'react'
 
 export const SiteFooter = () => {
-    return <footer id="colophon" className="site-footer">
+    return <footer className="SiteFooter">
         <div className="wrap">
             <div className="clearfix">
                 <div className="column">

@@ -1,5 +1,6 @@
 import * as settings from '../settings'
 import * as React from 'react'
+import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { CategoryWithEntries } from '../wpdb'
@@ -19,13 +20,11 @@ export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: Po
     const pageNums = _.range(1, numPages+1)
 
     return <html>
-        <head>
-            <link rel="stylesheet" href={`${settings.STATIC_ROOT}/owid.css`} />
-        </head>
+        <Head canonicalUrl={`${settings.BAKED_URL}/blog` + (pageNum > 1 ? `/page/${pageNum}` : "")} pageTitle="Blog"/>
         <body className="blog">
             <SiteHeader entries={entries} />
 
-            <main id="main" className="site-main">
+            <main>
                 <div className="site-content">
                     <h2>Latest Posts</h2>
                     <ul className="posts">

@@ -18,7 +18,7 @@ export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: Form
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
         <body className="single-post">
             <SiteHeader entries={entries}/>
-            <main id="main" className="site-main">
+            <main>
                 <header className="blog-header">
                     <h1>
                         <a href="/blog">Blog</a>

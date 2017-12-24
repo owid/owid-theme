@@ -1,5 +1,6 @@
 import * as settings from '../settings'
 import * as React from 'react'
+import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { CategoryWithEntries } from '../wpdb'
@@ -7,28 +8,13 @@ import { formatDate } from '../formatting'
 
 export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) => {
     const {entries, posts} = props
-    return <html>
-        <head>
-            <meta property="og:locale" content="en_US" />
-            <meta property="og:site_name" content="Our World in Data" />
-            <meta property="og:title" content="Our World in Data" />
-            <meta property="og:url" content={settings.BAKED_URL} />
-            <meta property="og:type" content="website" />
-            <meta property="og:description" content="Living conditions around the world are changing rapidly. Explore how and why." />
-            <meta property="og:image" content={`${settings.BAKED_URL}/wp-content/uploads/2016/06/OurWorldInData.png`}/>
-            <meta property="fb:app_id" content="1149943818390250" />
 
-            <meta name="twitter:title" content="Our World In Data" />
-            <meta name="twitter:url" content={settings.BAKED_URL}/>
-            <meta name="twitter:description" content="Living conditions around the world are changing rapidly. Explore how and why." />
-            <meta name="twitter:image" content={`${settings.BAKED_URL}/wp-content/uploads/2016/06/OurWorldInData.png`}/>
-            <meta name="twitter:card" content="summary_large_image" />
-            <link rel="stylesheet" href={`${settings.STATIC_ROOT}/owid.css`} />
-        </head>
+
+    return <html>
+        <Head canonicalUrl={settings.BAKED_URL}/>
         <body>
             <SiteHeader entries={entries} />
-
-            <main id="main" className="site-main">
+            <main>
                 <div id="homepage-cover">
                     <div className="lead-in">
                         <h1 className="desktop">Our world is changing</h1>
