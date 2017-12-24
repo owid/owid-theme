@@ -54,8 +54,9 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
             </ul>
         </div>
         <div id="search-dropdown" className="mobile">
-            <form action="/">
-                <input type="search" name="s" placeholder="Search..." />
+            <form id="search-nav" action="https://google.com/search" method="GET">
+                <input type="hidden" name="sitesearch" value="ourworldindata.org" />
+                <input type="search" name="q" placeholder="Search..." />
                 <button type="submit">
                     <i className="fa fa-search"></i>
                 </button>

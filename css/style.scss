@@ -587,7 +587,6 @@ header.site-header {
 		color: white;
 		font-size: 20px;
 		height: 100%;
-		line-height: 46px;
 	}
 
 	header.site-header .subcategory-menu {
@@ -623,10 +622,11 @@ header.site-header {
 	}
 
 	header.site-header ul.mobile > li > a {
-		display: inline-block;
+		display: inline-flex;
 		height: 46px;
-		line-height: 46px;
 		width: 46px;
+		align-items: center;
+		justify-content: center;
 		color: white;
 		text-align: center;
 		font-size: 26px;
@@ -752,6 +752,7 @@ header.site-header {
 	#search-dropdown form {
 		position: relative;
 		height: 46px;
+		margin-bottom: 0;
 	}
 
 	#search-dropdown input {
