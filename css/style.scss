@@ -2104,7 +2104,6 @@ article.page {
     margin-bottom: 30px;
     margin-left: 40px;
     font-weight: normal;
-    font-size: 17px;
     font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
@@ -2424,9 +2423,7 @@ a.side-matter-ref sup::after {
 }
 /* (Zahl im Text) Selects superscript tags enclosing in-text reference numerals. Target a specific element by appending `sup.side-matter-sup-` with its number, e.g. `sup.side-matter-sup-3`. */
 sup.side-matter-sup {
-	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: bold;
-	font-size: 14px !important;
 	padding-left:0.5px;	
 }
 
