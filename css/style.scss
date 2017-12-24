@@ -1409,12 +1409,13 @@ span.star {
 	font-size: 24px;
 	background-color: #c0023e;
 	color: white;
-	display: inline-block;
 	width: 36px;
 	height: 36px;
-	line-height: 36px;
-	text-align: center;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	border-radius: 4px;
+	margin-right: 5px;
 }
 
 .social a:hover {

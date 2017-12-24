@@ -12,7 +12,7 @@ import * as _ from 'lodash'
 import * as fs from 'fs-extra'
 import { WORDPRESS_DIR } from './settings'
 
-async function renderPageById(id: number): Promise<string> {
+export async function renderPageById(id: number): Promise<string> {
     const rows = await wpdb.query(`
         SELECT * FROM wp_posts AS post WHERE ID=?
     `, [id])

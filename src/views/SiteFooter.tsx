@@ -12,38 +12,38 @@ export const SiteFooter = () => {
                     <p><span>Our World in Data</span> by <a href="https://maxroser.com" property="cc:attributionName" rel="cc:attributionURL">Max Roser</a> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. See <a href="https://ourworldindata.org/how-to-use-our-world-in-data/">how to use Our World in Data</a>.</p>
                     <hr />
                 </div>
-            </div>
-            <div className="column subscribe">
-                <h6>Sign up to stay informed</h6>
-                <div id="mc_embed_signup">
-                    <form action="https://ourworldindata.us8.list-manage.com/subscribe/post?u=18058af086319ba6afad752ec&id=2e166c1fc1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
-                        <div id="mc_embed_signup_scroll">
-                            <div className="mc-field-group">
-                                <input type="email" placeholder="Email" name="EMAIL" className="required email" id="mce-EMAIL" aria-label="Email" /><input type="submit" placeholder="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" />
+                <div className="column subscribe">
+                    <h6>Sign up to stay informed</h6>
+                    <div id="mc_embed_signup">
+                        <form action="https://ourworldindata.us8.list-manage.com/subscribe/post?u=18058af086319ba6afad752ec&id=2e166c1fc1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
+                            <div id="mc_embed_signup_scroll">
+                                <div className="mc-field-group">
+                                    <input type="email" placeholder="Email" name="EMAIL" className="required email" id="mce-EMAIL" aria-label="Email" /><input type="submit" placeholder="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" />
+                                </div>
+                                <div id="mce-responses" className="clear">
+                                    <div className="response" id="mce-error-response" style={{ display: 'none' }} />
+                                    <div className="response" id="mce-success-response" style={{ display: 'none' }} />
+                                </div>
+                                <div style={{ position: 'absolute', left: '-5000px' }}><input type="text" name="b_18058af086319ba6afad752ec_2e166c1fc1" tabIndex={-1} /></div>
                             </div>
-                            <div id="mce-responses" className="clear">
-                                <div className="response" id="mce-error-response" style={{ display: 'none' }} />
-                                <div className="response" id="mce-success-response" style={{ display: 'none' }} />
-                            </div>
-                            <div style={{ position: 'absolute', left: '-5000px' }}><input type="text" name="b_18058af086319ba6afad752ec_2e166c1fc1" tabIndex={-1} /></div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <h6>Follow us</h6>
+                    <div className="social">
+                        <a href="https://twitter.com/MaxCRoser"><i className="fa fa-twitter" /></a>
+                        <a href="https://www.facebook.com/OurWorldinData"><i className="fa fa-facebook" /></a>
+                        <a href="/feed/"><i className="fa fa-feed" /></a>
+                    </div>
+                    <hr />
                 </div>
-                <h6>Follow us</h6>
-                <div className="social">
-                    <a href="https://twitter.com/MaxCRoser"><i className="fa fa-twitter" /></a>
-                    <a href="https://www.facebook.com/OurWorldinData"><i className="fa fa-facebook" /></a>
-                    <a href="/feed/"><i className="fa fa-feed" /></a>
+                <div className="column links">
+                    <h6>Links</h6>
+                    <a href="/">Entries</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/support">Donate</a>
+                    <a href="/about">About</a>
+                    <hr />
                 </div>
-                <hr />
-            </div>
-            <div className="column links">
-                <h6>Links</h6>
-                <a href="/">Entries</a>
-                <a href="/blog">Blog</a>
-                <a href="/support">Donate</a>
-                <a href="/about">About</a>
-                <hr />
             </div>
         </div>
         <div className="supporters">
@@ -58,7 +58,7 @@ export const SiteFooter = () => {
                 </div>
             </div>
         </div>
-        <script src={`${settings.STATIC_ROOT}/js/owid.js`}/>
-        <script src="/grapher/embedCharts.js"/>
+        <script src={`${settings.STATIC_ROOT}/js/owid.js`} />
+        <script src="/grapher/embedCharts.js" />
     </footer>
 }
