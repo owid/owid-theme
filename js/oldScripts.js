@@ -27,76 +27,14 @@ var OWIDScrollNav = function() {
 	if ($page.find('h2').length < 2) return;
 
 	// Cleanup any existing stuff
-	$sidebar.find("nav").empty();
 	$sidebar.attr('style', '');
 	$(window).off('scroll.toc');
-
-	// HACK (Mispy): These have weird placeholder text in them that interferes.
-	$(".deep-link").html("");
 
 	// For CSS
 	$page.parent().addClass('page-with-sidebar');
 
 	// Keep track of sections so we can find the closest one
-	var headings = [];
-
-	// Start putting together ToC html
-	$sidebar.find("nav").append("<h3>Contents</h3>");
-	var $ol = $("<ol></ol>").appendTo($sidebar.find("nav"));		
-
-	var openHeadingIndex = 0, openSubheadingIndex = 0, headingText = "";
-	$page.find("h2, h3").each(function(i) {
-		var $heading = $(this);
-		
-		// Don't bother with the footnotes header if there are no footnotes
-		if ($heading.is("#footnotes") && !$("ol.side-matter-list").is(":visible"))
-			return;
-
-		if (!$heading.is("#footnotes")) {
-			// Inject numbering into the text as well
-			if ($heading.is('h2')) {
-				openHeadingIndex += 1;
-				openSubheadingIndex = 0;
-			} else if ($heading.is('h3')) {
-				openSubheadingIndex += 1;
-			}
-
-			// Idempotently add number to heading
-			var origHtml = $heading.attr('data-text');
-			if (!origHtml) {
-				origHtml = $heading.html();
-				$heading.attr('data-text', origHtml);
-			}
-
-			// Some fiddly stuff to remove deep link 
-			var $headingMod = $("<div/>").append(origHtml)
-			var $deepLink = $headingMod.find('.deep-link')
-			var deepLinkHtml = $("<div/>").append($deepLink).html()
-			headingText = $headingMod.html()
-
-			if (openHeadingIndex > 0) {
-				if ($heading.is('h2')) {
-					headingText = romanize(openHeadingIndex) + '. ' + headingText;
-				} else {
-					headingText = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingText;
-				}					
-			}
-
-			$heading.html(deepLinkHtml + headingText)
-		} else {
-			headingText = $heading.html()
-		}
-
-		var $li = $('<li><a href="#' + $heading.attr("id") + '">' + headingText.trim() + '</a></li>').appendTo($ol);
-
-		if ($heading.is('h2')) {
-			$li.addClass('section');
-		} else {
-			$li.addClass('subsection');
-		}
-
-		headings.push($(this));
-	});
+	var headings = $(".article-content h2, .article-content h3").map(function(i, el) { return $(el); })
 
 	var currentHeadingIndex = null;
 	var onScroll = function() {
@@ -123,7 +61,7 @@ var OWIDScrollNav = function() {
 
 		// Figure out where in the document we are
 		var lastHeadingIndex = null;
-		headings.forEach(function($heading, i) {
+		headings.each(function(i, $heading) {
 			// HACK (Mispy): The +5 is so being right on top of the heading after you
 			// click a link in the TOC still counts as being under it
 			if ($heading.offset().top <= scrollTop+5)

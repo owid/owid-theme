@@ -16,6 +16,21 @@ export interface FormattedPost {
     footnotes: string[]
     excerpt: string
     imageUrl?: string
+    tocHeadings: { text: string, slug: string, isSubheading: boolean }[]
+}
+
+function romanize(num: number) {
+	if (!+num)
+		return "";
+	var digits = String(+num).split(""),
+		key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+				"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+				"","I","II","III","IV","V","VI","VII","VIII","IX"],
+		roman = "",
+		i = 3;
+	while (i--)
+		roman = (key[+(digits.pop() as any) + (i * 10)] || "") + roman;
+	return Array(+digits.join("") + 1).join("M") + roman;
 }
 
 export async function formatPost(post: FullPost): Promise<FormattedPost> {
@@ -58,10 +73,44 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
         }    
     })
 
-    // Deep link the headings
+    // Table of contents and deep links
+    let openHeadingIndex = 0
+    let openSubheadingIndex = 0
+    const tocHeadings: { text: string, slug: string, isSubheading: boolean }[] = []
     $("h1, h2, h3, h4").each((_, el) => {
-        const slug = urlSlug($(el).text())
-        $(el).attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
+        const $heading = $(el);
+        const headingText = $heading.text()
+        // We need both the text and the html because may contain footnote
+        let headingHtml = $heading.html() as string
+        const slug = urlSlug(headingText)
+
+        // Table of contents
+        if ($heading.is("#footnotes") && footnotes.length > 0) {
+            tocHeadings.push({ text: headingText, slug: "footnotes", isSubheading: false })
+        } else if (!$heading.is('h1') && !$heading.is('h4')) {
+            // Inject numbering into the text as well
+            if ($heading.is('h2')) {
+                openHeadingIndex += 1;
+                openSubheadingIndex = 0;
+            } else if ($heading.is('h3')) {
+                openSubheadingIndex += 1;
+            }
+
+            if (openHeadingIndex > 0) {
+                if ($heading.is('h2')) {
+                    headingHtml = romanize(openHeadingIndex) + '. ' + headingHtml;
+                    $heading.html(headingHtml)
+                    tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: false })
+                } else {
+                    headingHtml = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingHtml;
+                    $heading.html(headingHtml)
+                    tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: true })
+                }					
+            }
+        }
+
+        // Deep link
+        $heading.attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
     })
 
     return {
@@ -74,7 +123,8 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
         html: $.html(),
         footnotes: footnotes,
         excerpt: post.excerpt || $($("p")[0]).text(),
-        imageUrl: post.imageUrl
+        imageUrl: post.imageUrl,
+        tocHeadings: tocHeadings
     }
 }
 

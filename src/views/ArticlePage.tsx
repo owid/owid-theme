@@ -5,6 +5,7 @@ import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { formatAuthors, FormattedPost } from '../formatting'
 import { CategoryWithEntries } from '../wpdb'
+const urlSlug = require('url-slug')
 
 export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
     const {entries, post} = props
@@ -20,10 +21,18 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
             <SiteHeader entries={entries}/>
             <main id="main" className="site-main">
                 <div className="page-with-sidebar clearfix">
-                    <div className="entry-sidebar">
+                    {post.tocHeadings.length > 0 && <div className="entry-sidebar">
                         <nav className="entry-toc">
+                            <h3>Contents</h3>
+                            <ol>
+                                {post.tocHeadings.map(heading => 
+                                    <li className={heading.isSubheading ? "subsection" : "section"}>
+                                        <a href={`#${heading.slug}`}>{heading.text}</a>
+                                    </li>
+                                )}
+                            </ol>
                         </nav>
-                    </div>
+                    </div>}
                     <article className="page">
                         <header className="article-header">
                             <h1 className="entry-title">{post.title}</h1>
