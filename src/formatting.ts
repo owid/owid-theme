@@ -3,10 +3,23 @@ const urlSlug = require('url-slug')
 const wpautop = require('wpautop')
 import {last} from 'lodash'
 import * as settings from './settings'
+import { FullPost } from './wpdb'
 
-export function formatContent(html: string): { footnotes: string[], excerpt: string, html: string } {
-    //console.log(html.split(/(\r\n)+/).filter(p => p.match(/\w/)))
-    //html = html.split(/(\r\n)+/).filter(ps=> p.match(/\w/)).map(p => `<p>${p}</p>`).join("")
+export interface FormattedPost {
+    id: number
+    type: 'post'|'page'
+    slug: string
+    title: string
+    date: Date
+    authors: string[]
+    html: string
+    footnotes: string[]
+    excerpt: string
+    imageUrl?: string
+}
+
+export async function formatPost(post: FullPost): Promise<FormattedPost> {
+    let html = post.content
 
     // Footnotes
     const footnotes: string[] = []
@@ -31,7 +44,6 @@ export function formatContent(html: string): { footnotes: string[], excerpt: str
         .replace(new RegExp("https?://ourworldindata.org", 'g'), "")
 
 
-
     // In the final production version, make sure we use https urls
             .replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
             .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
@@ -52,9 +64,18 @@ export function formatContent(html: string): { footnotes: string[], excerpt: str
         $(el).attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
     })
 
-    const excerpt = $($("p")[0]).text()
-
-    return { footnotes: footnotes, excerpt: excerpt, html: $.html() }
+    return {
+        id: post.id,
+        type: post.type,
+        slug: post.slug,
+        title: post.title,
+        date: post.date,
+        authors: post.authors,
+        html: $.html(),
+        footnotes: footnotes,
+        excerpt: post.excerpt || $($("p")[0]).text(),
+        imageUrl: post.imageUrl
+    }
 }
 
 export function formatAuthors(authors: string[]): string {

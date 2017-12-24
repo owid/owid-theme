@@ -3,17 +3,16 @@ import * as React from 'react'
 import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
-import { formatContent, formatAuthors } from '../formatting'
-import { CategoryWithEntries, FullPost } from '../wpdb'
+import { formatAuthors, FormattedPost } from '../formatting'
+import { CategoryWithEntries } from '../wpdb'
 
-export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FullPost }) => {
+export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
     const {entries, post} = props
-    const {footnotes, excerpt, html} = formatContent(post.content)
     const authorsText = formatAuthors(post.authors)
 
     const pageTitle = post.title
     const canonicalUrl = `${settings.BAKED_URL}/${post.slug}`
-    const pageDesc = post.excerpt || excerpt
+    const pageDesc = post.excerpt
 
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
@@ -32,11 +31,11 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FullP
                                 <a href="/about/#the-team">by {authorsText}</a>
                             </div>
                         </header>
-                        <div className="article-content" dangerouslySetInnerHTML={{__html: html}}/>
-                        {footnotes.length > 0 && <footer className="article-footer">
+                        <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>
+                        {post.footnotes.length > 0 && <footer className="article-footer">
                             <h2 id="footnotes">Footnotes</h2>
                             <ol className="side-matter side-matter-list" style={{'list-style-type': 'decimal', opacity: 1}}>
-                                {footnotes.map((footnote, i) =>
+                                {post.footnotes.map((footnote, i) =>
                                     <li id={`note-${i+1}`} className="side-matter side-matter-note" style={{'margin-top': '0px'}}>
                                         <div className="side-matter side-matter-text">
                                             <p dangerouslySetInnerHTML={{__html: footnote}}/>

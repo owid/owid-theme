@@ -7,6 +7,7 @@ import * as shell from 'shelljs'
 import * as _ from 'lodash'
 
 import * as wpdb from './wpdb'
+import { formatPost } from './formatting'
 import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
@@ -53,8 +54,9 @@ export class WordpressBaker {
 
     async bakePost(post: wpdb.FullPost) {
         const entries = await wpdb.getEntriesByCategory()
+        const formatted = await formatPost(post)
         const html = ReactDOMServer.renderToStaticMarkup(
-            post.type == 'post' ? <BlogPostPage entries={entries} post={post}/> : <ArticlePage entries={entries} post={post}/>
+            post.type == 'post' ? <BlogPostPage entries={entries} post={formatted}/> : <ArticlePage entries={entries} post={formatted}/>
         )
 
         const outPath = path.join(BAKED_DIR, `${post.slug}.html`)

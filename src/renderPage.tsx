@@ -11,6 +11,7 @@ import * as glob from 'glob'
 import * as _ from 'lodash'
 import * as fs from 'fs-extra'
 import { WORDPRESS_DIR } from './settings'
+import { formatPost } from './formatting'
 
 export async function renderPageById(id: number): Promise<string> {
     const rows = await wpdb.query(`
@@ -18,13 +19,13 @@ export async function renderPageById(id: number): Promise<string> {
     `, [id])
 
     const post = await wpdb.getFullPost(rows[0])
-
     const entries = await wpdb.getEntriesByCategory()
+    const formatted = await formatPost(post)
 
     if (rows[0].post_type === 'post')
-        return ReactDOMServer.renderToStaticMarkup(<BlogPostPage entries={entries} post={post}/>)
+        return ReactDOMServer.renderToStaticMarkup(<BlogPostPage entries={entries} post={formatted}/>)
     else
-        return ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} post={post}/>)
+        return ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} post={formatted}/>)
 }
 
 export async function renderFrontPage() {
