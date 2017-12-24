@@ -47,43 +47,26 @@ export async function renderFrontPage() {
     return ReactDOMServer.renderToStaticMarkup(<FrontPage entries={entries} posts={posts}/>)
 }
 
-async function renderBlog(pageNum: number) {
+export async function renderBlogByPageNum(pageNum: number) {
     const postsPerPage = 21
 
-    const allPostRows = await wpdb.query(`
-        SELECT ID, post_title, post_date, post_name FROM wp_posts
-        WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC
-    `)
+    const allPosts = await wpdb.getBlogIndex()
 
-    const numPages = Math.ceil(allPostRows.length/postsPerPage)
-    const postRows = allPostRows.slice((pageNum-1)*postsPerPage, pageNum*postsPerPage)
+    const numPages = Math.ceil(allPosts.length/postsPerPage)
+    const posts = allPosts.slice((pageNum-1)*postsPerPage, pageNum*postsPerPage)
     
-    const authorship = await wpdb.getAuthorship()
-    const permalinks = await wpdb.getPermalinks()
-    const images = await wpdb.getFeaturedImages()
-
-    const posts = []
-    for (const row of postRows) {
-        let imageUrl = images.get(row.ID)
-        if (imageUrl) {
+    for (const post of posts) {
+        if (post.imageUrl) {
             // Find a smaller version of this image
             try {
-                const pathname = url.parse(imageUrl).pathname as string
+                const pathname = url.parse(post.imageUrl).pathname as string
                 const paths = glob.sync(path.join(WORDPRESS_DIR, pathname.replace(/.png/, "*.png")))
                 const sortedPaths = _.sortBy(paths, path => fs.statSync(path).size)
-                imageUrl = sortedPaths[sortedPaths.length-3].replace(WORDPRESS_DIR, '')    
+                post.imageUrl = sortedPaths[sortedPaths.length-3].replace(WORDPRESS_DIR, '')    
             } catch (err) {
                 // Just use the big one
             }
         }
-
-        posts.push({
-            title: row.post_title,
-            date: new Date(row.post_date),
-            slug: permalinks.get(row.ID, row.post_name),
-            authors: authorship.get(row.ID)||[],
-            imageUrl: imageUrl
-        })
     }
 
     const entries = await wpdb.getEntriesByCategory()
@@ -96,7 +79,7 @@ async function main(target: string) {
             console.log(await renderFrontPage())
         } else if (target == "blog") {
             const pageNum = process.argv[3] ? parseInt(process.argv[3]) : 1
-            console.log(await renderBlog(pageNum))            
+            console.log(await renderBlogByPageNum(pageNum === 0 ? 1 : pageNum))            
         } else {
             console.log(await renderPageById(parseInt(target)))
         }

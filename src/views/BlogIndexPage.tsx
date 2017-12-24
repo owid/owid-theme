@@ -45,7 +45,7 @@ export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: Po
                         <h2 className="screen-reader-text">Posts navigation</h2>
                         <div className="nav-link">
                             {pageNums.map(num => 
-                                <a className={"page-numbers" + (num === pageNum ? " current" : "")} href={num === 1 ? '/blog/' : `/blog/page/${num}`}>{num}{" "}</a>
+                                <a className={"page-numbers" + (num === pageNum ? " current" : "")} href={num === 1 ? '/blog/' : `/blog/page/${num}`}>{num}</a>
                             )}
                         </div>
                     </nav>

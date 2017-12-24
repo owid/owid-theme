@@ -22,7 +22,10 @@ interface Settings {
     IS_BAKING: boolean
 
     HTTPS_ONLY: boolean
+
+    BLOG_POSTS_PER_PAGE: number
 }
 
 const env: Settings = (process.env as any)
+env.BLOG_POSTS_PER_PAGE = 21
 export = env

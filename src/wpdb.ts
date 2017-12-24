@@ -186,3 +186,39 @@ export async function getFullPost(row: any): Promise<FullPost> {
         imageUrl: featuredImages.get(row.ID)
     }
 }
+
+export interface PostInfo {
+    title: string
+    date: Date
+    slug: string
+    authors: string[]
+    imageUrl?: string
+}
+
+let cachedPosts: PostInfo[]
+export async function getBlogIndex(): Promise<PostInfo[]> {
+    if (cachedPosts) return cachedPosts
+
+    const rows = await wpdb.query(`
+        SELECT ID, post_title, post_date, post_name FROM wp_posts
+        WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC
+    `)
+
+
+    const permalinks = await getPermalinks()
+    const authorship = await getAuthorship()
+    const featuredImages = await getFeaturedImages()
+
+    
+    cachedPosts = rows.map(row => {
+        return {
+            title: row.post_title,
+            date: new Date(row.post_date),
+            slug: permalinks.get(row.ID, row.post_name),
+            authors: authorship.get(row.ID)||[],
+            imageUrl: featuredImages.get(row.ID)
+        }
+    })
+
+    return cachedPosts
+}

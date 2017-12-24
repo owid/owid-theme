@@ -4,13 +4,14 @@ import * as path from 'path'
 import * as glob from 'glob'
 import {without, chunk} from 'lodash'
 import * as shell from 'shelljs'
+import * as _ from 'lodash'
 
 import * as wpdb from './wpdb'
 import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
-const { BAKED_DIR, WORDPRESS_URL, WORDPRESS_DIR } = settings
-import { renderFrontPage } from './renderPage'
+const { BAKED_DIR, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
+import { renderFrontPage, renderBlogByPageNum } from './renderPage'
 
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -70,6 +71,9 @@ export class WordpressBaker {
         let bakingPosts = []
         let postSlugs = []
         for (const row of rows) {
+            if (row.post_name === 'blog') // Handled separately
+                continue
+
             const post = await wpdb.getFullPost(row)
             postSlugs.push(post.slug)
 
@@ -108,24 +112,16 @@ export class WordpressBaker {
     }
 
     async bakeBlog() {
-        const posts = await wpdb.query(`SELECT ID FROM wp_posts WHERE (post_type='post') AND post_status='publish'`)
-        const numPages = Math.ceil(posts.length/20)
-        const requests = []
-        for (let i = 2; i <= numPages; i++) {
-            requests.push(this.bakePost(`blog/page/${i}`))
-        }
-        await Promise.all(requests)
+        const allPosts = await wpdb.getBlogIndex()
+        const numPages = Math.ceil(allPosts.length/BLOG_POSTS_PER_PAGE)
 
+        for (let i = 1; i <= numPages; i++) {
+            const slug = i === 1 ? 'blog' : `blog/page/${i}`
+            const html = await renderBlogByPageNum(i)
+            this.stageWrite(`${BAKED_DIR}/${slug}.html`, html)
+        }
         // RSS feed
-        try {
-            let feed = await request(`${WORDPRESS_URL}/feed/`)
-
-            await fs.mkdirp(path.join(BAKED_DIR, 'feed'))
-            const outPath = path.join(BAKED_DIR, 'feed/index.xml')
-            this.stageWrite(outPath, feed)
-        } catch (err) {
-            console.error(err)
-        }
+        // let feed = await request(`${WORDPRESS_URL}/feed/`)
     }
 
     async bakeAssets() {
@@ -140,11 +136,12 @@ export class WordpressBaker {
         await this.bakeRedirects()
         await this.bakeAssets()
         await this.bakeFrontPage()
-        //await this.bakeBlog()
+        await this.bakeBlog()
         await this.bakePosts()
     }
 
     async stageWrite(outPath: string, content: string) {
+        await fs.mkdirp(path.dirname(outPath))
         await fs.writeFile(outPath, content)
         this.stage(outPath)
     }
