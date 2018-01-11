@@ -281,6 +281,6 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 
 beforePrint();*/
 
-if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1) {
+if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1 || document.cookie.indexOf('isAdmin') != -1) {
     $('#wpadminbar').show();
 }
