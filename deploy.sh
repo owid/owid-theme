@@ -28,6 +28,7 @@ then
   SYNC_TARGET="$TMP/$ENV-owid-theme"
   TMP_NEW="$TMP/$ENV-owid-theme-new"
   FINAL_TARGET="$WORDPRESS_DIR/wp-content/themes/owid-theme"
+  DATA="/home/owid/$ENV-theme-data"
 
   ssh -t $HOST "rm -r $OLD_REPO"
   $RSYNC $DIR/ $HOST:$SYNC_TARGET
@@ -35,6 +36,9 @@ then
     cp -r $SYNC_TARGET $TMP_NEW
     mv $FINAL_TARGET $OLD_REPO
     mv $TMP_NEW $FINAL_TARGET
+
+    ln -sf $DATA/.env $FINAL_TARGET/.env
+
     cd $FINAL_TARGET
     yarn
     node dist/src/deployHook.js
