@@ -6,12 +6,7 @@ const argv = parseArgs(process.argv.slice(2))
 
 async function main(database: string, wordpressUrl: string, wordpressDir: string) {
     try {
-        const baker = new WordpressBaker({
-            database: database,
-            wordpressUrl: wordpressUrl,
-            wordpressDir: wordpressDir,
-            outDir: os.homedir() === "/var/www" ? '/home/owid/wp-static' : path.join(os.homedir(), 'wp-static')
-        })
+        const baker = new WordpressBaker({})
 
         await baker.bakeAll()
         await baker.deploy(`Code deployment update`)

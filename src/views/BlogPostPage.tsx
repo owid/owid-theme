@@ -1,0 +1,64 @@
+import * as settings from '../settings'
+import * as React from 'react'
+import { Head } from './Head'
+import { SiteHeader } from './SiteHeader'
+import { SiteFooter } from './SiteFooter'
+import { formatAuthors, formatDate, FormattedPost } from '../formatting'
+import { CategoryWithEntries, FullPost } from '../wpdb'
+
+export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
+    const {entries, post} = props
+    const authorsText = formatAuthors(post.authors)
+
+    const pageTitle = post.title
+    const canonicalUrl = `${settings.BAKED_URL}/${post.slug}`
+    const pageDesc = post.excerpt
+
+    return <html>
+        <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
+        <body className="single-post">
+            <SiteHeader entries={entries}/>
+            <main>
+                <header className="blog-header">
+                    <h1>
+                        <a href="/blog">Blog</a>
+                    </h1>
+                </header>
+                <div className="site-content">
+                    <article className="post">
+                        <header className="article-header">
+                            <h1 className="entry-title">{post.title}</h1>
+                            <div className="entry-meta">
+                                <time>{formatDate(post.date)}</time> by {formatAuthors(post.authors)}
+                            </div>
+                        </header>
+                        <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>
+                        <footer className="article-footer">
+                            <h2 id="footnotes">Footnotes</h2>
+                            <ol className="side-matter side-matter-list" style={{'list-style-type': 'decimal', opacity: 1}}>
+                                {post.footnotes.map((footnote, i) =>
+                                    <li id={`note-${i+1}`} className="side-matter side-matter-note" style={{'margin-top': '0px'}}>
+                                        <div className="side-matter side-matter-text">
+                                            <p dangerouslySetInnerHTML={{__html: footnote}}/>
+                                        </div>
+                                    </li>
+                                )}
+                            </ol>
+                        </footer>
+                    </article>
+                </div>
+            </main>
+            <div id="wpadminbar" style={{display: 'none'}}>
+                <div className="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
+                    <ul id="wp-admin-bar-root-default" className="ab-top-menu">
+                        <li id="wp-admin-bar-site-name" className="menupop">
+                            <a className="ab-item" aria-haspopup="true" href="/wp-admin/">Our World In Data</a>
+                        </li>
+                        <li id="wp-admin-bar-edit"><a className="ab-item" href={`/wp-admin/post.php?post=${post.id}&action=edit`}>Edit Post</a></li>
+                    </ul>
+                </div>
+            </div>
+            <SiteFooter/>
+        </body>
+    </html>
+}

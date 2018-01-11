@@ -1,32 +1,15 @@
-<?php
-/**
- * The /blog page
- */
+<?php 
+	// Redirect from admin site for live urls
+	if (!is_preview() && strpos(get_the_permalink(), "https://owid.cloud") !== false) {
+		$url = str_replace("https://owid.cloud", "https://ourworldindata.org", get_the_permalink());
+		wp_redirect($url, 302);
+		exit;
+	}
 
-get_header(); ?>
-
-<div class="site-content">
-	<h2>Latest Posts</h2>
-	<ul class="posts">
-	<?php while ( have_posts() ) : the_post(); ?>
-		<li class="post">
-			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail('medium'); ?>
-				<h3><?php the_title(); ?></h3>
-				<div class='entry-meta'><time><?php the_date("F d, Y"); ?></time> by <?php
-						$coauthors = coauthors(null, null, null, null, false);
-						echo $coauthors;
-					  ?></div>
-			</a>
-		</li>
-	<?php endwhile; ?>
-	</ul>
-
-	<?php the_posts_pagination([
-		'prev_text'          => '« Prev',        
-		'next_text'          => 'Next »',             
-		'before_page_number' => '',
-	]) ?>  
-</div>
-
-<?php get_footer(); ?>
+	global $paged;
+	$themeDir = dirname(__FILE__);
+	$cmd = "cd $themeDir && node dist/src/renderPage.js blog $paged";
+	error_log($cmd);
+	exec($cmd, $op);
+	echo join("\n", $op);
+?>

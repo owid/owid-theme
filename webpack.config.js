@@ -60,7 +60,7 @@ module.exports = {
     plugins: (isProduction ? [
         // This plugin extracts css files required in the entry points
         // into a separate CSS bundle for download
-        new ExtractTextPlugin('css/style.css'),
+        new ExtractTextPlugin('[name].css'),
 
         // CSS optimization
         /*new OptimizeCssAssetsPlugin({
@@ -86,6 +86,18 @@ module.exports = {
             }
         }),
     ] : [
-        new ExtractTextPlugin('css/style.css')
-    ])
+        new ExtractTextPlugin('[name].css')
+    ]),
+
+    devServer: {
+        host: 'localhost',
+        port: 8095,
+        contentBase: 'public',
+        disableHostCheck: true,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        }
+    },
 }

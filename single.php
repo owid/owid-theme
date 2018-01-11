@@ -1,42 +1,18 @@
-<?php
-/**
- * Single blog post
- */
+<?php 
+	the_post();
 
-get_header(); ?>
+	// Redirect from admin site for live urls
+	if (!is_preview() && strpos(get_the_permalink(), "https://owid.cloud") !== false) {
+		$url = str_replace("https://owid.cloud", "https://ourworldindata.org", get_the_permalink());
+		wp_redirect($url, 302);
+		exit;
+	}
 
-<header class="blog-header">
-	<h1><a href="/blog">Blog</a></h1>
-</header>
+	$ID = escapeshellarg(get_the_ID());
+	$themeDir = escapeshellarg(dirname(__FILE__));
+	$cmd = "cd $themeDir && node dist/src/renderPage.js $ID";
+	exec($cmd, $op);
+	echo join("\n", $op);
 
-<div class="site-content">
-	<?php while (have_posts()) : the_post(); ?>
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-			<header class="article-header">
-				<h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
-			  	<div class='entry-meta'><time><?php the_date("F d, Y"); ?></time> by <?php
-					$coauthors = coauthors(null, null, null, null, false);
-					echo $coauthors;
-			  	?></div>
 
-			</header><!-- .article-header -->
-
-			<div class="article-content">
-				<?php the_content(); ?>
-			</div><!-- .article-content -->
-
-			<footer class="article-footer">
-				<h2 id="footnotes">Footnotes</h2>
-				<?php do_action('side_matter_list_notes'); ?>
-			</footer><!-- .article-footer -->
-		</article><!-- #post-## -->
-	<?php endwhile; ?>			
-
-	<?php the_posts_pagination([
-		'prev_text'          => '« Prev',        
-		'next_text'          => 'Next »',             
-		'before_page_number' => '',
-	]) ?>  
-</div>
-
-<?php get_footer(); ?>
+?>

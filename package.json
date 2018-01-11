@@ -2,9 +2,11 @@
   "private": true,
   "scripts": {
     "build": "webpack -p",
-    "watch": "./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"webpack -w\""
+    "dev": "./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"webpack-dev-server\""
   },
   "dependencies": {
+    "@types/cheerio": "^0.22.6",
+    "@types/entities": "^1.1.0",
     "@types/fs-extra": "^5.0.0",
     "@types/glob": "^5.0.34",
     "@types/lodash": "^4.14.91",
@@ -12,15 +14,23 @@
     "@types/mysql": "^2.15.2",
     "@types/node": "^8.5.2",
     "@types/react": "^16.0.31",
+    "@types/react-dom": "^16.0.3",
     "@types/request-promise": "^4.1.39",
     "@types/shelljs": "^0.7.7",
+    "cheerio": "^1.0.0-rc.2",
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.7",
+    "dotenv": "^4.0.0",
+    "entities": "^1.1.1",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "font-awesome": "^4.7.0",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
+    "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
+    "module-alias": "^2.0.3",
     "mysql": "^2.15.0",
     "node-sass": "^4.7.2",
     "normalize.css": "^7.0.0",
@@ -38,7 +48,10 @@
     "tslint-loader": "^3.5.3",
     "typescript": "^2.6.2",
     "url-loader": "^0.6.2",
+    "url-slug": "^2.0.0",
     "webpack": "^3.10.0",
-    "webpack-parallel-uglify-plugin": "^1.0.2"
+    "webpack-dev-server": "^2.9.7",
+    "webpack-parallel-uglify-plugin": "^1.0.2",
+    "wpautop": "^0.2.2"
   }
 }
