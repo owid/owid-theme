@@ -2,8 +2,11 @@ import * as cheerio from 'cheerio'
 const urlSlug = require('url-slug')
 const wpautop = require('wpautop')
 import {last} from 'lodash'
+import * as React from 'react'
+import * as ReactDOMServer from 'react-dom/server'
 import * as settings from './settings'
-import { FullPost } from './wpdb'
+import { getTables, FullPost } from './wpdb'
+import Tablepress from './views/Tablepress'
 
 export interface FormattedPost {
     id: number
@@ -58,9 +61,19 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
     html = html.replace(new RegExp(settings.WORDPRESS_URL, 'g'), "")
         .replace(new RegExp("https?://ourworldindata.org", 'g'), "")
 
+    // Insert [table id=foo] tablepress tables
+    const tables = await getTables()
+    html = html.replace(/\[table\s+id=(\d+)\s*\/\]/g, (match, tableId) => {
+        const table = tables.get(tableId)
+        if (table)
+            return ReactDOMServer.renderToStaticMarkup(<Tablepress data={table.data}/>)
+        else
+            return "UNKNOWN TABLE"
+    })
 
+    
     // In the final production version, make sure we use https urls
-            .replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
+    html = html.replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
             .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
 
     const $ = cheerio.load(html)
@@ -71,7 +84,7 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
         if (src.match(/\/grapher\//)) {
             $(el).replaceWith(`<figure data-grapher-src="${src.replace(/.*(?=\/grapher\/)/, '')}"/>`)
         }    
-    })
+    })    
 
     // Table of contents and deep links
     const hasToc = post.type === 'page' && post.slug !== 'about'

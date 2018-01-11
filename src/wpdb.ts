@@ -222,3 +222,39 @@ export async function getBlogIndex(): Promise<PostInfo[]> {
 
     return cachedPosts
 }
+
+interface TablepressTable {
+    tableId: string
+    data: string[][]
+}
+
+let cachedTables: Map<string, TablepressTable>
+export async function getTables(): Promise<Map<string, TablepressTable>> {
+    if (cachedTables) return cachedTables
+
+    const optRows = await wpdb.query(`
+        SELECT option_value AS json FROM wp_options WHERE option_name='tablepress_tables'
+    `)
+
+    const tableToPostIds = JSON.parse(optRows[0].json).table_post
+
+    const rows = await wpdb.query(`
+        SELECT ID, post_content FROM wp_posts WHERE post_type='tablepress_table'
+    `)
+
+    const tableContents = new Map<string, string>()
+    for (const row of rows) {
+        tableContents.set(row.ID, row.post_content)
+    }
+
+    cachedTables = new Map()
+    for (const tableId in tableToPostIds) {
+        const data = JSON.parse(tableContents.get(tableToPostIds[tableId])||"[]")
+        cachedTables.set(tableId, {
+            tableId: tableId,
+            data: data
+        })
+    }
+
+    return cachedTables
+}

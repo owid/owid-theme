@@ -305,7 +305,7 @@ input[type="search"]::-webkit-search-results-button {
 .article-content > table th {
 	text-align: center;
     border: 1px solid #aaa;
-    padding: 0.2em 0.4em;
+    padding: 0.4em;
 }
 
 .article-content > table th {
@@ -315,43 +315,29 @@ input[type="search"]::-webkit-search-results-button {
 .tablepress {
 	margin: 1em 0;
     color: #000;
-    font-size: 14px;
+	font-size: 14px;
+	width: 100%;
+    border-collapse: collapse;
+	border-spacing: 0;
 }
 
 .tablepress th {
-    text-align: center;	
-	background: none;
+	border-bottom: 1px solid #333;
+	background: #d9edf7;
 }
 
 .tablepress th,
 .tablepress td {
-    padding: 0.2em 0.4em;	
+	padding: 0.4em;	
+	border: 1px solid #ddd;
+	text-align: center;	
+	vertical-align: center;
 }
 
-.tablepress:not(.tablepress-responsive-all) th,
-.tablepress:not(.tablepress-responsive-all) td {
-    text-align: center;
+.tablepress tr:nth-child(2n) {
+	background-color: #f9f9f9;
 }
 
-.tablepress:not(.tablepress-responsive-all) th {
-	border-bottom: 1px solid #333;
-}
-
-.tablepress:not(.tablepress-responsive-all) tr:last-child td {
-	border-bottom: 1px solid #333;	
-}
-
-.tablepress .even td {
-	background: #EBF2FA;
-}
-
-.tablepress .odd td {
-	background: none;
-}
-
-.tablepress-responsive-all th:first-child {
-	background: none;
-}
 
 /* Site Header
 --------------------------------------------- */
