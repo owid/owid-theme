@@ -5,15 +5,9 @@ RSYNC="rsync -havz --no-perms --progress --delete --delete-excluded --exclude-fr
 if [ "$1" == "test" ]; then
   HOST="owid@terra"
   ENV="test"
-  WORDPRESS_DIR="/home/owid/test.ourworldindata.org"
-  WORDPRESS_URL="https://test.ourworldindata.org"
-  WORDPRESS_DB="test_wordpress"
 elif [ "$1" == "live" ]; then
   ENV="live"
   HOST="owid@terra"
-  WORDPRESS_DIR="/home/owid/ourworldindata.org"
-  WORDPRESS_URL="https://owid.cloud"
-  WORDPRESS_DB="owid_wordpress"
 
   # Prompt for confirmation if deploying to live
   read -p "Are you sure you want to deploy to 'live'? " -n 1 -r
@@ -25,7 +19,7 @@ fi
 
 if [[ $REPLY =~ ^[Yy]$ ]] || [ "$1" != "live" ]
 then
-  webpack -p
+  ./node_modules/.bin/webpack -p
 
   TMP="/home/owid/tmp"
   OLD_REPO="$TMP/$ENV-owid-theme-old"
@@ -40,6 +34,6 @@ then
     mv $FINAL_TARGET $OLD_REPO
     mv $TMP_NEW $FINAL_TARGET
     cd $FINAL_TARGET && yarn
-    node dist/deployHook.js $WORDPRESS_DB $WORDPRESS_URL $WORDPRESS_DIR
+    node dist/src/deployHook.js
 EOF
 fi

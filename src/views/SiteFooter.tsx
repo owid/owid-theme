@@ -59,6 +59,6 @@ export const SiteFooter = () => {
             </div>
         </div>
         <script src={`${settings.STATIC_ROOT}/js/owid.js`} />
-        <script src="/grapher/embedCharts.js" />
+        <script src={`${settings.BAKED_URL}/grapher/embedCharts.js`}/>
     </footer>
 }
