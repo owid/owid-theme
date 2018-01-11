@@ -56,6 +56,16 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                     </article>
                 </div>
             </main>
+            <div id="wpadminbar" style={{display: 'none'}}>
+                <div className="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
+                    <ul id="wp-admin-bar-root-default" className="ab-top-menu">
+                        <li id="wp-admin-bar-site-name" className="menupop">
+                            <a className="ab-item" aria-haspopup="true" href="/wp-admin/">Our World In Data</a>
+                        </li>
+                        <li id="wp-admin-bar-edit"><a className="ab-item" href={`/wp-admin/post.php?post=${post.id}&action=edit`}>Edit Page</a></li>
+                    </ul>
+                </div>
+            </div>
             <SiteFooter/>
         </body>
     </html>
