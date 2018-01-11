@@ -54,6 +54,16 @@ export class WordpressBaker {
         await this.stageWrite(path.join(BAKED_DIR, `_redirects`), redirects.join("\n"))
     }
 
+    async bakeHeaders() {
+        const {props} = this
+        // Cross-domain signalling-- lets the admin sites let us know we should show edit links
+        const headers = `/identifyAdmin.png
+  Set-Cookie: isAdmin=true; Max-Age=2592000
+`
+    
+        await this.stageWrite(path.join(BAKED_DIR, `_headers`), headers)
+    }
+
     async bakePost(post: wpdb.FullPost) {
         const entries = await wpdb.getEntriesByCategory()
         const formatted = await formatPost(post)
@@ -129,15 +139,17 @@ export class WordpressBaker {
     }
 
     async bakeAssets() {
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content/themes/owid-theme/images/identifyAdmin.png ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-includes ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/favicon* ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/slides/ ${BAKED_DIR}/slides`)
-        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-themes/owid-theme/404.html ${BAKED_DIR}/`)
+        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content/themes/owid-theme/404.html ${BAKED_DIR}/`)
     }
 
     async bakeAll() {
         await this.bakeRedirects()
+        await this.bakeHeaders()
         await this.bakeAssets()
         await this.bakeFrontPage()
         await this.bakeBlog()
