@@ -38,6 +38,7 @@ export class WordpressBaker {
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
             "/wp-admin/* https://owid.cloud/wp-admin/:splat 302",
+            "/wp-login.php https://owid.cloud/wp-login.php 302",
             "/grapher/admin/* https://owid.cloud/grapher/admin/:splat 302",
             "/roser/* https://www.maxroser.com/roser/:splat 302",
             "/wp-content/uploads/nvd3/* https://www.maxroser.com/owidUploads/nvd3/:splat 302",
