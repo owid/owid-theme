@@ -1,4 +1,4 @@
-import * as settings from '../settings'
+import {BAKED_URL, WORDPRESS_URL} from '../settings'
 import * as React from 'react'
 import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
@@ -12,7 +12,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
     const authorsText = formatAuthors(post.authors)
 
     const pageTitle = post.title
-    const canonicalUrl = `${settings.BAKED_URL}/${post.slug}`
+    const canonicalUrl = `${BAKED_URL}/${post.slug}`
     const pageDesc = post.excerpt
 
     return <html>
@@ -62,7 +62,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                         <li id="wp-admin-bar-site-name" className="menupop">
                             <a className="ab-item" aria-haspopup="true" href="/wp-admin/">Our World In Data</a>
                         </li>
-                        <li id="wp-admin-bar-edit"><a className="ab-item" href={`/wp-admin/post.php?post=${post.id}&action=edit`}>Edit Page</a></li>
+                        <li id="wp-admin-bar-edit"><a className="ab-item" href={`${WORDPRESS_URL}/wp-admin/post.php?post=${post.id}&action=edit`}>Edit Page</a></li>
                     </ul>
                 </div>
             </div>

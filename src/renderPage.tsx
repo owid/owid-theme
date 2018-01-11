@@ -65,6 +65,7 @@ export async function renderBlogByPageNum(pageNum: number) {
                 const sortedPaths = _.sortBy(paths, path => fs.statSync(path).size)
                 post.imageUrl = sortedPaths[sortedPaths.length-3].replace(WORDPRESS_DIR, '')    
             } catch (err) {
+                console.error(err)
                 // Just use the big one
             }
         }

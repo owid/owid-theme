@@ -47,6 +47,7 @@
     "tslint-language-service": "^0.9.6",
     "tslint-loader": "^3.5.3",
     "typescript": "^2.6.2",
+    "url-join": "^2.0.5",
     "url-loader": "^0.6.2",
     "url-slug": "^2.0.0",
     "webpack": "^3.10.0",
