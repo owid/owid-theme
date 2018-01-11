@@ -5,9 +5,11 @@ RSYNC="rsync -havz --no-perms --progress --delete --delete-excluded --exclude-fr
 if [ "$1" == "test" ]; then
   HOST="owid@terra"
   ENV="test"
+  WORDPRESS_DIR="/home/owid/test.ourworldindata.org"
 elif [ "$1" == "live" ]; then
   ENV="live"
   HOST="owid@terra"
+  WORDPRESS_DIR="/home/owid/ourworldindata.org"
 
   # Prompt for confirmation if deploying to live
   read -p "Are you sure you want to deploy to 'live'? " -n 1 -r
@@ -33,7 +35,8 @@ then
     cp -r $SYNC_TARGET $TMP_NEW
     mv $FINAL_TARGET $OLD_REPO
     mv $TMP_NEW $FINAL_TARGET
-    cd $FINAL_TARGET && yarn
+    cd $FINAL_TARGET
+    yarn
     node dist/src/deployHook.js
 EOF
 fi
