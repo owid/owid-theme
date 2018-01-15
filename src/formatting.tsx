@@ -14,6 +14,7 @@ export interface FormattedPost {
     slug: string
     title: string
     date: Date
+    modifiedDate: Date
     authors: string[]
     html: string
     footnotes: string[]
@@ -135,6 +136,7 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
         slug: post.slug,
         title: post.title,
         date: post.date,
+        modifiedDate: post.modifiedDate,
         authors: post.authors,
         html: $.html(),
         footnotes: footnotes,

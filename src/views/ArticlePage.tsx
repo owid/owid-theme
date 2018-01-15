@@ -14,6 +14,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
     const pageTitle = post.title
     const canonicalUrl = `${BAKED_URL}/${post.slug}`
     const pageDesc = post.excerpt
+    const publishedYear = post.modifiedDate.getFullYear()
 
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
@@ -37,7 +38,10 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                         <header className="article-header">
                             <h1 className="entry-title">{post.title}</h1>
                             <div className="authors-byline">
-                                <a href="/about/#the-team">by {authorsText}</a>
+                                <a href="/about/#the-team">by {authorsText}</a><a className="citation-note"><sup>[cite]</sup></a>
+                            </div>
+                            <div className="citation-guideline">
+                                OWID presents work for many different people and organizations. When citing this entry, please also cite the original data source. This entry can be cited as:<br/><br/>{authorsText} ({publishedYear}) - "{pageTitle}". <em>Published online at OurWorldInData.org.</em> Retrieved from: '{canonicalUrl}' [Online Resource]
                             </div>
                         </header>
                         <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>

@@ -163,6 +163,7 @@ export interface FullPost {
     slug: string
     title: string
     date: Date
+    modifiedDate: Date
     authors: string[]
     content: string
     excerpt?: string
@@ -179,7 +180,8 @@ export async function getFullPost(row: any): Promise<FullPost> {
         type: row.post_type,
         slug: permalinks.get(row.ID, row.post_name),
         title: row.post_title,
-        date: new Date(row.post_date),
+        date: new Date(row.post_date_gmt),
+        modifiedDate: new Date(row.post_modified_gmt),
         authors: authorship.get(row.ID) || [],
         content: row.post_content,
         excerpt: row.post_excerpt,

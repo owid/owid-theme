@@ -2211,7 +2211,7 @@ nav.entry-toc li.subsection {
 	margin-left: 30px;
 }
 
-body.page .authors-byline .citation-note {
+article.page .authors-byline .citation-note {
 	opacity: .9;
 	color: #0645ad;
 	cursor: pointer;	
@@ -2222,7 +2222,7 @@ body.page .authors-byline .citation-note {
 	-webkit-touch-callout: none; /* iOS Safari */
 }
 
-body.page .authors-byline .citation-note:hover {
+article.page .authors-byline .citation-note:hover {
 	color: #0645ad;
 }
 
