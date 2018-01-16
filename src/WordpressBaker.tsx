@@ -34,7 +34,7 @@ export class WordpressBaker {
     async bakeRedirects() {
         const {props} = this
         const redirects = [
-            "/feed/ /feed/index.xml 200",
+            "/feed /atom.xml 200",
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
@@ -142,8 +142,8 @@ export class WordpressBaker {
     <title>Our World in Data</title>
     <subtitle>Living conditions around the world are changing rapidly. Explore how and why.</subtitle>
     <id>${BAKED_URL}/</id>
-    <link rel="self" href="${BAKED_URL}/feed/"/>
-    <link rel="alternate" href="${BAKED_URL}"/>
+    <link type="text/html" rel="alternate" href="${BAKED_URL}"/>
+    <link type="application/atom+xml" rel="self" href="${BAKED_URL}/feed/"/>
     <updated>${posts[0].date.toISOString()}</updated>
     ${posts.map(post => `<entry>
         <title>${post.title}</title>
@@ -156,7 +156,7 @@ export class WordpressBaker {
     </entry>`).join("\n")}
 </feed>
 `
-        await this.stageWrite(`${BAKED_DIR}/feed/index.xml`, feed)
+        await this.stageWrite(`${BAKED_DIR}/atom.xml`, feed)
     }
 
     async bakeAssets() {
