@@ -23,7 +23,7 @@ export interface WPBakerProps {
     forceUpdate?: boolean
 }
 
-export class WordpressBaker {
+export default class WordpressBaker {
     props: WPBakerProps
     stagedFiles: string[] = []
     constructor(props: WPBakerProps) {
@@ -97,10 +97,12 @@ export class WordpressBaker {
                 }    
             }*/
 
+            await this.bakePost(post)
+
             bakingPosts.push(post)
         }
 
-        await Promise.all(bakingPosts.map(post => this.bakePost(post)))
+//        await Promise.all(bakingPosts.map(post => this.bakePost(post)))
 
         // Delete any previously rendered posts that aren't in the database
         const existingSlugs = glob.sync(`${BAKED_DIR}/**/*.html`).map(path => path.replace(`${BAKED_DIR}/`, '').replace(".html", ""))

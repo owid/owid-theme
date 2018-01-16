@@ -1,4 +1,4 @@
-import {WordpressBaker} from './WordpressBaker'
+import WordpressBaker from './BakeWordpress'
 
 async function main() {
     const baker = new WordpressBaker({})

@@ -10,6 +10,7 @@ interface Settings {
     WORDPRESS_URL: string
     WORDPRESS_DB_NAME: string
     WORDPRESS_DIR: string
+    GRAPHER_DIR: string
 
     // The output directory for static bundle
     BAKED_DIR: string

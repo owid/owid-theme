@@ -1,4 +1,4 @@
-import {WordpressBaker} from './WordpressBaker'
+import WordpressBaker from './BakeWordpress'
 import * as parseArgs from 'minimist'
 import * as os from 'os'
 import * as path from 'path'

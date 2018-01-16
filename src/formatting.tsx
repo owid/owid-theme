@@ -4,9 +4,11 @@ const wpautop = require('wpautop')
 import {last} from 'lodash'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import * as settings from './settings'
+import {HTTPS_ONLY, WORDPRESS_URL, GRAPHER_DIR, BAKED_DIR}  from './settings'
 import { getTables, FullPost } from './wpdb'
 import Tablepress from './views/Tablepress'
+import * as path from 'path'
+const exec = require('child-process-promise').exec
 
 export interface FormattedPost {
     id: number
@@ -21,6 +23,16 @@ export interface FormattedPost {
     excerpt: string
     imageUrl?: string
     tocHeadings: { text: string, slug: string, isSubheading: boolean }[]
+}
+
+async function grapherUrlsToSvgFiles(urls: string[]): Promise<string[]> {
+    const args = [`${GRAPHER_DIR}/dist/src/bakeChartsToImages.js`]
+    args.push(...urls)
+    args.push(`${BAKED_DIR}/exports`)
+
+    const result = await exec(`cd ${GRAPHER_DIR} && node ${args.map(arg => JSON.stringify(arg)).join(" ")}`)
+    const lines = (result.stdout.toString() as string).split("\n").filter(s => s.length > 0)
+    return lines.slice(lines.length-urls.length).map(line => `/exports/${last(line.split("/"))}`)
 }
 
 function romanize(num: number) {
@@ -53,13 +65,13 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
         html = wpautop(html)
 
     // Standardize protocols used in links
-    if (settings.HTTPS_ONLY)
+    if (HTTPS_ONLY)
         html = html.replace(new RegExp("http://", 'g'), "https://")
     else
         html = html.replace(new RegExp("https://", 'g'), "http://")
 
     // Use relative urls wherever possible
-    html = html.replace(new RegExp(settings.WORDPRESS_URL, 'g'), "")
+    html = html.replace(new RegExp(WORDPRESS_URL, 'g'), "")
         .replace(new RegExp("https?://ourworldindata.org", 'g'), "")
 
     // Insert [table id=foo] tablepress tables
@@ -72,20 +84,23 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
             return "UNKNOWN TABLE"
     })
 
-    
-    // In the final production version, make sure we use https urls
+
+    // These old things don't work with static generation, link them through to maxroser.com
     html = html.replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
             .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
 
     const $ = cheerio.load(html)
 
+    const grapherUrls = $("iframe").toArray().map(el => el.attribs['src']).filter(src => src.match(/\/grapher\//))
+    const svgUrls = await grapherUrlsToSvgFiles(grapherUrls)
+
     // Replace grapher iframes with iframeless embedding figure elements
-    $("iframe").each((_, el) => {
+    $("iframe").each((i, el) => {
         const src = el.attribs['src'] || ""
         if (src.match(/\/grapher\//)) {
-            $(el).replaceWith(`<figure data-grapher-src="${src.replace(/.*(?=\/grapher\/)/, '')}"/>`)
-        }    
-    })    
+            $(el).replaceWith(`<img src="${svgUrls[i]}"/>`)
+        }
+    })
 
     // Table of contents and deep links
     const hasToc = post.type === 'page' && post.slug !== 'about'
