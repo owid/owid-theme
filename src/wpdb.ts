@@ -206,11 +206,9 @@ export async function getBlogIndex(): Promise<PostInfo[]> {
         WHERE post_status='publish' AND post_type='post' ORDER BY post_date DESC
     `)
 
-
     const permalinks = await getPermalinks()
     const authorship = await getAuthorship()
     const featuredImages = await getFeaturedImages()
-
     
     cachedPosts = rows.map(row => {
         return {

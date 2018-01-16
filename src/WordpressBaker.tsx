@@ -7,11 +7,11 @@ import * as shell from 'shelljs'
 import * as _ from 'lodash'
 
 import * as wpdb from './wpdb'
-import { formatPost } from './formatting'
+import { formatPost, FormattedPost } from './formatting'
 import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
-const { BAKED_DIR, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
+const { BAKED_DIR, BAKED_URL, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
 import { renderFrontPage, renderBlogByPageNum } from './renderPage'
 
 import * as React from 'react'
@@ -34,6 +34,7 @@ export class WordpressBaker {
     async bakeRedirects() {
         const {props} = this
         const redirects = [
+            "/feed/ /feed/index.xml 200",
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",
@@ -123,10 +124,39 @@ export class WordpressBaker {
         for (let i = 1; i <= numPages; i++) {
             const slug = i === 1 ? 'blog' : `blog/page/${i}`
             const html = await renderBlogByPageNum(i)
-            this.stageWrite(`${BAKED_DIR}/${slug}.html`, html)
+            await this.stageWrite(`${BAKED_DIR}/${slug}.html`, html)
         }
-        // RSS feed
-        // let feed = await request(`${WORDPRESS_URL}/feed/`)
+    }
+
+    async bakeRSS() {
+        const postRows = await wpdb.query(`SELECT * FROM wp_posts WHERE post_type='post' AND post_status='publish' ORDER BY post_date DESC LIMIT 10`)
+
+        const posts: FormattedPost[] = []
+        for (const row of postRows) {
+            const fullPost = await wpdb.getFullPost(row)
+            posts.push(await formatPost(fullPost))
+        }
+
+        const feed = `<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Our World in Data</title>
+    <description>Living conditions around the world are changing rapidly. Explore how and why.</description>
+    <id>${BAKED_URL}/</id>
+    <link rel="self" href="${BAKED_URL}/feed/"/>
+    <link rel="alternate" href="${BAKED_URL}"/>
+    <updated>${posts[0].date.toISOString()}</updated>
+    ${posts.map(post => `<entry>
+        <title>${post.title}</title>
+        <id>${BAKED_URL}/${post.slug}</id>
+        <link rel="alternate" href="${BAKED_URL}/${post.slug}"/>
+        <published>${post.modifiedDate.toISOString()}</published>
+        <updated>${post.modifiedDate.toISOString()}</updated>
+        ${post.authors.map(author => `<author><name>${author}</name></author>`).join("")}
+        <summary>${post.excerpt}</summary>
+    </entry>`).join("\n")}
+</feed>
+`
+        await this.stageWrite(`${BAKED_DIR}/feed/index.xml`, feed)
     }
 
     async bakeAssets() {
@@ -140,9 +170,10 @@ export class WordpressBaker {
 
     async bakeAll() {
         await this.bakeRedirects()
+        await this.bakeBlog()
+        await this.bakeRSS()
         await this.bakeAssets()
         await this.bakeFrontPage()
-        await this.bakeBlog()
         await this.bakePosts()
     }
 
