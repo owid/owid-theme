@@ -140,7 +140,7 @@ export class WordpressBaker {
         const feed = `<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Our World in Data</title>
-    <description>Living conditions around the world are changing rapidly. Explore how and why.</description>
+    <subtitle>Living conditions around the world are changing rapidly. Explore how and why.</subtitle>
     <id>${BAKED_URL}/</id>
     <link rel="self" href="${BAKED_URL}/feed/"/>
     <link rel="alternate" href="${BAKED_URL}"/>
