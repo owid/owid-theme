@@ -221,12 +221,11 @@ address a:hover {
 /* Added by Max: Hover Effect of Images that load in Fancy Box
 ------------------------------------------------------------ */
 
-a[href$=jpg] img, a[href$=jpeg] img, a[href$=jpe] img, a[href$=png] img, a[href$=gif] img {
-	opacity: .9;
+a > img {
 	
 }
 
-a[href$=jpg] img:hover, a[href$=jpeg] img:hover, a[href$=jpe] img:hover, a[href$=png] img:hover, a[href$=gif] img:hover {
+a > img:hover {
 	opacity: 1;
 	-o-transition-duration: 0.2s;
 	-moz-transition-duration: 0.2s;
@@ -2036,12 +2035,17 @@ img {
 	max-width: 100%;
 }
 
+.article-content img {
+	display: block;
+	margin: 1em auto;
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
 img[data-grapher-src] {
+	padding: 0;
 	width: 100%;
 	max-width: 850px;
-	display: block;
-	margin: auto;
-	border: 1px solid #ccc;
 }
 
 img[data-grapher-src]::before {
@@ -2118,16 +2122,6 @@ article.page {
 
 .article-content ol > li {
 	margin-bottom: 10px;
-}
-
-.article-content img.aligncenter {
-	display: block;
-	margin: auto;
-	padding: 10px;
-}
-
-.article-content img.aligncenter {
-	border: 1px solid #ccc;
 }
 
 .article-content iframe {

@@ -25,7 +25,7 @@ export async function renderPageById(id: number): Promise<string> {
 
     const $ = cheerio.load(post.content)
     const grapherUrls = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//)).map(el => el.attribs['src'])
-    await bakeGrapherUrls(grapherUrls)
+    await bakeGrapherUrls(grapherUrls, { silent: true })
 
 
     const exportsByUrl = await getGrapherExportsByUrl()

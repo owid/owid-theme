@@ -27,12 +27,13 @@ export interface GrapherExports {
     get: (grapherUrl: string) => ChartExportMeta
 }
 
-export async function bakeGrapherUrls(urls: string[]) {
+export async function bakeGrapherUrls(urls: string[], opts: { silent?: boolean } = {}) {
     const args = [`${GRAPHER_DIR}/dist/src/bakeChartsToImages.js`]
     args.push(...urls)
     args.push(`${BAKED_DIR}/exports`)
     const promise = exec(`cd ${GRAPHER_DIR} && node ${args.map(arg => JSON.stringify(arg)).join(" ")}`)
-    promise.childProcess.stdout.on('data', (data: any) => console.log(data.toString().trim()))
+    if (!opts.silent)
+        promise.childProcess.stdout.on('data', (data: any) => console.log(data.toString().trim()))
     await promise
 }
 

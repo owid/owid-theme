@@ -58,6 +58,6 @@ export const SiteFooter = () => {
                 </div>
             </div>
         </div>
-        <script src={`${settings.STATIC_ROOT}/js/owid.js`} />
+        <script src={`${settings.ASSETS_URL}/js/owid.js`} />
     </footer>
 }

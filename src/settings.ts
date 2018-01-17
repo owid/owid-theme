@@ -6,7 +6,7 @@ require('module-alias').addAliases({
 require('dotenv').config()
 
 interface Settings {
-    STATIC_ROOT: string
+    ASSETS_URL: string
     WORDPRESS_URL: string
     WORDPRESS_DB_NAME: string
     WORDPRESS_DIR: string

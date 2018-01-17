@@ -85,8 +85,10 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         for (const el of grapherIframes) {
             const src = el.attribs['src']
             const chart = grapherExports.get(src)
-            if (chart)
-                $(el).replaceWith(`<a href="${src}" target="_blank"><img src="${chart.svgUrl}" data-grapher-src="${src}"/></a>`)
+            if (chart) {
+                const output = `<a href="${src}" target="_blank"><img src="${chart.svgUrl}" data-grapher-src="${src}"/></a>`
+                $(el).replaceWith(output)
+            }
         }    
     }
 
