@@ -283,39 +283,37 @@ input[type="search"]::-webkit-search-results-button {
 /* Tables
 --------------------------------------------- */
 
-.article-content > table {
+.article-content table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	margin-bottom: 40px;
-	font-size: 16px;
-	width: 100%;
+	margin: 1em 0;
+    color: #000;
+	font-size: 14px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+	width: 100%;
+	max-width: 100%;
 }
 
-.article-content > table > tbody {
+.article-content table > tbody {
 	border-bottom: 1px solid #ddd;
 }
 
-.article-content > table td,
-.article-content > table th {
+.article-content table td,
+.article-content table th {
 	text-align: center;
     border: 1px solid #aaa;
     padding: 0.4em;
 }
 
-.article-content > table th {
+.article-content table th {
 	font-weight: 700;
 }
 
 .tablepress {
 	margin: 1em 0;
     color: #000;
-	font-size: 14px;
-	width: 100%;
-    border-collapse: collapse;
-	border-spacing: 0;
 }
 
 .tablepress th {
@@ -2136,6 +2134,11 @@ article.page {
 
 .article-content > p > ul > li {
 	margin-bottom: 5px;
+}
+
+/* For wide tables and such on mobile */
+.article-content p {
+	overflow-x: auto;
 }
 
 .article-content ol > li {
