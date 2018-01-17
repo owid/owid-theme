@@ -86,10 +86,17 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
             const src = el.attribs['src']
             const chart = grapherExports.get(src)
             if (chart) {
-                const output = `<a href="${src}" target="_blank"><img src="${chart.svgUrl}" data-grapher-src="${src}"/></a>`
+                const output = `<div class="interactivePreview"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}" data-grapher-src="${src}"/></div></a></div>`
                 $(el).replaceWith(output)
             }
         }    
+    }
+
+    // Make all image links open in new tab
+    for (const el of $("img").toArray()) {
+        if (el.parent.tagName === "a") {
+            el.parent.attribs['target'] = '_blank'
+        }
     }
 
     // Table of contents and deep links

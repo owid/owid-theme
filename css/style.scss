@@ -221,15 +221,11 @@ address a:hover {
 /* Added by Max: Hover Effect of Images that load in Fancy Box
 ------------------------------------------------------------ */
 
-a > img {
+.article-content a > img {
 	
 }
 
-a > img:hover {
-	opacity: 1;
-	-o-transition-duration: 0.2s;
-	-moz-transition-duration: 0.2s;
-	-webkit-transition: -webkit-transform 0.2s;
+.article-content a > img:hover {
 	-webkit-box-shadow: 0px 0px 4px #000;
 	-moz-box-shadow: 0px 0px 4px #000;
 	box-shadow: 0px 0px 4px #000;
@@ -2042,15 +2038,37 @@ img {
 	padding: 10px;
 }
 
+.interactivePreview {
+	text-align: center;
+
+	div {
+		display: inline-block;
+		position: relative;
+	}
+
+	div:hover {
+		-webkit-box-shadow: 0px 0px 4px #000;
+		-moz-box-shadow: 0px 0px 4px #000;
+		box-shadow: 0px 0px 4px #000;
+		z-index: 10;			
+	}
+
+	div:hover::after {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		content: "Interactive version available";
+		color: white;
+		padding: 10px;
+		background: rgba(0, 0, 0, 0.7);
+	}
+}
+
 img[data-grapher-src] {
+	margin: 0;
 	padding: 0;
 	width: 100%;
 	max-width: 850px;
-}
-
-img[data-grapher-src]::before {
-	content: "Interactive chart";
-	color: black;
 }
 
 article.page h1.entry-title {
