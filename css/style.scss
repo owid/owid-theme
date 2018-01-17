@@ -2036,6 +2036,19 @@ img {
 	max-width: 100%;
 }
 
+img[data-grapher-src] {
+	width: 100%;
+	max-width: 850px;
+	display: block;
+	margin: auto;
+	border: 1px solid #ccc;
+}
+
+img[data-grapher-src]::before {
+	content: "Interactive chart";
+	color: black;
+}
+
 article.page h1.entry-title {
 	text-align: center;
 	margin: 0;

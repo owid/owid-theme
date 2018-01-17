@@ -260,26 +260,11 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 	});
 });
 
-/*var beforePrint = function() {
-	$("iframe").each(function() {
-		var $iframe = $(this),
-			src = $iframe.attr('src') || $iframe.attr('data-src'),
-			imgUrl = src.replace(/$|(?=\?)/, '.png');
-
-		if (src.indexOf('grapher') != -1) {
-			$iframe.addClass('no-print');
-			$iframe.after("<img class='aligncenter size-large print-only' style='padding: 5px;' src='" + imgUrl + "'>");    			
-		}
-	});
-
-	$("img").each(function() {
-		var src = $(this).attr('data-src');
-		if (src && src != $(this).attr('src'))
-			$(this).attr('src', src);
-	});
-};    
-
-beforePrint();*/
+/*$("img[data-grapher-src]").on('click', ev => {
+	ev.preventDefault()
+	const $img = $(ev.target)
+	$img.replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="width: ${$img.width()}px; height: ${$img.height()}px"/>`)
+})*/
 
 if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1 || document.cookie.indexOf('isAdmin') != -1) {
     $('#wpadminbar').show();

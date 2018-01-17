@@ -5,6 +5,7 @@ import * as glob from 'glob'
 import {without, chunk} from 'lodash'
 import * as shell from 'shelljs'
 import * as _ from 'lodash'
+import * as cheerio from 'cheerio'
 
 import * as wpdb from './wpdb'
 import { formatPost, FormattedPost } from './formatting'
@@ -13,6 +14,7 @@ import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
 const { BAKED_DIR, BAKED_URL, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
 import { renderFrontPage, renderBlogByPageNum } from './renderPage'
+import { bakeGrapherUrls, getGrapherExportsByUrl, GrapherExports } from './grapherUtil'
 
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -25,6 +27,7 @@ export interface WPBakerProps {
 
 export default class WordpressBaker {
     props: WPBakerProps
+    grapherExports: GrapherExports
     stagedFiles: string[] = []
     constructor(props: WPBakerProps) {
         this.props = props;
@@ -56,9 +59,26 @@ export default class WordpressBaker {
         await this.stageWrite(path.join(BAKED_DIR, `_redirects`), redirects.join("\n"))
     }
 
+    async bakeEmbeds() {
+        // Find all grapher urls used as embeds in all posts on the site
+        const rows = await wpdb.query(`SELECT post_content FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
+        let grapherUrls = []
+        for (const row of rows) {
+            const $ = cheerio.load(row.post_content)
+            grapherUrls.push(...$("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//)).map(el => el.attribs['src']))
+        }
+        grapherUrls = _.uniq(grapherUrls)
+
+        // Now bake (the grapher handles versioning as only it knows the current version of charts)
+        await bakeGrapherUrls(grapherUrls)
+
+        this.grapherExports = await getGrapherExportsByUrl()
+    }
+
+    // Bake an individual post/page
     async bakePost(post: wpdb.FullPost) {
         const entries = await wpdb.getEntriesByCategory()
-        const formatted = await formatPost(post)
+        const formatted = await formatPost(post, this.grapherExports)
         const html = ReactDOMServer.renderToStaticMarkup(
             post.type == 'post' ? <BlogPostPage entries={entries} post={formatted}/> : <ArticlePage entries={entries} post={formatted}/>
         )
@@ -67,7 +87,8 @@ export default class WordpressBaker {
         await fs.mkdirp(path.dirname(outPath))        
         await this.stageWrite(outPath, html)
     }
-    
+
+    // Bake all Wordpress posts, both blog posts and entry pages
     async bakePosts() {
         const {forceUpdate} = this.props
         const postsQuery = wpdb.query(`SELECT * FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
@@ -82,27 +103,10 @@ export default class WordpressBaker {
 
             const post = await wpdb.getFullPost(row)
             postSlugs.push(post.slug)
-
-           /* if (!forceUpdate) {
-                try {
-                    const outPath = path.join(BAKED_DIR, `${post.slug}.html`)
-                    const stat = fs.statSync(outPath)
-//                    console.log(`${stat.mtime} ${row.post_modified} ${slug}`)
-                    if (stat.mtime >= row.post_modified) {
-                        // No newer version of this post, don't bother to bake
-                        continue
-                    }
-                } catch (err) {
-                    // File likely doesn't exist, proceed
-                }    
-            }*/
-
-            await this.bakePost(post)
-
             bakingPosts.push(post)
         }
 
-//        await Promise.all(bakingPosts.map(post => this.bakePost(post)))
+        await Promise.all(bakingPosts.map(post => this.bakePost(post)))
 
         // Delete any previously rendered posts that aren't in the database
         const existingSlugs = glob.sync(`${BAKED_DIR}/**/*.html`).map(path => path.replace(`${BAKED_DIR}/`, '').replace(".html", ""))
@@ -175,6 +179,7 @@ export default class WordpressBaker {
         await this.bakeBlog()
         await this.bakeRSS()
         await this.bakeAssets()
+        await this.bakeEmbeds()
         await this.bakeFrontPage()
         await this.bakePosts()
     }

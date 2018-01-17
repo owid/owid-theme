@@ -12,6 +12,8 @@ import * as _ from 'lodash'
 import * as fs from 'fs-extra'
 import { WORDPRESS_DIR } from './settings'
 import { formatPost } from './formatting'
+import { bakeGrapherUrls, getGrapherExportsByUrl } from "./grapherUtil";
+import * as cheerio from 'cheerio'
 
 export async function renderPageById(id: number): Promise<string> {
     const rows = await wpdb.query(`
@@ -20,7 +22,14 @@ export async function renderPageById(id: number): Promise<string> {
 
     const post = await wpdb.getFullPost(rows[0])
     const entries = await wpdb.getEntriesByCategory()
-    const formatted = await formatPost(post)
+
+    const $ = cheerio.load(post.content)
+    const grapherUrls = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//)).map(el => el.attribs['src'])
+    await bakeGrapherUrls(grapherUrls)
+
+
+    const exportsByUrl = await getGrapherExportsByUrl()
+    const formatted = await formatPost(post, exportsByUrl)
 
     if (rows[0].post_type === 'post')
         return ReactDOMServer.renderToStaticMarkup(<BlogPostPage entries={entries} post={formatted}/>)

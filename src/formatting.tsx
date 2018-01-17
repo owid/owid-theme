@@ -4,11 +4,10 @@ const wpautop = require('wpautop')
 import {last} from 'lodash'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import {HTTPS_ONLY, WORDPRESS_URL, GRAPHER_DIR, BAKED_DIR}  from './settings'
+import {HTTPS_ONLY, WORDPRESS_URL, BAKED_DIR}  from './settings'
 import { getTables, FullPost } from './wpdb'
 import Tablepress from './views/Tablepress'
-import * as path from 'path'
-const exec = require('child-process-promise').exec
+import {GrapherExports} from './grapherUtil'
 
 export interface FormattedPost {
     id: number
@@ -25,16 +24,6 @@ export interface FormattedPost {
     tocHeadings: { text: string, slug: string, isSubheading: boolean }[]
 }
 
-async function grapherUrlsToSvgFiles(urls: string[]): Promise<string[]> {
-    const args = [`${GRAPHER_DIR}/dist/src/bakeChartsToImages.js`]
-    args.push(...urls)
-    args.push(`${BAKED_DIR}/exports`)
-
-    const result = await exec(`cd ${GRAPHER_DIR} && node ${args.map(arg => JSON.stringify(arg)).join(" ")}`)
-    const lines = (result.stdout.toString() as string).split("\n").filter(s => s.length > 0)
-    return lines.slice(lines.length-urls.length).map(line => `/exports/${last(line.split("/"))}`)
-}
-
 function romanize(num: number) {
 	if (!+num)
 		return "";
@@ -49,7 +38,7 @@ function romanize(num: number) {
 	return Array(+digits.join("") + 1).join("M") + roman;
 }
 
-export async function formatPost(post: FullPost): Promise<FormattedPost> {
+export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
     let html = post.content
 
     // Footnotes
@@ -84,23 +73,22 @@ export async function formatPost(post: FullPost): Promise<FormattedPost> {
             return "UNKNOWN TABLE"
     })
 
-
     // These old things don't work with static generation, link them through to maxroser.com
     html = html.replace(new RegExp("/wp-content/uploads/nvd3", 'g'), "https://www.maxroser.com/owidUploads/nvd3")
             .replace(new RegExp("/wp-content/uploads/datamaps", 'g'), "https://www.maxroser.com/owidUploads/datamaps")
 
     const $ = cheerio.load(html)
 
-    const grapherUrls = $("iframe").toArray().map(el => el.attribs['src']).filter(src => src.match(/\/grapher\//))
-    const svgUrls = await grapherUrlsToSvgFiles(grapherUrls)
-
-    // Replace grapher iframes with iframeless embedding figure elements
-    $("iframe").each((i, el) => {
-        const src = el.attribs['src'] || ""
-        if (src.match(/\/grapher\//)) {
-            $(el).replaceWith(`<img src="${svgUrls[i]}"/>`)
-        }
-    })
+    if (grapherExports) {
+        const grapherIframes = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//))
+        // Replace grapher iframes with iframeless embedding figure elements
+        for (const el of grapherIframes) {
+            const src = el.attribs['src']
+            const chart = grapherExports.get(src)
+            if (chart)
+                $(el).replaceWith(`<a href="${src}" target="_blank"><img src="${chart.svgUrl}" data-grapher-src="${src}"/></a>`)
+        }    
+    }
 
     // Table of contents and deep links
     const hasToc = post.type === 'page' && post.slug !== 'about'
