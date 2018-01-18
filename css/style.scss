@@ -1290,14 +1290,16 @@ span.star {
 }
 
 .owid-data a.starred:after {
-	content: "\2605";
+    font-family: FontAwesome;
+    content: "\f005";
 	position: relative;
 	right: -5px;
 	color: #3b77c3;	
 }
 
 #entries-nav a.starred:after {
-	content: "\2605";
+    font-family: FontAwesome;
+    content: "\f005";
 	position: relative;
 	right: -5px;
 	color: white;		
