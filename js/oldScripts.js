@@ -184,6 +184,7 @@ var EntriesHeaderMenu = function() {
 
 		$("#topics-dropdown .category > a").off('click');
 		$("#topics-dropdown .category > a").on('click', function(ev) {
+			ev.preventDefault();
 			$(ev.target).closest('.category').toggleClass('active');
 		});
 
