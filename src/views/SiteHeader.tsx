@@ -37,7 +37,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
                 </li>
                 {entries.map(category =>
                     <li className="category">
-                        <a><span>{category.name}</span></a>
+                        <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <div className="subcategory-menu">
                             <div className="submenu-title">{category.name}</div>
                             <ul>
@@ -66,7 +66,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
             <ul>
                 {entries.map(category => 
                     <li className="category" title={category.name}>
-                        <a><span>{category.name}</span></a>
+                        <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <ul className="entries">
                             <li><hr/></li>
                             {category.entries.map(entry =>

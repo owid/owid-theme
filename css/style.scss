@@ -376,9 +376,7 @@ header.site-header {
 	outline: 0;
 }
 
-
 /* Site Header - Desktop */
-
 @media only screen and (min-width: 920px) {
 	header.site-header .mobile {
 		display: none;
@@ -1668,7 +1666,7 @@ span.star {
 	margin-bottom: 5px;
 }
 
-.owid-data li:last-child {
+#homepage-entries li:last-child {
 	margin-bottom: 30px;
 }
 
@@ -2050,16 +2048,18 @@ img {
 		box-shadow: 0px 0px 4px #000;
 		z-index: 10;			
 	}
+}
 
+html.js .interactivePreview {
 	div:hover::after {
 		position: absolute;
 		right: 0;
 		bottom: 0;
-		content: "Load interactive chart";
+		content: "Interactive chart";
 		color: white;
 		padding: 10px;
 		background: rgba(0, 0, 0, 0.7);
-	}
+	}	
 }
 
 img[data-grapher-src] {
@@ -2485,9 +2485,15 @@ ol.side-matter-list > li li {
 	display: none !important;
 }
 
+html:not(.js) {
+	.js-only {
+		display: none;
+	}
+}
+
 @media print {
 	header.site-header,
-	footer.site-footer,
+	footer.SiteFooter,
 	#un-button,
 	.citation-note,
 	.entry-sidebar,

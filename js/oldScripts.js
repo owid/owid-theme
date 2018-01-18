@@ -130,6 +130,7 @@ var EntriesHeaderMenu = function() {
 
 	var firstTime = true;
 	function onCategoryActivate(ev) {
+		ev.preventDefault();
 		var $category = $(ev.target).closest("li.category");
 		if (firstTime) {
 			$("#entries-nav").css({
@@ -269,3 +270,5 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1 || document.cookie.indexOf('isAdmin') != -1) {
     $('#wpadminbar').show();
 }
+
+$("html").addClass('js');

@@ -7,11 +7,10 @@ import { CategoryWithEntries } from '../wpdb'
 import { formatDate } from '../formatting'
 
 export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) => {
-    const {entries, posts} = props
-
+    const { entries, posts } = props
 
     return <html>
-        <Head canonicalUrl={settings.BAKED_URL}/>
+        <Head canonicalUrl={settings.BAKED_URL} />
         <body>
             <SiteHeader entries={entries} />
             <main>
@@ -28,7 +27,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                     <div id="homepage-latest">
                         <h3><a href="/grapher/latest">Latest Visualization</a></h3>
                         <iframe src="/grapher/latest" width="100%" height="660px"></iframe>
-                    </div> 
+                    </div>
                     <div id="homepage-blog">
                         <h3><a href="/blog">Blog</a></h3>
                         <ul>
@@ -40,19 +39,26 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                             </li>)}
                         </ul>
                         <a className="more" href="/blog">More →</a>
-                    </div> 
+                    </div>
                     <div id="homepage-entries" className="owid-data">
-                        <h3><a id="entries" href="#entries">Entries</a></h3>
+                        <h3 id="entries"><a href="#entries">Entries</a></h3>
                         <p>Ongoing collections of research and data by topic. Entries marked with <span className="star">⭑</span> are the most complete.</p>
                         <ul>
                             {entries.map(category => <li>
-                                <h4>{category.name}</h4>
+                                <h4 id={category.slug}>{category.name}</h4>
                                 <div className="link-container">
-                                    {category.entries.map(entry => 
+                                    {category.entries.map(entry =>
                                         <a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a>
                                     )}
                                 </div>
                             </li>)}
+                        </ul>
+                    </div>
+                    <div className="owid-data owid-presentations">
+                        <h3 id="presentations"><a href="#presentations">Presentations</a></h3>
+                        <p>Visual histories spanning multiple topics.</p>
+                        <ul>
+                            <li><h4>Visual History of...</h4><div className='link-container'><a href='/slides/war-and-violence'>War & Violence</a><a href='/slides/world-poverty'>World Poverty</a><a href='/slides/global-health'>Global Health</a><a href='/slides/hunger-and-food-provision'>World Hunger & Food Provision</a><a href='/slides/africa-in-data'>Africa</a></div></li>
                         </ul>
                     </div>
                     <div id="homepage-twitter">
@@ -63,9 +69,10 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                             <a href="/feed/"><i className="fa fa-feed"></i></a>
                         </div>
                         <a className="twitter-timeline" data-height="600" href="https://twitter.com/MaxCRoser">Tweets by MaxCRoser</a> <script async src="//platform.twitter.com/widgets.js"></script>
-                    </div></div>
+                    </div>
+                </div>
             </main>
-            <SiteFooter/>
+            <SiteFooter />
         </body>
     </html>
 }

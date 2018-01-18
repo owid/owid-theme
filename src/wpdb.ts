@@ -1,6 +1,7 @@
 import {createConnection} from './database'
 import * as settings from './settings'
 import {decodeHTML} from 'entities'
+var slugify = require('slugify')
 
 const wpdb = createConnection({
     database: settings.WORDPRESS_DB_NAME as string
@@ -41,6 +42,7 @@ export async function getAuthorship(): Promise<Map<number, string[]>> {
 
 export interface CategoryWithEntries {
     name: string,
+    slug: string,
     entries: {
         slug: string,
         title: string,
@@ -111,6 +113,7 @@ export async function getEntriesByCategory(): Promise<CategoryWithEntries[]> {
 
         return {
             name: decodeHTML(cat),
+            slug: slugify(decodeHTML(cat).toLowerCase()),
             entries: entries
         }
     })
