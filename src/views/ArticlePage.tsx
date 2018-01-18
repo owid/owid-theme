@@ -9,7 +9,7 @@ const urlSlug = require('url-slug')
 
 export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
     const {entries, post} = props
-    const authorsText = formatAuthors(post.authors)
+    const authorsText = formatAuthors(post.authors, true)
 
     const pageTitle = post.title
     const canonicalUrl = `${BAKED_URL}/${post.slug}`

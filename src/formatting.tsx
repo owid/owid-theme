@@ -168,8 +168,8 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
     }
 }
 
-export function formatAuthors(authors: string[]): string {
-    if (authors.indexOf("Max Roser") === -1)
+export function formatAuthors(authors: string[], requireMax?: boolean): string {
+    if (requireMax && authors.indexOf("Max Roser") === -1)
         authors.push("Max Roser")
 
     let authorsText = authors.slice(0, -1).join(", ")
