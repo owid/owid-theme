@@ -1,10 +1,14 @@
 import {createConnection} from './database'
-import * as settings from './settings'
+import {WORDPRESS_DB_NAME, WORDPRESS_DIR} from './settings'
 import {decodeHTML} from 'entities'
 var slugify = require('slugify')
 
+import * as path from 'path'
+import * as glob from 'glob'
+import * as _ from 'lodash'
+
 const wpdb = createConnection({
-    database: settings.WORDPRESS_DB_NAME as string
+    database: WORDPRESS_DB_NAME
 })
 
 export async function query(queryStr: string, params?: any[]): Promise<any[]> {
@@ -13,6 +17,62 @@ export async function query(queryStr: string, params?: any[]): Promise<any[]> {
 
 export function end() {
     wpdb.end()
+}
+
+
+interface ImageUpload {
+    slug: string
+    originalUrl: string
+    variants: {
+        url: string
+        width: number
+        height: number
+    }[]
+}
+
+let cachedUploadDex: Map<string, ImageUpload>
+export async function getUploadedImages() {
+    if (cachedUploadDex)
+        return cachedUploadDex
+
+    const paths = glob.sync(path.join(WORDPRESS_DIR, 'wp-content/uploads/**/*'))
+
+    const uploadDex = new Map<string, ImageUpload>()
+
+    for (const filepath of paths) {
+        const filename = path.basename(filepath)
+        const match = filepath.match(/(\/wp-content.*\/)([^\/]*?)-?(\d+x\d+)?\.(png|jpg|jpeg|gif)$/)
+        if (match) {
+            const [_, dirpath, slug, dims, filetype] = match
+            let upload = uploadDex.get(slug)
+            if (!upload) {
+                upload = {
+                    slug: slug,
+                    originalUrl: `${path.join(dirpath, slug)}.${filetype}`,
+                    variants: []
+                }
+                uploadDex.set(slug, upload)
+            }
+
+            if (dims) {
+                const [width, height] = dims.split("x")
+                upload.variants.push({
+                    url: path.join(dirpath, filename),
+                    width: parseInt(width),
+                    height: parseInt(height)
+                })
+            }
+
+            uploadDex.set(filename, upload)
+        }
+    }
+
+    uploadDex.forEach(upload => {
+        upload.variants = _.sortBy(upload.variants, v => v.width)
+    })
+
+    cachedUploadDex = uploadDex
+    return uploadDex
 }
 
 // Retrieve a map of post ids to authors

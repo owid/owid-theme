@@ -5,9 +5,10 @@ import {last} from 'lodash'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import {HTTPS_ONLY, WORDPRESS_URL, BAKED_DIR}  from './settings'
-import { getTables, FullPost } from './wpdb'
+import { getTables, getUploadedImages, FullPost } from './wpdb'
 import Tablepress from './views/Tablepress'
 import {GrapherExports} from './grapherUtil'
+import * as path from 'path'
 
 export interface FormattedPost {
     id: number
@@ -92,10 +93,19 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         }    
     }
 
-    // Make all image links open in new tab
+    // Image processing
+    const uploadDex = await getUploadedImages()
     for (const el of $("img").toArray()) {
+        // Open full-size image in new tab
         if (el.parent.tagName === "a") {
             el.parent.attribs['target'] = '_blank'
+        }
+
+        // Set srcset to load image responsively
+        const src = el.attribs['src']||""
+        const upload = uploadDex.get(path.basename(src))
+        if (upload && upload.variants.length) {
+            el.attribs['srcset'] = upload.variants.map(v => `${v.url} ${v.width}w`).join(", ")
         }
     }
 
