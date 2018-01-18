@@ -38,6 +38,7 @@ export default class WordpressBaker {
         const {props} = this
         const redirects = [
             "/feed /atom.xml 302",
+            "/entries /#entries 302",
             "/chart-builder/* /grapher/:splat 301",
             "/grapher/public/* /grapher/:splat 301",
             "/grapher/view/* /grapher/:splat 301",

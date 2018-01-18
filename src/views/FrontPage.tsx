@@ -42,7 +42,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                         <a className="more" href="/blog">More →</a>
                     </div> 
                     <div id="homepage-entries" className="owid-data">
-                        <h3><a href="/entries">Entries</a></h3>
+                        <h3><a id="entries" href="#entries">Entries</a></h3>
                         <p>Ongoing collections of research and data by topic. Entries marked with <span className="star">⭑</span> are the most complete.</p>
                         <ul>
                             {entries.map(category => <li>

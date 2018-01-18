@@ -38,7 +38,7 @@ export const SiteFooter = () => {
                 </div>
                 <div className="column links">
                     <h6>Links</h6>
-                    <a href="/">Entries</a>
+                    <a href="/#entries">Entries</a>
                     <a href="/blog">Blog</a>
                     <a href="/support">Donate</a>
                     <a href="/about">About</a>
