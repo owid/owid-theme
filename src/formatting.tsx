@@ -42,8 +42,8 @@ function romanize(num: number) {
 export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
     let html = post.content
 
-    // Remove comments and standardize paragraph spacing
-    html = html.replace(/<![^>]+>/g, "").replace(/(\r?\n)(\r?\n)+/g, "\n\n")
+    // Remove comments and standardize spacing
+    html = html.replace(/<![^>]+>/g, "").replace(/\r\n/g, "\n").replace(/(\n\s*)(\n\s*)/g, "\n\n")
 
     // Footnotes
     const footnotes: string[] = []
@@ -83,9 +83,9 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
 
     const $ = cheerio.load(html)
 
+    // Replace grapher iframes with static previews
     if (grapherExports) {
         const grapherIframes = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//))
-        // Replace grapher iframes with iframeless embedding figure elements
         for (const el of grapherIframes) {
             const src = el.attribs['src']
             const chart = grapherExports.get(src)
