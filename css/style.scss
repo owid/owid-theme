@@ -2163,6 +2163,8 @@ article.page {
 	border: none !important;
 	width: 100%;
 	max-width: 850px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .article-content figure {
@@ -2194,7 +2196,7 @@ iframe {
    Sometimes iframes are inside the same <p> element as their preceding text,
    sometimes not. */
 iframe:not(:first-child) {
-	margin: 0 0 20px;
+	margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 980px) {
