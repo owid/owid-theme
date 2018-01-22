@@ -2194,7 +2194,7 @@ iframe {
    Sometimes iframes are inside the same <p> element as their preceding text,
    sometimes not. */
 iframe:not(:first-child) {
-	margin-top: 29px;
+	margin: 0 0 20px;
 }
 
 @media only screen and (max-width: 980px) {

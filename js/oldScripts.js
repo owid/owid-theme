@@ -269,13 +269,13 @@ if (numEmbeds > 5) {
 		if (window.innerWidth > window.innerHeight) {
 			ev.preventDefault();
 			var $img = $(ev.target).closest('.interactivePreview').find('img');
-			$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + $img.height() + 'px"/>');
+			$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + ($img.height()+2) + 'px"/>');
 		}
 	});
 } else if (window.innerWidth > window.innerHeight) {
 	$(".interactivePreview img").each(function(i, el) {
 		var $img = $(el);
-		$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + $img.height() + 'px"/>');
+		$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + ($img.height()+2) + 'px"/>');
 	});
 }
 
