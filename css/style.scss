@@ -2146,6 +2146,7 @@ article.page {
 /* For wide tables and such on mobile */
 .article-content p {
 	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 .article-content ol > li {
