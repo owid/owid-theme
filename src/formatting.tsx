@@ -43,7 +43,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
     let html = post.content
 
     // Remove comments and standardize spacing
-    html = html.replace(/<!-[^>]+->/g, "").replace(/\r\n/g, "\n").replace(/(\n\s*)(\n\s*)/g, "\n\n")
+    html = html.replace(/<!--[^>]+-->/g, "").replace(/\r\n/g, "\n").replace(/(\n\s*)(\n\s*)/g, "\n\n")
 
     // Footnotes
     const footnotes: string[] = []
