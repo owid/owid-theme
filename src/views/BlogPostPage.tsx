@@ -33,7 +33,7 @@ export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: Form
                             </div>
                         </header>
                         <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>
-                        <footer className="article-footer">
+                        {post.footnotes.length > 0 && <footer className="article-footer">
                             <h2 id="footnotes">Footnotes</h2>
                             <ol className="side-matter side-matter-list" style={{'list-style-type': 'decimal', opacity: 1}}>
                                 {post.footnotes.map((footnote, i) =>
@@ -44,7 +44,7 @@ export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: Form
                                     </li>
                                 )}
                             </ol>
-                        </footer>
+                        </footer>}
                     </article>
                 </div>
             </main>
