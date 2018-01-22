@@ -2149,6 +2149,12 @@ article.page {
 	border: 1px solid #ccc !important;
 }
 
+.article-content iframe[src*=grapher] {
+	border: none !important;
+	width: 100%;
+	max-width: 850px;
+}
+
 .article-content figure {
 	margin-left: auto;
 	margin-right: auto;

@@ -262,11 +262,15 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 	});
 });
 
-/*$("img[data-grapher-src]").on('click', ev => {
-	ev.preventDefault()
-	const $img = $(ev.target)
-	$img.replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="width: ${$img.width()}px; height: ${$img.height()}px"/>`)
-})*/
+// Previews become interactive on click, if landscape
+$(".interactivePreview img").on('click', ev => {
+
+	if (window.innerWidth > window.innerHeight) {
+		ev.preventDefault()
+		const $img = $(ev.target)
+		$img.closest('.interactivePreview').replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="height: ${$img.height()}px"/>`)	
+	}
+})
 
 if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1 || document.cookie.indexOf('isAdmin') != -1) {
     $('#wpadminbar').show();
