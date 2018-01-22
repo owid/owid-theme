@@ -265,10 +265,10 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 // Progressive enhancement of interactive previews => embeds, on desktop
 const numEmbeds = $(".interactivePreview").length
 if (numEmbeds > 5) {
-	$(".interactivePreview img").on('click', ev => {
+	$(".interactivePreview a").on('click', ev => {
 		if (window.innerWidth > window.innerHeight) {
 			ev.preventDefault()
-			const $img = $(ev.target)
+			const $img = $(ev.target).find('img')
 			$img.closest('.interactivePreview').replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="height: ${$img.height()}px"/>`)
 		}
 	})
