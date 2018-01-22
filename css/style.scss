@@ -221,7 +221,7 @@ address a:hover {
 ------------------------------------------------------------ */
 
 .article-content a > img {
-	
+	cursor: zoom-in;
 }
 
 .article-content a > img:hover {
@@ -2044,12 +2044,21 @@ img {
 		-webkit-box-shadow: 0px 0px 4px #000;
 		-moz-box-shadow: 0px 0px 4px #000;
 		box-shadow: 0px 0px 4px #000;
-		z-index: 10;			
 	}
 }
 
 html.js .interactivePreview {
 	div:hover::after {
+		content: url('data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZGF0YS1mYS1wcm9jZXNzZWQ9IiIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJwbGF5IiByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQ0OCA1MTIiIGNsYXNzPSJzdmctaW5saW5lLS1mYSBmYS1wbGF5IGZhLXctMTQiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTQyNC40IDIxNC43TDcyLjQgNi42QzQzLjgtMTAuMyAwIDYuMSAwIDQ3LjlWNDY0YzAgMzcuNSA0MC43IDYwLjEgNzIuNCA0MS4zbDM1Mi0yMDhjMzEuNC0xOC41IDMxLjUtNjQuMSAwLTgyLjZ6IiBjbGFzcz0iIj48L3BhdGg+PC9zdmc+');
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1000;
+		width: 5em;
+		opacity: 0.5;
+	}
+	/*div:hover::after {
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -2057,7 +2066,7 @@ html.js .interactivePreview {
 		color: white;
 		padding: 10px;
 		background: rgba(0, 0, 0, 0.7);
-	}	
+	}*/	
 }
 
 img[data-grapher-src] {

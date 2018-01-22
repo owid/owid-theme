@@ -263,20 +263,20 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 });
 
 // Progressive enhancement of interactive previews => embeds, on desktop
-if (window.innerWidth > window.innerHeight) {
-	const numEmbeds = $(".interactivePreview").length
-	if (numEmbeds > 5) {
-		$(".interactivePreview img").on('click', ev => {
+const numEmbeds = $(".interactivePreview").length
+if (numEmbeds > 5) {
+	$(".interactivePreview img").on('click', ev => {
+		if (window.innerWidth > window.innerHeight) {
 			ev.preventDefault()
 			const $img = $(ev.target)
-			$img.closest('.interactivePreview').replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="height: ${$img.height()}px"/>`)	
-		})
-	} else {
-		$(".interactivePreview img").each((i, el) => {
-			const $img = $(el)
-			$img.closest('.interactivePreview').replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="height: ${$img.height()}px"/>`)	
-		})
-	}
+			$img.closest('.interactivePreview').replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="height: ${$img.height()}px"/>`)
+		}
+	})
+} else if (window.innerWidth > window.innerHeight) {
+	$(".interactivePreview img").each((i, el) => {
+		const $img = $(el)
+		$img.closest('.interactivePreview').replaceWith(`<iframe src="${$img.attr("data-grapher-src")}" style="height: ${$img.height()}px"/>`)	
+	})
 }
 
 if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1 || document.cookie.indexOf('isAdmin') != -1) {
