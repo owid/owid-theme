@@ -264,7 +264,6 @@ $("a.side-matter-ref sup").on("mouseover", function() {
 
 // Previews become interactive on click, if landscape
 $(".interactivePreview img").on('click', ev => {
-
 	if (window.innerWidth > window.innerHeight) {
 		ev.preventDefault()
 		const $img = $(ev.target)
