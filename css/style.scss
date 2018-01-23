@@ -66,29 +66,6 @@ body {
 	}
 }
 
-article h1 {
-	font-size: 40px;
-	font-weight: 700;
-	line-height: 1.1em;
-}
-
-@media (min-width: 768px) {
-	article h1 {
-		font-size: 50px;
-	}
-}
-
-@media (min-width: 1024px) {
-	article {
-		font-size: 1.06rem;
-		line-height: 1.7em;
-	}
-
-	article h2 {
-		font-size: 36px;
-	}
-}
-
 a,
 input:focus,
 input[type="button"],
@@ -943,7 +920,6 @@ body.single-post article {
 	background: white;
 	margin-bottom: 1rem;
 	border: 1px solid #ddd;
-	border-top: 5px solid #ccc;	
 }
 
 body.single-post h1.entry-title {
@@ -1044,24 +1020,6 @@ main {
 }
 #fancybox-wrap .chart-wrapper-inner {
 	box-sizing: border-box !important;
-}
-
-/* id headers */
-.deep-link {
-	position: relative;
-	left: -4px;
-	display: inline-block;
-    width: 25px;
-	height: 25px;
-	margin-top: -5px;
-	margin-left: -24px;
-    font-size: 16px;
-	/* ir */
-	text-indent: -9999px;
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUM1OUVDNUY1M0E2MTFFNUEwNUQ5OEUxOTFCMkRGRjIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUM1OUVDNjA1M0E2MTFFNUEwNUQ5OEUxOTFCMkRGRjIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxQzU5RUM1RDUzQTYxMUU1QTA1RDk4RTE5MUIyREZGMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxQzU5RUM1RTUzQTYxMUU1QTA1RDk4RTE5MUIyREZGMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgU65CgAAAHVSURBVHjalNRPSJRBGMfx9Q+ElH8w/6560vBSeFgR8RB6USsIEQ8elPSgRhFeREQpuoommmIJ6qGUIKVEsUA8RuFJhAgP4kEFwZCKWE2h7PvA74Vp2W3XgQ8zs+/L8848z+zEBQIB3zlaCtrQgCLs4zVG8SPxHIEy8AI3Qn67hjI0Jvj9/lgCZWEJlZq/wRNbDUpQjONYVlaFCVzRvB89Gk/hD+6gKT5KIPtYBS7gCENOIK+9V58ZbWVJWMSsAm+F+VijxpuRgiXjPuqQhx0sYBqHesd2NaB3rM2EC5ZmD3DL+S1f223HVZxgGA+cgrwMzVm6zo0X6Clq8cyqpbxZwnudQB+0i6C7smxtpVzzRxhDDu5hHHt4KNY+oR5fvQRay8W8E6gLI/isLU5iGXe1CmsrSv43txqW7OfKiU+H0VzCRekUr9kBbtah/ae0rbit+SC6NQ7C/rgdymEBdvFW2w+GO5RNGs8p0Jnm1h/glVUKqdjGz0iH0qpZ6J0TJ5DPqeY6VlGjavr+F+y7xjdDng2p/Ja731hTH7HZrWE3wnWUqnKX8RgteucjqvEl2o0Qx+WYrHzVhHm+rBvhMJZ7ylZ2Sv8Ov3RwE7ChbfY5aYja/gowANjwYjNXvUNzAAAAAElFTkSuQmCC') no-repeat center;
-	background-size: contain;
-	opacity: 0.1;
-	vertical-align: middle;
 }
 
 h2:hover .deep-link,
@@ -1803,50 +1761,144 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 /* Pages & Posts
 --------------------------------------------- */
 
-.article-header > h1,
-.article-content > h2,
-.article-content > h3,
-.article-content > h4,
-.article-content > h5 {
-	font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
-	line-height: 1.2;
-	margin: 0 0 20px;
+.article-header {
+	> h1 {
+		font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
+		line-height: 1.2;
+		margin: 0 0 20px;
+	}
+
+
+	/*article h1 {
+		font-size: 40px;
+		font-weight: 700;
+		line-height: 1.1em;
+	}*/
 }
 
-.article-content > h2 {
-	margin-top: 1.5em;
-	margin-bottom: 0.5em;
-	text-align: center;
+.article-content > section:not(:first-child) {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(0,0,0,.1);	
 }
 
-.article-content > h3 {
-	font-size: 1.5rem;
-	margin-top: 1.5em;
-	margin-bottom: 0.5em;
+.article-content > section {
+	/* The CSS here is very precise so as not to interfere with any iframeless embeds */
+
+	> p {
+		font-size: 1.06rem;
+		line-height: 1.7em;
+		margin-bottom: 1em;		
+	}
+
+	/* Major sections e.g. I. Empirical View */
+	> h2 {
+		font-family: Georgia, "Times New Roman", Serif;
+		font-weight: 400;
+		text-align: center;
+		font-size: 24px;
+		margin-bottom: 2.5em;
+		line-height: 1.25em;
+	}
+
+	/*> h2, > h3, > h4, > h5 {
+		line-height: 1.2;
+		margin: 0 0 20px;
+	}*/
+	
+	/* Subsections e.g. I.1 Historical perspective */
+	> h3 {
+		font-family: Georgia, "Times New Roman", Serif;
+		font-weight: 400;
+		font-size: 24px;
+		line-height: 1.25em;
+		margin-top: 2rem;
+		margin-bottom: 1.5em;
+		border-bottom: 1px solid rgba(0,0,0,.1);
+		padding-bottom: 1rem;
+	}
+	
+	/* Intratext headings e.g. How different are countries in terms of central government involvement in the economy? */
+	> h4 {
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 1.4em;
+		margin-bottom: 1em;
+		margin-top: 2em;
+	}
+	
+	> h6 {
+		margin-top: 40px;
+		margin-bottom: 5px;
+	}
+	
+	> h5 {	
+		font-family: Georgia, "Times New Roman", Serif;
+		font-weight: 400;
+		line-height: 1.2;
+		margin: 0 0 20px;
+		padding-top: 10px;
+		border-top: 1px;
+		border-top-style: solid;
+		border-top-color: #d3d3d3;
+		padding-left: 15px;
+		border-left: 1px;
+		border-left-style: solid;
+		border-left-color: #d3d3d3;
+		font-size: 22px;
+	}
 }
 
-.article-content > h4 {
-	font-size: 1.2rem;
+/* Upscale some of the text on larger viewports */
+@media (min-width: 768px) {
+	.article-header > h1 {
+		font-size: 50px;
+	}
 }
 
-.article-content > h6 {
-	margin-top: 40px;
-	margin-bottom: 5px;
+@media (min-width: 1024px) {
+	article {
+		font-size: 1.06rem;
+		line-height: 1.7em;
+	}
+
+	.article-content > section > h2 {
+		font-size: 36px;
+	}
 }
 
-.article-content > h5 {	
-	padding-top: 10px;
-	border-top: 1px;
-	border-top-style:solid;
-	border-top-color:#d3d3d3;
 
-	padding-left: 15px;
-	border-left: 1px;
-	border-left-style:solid;
-	border-left-color:#d3d3d3;
+.article-footer {
+	font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+	padding-bottom: 48px;
 
-	font-size: 22px;
+	h3 {
+		font-size: 15px;
+		font-weight: 500;
+		margin-top: 1em;
+		margin-bottom: 0;
+		color: rgba(0,0,0,0.65);		
+	}
+
+	ol.footnotes {
+		margin-top: 1em;
+	}
+
+	ol.footnotes > li {
+		margin-left: 20px;	
+		padding-left: 5px;
+		margin-bottom: 1em;
+		list-style-type: decimal;
+		list-style-position: outside;
+	}
 }
+
 
 img {
 	max-width: 100%;
@@ -2139,24 +2191,6 @@ article.page {
 }
 
 
-/* Footnotes
---------------------------------------------- */
-
-h2#footnotes {
-	font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
-	line-height: 1.2;
-	border-top: 3px solid #ccc;
-	padding-top: 15px;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	text-align: left;
-	font-size: 20px;
-}
-
-h2#footnotes:only-child {
-	display: none;
-}
-
 /* Taken from Bootstrap tooltip css */
 .tooltip {
   position: absolute;
@@ -2259,7 +2293,6 @@ h2#footnotes:only-child {
 }
 
 /* Weird hack to increase the mouseover area of the inline footnotes */
-
 a.side-matter-ref sup::after {
 	overflow: hidden;
     text-indent: -9999rem;
@@ -2285,33 +2318,6 @@ a.side-matter-ref sup::after {
 sup.side-matter-sup {
 	font-weight: bold;
 	padding-left:0.5px;	
-}
-
-/* (Zahl an der Seite) Selects ordered list of sidenotes, including sidenote numerals. Note that this tag is not always enclosed in the Side Matter widget; it can also be generated using the custom action `side_matter_list_notes`. */
-ol.side-matter-list {
-	color: #c0023e;
-	line-height: 0.9;
-	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 14px !important;
-	font-weight: bold;
-	padding-left: 1rem;
-}
-
-ol.side-matter-list > li {
-	margin-left: 20px;	
-	padding-left: 5px;
-	list-style-type: decimal;
-	list-style-position: outside;
-}
-
-ol.side-matter-list p,
-ol.side-matter-list > li li {
-	margin: 0 0 10.7px;
-	line-height: 20.16px;
-	font-size: 12.6px;
-	color: #616161;
-	font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: normal;
 }
 
 /* Hide feedback button on mobile */

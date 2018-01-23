@@ -85,6 +85,19 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
 
     const $ = cheerio.load(html)
 
+    // Wrap content demarcated by headings into section blocks
+    const sectionStarts = [$("body").children().get(0)].concat($("h2").toArray())
+    for (const start of sectionStarts) {
+        const $start = $(start)
+        const $contents = $start.nextUntil("h2")
+        const $wrapNode = $("<section></section>");
+
+        $contents.remove();
+        $wrapNode.append($start.clone())
+        $wrapNode.append($contents)
+        $start.replaceWith($wrapNode)
+    }
+
     // Replace grapher iframes with static previews
     if (grapherExports) {
         const grapherIframes = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//))
@@ -154,7 +167,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         }
 
         // Deep link
-        $heading.attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
+        $heading.attr('id', slug)
     })
 
     return {
