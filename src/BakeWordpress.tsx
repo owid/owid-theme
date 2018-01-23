@@ -13,7 +13,7 @@ import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
 const { BAKED_DIR, BAKED_URL, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
-import { renderFrontPage, renderBlogByPageNum } from './renderPage'
+import { renderFrontPage, renderSubscribePage, renderBlogByPageNum } from './renderPage'
 import { bakeGrapherUrls, getGrapherExportsByUrl, GrapherExports } from './grapherUtil'
 
 import * as React from 'react'
@@ -111,7 +111,7 @@ export default class WordpressBaker {
 
         // Delete any previously rendered posts that aren't in the database
         const existingSlugs = glob.sync(`${BAKED_DIR}/**/*.html`).map(path => path.replace(`${BAKED_DIR}/`, '').replace(".html", ""))
-            .filter(path => !path.startsWith('wp-') && !path.startsWith('slides') && !path.startsWith('blog') && path !== "index" && path !== "identifyadmin" && path !== "404")
+            .filter(path => !path.startsWith('wp-') && !path.startsWith('slides') && !path.startsWith('subscribe') && !path.startsWith('blog') && path !== "index" && path !== "identifyadmin" && path !== "404")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
             const outPath = `${BAKED_DIR}/${slug}.html`
@@ -120,8 +120,9 @@ export default class WordpressBaker {
         }
     }
 
-    async bakeFrontPage() {
-        return this.stageWrite(`${BAKED_DIR}/index.html`, await renderFrontPage())
+    async bakeSpecialPages() {
+        await this.stageWrite(`${BAKED_DIR}/index.html`, await renderFrontPage())
+        await this.stageWrite(`${BAKED_DIR}/subscribe.html`, await renderSubscribePage())
     }
 
     async bakeBlog() {
@@ -154,7 +155,7 @@ export default class WordpressBaker {
     <updated>${posts[0].date.toISOString()}</updated>
     ${posts.map(post => `<entry>
         <title>${post.title}</title>
-        <id>${BAKED_URL}/${post.slug}</id>
+    <id>${BAKED_URL}/${post.slug}</id>
         <link rel="alternate" href="${BAKED_URL}/${post.slug}"/>
         <published>${post.date.toISOString()}</published>
         <updated>${post.modifiedDate.toISOString()}</updated>
@@ -177,11 +178,11 @@ export default class WordpressBaker {
 
     async bakeAll() {
         await this.bakeRedirects()
+        await this.bakeEmbeds()
         await this.bakeBlog()
         await this.bakeRSS()
         await this.bakeAssets()
-        await this.bakeEmbeds()
-        await this.bakeFrontPage()
+        await this.bakeSpecialPages()
         await this.bakePosts()
     }
 

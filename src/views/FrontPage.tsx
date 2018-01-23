@@ -11,7 +11,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
 
     return <html>
         <Head canonicalUrl={settings.BAKED_URL} />
-        <body>
+        <body className="FrontPage">
             <SiteHeader entries={entries} />
             <main>
                 <div id="homepage-cover">

@@ -3,6 +3,7 @@ import {ArticlePage} from './views/ArticlePage'
 import {BlogPostPage} from './views/BlogPostPage'
 import {BlogIndexPage} from './views/BlogIndexPage'
 import {FrontPage} from './views/FrontPage'
+import SubscribePage from './views/SubscribePage'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import * as url from 'url'
@@ -57,6 +58,11 @@ export async function renderFrontPage() {
     return ReactDOMServer.renderToStaticMarkup(<FrontPage entries={entries} posts={posts}/>)
 }
 
+export async function renderSubscribePage() {
+    const entries = await wpdb.getEntriesByCategory()
+    return ReactDOMServer.renderToStaticMarkup(<SubscribePage entries={entries}/>)
+}
+
 export async function renderBlogByPageNum(pageNum: number) {
     const postsPerPage = 21
 
@@ -88,6 +94,8 @@ async function main(target: string) {
     try {
         if (target === 'front') {
             console.log(await renderFrontPage())
+        } else if (target === 'subscribe') {
+            console.log(await renderSubscribePage())
         } else if (target == "blog") {
             const pageNum = process.argv[3] ? parseInt(process.argv[3]) : 1
             console.log(await renderBlogByPageNum(pageNum === 0 ? 1 : pageNum))            

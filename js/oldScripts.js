@@ -106,7 +106,7 @@ var EntriesHeaderMenu = function() {
 		$("#topics-dropdown").hide();
 		$("#entries-nav").hide();
 
-		if ($("header.site-header .mobile:visible").length)
+		if ($("header.SiteHeader .mobile:visible").length)
 			return;
 
 		$("#category-nav li.category").removeClass("active").removeClass("selected");
@@ -136,7 +136,7 @@ var EntriesHeaderMenu = function() {
 			$("#entries-nav").css({
 				'position': 'absolute',
 				'padding-bottom': '10px',
-				'border-bottom': '4px solid #FF4012'
+				'border-bottom': $(".FrontPage").length ? '4px solid #FF4012' : 'none'
 			});
 			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
 			firstTime = false;
@@ -147,7 +147,7 @@ var EntriesHeaderMenu = function() {
 		$category.addClass("selected");
 
 		$("body").on('mousemove.entries', function(ev) {
-			if (!$(ev.target).closest("header.site-header").length) {
+			if (!$(ev.target).closest("header.SiteHeader").length) {
 				$("body").off('mousemove.entries');
 				showDefaultState();
 			}

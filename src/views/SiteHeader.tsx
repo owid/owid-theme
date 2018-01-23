@@ -3,7 +3,7 @@ import { CategoryWithEntries } from '../wpdb'
 
 export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
     const {entries} = props
-    return <header className="site-header">
+    return <header className="SiteHeader">
         <nav id="owid-topbar">
             <ul className="desktop right">
                 <li>
