@@ -52,7 +52,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
     html = html.replace(/\[ref\]([\s\S]*?)\[\/ref\]/gm, (_, footnote) => {
         footnotes.push(footnote)
         const i = footnotes.length
-        return `<a id="ref-${i}" class="side-matter side-matter-ref" href="#note-${i}"><sup class="side-matter side-matter-sup">${i}</sup></a>`
+        return `<a id="ref-${i}" class="ref" href="#note-${i}"><sup>${i}</sup></a>`
     })
     
     // Replicate wordpress formatting (thank gods there's an npm package)
