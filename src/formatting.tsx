@@ -85,6 +85,19 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
 
     const $ = cheerio.load(html)
 
+    // Wrap content demarcated by headings into section blocks
+    const sectionStarts = [$("body").children().get(0)].concat($("h2").toArray())
+    for (const start of sectionStarts) {
+        const $start = $(start)
+        const $contents = $start.nextUntil("h2")
+        const $wrapNode = $("<section></section>");
+
+        $contents.remove();
+        $wrapNode.append($start.clone())
+        $wrapNode.append($contents)
+        $start.replaceWith($wrapNode)
+    }
+
     // Replace grapher iframes with static previews
     if (grapherExports) {
         const grapherIframes = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//))
@@ -114,49 +127,6 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         }
     }
 
-    // Table of contents and deep links
-    const hasToc = post.type === 'page' && post.slug !== 'about'
-    let openHeadingIndex = 0
-    let openSubheadingIndex = 0
-    const tocHeadings: { text: string, slug: string, isSubheading: boolean }[] = []
-    $("h1, h2, h3, h4").each((_, el) => {
-        const $heading = $(el);
-        const headingText = $heading.text()
-        // We need both the text and the html because may contain footnote
-        let headingHtml = $heading.html() as string
-        const slug = urlSlug(headingText)
-
-        // Table of contents
-        if (hasToc) {
-            if ($heading.is("#footnotes") && footnotes.length > 0) {
-                tocHeadings.push({ text: headingText, slug: "footnotes", isSubheading: false })
-            } else if (!$heading.is('h1') && !$heading.is('h4')) {
-                // Inject numbering into the text as well
-                if ($heading.is('h2')) {
-                    openHeadingIndex += 1;
-                    openSubheadingIndex = 0;
-                } else if ($heading.is('h3')) {
-                    openSubheadingIndex += 1;
-                }
-    
-                if (openHeadingIndex > 0) {
-                    if ($heading.is('h2')) {
-                        headingHtml = romanize(openHeadingIndex) + '. ' + headingHtml;
-                        $heading.html(headingHtml)
-                        tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: false })
-                    } else {
-                        headingHtml = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingHtml;
-                        $heading.html(headingHtml)
-                        tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: true })
-                    }					
-                }
-            }    
-        }
-
-        // Deep link
-        $heading.attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
-    })
-
     return {
         id: post.id,
         type: post.type,
@@ -169,7 +139,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         footnotes: footnotes,
         excerpt: post.excerpt || $($("p")[0]).text(),
         imageUrl: post.imageUrl,
-        tocHeadings: tocHeadings
+        tocHeadings: []
     }
 }
 

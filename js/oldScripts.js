@@ -128,32 +128,6 @@ var EntriesHeaderMenu = function() {
 		});
 	}
 
-	var firstTime = true;
-	function onCategoryActivate(ev) {
-		ev.preventDefault();
-		var $category = $(ev.target).closest("li.category");
-		if (firstTime) {
-			$("#entries-nav").css({
-				'position': 'absolute',
-				'padding-bottom': '10px',
-				'border-bottom': $(".FrontPage").length ? '4px solid #FF4012' : 'none'
-			});
-			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
-			firstTime = false;
-		}
-		$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);
-		$("#entries-nav").show();
-		$("#category-nav li.category").removeClass("active").removeClass("selected");
-		$category.addClass("selected");
-
-		$("body").on('mousemove.entries', function(ev) {
-			if (!$(ev.target).closest("header.SiteHeader").length) {
-				$("body").off('mousemove.entries');
-				showDefaultState();
-			}
-		});			
-	}
-
 	// Mobile menu
 	$("#owid-topbar li.nav-button a").on("click", function(ev) {
 		ev.preventDefault();
@@ -167,43 +141,6 @@ var EntriesHeaderMenu = function() {
 			$("#search-dropdown").hide();		
 		}
 	});
-
-
-	function onResize() {
-		// MISPY: Currently hover menu is disabled because it is too easy to cross over
-		// the categories when trying to get to the subcategories with the mouse
-		canHoverMenu = $("#category-nav").height() < 50;
-
-		$("#category-nav li.category > a").off('mouseover');
-		$("#category-nav li.category > a").off('click');
-
-		//if (canHoverMenu)
-		//	$("#category-nav li.category > a").on('mouseover', onCategoryActivate);
-		//else
-			$("#category-nav li.category > a").on('click', onCategoryActivate);
-
-		$("#topics-dropdown .category > a").off('click');
-		$("#topics-dropdown .category > a").on('click', function(ev) {
-			ev.preventDefault();
-			$(ev.target).closest('.category').toggleClass('active');
-		});
-
-		showDefaultState();
-	}
-
-	// HACK (Mispy): Stop mobile-desktop transition from being weird.
-	// Also make sure it's a real resize event, as mobile Chrome seems
-	// to fire them on scroll as well.
-	var origWidth = $(window).width();
-	$(window).on("resize", function() {
-		var width = $(window).width();
-		if (origWidth != width) {
-			onResize();
-			origWidth = width;
-		}
-	});
-
-	onResize();
 };
 
 

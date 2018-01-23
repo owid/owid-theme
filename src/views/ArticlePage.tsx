@@ -21,32 +21,35 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
         <body>
             <SiteHeader entries={entries}/>
             <main>
-                <div className={"clearfix" + (post.tocHeadings.length > 0 ? " page-with-sidebar" : "")}>
-                    {post.tocHeadings.length > 0 && <div className="entry-sidebar">
-                        <nav className="entry-toc">
-                            <h3>Contents</h3>
-                            <ol>
-                                {post.tocHeadings.map(heading => 
-                                    <li className={heading.isSubheading ? "subsection" : "section"}>
-                                        <a href={`#${heading.slug}`}>{heading.text}</a>
-                                    </li>
-                                )}
-                            </ol>
-                        </nav>
-                    </div>}
-                    <article className="page">
-                        <header className="article-header">
-                            <h1 className="entry-title">{post.title}</h1>
-                            <div className="authors-byline">
-                                <a href="/about/#the-team">by {authorsText}</a><a className="citation-note js-only"><sup>[cite]</sup></a>
+                <article className="page">
+                    <header className="article-header">
+                        <h1 className="entry-title">{post.title}</h1>
+                        <p>Global access to education has expanded rapidly over the last century, as governments have made public schooling a priority.</p>
+                    </header>
+                    <div className="article-byline">
+                        <div className="container">
+                            <div className="byline-block">
+                                <h3>Authors</h3>
+                                {post.authors.map(author => <p className="author">{author}</p>)}
                             </div>
-                            <div className="citation-guideline">
-                                OWID presents work for many different people and organizations. When citing this entry, please also cite the original data source. This entry can be cited as:<br/><br/>{authorsText} ({publishedYear}) - "{pageTitle}". <em>Published online at OurWorldInData.org.</em> Retrieved from: '{canonicalUrl}' [Online Resource]
+                            <div className="byline-block">
+                                <h3>Affiliations</h3>
+                                <p>University of Oxford</p>
                             </div>
-                        </header>
-                        <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>
-                        {post.footnotes.length > 0 && <footer className="article-footer">
-                            <h2 id="footnotes">Footnotes</h2>
+                            <div className="byline-block">
+                                <h3>Published</h3>
+                                <p>{post.date.toDateString()}</p>
+                            </div>
+                            <div className="byline-block">
+                                <h3>DOI</h3>
+                                <p>10.23915/owid.00008</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>
+                    {post.footnotes.length > 0 && <footer className="article-footer">
+                        <section className="footnotes">
+                            <h3 id="footnotes">Footnotes</h3>
                             <ol className="side-matter side-matter-list" style={{'list-style-type': 'decimal', opacity: 1}}>
                                 {post.footnotes.map((footnote, i) =>
                                     <li id={`note-${i+1}`} className="side-matter side-matter-note" style={{'margin-top': '0px'}}>
@@ -56,9 +59,9 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                                     </li>
                                 )}
                             </ol>
-                        </footer>}
-                    </article>
-                </div>
+                        </section>
+                    </footer>}
+                </article>
             </main>
             <div id="wpadminbar" style={{display: 'none'}}>
                 <div className="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
