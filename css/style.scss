@@ -769,40 +769,6 @@ address a:hover {
 	}
 }
 
-#mc_embed_signup {
-	margin-bottom: 14px;
-	
-	input {
-		display: inline-block;
-		height: 30px;
-		line-height: 30px;
-		vertical-align: middle;
-		padding: 0;
-	}
-
-	input:first-child {
-		width: 65%;
-		border: 1px solid #ccc;
-		font-size: 16px;
-		padding: 0 .7rem;
-	}	
-
-	input.button {
-		width: 32%;
-		margin-left: -2%;
-		background-color: #c0023e;
-		color: white;
-		cursor: pointer;
-		-webkit-appearance: none;
-		border-color: #999;
-		font-size: 12px;
-	}
-	
-	input.button:hover {
-		background-color: #5b011d;
-	}	
-}	
-
 @media screen and (max-width: 950px) {
 	.SiteFooter .column {
 		width: 100%;

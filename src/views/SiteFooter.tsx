@@ -11,6 +11,8 @@ export const SiteFooter = () => {
             <a href="/subscribe">Subscribe</a>
             <a href="https://twitter.com/OurWorldInData">Twitter</a>
             <a href="https://www.facebook.com/OurWorldinData">Facebook</a>
+            <a href="https://github.com/owid">GitHub</a>
+            <a href="/support">Donate</a>
         </nav>
         <script src={`${settings.ASSETS_URL}/js/owid.js`} />
     </footer>
