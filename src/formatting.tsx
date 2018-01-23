@@ -42,9 +42,11 @@ function romanize(num: number) {
 export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
     let html = post.content
 
-    // Remove comments and standardize spacing
-    html = html.replace(/<!--[^>]+-->/g, "").replace(/\r\n/g, "\n").replace(/(\n\s*)(\n\s*)/g, "\n\n")
-
+    // Standardize spacing
+    html = html.replace(/\r\n/g, "\n").replace(/(\n\s*)(\n\s*)/g, "\n\n")
+    // TODO Can't replace comment because <!--raw--> in /about
+    //replace(/<!--[^>]+-->/g, "")
+    
     // Footnotes
     const footnotes: string[] = []
     html = html.replace(/\[ref\]([\s\S]*?)\[\/ref\]/gm, (_, footnote) => {
