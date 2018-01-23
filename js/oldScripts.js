@@ -275,7 +275,8 @@ if (numEmbeds > 5) {
 } else if (window.innerWidth > window.innerHeight) {
 	$(".interactivePreview img").each(function(i, el) {
 		var $img = $(el);
-		$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + ($img.height()+2) + 'px"/>');
+		const height = $img.height()||598
+		$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + (height+2) + 'px"/>');
 	});
 }
 
