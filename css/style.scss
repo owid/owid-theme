@@ -118,18 +118,6 @@ i {
 	font-style: italic;
 }
 
-
-blockquote::before {
-    content: "\201C";
-    display: block;
-    font-size: 90px;
-    height: 0;
-    left: -40px;
-    position: relative;
-    top: -30px;
-    color: #666;
-}
-
 /* ----------------------------------------------------------- */	
 
 
@@ -1851,6 +1839,10 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	> h6 + p img {
 		margin-top: 0;
 	}
+
+	> blockquote {
+		font-style: italic;
+	}
 }
 
 /* Upscale some of the text on larger viewports */
@@ -1916,7 +1908,6 @@ img {
 }
 
 .interactivePreview {
-	margin-bottom: 1em;
 	text-align: center;
 
 	div {
@@ -2081,7 +2072,7 @@ iframe {
    Sometimes iframes are inside the same <p> element as their preceding text,
    sometimes not. */
 iframe:not(:first-child) {
-	margin-bottom: 20px;
+	margin-bottom: 1em;
 }
 
 @media only screen and (max-width: 980px) {

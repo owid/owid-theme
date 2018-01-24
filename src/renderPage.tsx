@@ -16,6 +16,11 @@ import { formatPost } from './formatting'
 import { bakeGrapherUrls, getGrapherExportsByUrl } from "./grapherUtil";
 import * as cheerio from 'cheerio'
 
+// Wrap ReactDOMServer to stick the doctype on
+export function renderToHtmlPage(element: any) {
+    return `<!doctype html>${ReactDOMServer.renderToStaticMarkup(element)}`
+}
+
 export async function renderPageById(id: number): Promise<string> {
     const rows = await wpdb.query(`
         SELECT * FROM wp_posts AS post WHERE ID=?
@@ -33,9 +38,9 @@ export async function renderPageById(id: number): Promise<string> {
     const formatted = await formatPost(post, exportsByUrl)
 
     if (rows[0].post_type === 'post')
-        return ReactDOMServer.renderToStaticMarkup(<BlogPostPage entries={entries} post={formatted}/>)
+        return renderToHtmlPage(<BlogPostPage entries={entries} post={formatted}/>)
     else
-        return ReactDOMServer.renderToStaticMarkup(<ArticlePage entries={entries} post={formatted}/>)
+        return renderToHtmlPage(<ArticlePage entries={entries} post={formatted}/>)
 }
 
 export async function renderFrontPage() {
@@ -55,12 +60,11 @@ export async function renderFrontPage() {
 
     const entries = await wpdb.getEntriesByCategory()
 
-    return ReactDOMServer.renderToStaticMarkup(<FrontPage entries={entries} posts={posts}/>)
+    return renderToHtmlPage(<FrontPage entries={entries} posts={posts}/>)
 }
 
 export async function renderSubscribePage() {
-    const entries = await wpdb.getEntriesByCategory()
-    return ReactDOMServer.renderToStaticMarkup(<SubscribePage entries={entries}/>)
+    return renderToHtmlPage(<SubscribePage/>)
 }
 
 export async function renderBlogByPageNum(pageNum: number) {
@@ -87,7 +91,7 @@ export async function renderBlogByPageNum(pageNum: number) {
     }
 
     const entries = await wpdb.getEntriesByCategory()
-    return ReactDOMServer.renderToStaticMarkup(<BlogIndexPage entries={entries} posts={posts} pageNum={pageNum} numPages={numPages}/>)
+    return renderToHtmlPage(<BlogIndexPage entries={entries} posts={posts} pageNum={pageNum} numPages={numPages}/>)
 }
 
 async function main(target: string) {

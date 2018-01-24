@@ -6,9 +6,7 @@ import { SiteFooter } from './SiteFooter'
 import { CategoryWithEntries } from '../wpdb'
 import { formatDate } from '../formatting'
 
-export default function SubscribePage(props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) {
-    const { entries, posts } = props
-
+export default function SubscribePage() {
     const style = `
         body {
             display: flex;

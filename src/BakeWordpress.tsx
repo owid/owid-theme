@@ -13,11 +13,10 @@ import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
 const { BAKED_DIR, BAKED_URL, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
-import { renderFrontPage, renderSubscribePage, renderBlogByPageNum } from './renderPage'
+import { renderToHtmlPage, renderFrontPage, renderSubscribePage, renderBlogByPageNum } from './renderPage'
 import { bakeGrapherUrls, getGrapherExportsByUrl, GrapherExports } from './grapherUtil'
 
 import * as React from 'react'
-import * as ReactDOMServer from 'react-dom/server'
 
 // Static site generator using Wordpress
 
@@ -80,7 +79,7 @@ export default class WordpressBaker {
     async bakePost(post: wpdb.FullPost) {
         const entries = await wpdb.getEntriesByCategory()
         const formatted = await formatPost(post, this.grapherExports)
-        const html = ReactDOMServer.renderToStaticMarkup(
+        const html = renderToHtmlPage(
             post.type == 'post' ? <BlogPostPage entries={entries} post={formatted}/> : <ArticlePage entries={entries} post={formatted}/>
         )
 
