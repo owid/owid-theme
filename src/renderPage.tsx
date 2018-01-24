@@ -21,10 +21,17 @@ export function renderToHtmlPage(element: any) {
     return `<!doctype html>${ReactDOMServer.renderToStaticMarkup(element)}`
 }
 
-export async function renderPageById(id: number): Promise<string> {
-    const rows = await wpdb.query(`
-        SELECT * FROM wp_posts AS post WHERE ID=?
-    `, [id])
+export async function renderPageById(id: number, isPreview?: boolean): Promise<string> {
+    let rows
+    if (isPreview) {
+        try {
+        rows = await wpdb.query(`SELECT post.*, parent.post_type FROM wp_posts AS post JOIN wp_posts AS parent ON parent.ID=post.post_parent WHERE post.post_parent=? AND post.post_type='revision' ORDER BY post_modified DESC`, [id])
+        } catch (err) {
+            console.log(err)
+        }
+    } else {
+        rows = await wpdb.query(`SELECT * FROM wp_posts AS post WHERE ID=?`, [id])
+    }
 
     const post = await wpdb.getFullPost(rows[0])
     const entries = await wpdb.getEntriesByCategory()
@@ -94,7 +101,7 @@ export async function renderBlogByPageNum(pageNum: number) {
     return renderToHtmlPage(<BlogIndexPage entries={entries} posts={posts} pageNum={pageNum} numPages={numPages}/>)
 }
 
-async function main(target: string) {
+async function main(target: string, isPreview?: boolean) {
     try {
         if (target === 'front') {
             console.log(await renderFrontPage())
@@ -104,7 +111,7 @@ async function main(target: string) {
             const pageNum = process.argv[3] ? parseInt(process.argv[3]) : 1
             console.log(await renderBlogByPageNum(pageNum === 0 ? 1 : pageNum))            
         } else {
-            console.log(await renderPageById(parseInt(target)))
+            console.log(await renderPageById(parseInt(target), isPreview))
         }
     } catch (err) {
         console.error(err)
@@ -114,4 +121,4 @@ async function main(target: string) {
 }
 
 if (require.main == module)
-    main(process.argv[2])
+    main(process.argv[2], process.argv[3] === "preview")

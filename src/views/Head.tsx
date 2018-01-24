@@ -1,7 +1,7 @@
 import {BAKED_URL, ASSETS_URL} from '../settings'
 import * as React from 'react'
 
-export const Head = (props: { canonicalUrl: string, pageTitle?: string, pageDesc?: string, imageUrl?: string, children: any }) => {
+export const Head = (props: { canonicalUrl: string, pageTitle?: string, pageDesc?: string, imageUrl?: string, children?: any }) => {
     const {canonicalUrl} = props
     const pageTitle = props.pageTitle ? `${props.pageTitle} - Our World in Data` : `Our World in Data`
     const pageDesc = props.pageDesc || "Living conditions around the world are changing rapidly. Explore how and why."
