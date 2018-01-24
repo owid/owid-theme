@@ -1908,7 +1908,9 @@ img {
 }
 
 .interactivePreview {
+	margin-bottom: 1em;
 	text-align: center;
+	line-height: 0;
 
 	div {
 		display: inline-block;
@@ -2093,7 +2095,7 @@ iframe:not(:first-child) {
 
 .page-with-sidebar {
 	width: 100%;
-	max-width: 1300px;
+	max-width: 1200px;
 	margin: auto;
 }
 
