@@ -39,16 +39,9 @@ function romanize(num: number) {
 	return Array(+digits.join("") + 1).join("M") + roman;
 }
 
-export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
-    let html = post.content
-
+export async function formatPostWordpress(post: FullPost, html: string, grapherExports?: GrapherExports) {
     // Strip comments
-    html = html.replace(/<!--[^>]+-->/g, (substring, ...args) => {
-        if (substring.match(/raw/)) // Special case for About page for now
-            return substring
-        else 
-            return ""
-    })
+    html = html.replace(/<!--[^>]+-->/g, "")
     
     // Standardize spacing
     html = html.replace(/\r\n/g, "\n").replace(/\n+/g, "\n").replace(/\n/g, "\n\n")
@@ -60,20 +53,9 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         const i = footnotes.length
         return `<a id="ref-${i}" class="ref" href="#note-${i}"><sup>${i}</sup></a>`
     })
-    
+
     // Replicate wordpress formatting (thank gods there's an npm package)
-    if (!html.match(/<!--raw-->/))
-        html = wpautop(html)
-
-    // Standardize protocols used in links
-    if (HTTPS_ONLY)
-        html = html.replace(new RegExp("http://", 'g'), "https://")
-    else
-        html = html.replace(new RegExp("https://", 'g'), "http://")
-
-    // Use relative urls wherever possible
-    html = html.replace(new RegExp(WORDPRESS_URL, 'g'), "")
-        .replace(new RegExp("https?://ourworldindata.org", 'g'), "")
+    html = wpautop(html)
 
     // Insert [table id=foo] tablepress tables
     const tables = await getTables()
@@ -199,6 +181,41 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         excerpt: post.excerpt || $($("p")[0]).text(),
         imageUrl: post.imageUrl,
         tocHeadings: tocHeadings
+    }
+}
+
+export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
+    let html = post.content
+
+    // Standardize protocols used in links
+    if (HTTPS_ONLY)
+        html = html.replace(new RegExp("http://", 'g'), "https://")
+    else
+        html = html.replace(new RegExp("https://", 'g'), "http://")
+
+    // Use relative urls wherever possible
+    html = html.replace(new RegExp(WORDPRESS_URL, 'g'), "")
+        .replace(new RegExp("https?://ourworldindata.org", 'g'), "")
+
+    const isRaw = html.match(/<!--raw-->/)
+
+    if (isRaw) {
+        return {
+            id: post.id,
+            type: post.type,
+            slug: post.slug,
+            title: post.title,
+            date: post.date,
+            modifiedDate: post.modifiedDate,
+            authors: post.authors,
+            html: html,
+            footnotes: [],
+            excerpt: post.excerpt||"",
+            imageUrl: post.imageUrl,
+            tocHeadings: []
+        }
+    } else {
+        return formatPostWordpress(post, html, grapherExports)
     }
 }
 
