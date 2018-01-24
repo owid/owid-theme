@@ -1827,11 +1827,6 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 		margin-top: 2em;
 	}
 	
-	> h6 {
-		margin-top: 40px;
-		margin-bottom: 5px;
-	}
-	
 	> h5 {	
 		font-family: Georgia, "Times New Roman", Serif;
 		font-weight: 400;
@@ -1846,6 +1841,15 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 		border-left-style: solid;
 		border-left-color: #d3d3d3;
 		font-size: 22px;
+	}
+
+	/* Image captions */
+	> h6 {
+		margin-top: 40px;
+		margin-bottom: 5px;
+	}
+	> h6 + p img {
+		margin-top: 0;
 	}
 }
 
@@ -1912,7 +1916,7 @@ img {
 }
 
 .interactivePreview {
-	margin: 0 0 20px;
+	margin-bottom: 1em;
 	text-align: center;
 
 	div {
@@ -2103,22 +2107,20 @@ iframe:not(:first-child) {
 }
 
 nav.entry-toc {
-	font-size: 14px;
+	font-size: 13px;
 }
 
 nav.entry-toc h3 {
-    font-family: Georgia,"Times New Roman",Serif;
     font-weight: 400;
     line-height: 1.2;
 	margin: 0 0 20px;
-	font-size: 1.5rem;
-	margin-bottom: 0;
+	font-size: 18px;
+	margin-bottom: 6px;
 }
 
 nav.entry-toc li {
 	margin-left: 10px;
 	color: #333;
-	margin-top: 6px;
 	list-style-type: none;
 }
 
