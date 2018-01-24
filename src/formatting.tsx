@@ -44,7 +44,7 @@ export async function formatPostWordpress(post: FullPost, html: string, grapherE
     html = html.replace(/<!--[^>]+-->/g, "")
     
     // Standardize spacing
-    html = html.replace(/\r\n/g, "\n").replace(/\n+/g, "\n").replace(/\n/g, "\n\n")
+    html = html.replace(/&nbsp;/g, "").replace(/\r\n/g, "\n").replace(/\n+/g, "\n").replace(/\n/g, "\n\n")
     
     // Footnotes
     const footnotes: string[] = []
