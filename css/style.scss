@@ -1845,6 +1845,23 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	> blockquote {
 		font-style: italic;
 	}
+
+	/* The style of horizontal lines in the data sources section of every entry */
+	> hr {
+		color: lightgrey;
+		border-top:none;
+		border-left:none;
+		border-right: 1px;
+		border-right-style: solid;
+		padding-bottom: 8px;
+		border-bottom: 1px;
+		border-bottom-style: solid;
+		margin-bottom: 0;
+		position: relative;
+		top: -40px;
+		padding-top: 20px;
+	}
+
 }
 
 /* Upscale some of the text on larger viewports */
@@ -1992,22 +2009,6 @@ article.page {
 	max-width: 1024px;
 	margin: auto;
 	padding: 1.5rem;
-}
-
-/*The style of horizontal lines in the data sources section of every entry */
-.datasources-hr {
-	color: lightgrey;
-	border-top:none;
-	border-left:none;
-	border-right: 1px;
-	border-right-style: solid;
-	padding-bottom: 8px;
-	border-bottom: 1px;
-	border-bottom-style: solid;
-	margin-bottom: 0;
-	position: relative;
-	top: -40px;
-	padding-top: 20px;
 }
 
 .article-content ol, .article-content ul {

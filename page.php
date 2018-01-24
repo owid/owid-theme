@@ -11,7 +11,7 @@
 	$ID = escapeshellarg(get_the_ID());
 	$themeDir = dirname(__FILE__);
 	$isPreview = is_preview() ? "preview" : "";
-	$cmd = "cd $themeDir && node dist/src/renderPage.js $ID $isPreview";
+	$cmd = "cd $themeDir && node dist/src/renderPage.js $ID $isPreview 2>&1";
 	error_log($cmd);
 	exec($cmd, $op);
 	echo join("\n", $op);
