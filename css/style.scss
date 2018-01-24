@@ -1910,7 +1910,9 @@ img {
 }
 
 .interactive {
-	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em;
 	padding: 1em 0;
 	text-align: center;
 	line-height: 0;
