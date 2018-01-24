@@ -24,11 +24,7 @@ export function renderToHtmlPage(element: any) {
 export async function renderPageById(id: number, isPreview?: boolean): Promise<string> {
     let rows
     if (isPreview) {
-        try {
         rows = await wpdb.query(`SELECT post.*, parent.post_type FROM wp_posts AS post JOIN wp_posts AS parent ON parent.ID=post.post_parent WHERE post.post_parent=? AND post.post_type='revision' ORDER BY post_modified DESC`, [id])
-        } catch (err) {
-            console.log(err)
-        }
     } else {
         rows = await wpdb.query(`SELECT * FROM wp_posts AS post WHERE ID=?`, [id])
     }

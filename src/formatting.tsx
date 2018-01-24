@@ -112,7 +112,12 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
             const chart = grapherExports.get(src)
             if (chart) {
                 const output = `<div class="interactivePreview"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}" data-grapher-src="${src}"/></div></a></div>`
-                $(el).closest('p').replaceWith(output)
+                const $p = $(el).closest('p')
+                if ($p.children().length > 1) {
+                    $(el).remove()
+                    $p.after(output)
+                } else
+                    $p.replaceWith(output)
             }
         }    
     }
@@ -130,6 +135,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         const upload = uploadDex.get(path.basename(src))
         if (upload && upload.variants.length) {
             el.attribs['srcset'] = upload.variants.map(v => `${v.url} ${v.width}w`).join(", ")
+            el.attribs['sizes'] = "(min-width: 800px) 50vw, 100vw"
         }
     }
 
@@ -184,7 +190,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
         date: post.date,
         modifiedDate: post.modifiedDate,
         authors: post.authors,
-        html: $.html(),
+        html: $("body").html() as string,
         footnotes: footnotes,
         excerpt: post.excerpt || $($("p")[0]).text(),
         imageUrl: post.imageUrl,
