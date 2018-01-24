@@ -263,20 +263,20 @@ $("a.ref sup").on("mouseover", function() {
 });
 
 // Progressive enhancement of interactive previews => embeds, on desktop
-var numEmbeds = $(".interactivePreview").length
+var numEmbeds = $(".interactive").length
 if (numEmbeds > 5) {
-	$(".interactivePreview a, .interactivePreview img").on('click', function(ev) {
+	$(".interactive a, .interactive img").on('click', function(ev) {
 		if (window.innerWidth > window.innerHeight) {
 			ev.preventDefault();
-			var $img = $(ev.target).closest('.interactivePreview').find('img');
-			$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + ($img.height()+2) + 'px"/>');
+			var $img = $(ev.target).closest('.interactive').find('img');
+			$img.closest('div').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + ($img.height()+2) + 'px"/>');
 		}
 	});
 } else if (window.innerWidth > window.innerHeight) {
-	$(".interactivePreview img").each(function(i, el) {
+	$(".interactive img").each(function(i, el) {
 		var $img = $(el);
 		var height = $img.height()||598
-		$img.closest('.interactivePreview').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + (height+2) + 'px"/>');
+		$img.closest('div').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + (height+2) + 'px"/>');
 	});
 }
 

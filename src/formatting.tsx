@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio'
 const urlSlug = require('url-slug')
 const wpautop = require('wpautop')
-import {last} from 'lodash'
+import * as _ from 'lodash'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import {HTTPS_ONLY, WORDPRESS_URL, BAKED_DIR}  from './settings'
@@ -51,7 +51,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
     })
     
     // Standardize spacing
-    html = html.replace(/\r\n/g, "\n").replace(/(\n\s*)(\n\s*)/g, "\n\n")
+    html = html.replace(/\r\n/g, "\n").replace(/\n+/g, "\n").replace(/\n/g, "\n\n")
     
     // Footnotes
     const footnotes: string[] = []
@@ -111,15 +111,19 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
             const src = el.attribs['src']
             const chart = grapherExports.get(src)
             if (chart) {
-                const output = `<div class="interactivePreview"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}" data-grapher-src="${src}"/></div></a></div>`
+                const output = `<div class="interactive"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}" data-grapher-src="${src}"/></div></a></div>`
                 const $p = $(el).closest('p')
-                if ($p.children().length > 1) {
-                    $(el).remove()
-                    $p.after(output)
-                } else
-                    $p.replaceWith(output)
+                $(el).remove()
+                $p.after(output)
             }
-        }    
+        }
+    }
+
+    // Remove any empty elements
+    for (const p of $("p").toArray()) {
+        const $p = $(p)
+        if ($p.contents().length === 0)
+            $p.remove()
     }
 
     // Image processing
@@ -206,7 +210,7 @@ export function formatAuthors(authors: string[], requireMax?: boolean): string {
     if (authorsText.length == 0)
         authorsText = authors[0]
     else
-        authorsText += ` and ${last(authors)}`
+        authorsText += ` and ${_.last(authors)}`
         
     return authorsText
 }
