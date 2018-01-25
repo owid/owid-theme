@@ -1862,6 +1862,11 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 		padding-top: 20px;
 	}
 
+	/* Center latex equations that occur on their own line e.g. https://ourworldindata.org/projections-of-future-education/#data-quality-definitions */
+	svg.latex:only-child {
+		display: block;
+		margin: auto;
+	}
 }
 
 /* Upscale some of the text on larger viewports */

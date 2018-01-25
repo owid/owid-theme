@@ -6,7 +6,7 @@
 		exit;
 	}
 
-	$slug = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+	$slug = escapeshellarg(trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 	$themeDir = dirname(__FILE__);
 	$cmd = "cd $themeDir && node dist/src/renderPage.js $slug";
 	error_log($cmd);

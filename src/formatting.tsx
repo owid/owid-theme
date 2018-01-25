@@ -12,8 +12,11 @@ import * as path from 'path'
 
 //const compiler = require('markdown-to-jsx').compiler
 const MarkdownIt = require('markdown-it')
-const md = new MarkdownIt({ html: true, linkify: true })
+const mjAPI = require("mathjax-node");
 
+
+
+const md = new MarkdownIt({ html: true, linkify: true })
 export function parseMarkdown(content: string): string {
     //return compiler(content).props.children||[]
     return md.render(content)
@@ -48,6 +51,44 @@ function romanize(num: number) {
 	return Array(+digits.join("") + 1).join("M") + roman;
 }
 
+mjAPI.config({
+    MathJax: {
+      // traditional MathJax configuration
+    }
+});
+mjAPI.start();
+
+
+function extractLatex(html: string): [string, string[]] {
+    const latexBlocks: string[] = []
+    html = html.replace(/\[latex\]([\s\S]*?)\[\/latex\]/gm, (_, latex) => {
+        latexBlocks.push(latex.replace("\\[", "").replace("\\]", "").replace(/\$\$/g, ""))
+        return "[latex]"
+    })
+    return [html, latexBlocks]
+}
+
+async function formatLatex(html: string, latexBlocks?: string[]): Promise<string> {
+    if (!latexBlocks)
+        [html, latexBlocks] = extractLatex(html)
+
+    const compiled: string[] = []
+    for (let latex of latexBlocks) {
+        try {
+            const result = await mjAPI.typeset({ math: latex, format: "TeX", svg: true })
+            compiled.push(result.svg.replace("<svg", `<svg class="latex"`))
+        } catch (err) {
+            compiled.push(`${latex} (parse error: ${err})`)
+        }
+    }
+    
+    let i = -1
+    return html.replace(/\[latex\]/g, _ => {
+        i += 1
+        return compiled[i]
+    })
+}
+
 export async function formatPostLegacy(post: FullPost, html: string, grapherExports?: GrapherExports) {
     // Strip comments
     html = html.replace(/<!--[^>]+-->/g, "")
@@ -55,6 +96,15 @@ export async function formatPostLegacy(post: FullPost, html: string, grapherExpo
     // Standardize spacing
     html = html.replace(/&nbsp;/g, "").replace(/\r\n/g, "\n").replace(/\n+/g, "\n").replace(/\n/g, "\n\n")
     
+    // Need to skirt around wordpress formatting to get proper latex rendering
+    let latexBlocks
+    [html, latexBlocks] = extractLatex(html)
+
+    // Replicate wordpress formatting (thank gods there's an npm package)
+    html = wpautop(html)
+
+    html = await formatLatex(html, latexBlocks)
+
     // Footnotes
     const footnotes: string[] = []
     html = html.replace(/\[ref\]([\s\S]*?)\[\/ref\]/gm, (_, footnote) => {
@@ -62,9 +112,6 @@ export async function formatPostLegacy(post: FullPost, html: string, grapherExpo
         const i = footnotes.length
         return `<a id="ref-${i}" class="ref" href="#note-${i}"><sup>${i}</sup></a>`
     })
-
-    // Replicate wordpress formatting (thank gods there's an npm package)
-    html = wpautop(html)
 
     // Insert [table id=foo] tablepress tables
     const tables = await getTables()
@@ -204,6 +251,8 @@ export async function formatPostMarkdown(post: FullPost, html: string, grapherEx
         const i = footnotes.length
         return `<a id="ref-${i}" class="ref" href="#note-${i}"><sup>${i}</sup></a>`
     })
+
+    html = await formatLatex(html)
 
     // Insert [table id=foo] tablepress tables
     const tables = await getTables()
