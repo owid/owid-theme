@@ -1846,27 +1846,29 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 		font-style: italic;
 	}
 
-	/* The style of horizontal lines in the data sources section of every entry */
-	> hr {
-		color: lightgrey;
-		border-top:none;
-		border-left:none;
-		border-right: 1px;
-		border-right-style: solid;
-		padding-bottom: 8px;
-		border-bottom: 1px;
-		border-bottom-style: solid;
-		margin-bottom: 0;
-		position: relative;
-		top: -40px;
-		padding-top: 20px;
-	}
 
 	/* Center latex equations that occur on their own line e.g. https://ourworldindata.org/projections-of-future-education/#data-quality-definitions */
 	svg.latex:only-child {
 		display: block;
 		margin: auto;
 	}
+}
+
+/* The style of horizontal lines in the data sources section of every entry */
+.article-content > section:last-child > hr,
+hr.datasources-hr {
+	color: lightgrey;
+	border-top:none;
+	border-left:none;
+	border-right: 1px;
+	border-right-style: solid;
+	padding-bottom: 8px;
+	border-bottom: 1px;
+	border-bottom-style: solid;
+	margin-bottom: 0;
+	position: relative;
+	top: -40px;
+	padding-top: 20px;
 }
 
 /* Upscale some of the text on larger viewports */
