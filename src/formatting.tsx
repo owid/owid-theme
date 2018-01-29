@@ -157,6 +157,13 @@ export async function formatPostLegacy(post: FullPost, html: string, grapherExpo
         }
     }
 
+    // Any remaining iframes: ensure https embeds
+    if (HTTPS_ONLY) {
+        for (const iframe of $("iframe").toArray()) {
+            iframe.attribs['src'] = iframe.attribs['src'].replace("http://", "https://")
+        }
+    }
+
     // Remove any empty elements
     for (const p of $("p").toArray()) {
         const $p = $(p)
@@ -298,6 +305,13 @@ export async function formatPostMarkdown(post: FullPost, html: string, grapherEx
         }
     }
 
+    // Any remaining iframes: ensure https embeds
+    if (HTTPS_ONLY) {
+        for (const iframe of $("iframe").toArray()) {
+            iframe.attribs['src'] = iframe.attribs['src'].replace("http://", "https://")
+        }
+    }
+
     // Remove any empty elements
     for (const p of $("p").toArray()) {
         const $p = $(p)
@@ -391,12 +405,6 @@ export async function formatPostMarkdown(post: FullPost, html: string, grapherEx
 
 export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
     let html = post.content
-
-    // Standardize protocols used in links
-    if (HTTPS_ONLY)
-        html = html.replace(new RegExp("http://", 'g'), "https://")
-    else
-        html = html.replace(new RegExp("https://", 'g'), "http://")
 
     // Use relative urls wherever possible
     html = html.replace(new RegExp(WORDPRESS_URL, 'g'), "")
