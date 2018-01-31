@@ -228,7 +228,7 @@ export async function formatPostLegacy(post: FullPost, html: string, grapherExpo
         }
 
         // Deep link
-        $heading.attr('id', slug)
+        $heading.attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
     })
 
     return {
