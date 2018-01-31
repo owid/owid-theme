@@ -384,7 +384,7 @@ export async function formatPostMarkdown(post: FullPost, html: string, grapherEx
         }
 
         // Deep link
-        $heading.attr('id', slug)
+        $heading.attr('id', slug).prepend(`<a class="deep-link" href="#${slug}"></a>`)
     })
 
     return {
