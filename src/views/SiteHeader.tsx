@@ -1,8 +1,24 @@
 import * as React from 'react'
-import { CategoryWithEntries } from '../wpdb'
+import { CategoryWithEntries, EntryMeta } from '../wpdb'
+import * as _ from 'lodash'
 
-export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
+// XXX this menu is pretty old and should be redone at some stage
+
+export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?: string }) => {
     const {entries} = props
+
+    const activeCategories: CategoryWithEntries[] = []
+    let activeEntry: EntryMeta|undefined = undefined
+    for (const category of entries) {
+        for (const entry of category.entries) {
+            if (entry.slug === props.activeSlug) {
+                activeCategories.push(category)
+                if (!activeEntry) activeEntry = entry
+            }
+        }
+    }
+    const mainCategory = activeCategories[0]
+
     return <header className="SiteHeader">
         <nav id="owid-topbar">
             <ul className="desktop right">
@@ -19,8 +35,8 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
                 <li><a href="/about">About</a></li>
                 <li><a href="/support">Donate</a></li>
             </ul>
-            <h1 id="owid-title">
-                <a href="/"><span>Our World in Data</span></a>
+            <h1 className="logo">
+                <a href="/">Our World in Data</a>
             </h1>
             <ul className="mobile right">
                 <li className="nav-button">
@@ -57,15 +73,12 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
             <form id="search-nav" action="https://google.com/search" method="GET">
                 <input type="hidden" name="sitesearch" value="ourworldindata.org" />
                 <input type="search" name="q" placeholder="Search..." />
-                <button type="submit">
-                    <i className="fa fa-search"></i>
-                </button>
             </form>
         </div>
         <div id="category-nav" className="desktop">
             <ul>
                 {entries.map(category => 
-                    <li className="category" title={category.name}>
+                    <li className={`category` + (_.includes(activeCategories, category) ? " active" : "")} title={category.name}>
                         <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <ul className="entries">
                             <li><hr/></li>
@@ -78,6 +91,15 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[] }) => {
             </ul>
             </div>
             <div id="entries-nav" className="desktop">
+                {mainCategory && [
+                    <li><hr/></li>,
+                    mainCategory.entries.map(entry => {
+                        const classes = []
+                        return <li className={entry === activeEntry ? "active" : undefined}>
+                            <a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a>
+                        </li>
+                    })
+                ]}
             </div>
         </header>
 

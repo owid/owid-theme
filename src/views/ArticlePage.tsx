@@ -19,7 +19,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
         <body>
-            <SiteHeader entries={entries}/>
+            <SiteHeader entries={entries} activeSlug={post.slug}/>
             <main>
                 <div className={"clearfix" + (post.tocHeadings.length > 0 ? " page-with-sidebar" : "")}>
                     {post.tocHeadings.length > 0 && <div className="entry-sidebar">

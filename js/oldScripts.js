@@ -103,6 +103,7 @@ var EntriesHeaderMenu = function() {
 
 	// Desktop menu
 	function showDefaultState() {	
+		return
 		$("#topics-dropdown").hide();
 		$("#entries-nav").hide();
 
@@ -135,8 +136,10 @@ var EntriesHeaderMenu = function() {
 		if (firstTime) {
 			$("#entries-nav").css({
 				'position': 'absolute',
-				'padding-bottom': '10px',
-				'border-bottom': $(".FrontPage").length ? '4px solid #FF4012' : 'none'
+				'padding-bottom': '20px',
+				'padding-left': '20px',
+				'padding-right': '20px',
+				'border-bottom': $(".FrontPage").length ? '4px solid #FF4012' : '1px solid rgba(0, 0, 0, 0.1)'
 			});
 			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
 			firstTime = false;

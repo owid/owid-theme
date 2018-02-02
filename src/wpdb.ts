@@ -100,14 +100,16 @@ export async function getAuthorship(): Promise<Map<number, string[]>> {
     return authorship
 }
 
+export interface EntryMeta {
+    slug: string
+    title: string
+    starred: boolean
+}
+
 export interface CategoryWithEntries {
-    name: string,
-    slug: string,
-    entries: {
-        slug: string,
-        title: string,
-        starred: boolean
-    }[]
+    name: string
+    slug: string
+    entries: EntryMeta[]
 }
 
 // Retrieve a list of categories and their associated entries

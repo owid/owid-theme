@@ -256,41 +256,41 @@ address a:hover {
 
 .SiteHeader {
 	min-height: 49px; /* 45 + border */
-	/*box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);*/
-	border-bottom: 4px solid #FF4012;;
-}
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-#owid-topbar {	
-	width: 100%;
-	height: 46px;
-	background-color: #001c3d;	
-}
 
-#owid-title {
-	float: left;
-	margin: 0;
-	padding-left: 15px;
-	padding-right: 15px;
-
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    height: 100%;
-    line-height: 46px;
-}
-
-#owid-title i {
-	color: white;
-	margin-right: 10px;
-	position: relative;
-}
-
-#owid-title a {
-    color: white;
-}
-
-#owid-topbar a {
-	outline: 0;
+	#owid-topbar {	
+		width: 100%;
+		height: 70px;
+		background-color: #001c3d;	
+	}
+	
+	.logo {
+		float: left;
+		margin: 0;
+		padding-left: 24px;
+		padding-right: 24px;
+	
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 26px;
+		font-weight: 400;
+		height: 100%;
+		line-height: 70px;
+	}
+	
+	.logo i {
+		color: white;
+		margin-right: 10px;
+		position: relative;
+	}
+	
+	.logo a {
+		color: white;
+	}
+	
+	#owid-topbar a {
+		outline: 0;
+	}
 }
 
 /* Site Header - Desktop */
@@ -324,7 +324,7 @@ address a:hover {
 	}
 
 	.SiteHeader {
-		padding-bottom: 10px;
+		padding-bottom: 20px;
 	}
 
 	#owid-topbar {
@@ -359,7 +359,7 @@ address a:hover {
 	#search-nav input {
 		width: auto;
 		-webkit-appearance: none;
-		width: 246px;
+		width: 270px;
 		padding: 0;
 		margin: 5px;
 		margin-left: 15px;
@@ -423,19 +423,14 @@ address a:hover {
 		display: inline;
 	}
 
-	#category-nav li.active > a,
-	#entries-nav li.active > a {
-		font-weight: bold;
-		}
+	#entries-nav li:not(:first-child)::after {
+		content: " · ";
+		font-weight: bold;   		
+	}
 
-		#entries-nav li:not(:first-child)::after {
-	    content: " · ";
-	    font-weight: bold;   		
-		}
-
-		#entries-nav li:last-child::after {
+	#entries-nav li:last-child::after {
 		content: none;   		
-		}
+	}
 
 	#category-nav ul.entries {
 		display: none;
@@ -447,12 +442,6 @@ address a:hover {
 		width: 100%;
 		/*box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.3);*/
 	}
-
-	#entries-nav ul {
-		max-width: 1140px;		
-		padding-bottom: 0.5em;
-		margin: auto;
-	}
 }
 
 /* Site Header - Mobile */
@@ -462,9 +451,12 @@ address a:hover {
 		display: none;
 	}
 
+	.SiteHeader .logo {
+		font-size: 20px;
+	}
 
 	.SiteHeader .mobile.right li > a {
-		line-height: 46px;
+		line-height: 70px;
 		text-transform: uppercase;
 		color: white;
 		font-size: 20px;
@@ -505,8 +497,8 @@ address a:hover {
 
 	.SiteHeader ul.mobile > li > a {
 		display: inline-flex;
-		height: 46px;
-		width: 46px;
+		height: 70px;
+		width: 70px;
 		align-items: center;
 		justify-content: center;
 		color: white;
@@ -618,37 +610,28 @@ address a:hover {
 
 	#search-dropdown form {
 		position: relative;
-		height: 46px;
+		height: 70px;
 		margin-bottom: 0;
 	}
 
 	#search-dropdown input {
 		float: left;
-		width: calc(100% - 60px);
+		width: 100%;
 		line-height: 100%;
 		height: 100%;
 		font-size: 14px;
 		border: none !important;
+		padding: 1em;
 	}
 
 	#search-dropdown input:hover {
 		border-right: 1px solid #ddd;
 	}
-
-	#search-dropdown button {
-		display: block;
-		float: right;
-		background: none !important;
-		color: #ccc;
-		height: 100%;
-		padding: 0 20px;
-		border: none;
-	}
 }
 
 /* Fix for title on really small screens */
 @media (max-width: 400px) {
-	#owid-title {
+	.logo {
 		max-width: calc(100% - 100px);
 		font-size: 20px;
 	}
@@ -1091,7 +1074,7 @@ span.star, .owid-data a.starred:after {
 }
 
 .article-content a[href*="ourworldindata.org"]:not(.image),
-.article-contenta[href^="/"]:not(.image) {
+.article-content a[href^="/"]:not(.image) {
 	border-bottom: 2px solid #c0023e;
 }
 
@@ -1099,24 +1082,6 @@ span.star, .owid-data a.starred:after {
 .article-content a[href^="/"]:not(.image):hover {
 	text-decoration: none;
 	border-color: #5b011d;
-}
-
-/* Wikipedia external link style */
-@media screen {
-	.article-content > * > a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-content > * > a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-content > * > a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-content > ul a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-content > ul a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-content > ul a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-footer a[href^="http://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-footer a[href^="https://"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image), 
-	.article-footer a[href^="//"]:not([href*="ourworldindata.org"]):not([href$=jpg]):not([href$=jpeg]):not([href$=png]):not([href$=gif]):not(.image) {
-		background-position: center right;
-		background-repeat: no-repeat;
-		background-image: linear-gradient(transparent,transparent),url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%3E%3Cpath%20fill%3D%22%23fff%22%20stroke%3D%22%235b011d%22%20d%3D%22M1.5%204.518h5.982V10.5H1.5z%22%2F%3E%3Cpath%20d%3D%22M5.765%201H11v5.39L9.427%207.937l-1.31-1.31L5.393%209.35l-2.69-2.688%202.81-2.808L4.2%202.544z%22%20fill%3D%22%235b011d%22%2F%3E%3Cpath%20d%3D%22M9.995%202.004l.022%204.885L8.2%205.07%205.32%207.95%204.09%206.723l2.882-2.88-1.85-1.852z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
-		padding-right: 13px;
-	}	
 }
 
 /* Homepage
@@ -1766,6 +1731,7 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 .article-header {
 	> h1 {
 		font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
+		font-size: 40px;
 		line-height: 1.2;
 		margin: 0 0 20px;
 	}
@@ -1953,6 +1919,10 @@ img {
 	text-align: center;
 	line-height: 0;
 
+	> a {
+		border-bottom: none !important;
+	}
+
 	div {
 		display: inline-block;
 		position: relative;
@@ -2103,6 +2073,7 @@ iframe:not(:first-child) {
 @media only screen and (max-width: 980px) {
 	article.post, article.page {
 		padding: 1rem;	
+		padding-top: 2rem;
 	}
 
 	.deep-link {
