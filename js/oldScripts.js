@@ -134,14 +134,14 @@ var EntriesHeaderMenu = function() {
 		ev.preventDefault();
 		var $category = $(ev.target).closest("li.category");
 		if (firstTime) {
-			$("#entries-nav").css({
+			/*$("#entries-nav").css({
 				'position': 'absolute',
 				'padding-bottom': '20px',
 				'padding-left': '20px',
 				'padding-right': '20px',
 				'border-bottom': $(".FrontPage").length ? '4px solid #FF4012' : '1px solid rgba(0, 0, 0, 0.1)'
 			});
-			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px"); 							
+			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px");*/
 			firstTime = false;
 		}
 		$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);

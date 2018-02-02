@@ -21,28 +21,23 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
 
     return <header className="SiteHeader">
         <nav id="owid-topbar">
-            <ul className="desktop right">
+            <a className="logo" href="/">Our World in Data</a>
+            <ul className="desktop">
                 <li>
                     <form id="search-nav" action="https://google.com/search" method="GET">
                         <input type="hidden" name="sitesearch" value="ourworldindata.org" />
                         <input type="search" name="q" placeholder="Search..." />
-                        <button type="submit">
-                            <i className="fa fa-search"></i>
-                        </button>
                     </form>
                 </li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/support">Donate</a></li>
             </ul>
-            <h1 className="logo">
-                <a href="/">Our World in Data</a>
-            </h1>
-            <ul className="mobile right">
+            <ul className="mobile">
                 <li className="nav-button">
                     <a href="/search" data-expand="#search-dropdown"><i className='fa fa-search'></i></a>
                 </li><li className="nav-button">
-                    <a href="/data" data-expand="#topics-dropdown" className='mobile'><i className='fa fa-bars'></i></a>
+                    <a href="/" data-expand="#topics-dropdown" className='mobile'><i className='fa fa-bars'></i></a>
                 </li>
             </ul>
         </nav>

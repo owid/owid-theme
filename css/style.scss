@@ -263,29 +263,21 @@ address a:hover {
 		width: 100%;
 		height: 70px;
 		background-color: #001c3d;	
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 	
 	.logo {
-		float: left;
 		margin: 0;
 		padding-left: 24px;
 		padding-right: 24px;
 	
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-		font-size: 26px;
+		font-size: 24px;
 		font-weight: 400;
-		height: 100%;
-		line-height: 70px;
-	}
-	
-	.logo i {
-		color: white;
-		margin-right: 10px;
-		position: relative;
-	}
-	
-	.logo a {
-		color: white;
+
+		color: rgba(255, 255, 255, 0.9);
 	}
 	
 	#owid-topbar a {
@@ -341,7 +333,7 @@ address a:hover {
 	#owid-topbar ul.desktop li > a {
 		height: 47px;
 		line-height: 47px;
-		color: white;
+		color: rgba(255, 255, 255, 0.9);
 	}
 
 	#owid-topbar ul.desktop i {
@@ -365,14 +357,6 @@ address a:hover {
 		margin-left: 15px;
 		margin-right: 15px;
 		border: none;
-	}
-
-	#search-nav button {
-		background: none;
-		border: none;
-		height: 35px;
-		cursor: pointer;
-		color: #b2b2b2;
 	}
 
 	#category-nav {
@@ -402,12 +386,13 @@ address a:hover {
 		cursor: pointer;
 		padding-bottom: 3px;
 		border-bottom: 2px solid transparent;
+		opacity: 0.8;
 	}
 
 	#category-nav a:hover, #entries-nav a:hover,
 	#category-nav li.active a, #entries-nav li.active a,
 	#category-nav li.selected a {
-		border-color: #d10a11;
+		opacity: 1;
 	}
 
 	#category-nav li {
@@ -416,7 +401,10 @@ address a:hover {
 	}
 
 	#entries-nav hr {
-		margin-bottom: 12.5px;
+		margin-bottom: 1.1em;
+		margin-top: 1.1em;
+		max-width: 1140px;
+		opacity: 0.8;
 	}
 
 	#entries-nav li {
@@ -492,7 +480,6 @@ address a:hover {
 
 	.SiteHeader ul.mobile > li {
 		display: inline-block;
-		border-left: 1px solid white;
 	}
 
 	.SiteHeader ul.mobile > li > a {
@@ -503,11 +490,12 @@ address a:hover {
 		justify-content: center;
 		color: white;
 		text-align: center;
-		font-size: 26px;
+		font-size: 20px;
 	}
 
 	.SiteHeader li.nav-button i {
 		pointer-events: none;
+		opacity: 0.9;
 	}
 
 	#topics-dropdown.mobile {
