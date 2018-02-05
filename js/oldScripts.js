@@ -108,13 +108,6 @@ var EntriesHeaderMenu = function() {
 		$("#entries-nav").show();
 		$("#category-nav li.category").removeClass("active").removeClass("selected");
 		$category.addClass("selected");
-
-		$("body").on('mousemove.entries', function(ev) {
-			if (!$(ev.target).closest("header.SiteHeader").length) {
-				$("body").off('mousemove.entries');
-				showDefaultState();
-			}
-		});			
 	}
 
 	// Mobile menu
@@ -150,8 +143,6 @@ var EntriesHeaderMenu = function() {
 			ev.preventDefault();
 			$(ev.target).closest('.category').toggleClass('active');
 		});
-
-		showDefaultState();
 	}
 
 	// HACK (Mispy): Stop mobile-desktop transition from being weird.
