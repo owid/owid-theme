@@ -101,49 +101,9 @@ var OWIDScrollNav = function() {
 var EntriesHeaderMenu = function() {
 	var canHoverMenu = false;
 
-	// Desktop menu
-	function showDefaultState() {	
-		return
-		$("#topics-dropdown").hide();
-		$("#entries-nav").hide();
-
-		if ($("header.SiteHeader .mobile:visible").length)
-			return;
-
-		$("#category-nav li.category").removeClass("active").removeClass("selected");
-
-		// If we're already on a page, show it in the nav
-		$("#category-nav ul.entries a").each(function() {
-			var $entry = $(this);
-			if ($("h1.entry-title").text() == $entry.text()) {
-				var $ul = $entry.closest("ul.entries");
-				$("#entries-nav").html($ul[0].outerHTML);
-				$("#entries-nav").show();
-
-				$("#entries-nav li").each(function() {
-					if ($("h1.entry-title").text() == $(this).text())
-						$(this).addClass("active");
-				});
-				$entry.closest(".category").addClass("active");
-			}
-		});
-	}
-
-	var firstTime = true;
 	function onCategoryActivate(ev) {
 		ev.preventDefault();
 		var $category = $(ev.target).closest("li.category");
-		if (firstTime) {
-			/*$("#entries-nav").css({
-				'position': 'absolute',
-				'padding-bottom': '20px',
-				'padding-left': '20px',
-				'padding-right': '20px',
-				'border-bottom': $(".FrontPage").length ? '4px solid #FF4012' : '1px solid rgba(0, 0, 0, 0.1)'
-			});
-			$("main").css("margin-top", parseInt($("main").css("margin-top")) + $("#entries-nav").height() + "px");*/
-			firstTime = false;
-		}
 		$("#entries-nav").html($category.find("ul.entries")[0].outerHTML);
 		$("#entries-nav").show();
 		$("#category-nav li.category").removeClass("active").removeClass("selected");
@@ -214,21 +174,6 @@ EntriesHeaderMenu();
 OWIDScrollNav();
 
 $(window).on('resize.toc', OWIDScrollNav);
-
-//remove hashtags from menu
-var $menuItems = $( ".scroll-nav" ).find( ".scroll-nav__item a, .scroll-nav__sub-item a" );
-$.each( $menuItems, function( i, v ) {
-	var $a = $( this ),
-		text = $a.text();
-	text = text.replace( "#", "" );
-	$a.text( text );
-} );
-
-window.openFancyBox = function( url ) {
-	$.fancybox.show( url );
-};
-
-$(".starred").attr("title", "Starred pages are our best and most complete entries.");
 
 // Don't let user enter empty search query
 $(".search-form").on("submit", function(evt) {

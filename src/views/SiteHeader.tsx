@@ -52,9 +52,11 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                         <div className="subcategory-menu">
                             <div className="submenu-title">{category.name}</div>
                             <ul>
-                                {category.entries.map(entry =>
-                                    <li><a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a></li>
-                                )}
+                                {category.entries.map(entry => {
+                                    return <li>
+                                        <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
+                                    </li>
+                                })}
                             </ul>
                         </div>
                     </li>
@@ -78,7 +80,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                         <ul className="entries">
                             <li><hr/></li>
                             {category.entries.map(entry =>
-                                <li><a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a></li>
+                                <li><a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a></li>
                             )}
                         </ul>
                     </li>
@@ -91,7 +93,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                     mainCategory.entries.map(entry => {
                         const classes = []
                         return <li className={entry === activeEntry ? "active" : undefined}>
-                            <a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a>
+                            <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
                         </li>
                     })
                 ]}

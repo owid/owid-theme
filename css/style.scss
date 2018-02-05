@@ -1061,17 +1061,6 @@ span.star, .owid-data a.starred:after {
 	text-decoration: underline;
 }
 
-.article-content a[href*="ourworldindata.org"]:not(.image),
-.article-content a[href^="/"]:not(.image) {
-	border-bottom: 2px solid #c0023e;
-}
-
-.article-content a[href*="ourworldindata.org"]:not(.image):hover,
-.article-content a[href^="/"]:not(.image):hover {
-	text-decoration: none;
-	border-color: #5b011d;
-}
-
 /* Homepage
 --------------------------------------------- */
 

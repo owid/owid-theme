@@ -48,7 +48,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                                 <h4 id={category.slug}>{category.name}</h4>
                                 <div className="link-container">
                                     {category.entries.map(entry =>
-                                        <a className={entry.starred ? "starred" : undefined} href={`/${entry.slug}`}>{entry.title}</a>
+                                        <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
                                     )}
                                 </div>
                             </li>)}
