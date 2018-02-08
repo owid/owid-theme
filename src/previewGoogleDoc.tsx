@@ -55,6 +55,7 @@ async function formatLatexBlocks(html: string, latexBlocks: string[]): Promise<s
     const compiled: string[] = []
     for (let latex of latexBlocks) {
         try {
+            latex = latex.replace("\\[", "").replace("\\]", "").replace(/\$\$/g, "")
             const result = await mjAPI.typeset({ math: latex, format: "TeX", svg: true })
             compiled.push(result.svg.replace("<svg", `<svg class="latex"`))
         } catch (err) {
