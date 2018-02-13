@@ -214,7 +214,7 @@ if (numEmbeds > 5) {
 } else if (window.innerWidth > window.innerHeight) {
 	$(".interactive img").each(function(i, el) {
 		var $img = $(el);
-		var height = $img.height()||598
+		var height = 598
 		$img.closest('div').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + (height+2) + 'px"/>');
 	});
 }
