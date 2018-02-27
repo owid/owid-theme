@@ -24,6 +24,7 @@ export function createConnection(props: { database: string }) {
     return new DatabaseConnection(mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        database: props.database
+        database: props.database,
+        charset: 'utf8mb4'
     }))
 }
