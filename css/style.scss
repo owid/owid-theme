@@ -210,7 +210,6 @@ address a:hover {
 	margin-right: auto;
 	text-align: center;
 	width: 100%;
-	max-width: 100%;
 }
 
 .article-content table > tbody {
@@ -1785,6 +1784,11 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 
 	> blockquote {
 		font-style: italic;
+	}
+
+	> .tableContainer {
+		width: 100%;
+		overflow-x: scroll;
 	}
 
 

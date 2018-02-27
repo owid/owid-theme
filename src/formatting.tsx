@@ -171,6 +171,14 @@ export async function formatPostLegacy(post: FullPost, html: string, grapherExpo
             $p.remove()
     }
 
+    // Wrap tables so we can do overflow-x: scroll if needed
+    for (const table of $("table").toArray()) {
+        const $table = $(table)
+        const $div = $("<div class='tableContainer'></div>")
+        $table.after($div)
+        $div.append($table)
+    }
+
     // Image processing
     const uploadDex = await getUploadedImages()
     for (const el of $("img").toArray()) {
