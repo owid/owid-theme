@@ -29,7 +29,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                         <input type="search" name="q" placeholder="Search..." />
                     </form>
                 </li>
-                <li><a href="/sdgs" title="Sustainable Development Goals">SDGs</a></li>
+                <li><a href="https://sdg-tracker.org" title="Sustainable Development Goals">SDGs</a></li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/support">Donate</a></li>
