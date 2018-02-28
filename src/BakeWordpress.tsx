@@ -48,7 +48,6 @@ export default class WordpressBaker {
             "/wp-content/uploads/nvd3/* https://www.maxroser.com/owidUploads/nvd3/:splat 302",
             "/wp-content/uploads/datamaps/* https://www.maxroser.com/owidUploads/datamaps/:splat 302",
             "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
-            "/sdgs/* https://owid-sdgs.netlify.com/sdgs/:splat 200",
             "/slides/Max_PPT_presentations/* https://www.maxroser.com/slides/Max_PPT_presentations/:splat 302",
             "/slides/Max_Interactive_Presentations/* https://www.maxroser.com/slides/Max_Interactive_Presentations/:splat 302"
         ]
