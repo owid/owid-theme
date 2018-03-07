@@ -240,6 +240,8 @@ export async function getFullPost(row: any): Promise<FullPost> {
     const featuredImages = await getFeaturedImages()
     const permalinks = await getPermalinks()
 
+    const postId = row.post_status === "inherit" ? row.post_parent : row.ID
+
     return {
         id: row.ID,
         type: row.post_type,
@@ -247,7 +249,7 @@ export async function getFullPost(row: any): Promise<FullPost> {
         title: row.post_title,
         date: new Date(row.post_date_gmt),
         modifiedDate: new Date(row.post_modified_gmt),
-        authors: authorship.get(row.ID) || [],
+        authors: authorship.get(postId) || [],
         content: row.post_content,
         excerpt: row.post_excerpt,
         imageUrl: featuredImages.get(row.ID)
