@@ -36,6 +36,9 @@ export default class WordpressBaker {
     async bakeRedirects() {
         const {props} = this
         const redirects = [
+            // Let's Encrypt certbot verification 
+            "/.well-known/* https://owid.cloud/.well-known/:splat 200",
+            
             "/feed /atom.xml 302",
             "/entries /#entries 302",
             "/chart-builder/* /grapher/:splat 301",
