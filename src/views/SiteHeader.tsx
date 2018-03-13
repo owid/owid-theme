@@ -36,9 +36,9 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
             </ul>
             <ul className="mobile">
                 <li className="nav-button">
-                    <a href="/search" data-expand="#search-dropdown"><i className='fa fa-search'></i></a>
+                    <a href="/search" data-expand="#search-dropdown"><i className='fac fac-search'></i></a>
                 </li><li className="nav-button">
-                    <a href="/" data-expand="#topics-dropdown" className='mobile'><i className='fa fa-bars'></i></a>
+                    <a href="/" data-expand="#topics-dropdown" className='mobile'><i className='fac fac-bars'></i></a>
                 </li>
             </ul>
         </nav>

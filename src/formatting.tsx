@@ -149,7 +149,7 @@ export async function formatPostLegacy(post: FullPost, html: string, grapherExpo
             const src = el.attribs['src']
             const chart = grapherExports.get(src)
             if (chart) {
-                const output = `<div class="interactive"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}" data-grapher-src="${src}"/></div></a></div>`
+                const output = `<figure data-grapher-src="${src}" class="grapherPreview"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}"/></div></a></div>`
                 const $p = $(el).closest('p')
                 $(el).remove()
                 $p.after(output)

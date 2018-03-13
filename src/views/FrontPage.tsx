@@ -64,9 +64,9 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                     <div id="homepage-twitter">
                         <h3><a href="https://twitter.com/MaxCRoser">Follow us</a></h3>
                         <div className="social">
-                            <a href="https://twitter.com/MaxCRoser"><i className="fa fa-twitter"></i></a>
-                            <a href="https://www.facebook.com/OurWorldinData"><i className="fa fa-facebook"></i></a>
-                            <a href="/feed/"><i className="fa fa-feed"></i></a>
+                            <a href="https://twitter.com/MaxCRoser"><i className="fac fac-twitter"></i></a>
+                            <a href="https://www.facebook.com/OurWorldinData"><i className="fac fac-facebook"></i></a>
+                            <a href="/feed/"><i className="fac fac-feed"></i></a>
                         </div>
                         <a className="twitter-timeline" data-height="600" href="https://twitter.com/MaxCRoser">Tweets by MaxCRoser</a> <script async src="//platform.twitter.com/widgets.js"></script>
                     </div>

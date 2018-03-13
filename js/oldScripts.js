@@ -201,24 +201,6 @@ $("a.ref sup").on("mouseover", function() {
 	});
 });
 
-// Progressive enhancement of interactive previews => embeds, on desktop
-var numEmbeds = $(".interactive").length
-if (numEmbeds > 5) {
-	$(".interactive a, .interactive img").on('click', function(ev) {
-		if (window.innerWidth > window.innerHeight) {
-			ev.preventDefault();
-			var $img = $(ev.target).closest('.interactive').find('img');
-			$img.closest('div').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + ($img.height()+2) + 'px"/>');
-		}
-	});
-} else if (window.innerWidth > window.innerHeight) {
-	$(".interactive img").each(function(i, el) {
-		var $img = $(el);
-		var height = 598
-		$img.closest('div').replaceWith('<iframe src="' + $img.attr("data-grapher-src") + '" style="height: ' + (height+2) + 'px"/>');
-	});
-}
-
 if (document.cookie.indexOf('wordpress') != -1 || document.cookie.indexOf('wp-settings') != -1 || document.cookie.indexOf('isAdmin') != -1) {
     $('#wpadminbar').show();
 }
