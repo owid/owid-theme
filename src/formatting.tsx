@@ -308,9 +308,7 @@ export async function formatPostMarkdown(post: FullPost, html: string, grapherEx
             const chart = grapherExports.get(src)
             if (chart) {
                 const output = `<figure data-grapher-src="${src}" class="grapherPreview"><a href="${src}" target="_blank"><div><img src="${chart.svgUrl}"/></div></a></div>`
-                const $p = $(el).closest('p')
-                $(el).remove()
-                $p.after(output)
+                $(el).replaceWith(output)
             }
         }
     }
