@@ -3,13 +3,14 @@ import * as React from 'react'
 
 export const Head = (props: { canonicalUrl: string, pageTitle?: string, pageDesc?: string, imageUrl?: string, children?: any }) => {
     const {canonicalUrl} = props
-    const pageTitle = props.pageTitle ? `${props.pageTitle} - Our World in Data` : `Our World in Data`
+    const pageTitle = props.pageTitle || `Our World in Data`
+    const fullPageTitle = props.pageTitle ? `${props.pageTitle} - Our World in Data` : `Our World in Data`
     const pageDesc = props.pageDesc || "Living conditions around the world are changing rapidly. Explore how and why."
     const imageUrl = props.imageUrl || `${BAKED_URL}/wp-content/uploads/2016/06/OurWorldInData.png`
 
     return <head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>{pageTitle}</title>
+        <title>{fullPageTitle}</title>
         <meta name="description" content={pageDesc}/>
         <link rel="canonical" href={canonicalUrl}/>
         <link rel="alternate" type="application/atom+xml" href="/atom.xml"/>
