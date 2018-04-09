@@ -211,19 +211,25 @@ address a:hover {
 	text-align: center;
 	width: 100%;
 
-	> tbody {
-		border-bottom: 1px solid #ddd;
-	}
 	
 	td,
 	th {
 		text-align: center;
-		border: 1px solid #aaa;
 		padding: 0.4em;
 	}
 	
 	th {
 		font-weight: 700;
+	}
+}
+
+.article-content .tableContainer > table:not(.borderless) {
+	> tbody {
+		border-bottom: 1px solid #ddd;
+	}
+
+	td, th {
+		border: 1px solid #aaa;
 	}
 }
 
