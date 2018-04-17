@@ -44,11 +44,11 @@ body { margin: 0; }
 --------------------------------------------- */
 
 html {
-	font-size: 14px;
 	line-height: 1.6em;
 	font-weight: 400;
     /* font-family: "Libre Franklin", "Helvetica Neue", sans-serif; */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+	/*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;*/
+	font-family: sans-serif;
     text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;	
@@ -58,12 +58,6 @@ html {
 body {
 	background-color: #fff;
 	color: rgba(0, 0, 0, 0.8);
-}
-
-@media (min-width: 768px) {
-	html {
-		font-size: 16px;
-	}
 }
 
 a,
@@ -1050,16 +1044,13 @@ span.star, .owid-data a.starred:after {
 	padding-right: 5px;
 }
 
-/* MISPY: Special styling of internal and external links */
-
 .article-content a,
 .article-footer a {
-	color: #c0023e;
+	color: #0645ad;
 }
 
 .article-content a:hover,
 .article-footer a:hover {
-	color: #5b011d;
 	text-decoration: underline;
 }
 
@@ -1715,9 +1706,7 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	/* The CSS here is very precise so as not to interfere with any iframeless embeds */
 
 	> p {
-		font-size: 1.06rem;
-		line-height: 1.7em;
-		margin-bottom: 1em;		
+		margin-bottom: 1em;
 	}
 
 	/* Major sections e.g. I. Empirical View */
@@ -1739,7 +1728,7 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	> h3 {
 		font-family: Georgia, "Times New Roman", Serif;
 		font-weight: 400;
-		font-size: 24px;
+		font-size: 22px;
 		line-height: 1.25em;
 		margin-top: 2rem;
 		margin-bottom: 1.5em;
@@ -1823,10 +1812,10 @@ hr.datasources-hr {
 }
 
 @media (min-width: 1024px) {
-	article {
+	/*article {
 		font-size: 1.06rem;
 		line-height: 1.7em;
-	}
+	}*/
 
 	.article-content > section > h2 {
 		font-size: 36px;
@@ -1914,7 +1903,7 @@ figure[data-grapher-src].grapherPreview {
 }
 
 figure[data-grapher-src]:not(.grapherPreview) {
-	height: 600px;
+	height: 575px;
 }
 
 
@@ -2058,10 +2047,11 @@ nav.entry-toc li {
 
 nav.entry-toc li > a {
 	color: inherit;
+	opacity: 0.7;
 }
 
-nav.entry-toc li.active {
-	color: #c0023e;
+nav.entry-toc li.active > a {
+	opacity: 1;
 }
 
 nav.entry-toc li.subsection {
@@ -2102,7 +2092,7 @@ article.page {
 @media only screen and (min-width: 980px) {
 	.page-with-sidebar article.page {
 		float: left;
-		width: 75%;
+		width: 70%;
 		border-right: 1px solid #eee;
 		padding: 1.5rem;
 		padding-bottom: 50px;
@@ -2110,7 +2100,7 @@ article.page {
 
 	.page-with-sidebar .entry-sidebar {
 		float: right;
-		width: 25%;
+		width: 30%;
 		padding: 20px;		
 		max-height: 100vh;
 		overflow-y: auto;		
