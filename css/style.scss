@@ -966,6 +966,10 @@ h1.entry-title > a:hover {
 	margin-bottom: 20px;
 	font-size: 0.7em;
 	text-align: center;
+
+	> p:last-child {
+		margin-bottom: 0;
+	}
 }
 
 main {
@@ -1823,7 +1827,7 @@ hr.datasources-hr {
 	}*/
 
 	.article-content > section > h2 {
-		font-size: 36px;
+		font-size: 32px;
 	}
 }
 
