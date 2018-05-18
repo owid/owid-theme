@@ -1,11 +1,15 @@
 import {createConnection} from './database'
 import {WORDPRESS_DB_NAME, WORDPRESS_DIR} from './settings'
+
 import {decodeHTML} from 'entities'
 var slugify = require('slugify')
-
 import * as path from 'path'
 import * as glob from 'glob'
 import * as _ from 'lodash'
+
+import { promisify } from 'util'
+import * as imageSizeStandard from 'image-size'
+const imageSize = promisify(imageSizeStandard) as any
 
 const wpdb = createConnection({
     database: WORDPRESS_DB_NAME
@@ -43,6 +47,7 @@ export async function getUploadedImages() {
         const filename = path.basename(filepath)
         const match = filepath.match(/(\/wp-content.*\/)([^\/]*?)-?(\d+x\d+)?\.(png|jpg|jpeg|gif)$/)
         if (match) {
+            const dimensions = await imageSize(filepath)
             const [_, dirpath, slug, dims, filetype] = match
             let upload = uploadDex.get(slug)
             if (!upload) {
@@ -54,14 +59,11 @@ export async function getUploadedImages() {
                 uploadDex.set(slug, upload)
             }
 
-            if (dims) {
-                const [width, height] = dims.split("x")
-                upload.variants.push({
-                    url: path.join(dirpath, filename),
-                    width: parseInt(width),
-                    height: parseInt(height)
-                })
-            }
+            upload.variants.push({
+                url: path.join(dirpath, filename),
+                width: dimensions.width,
+                height: dimensions.height
+            })
 
             uploadDex.set(filename, upload)
         }
