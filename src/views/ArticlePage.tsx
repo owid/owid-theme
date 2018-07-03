@@ -38,7 +38,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                         <header className="article-header">
                             <h1 className="entry-title">{post.title}</h1>
                             <div className="authors-byline">
-                                <a href="/about/#the-team">by {authorsText}</a><a className="citation-note js-only"><sup>[cite]</sup></a>
+                                <a href="/about/#team">by {authorsText}</a><a className="citation-note js-only"><sup>[cite]</sup></a>
                             </div>
                             <div className="citation-guideline">
                                 Our articles and data visualizations rely on work from many different people and organizations. When citing this entry, please also cite the underlying data sources. This entry can be cited as:<br/><br/>{authorsText} ({publishedYear}) - "{pageTitle}". <em>Published online at OurWorldInData.org.</em> Retrieved from: '{canonicalUrl}' [Online Resource]
