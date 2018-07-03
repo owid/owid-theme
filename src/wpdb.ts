@@ -185,26 +185,10 @@ export async function getEntriesByCategory(): Promise<CategoryWithEntries[]> {
     return cachedEntries
 }
 
-
-let cachedPermalinks: Map<number, string>
-export async function getCustomPermalinks() {
-    if (cachedPermalinks) return cachedPermalinks
-
-    const rows = await wpdb.query(`SELECT post_id, meta_value FROM wp_postmeta WHERE meta_key='custom_permalink'`)
-    const permalinks = new Map<number, string>()
-    for (const row of rows) {
-        permalinks.set(row.post_id, row.meta_value)
-    }
-
-    cachedPermalinks = permalinks
-    return permalinks
-}    
-
 export async function getPermalinks() {
-    const permalinks = await getCustomPermalinks()
-
     return {
-        get: (ID: number, post_name: string) => (permalinks.get(ID) || post_name).replace(/\/$/, "")
+        // Strip trailing slashes, and convert -- into / to allow custom subdirs like /about/media-coverage
+        get: (ID: number, post_name: string) => post_name.replace(/\/+$/g, "").replace(/--/g, "/")
     }
 }
 

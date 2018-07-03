@@ -1,4 +1,3 @@
-import * as request from 'request-promise'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as glob from 'glob'
@@ -34,7 +33,6 @@ export default class WordpressBaker {
     }
 
     async bakeRedirects() {
-        const {props} = this
         const redirects = [
             // Let's Encrypt certbot verification 
             "/.well-known/* https://owid.cloud/.well-known/:splat 200",
@@ -64,7 +62,7 @@ export default class WordpressBaker {
             "/grapher/view/* /grapher/:splat 301",
 
             // Main grapher chart urls are proxied through to separate repo
-            "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
+            "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200"
         ]
     
         const rows = await wpdb.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
@@ -104,7 +102,6 @@ export default class WordpressBaker {
 
     // Bake all Wordpress posts, both blog posts and entry pages
     async bakePosts() {
-        const {forceUpdate} = this.props
         const postsQuery = wpdb.query(`SELECT * FROM wp_posts WHERE (post_type='page' OR post_type='post') AND post_status='publish'`)
     
         const rows = await postsQuery
