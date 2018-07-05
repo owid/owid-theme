@@ -62,7 +62,9 @@ export default class WordpressBaker {
             "/grapher/view/* /grapher/:splat 301",
 
             // Main grapher chart urls are proxied through to separate repo
-            "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200"
+            "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
+
+            "/slides/* https://owid-slides.netlify.com/slides/:splat 200"
         ]
     
         const rows = await wpdb.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
@@ -121,7 +123,7 @@ export default class WordpressBaker {
 
         // Delete any previously rendered posts that aren't in the database
         const existingSlugs = glob.sync(`${BAKED_DIR}/**/*.html`).map(path => path.replace(`${BAKED_DIR}/`, '').replace(".html", ""))
-            .filter(path => !path.startsWith('wp-') && !path.startsWith('slides') && !path.startsWith('subscribe') && !path.startsWith('blog') && path !== "index" && path !== "identifyadmin" && path !== "404" && path !== "google8272294305985984")
+            .filter(path => !path.startsWith('wp-') && !path.startsWith('subscribe') && !path.startsWith('blog') && path !== "index" && path !== "identifyadmin" && path !== "404" && path !== "google8272294305985984")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
             const outPath = `${BAKED_DIR}/${slug}.html`
@@ -182,7 +184,6 @@ export default class WordpressBaker {
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-includes ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/favicon* ${BAKED_DIR}/`)
-        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/slides/ ${BAKED_DIR}/slides`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content/themes/owid-theme/public/*  ${BAKED_DIR}/`)
     }
 
