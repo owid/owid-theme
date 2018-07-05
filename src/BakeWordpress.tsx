@@ -64,7 +64,7 @@ export default class WordpressBaker {
             // Main grapher chart urls are proxied through to separate repo
             "/grapher/* https://owid-grapher.netlify.com/grapher/:splat 200",
 
-            "/slides/* https://owid-slides.netlify.com/slides/:splat 200"
+            "/slides/* https://slides.ourworldindata.org/:splat 302"
         ]
     
         const rows = await wpdb.query(`SELECT url, action_data, action_code FROM wp_redirection_items`)
