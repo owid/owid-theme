@@ -54,7 +54,10 @@ export default class WordpressBaker {
 
             // Backwards compatibility-- public urls
             "/entries /#entries 302",
-            "/data/food-agriculture/land-use-in-agriculture /yields-and-land-use-in-agriculture 301",
+            "/data/food-agriculture/* /:splat 301",
+            "/data/political-regimes/* /:splat 301",
+            "/data/population-growth-vital-statistics/* /:splat 301",
+            "/data/growth-and-distribution-of-prosperity/* /:splat 301",
 
             // Backwards compatibility-- grapher url style
             "/chart-builder/* /grapher/:splat 301",
