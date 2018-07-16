@@ -86,6 +86,7 @@ export async function getAuthorship(): Promise<Map<number, string[]>> {
         SELECT object_id, terms.description FROM wp_term_relationships AS rels
         LEFT JOIN wp_term_taxonomy AS terms ON terms.term_taxonomy_id=rels.term_taxonomy_id 
         WHERE terms.taxonomy='author'
+        ORDER BY rels.term_order ASC
     `)
 
     const authorship = new Map<number, string[]>()
@@ -187,8 +188,8 @@ export async function getEntriesByCategory(): Promise<CategoryWithEntries[]> {
 
 export async function getPermalinks() {
     return {
-        // Strip trailing slashes, and convert -- into / to allow custom subdirs like /about/media-coverage
-        get: (ID: number, post_name: string) => post_name.replace(/\/+$/g, "").replace(/--/g, "/")
+        // Strip trailing slashes, and convert __ into / to allow custom subdirs like /about/media-coverage
+        get: (ID: number, post_name: string) => post_name.replace(/\/+$/g, "").replace(/--/g, "/").replace(/__/g, "/")
     }
 }
 
