@@ -49,14 +49,14 @@ export async function getUploadedImages() {
         if (match) {
             const dimensions = await imageSize(filepath)
             const [_, dirpath, slug, dims, filetype] = match
-            let upload = uploadDex.get(slug)
+            let upload = uploadDex.get(dirpath+slug)
             if (!upload) {
                 upload = {
                     slug: slug,
                     originalUrl: `${path.join(dirpath, slug)}.${filetype}`,
                     variants: []
                 }
-                uploadDex.set(slug, upload)
+                uploadDex.set(dirpath+slug, upload)
             }
 
             upload.variants.push({
