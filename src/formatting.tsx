@@ -4,7 +4,7 @@ const wpautop = require('wpautop')
 import * as _ from 'lodash'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import {HTTPS_ONLY, WORDPRESS_URL, BAKED_DIR}  from './settings'
+import {HTTPS_ONLY, WORDPRESS_URL, BAKED_DIR, BAKED_URL}  from './settings'
 import { getTables, getUploadedImages, FullPost } from './wpdb'
 import Tablepress from './views/Tablepress'
 import {GrapherExports} from './grapherUtil'
@@ -414,9 +414,9 @@ export async function formatPostMarkdown(post: FullPost, html: string, grapherEx
 export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
     let html = post.content
 
-    // Use relative urls wherever possible
-    html = html.replace(new RegExp(WORDPRESS_URL, 'g'), "")
-        .replace(new RegExp("https?://ourworldindata.org", 'g'), "")
+    // Standardize urls
+    html = html.replace(new RegExp(WORDPRESS_URL, 'g'), BAKED_URL)
+        .replace(new RegExp("https?://ourworldindata.org", 'g'), BAKED_URL)
 
     const isRaw = html.match(/<!--raw-->/)
 
