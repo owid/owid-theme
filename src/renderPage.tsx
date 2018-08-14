@@ -36,7 +36,6 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
     const grapherUrls = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//)).map(el => el.attribs['src'])
     await bakeGrapherUrls(grapherUrls, { silent: true })
 
-
     const exportsByUrl = await getGrapherExportsByUrl()
     const formatted = await formatPost(post, exportsByUrl)
 

@@ -954,6 +954,7 @@ h1.entry-title > a:hover {
 	}
 }
 
+/* The little section at the top of blog posts that links to related entries */
 .blog-info {
 	border-top: 1px solid #999;
 	border-bottom: 1px solid #999;
@@ -965,6 +966,13 @@ h1.entry-title > a:hover {
 	> p:last-child {
 		margin-bottom: 0;
 	}
+}
+
+/* Optional abstract for blog posts */
+.blog-abstract {
+	background-color: #f8f7fe;
+	padding: 20px;
+	font-style: italic;
 }
 
 main {
