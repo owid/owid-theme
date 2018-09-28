@@ -1799,8 +1799,18 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 	}
 }
 
+hr {
+	color: lightgrey;
+	border-bottom:none;
+	border-left:none;
+	border-right: none;
+	padding-bottom: 8px;
+	border-top: 1px;
+	border-top-style: solid;
+	margin-bottom: 0;
+}
+
 /* The style of horizontal lines in the data sources section of every entry */
-.article-content > section:last-child > hr,
 hr.datasources-hr {
 	color: lightgrey;
 	border-top:none;
