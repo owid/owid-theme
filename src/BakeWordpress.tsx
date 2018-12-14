@@ -53,6 +53,7 @@ export default class WordpressBaker {
             "/slides/Max_Interactive_Presentations/* https://www.maxroser.com/slides/Max_Interactive_Presentations/:splat 302",
 
             // Backwards compatibility-- public urls
+            "/entries/* /:splat 301",
             "/entries /#entries 302",
             "/data/food-agriculture/* /:splat 301",
             "/data/political-regimes/* /:splat 301",
