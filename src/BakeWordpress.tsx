@@ -25,7 +25,7 @@ export interface WPBakerProps {
 
 export default class WordpressBaker {
     props: WPBakerProps
-    grapherExports: GrapherExports
+    grapherExports!: GrapherExports
     stagedFiles: string[] = []
     constructor(props: WPBakerProps) {
         this.props = props;
