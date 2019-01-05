@@ -1,6 +1,7 @@
 import {BAKED_URL, WORDPRESS_URL} from '../settings'
 import * as React from 'react'
 import { Head } from './Head'
+import { CitationMeta } from './CitationMeta'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { formatAuthors, FormattedPost } from '../formatting'
@@ -17,7 +18,9 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
     const publishedYear = post.modifiedDate.getFullYear()
 
     return <html>
-        <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
+        <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}>
+            <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate}/>
+        </Head>
         <body>
             <SiteHeader entries={entries} activeSlug={post.slug}/>
             <main>
