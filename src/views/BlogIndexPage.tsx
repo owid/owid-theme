@@ -29,7 +29,7 @@ export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: Po
                     <h2>Latest Posts</h2>
                     <ul className="posts">
                         {posts.map(post => 
-                            <li className="post">
+                            <li key={post.slug} className="post">
                                 <a href={`/${post.slug}`}>
                                     {post.imageUrl && <img src={post.imageUrl}/>}
                                     <h3>{post.title}</h3>
@@ -44,7 +44,7 @@ export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: Po
                         <h2 className="screen-reader-text">Posts navigation</h2>
                         <div className="nav-link">
                             {pageNums.map(num => 
-                                <a className={"page-numbers" + (num === pageNum ? " current" : "")} href={num === 1 ? '/blog/' : `/blog/page/${num}`}>{num}</a>
+                                <a key={num} className={"page-numbers" + (num === pageNum ? " current" : "")} href={num === 1 ? '/blog/' : `/blog/page/${num}`}>{num}</a>
                             )}
                         </div>
                     </nav>

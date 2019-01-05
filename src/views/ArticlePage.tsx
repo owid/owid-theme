@@ -32,8 +32,8 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                         <nav className="entry-toc">
                             <h3>Contents</h3>
                             <ol>
-                                {post.tocHeadings.map(heading => 
-                                    <li key={heading.slug} className={heading.isSubheading ? "subsection" : "section"}>
+                                {post.tocHeadings.map((heading, i) => 
+                                    <li key={i} className={heading.isSubheading ? "subsection" : "section"}>
                                         <a href={`#${heading.slug}`}>{heading.text}</a>
                                     </li>
                                 )}

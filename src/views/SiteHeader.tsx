@@ -77,7 +77,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
         <div id="category-nav" className="desktop">
             <ul>
                 {entries.map(category => 
-                    <li className={`category` + (_.includes(activeCategories, category) ? " active" : "")} title={category.name}>
+                    <li key={category.slug} className={`category` + (_.includes(activeCategories, category) ? " active" : "")} title={category.name}>
                         <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <ul className="entries">
                             <li><hr/></li>
@@ -91,7 +91,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
             </div>
             <div id="entries-nav" className="desktop">
                 {mainCategory && [
-                    <li><hr/></li>,
+                    <li key={0}><hr/></li>,
                     mainCategory.entries.map(entry => {
                         const classes = []
                         return <li key={entry.slug} className={entry === activeEntry ? "active" : undefined}>

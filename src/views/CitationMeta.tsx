@@ -10,7 +10,7 @@ export const CitationMeta = (props: { title: string, authors: string[], date: Da
 
     return <React.Fragment>
         <meta name="citation_title" content={title}/>
-        {authors.map(author => <meta name="citation_author" content={author} key={author}/>)}
+        {authors.map(author => <meta key={author} name="citation_author" content={author}/>)}
         <meta name="citation_publication_date" content={moment(date).format("YYYY/MM/DD")}/>
         <meta name="citation_journal_title" content="Our World in Data"/>
     </React.Fragment>

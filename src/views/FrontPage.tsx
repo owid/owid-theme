@@ -31,7 +31,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                     <div id="homepage-blog">
                         <h3><a href="/blog">Blog</a></h3>
                         <ul>
-                            {posts.map(post => <li className="post">
+                            {posts.map(post => <li key={post.slug} className="post">
                                 <h4><a href={`/${post.slug}`}>{post.title}</a></h4>
                                 <div className="entry-meta">
                                     <time>{formatDate(post.date)}</time>
@@ -44,11 +44,11 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                         <h3 id="entries"><a href="#entries">Entries</a></h3>
                         <p>Ongoing collections of research and data by topic. Entries marked with <span className="star">⭑</span> are the most complete.</p>
                         <ul>
-                            {entries.map(category => <li>
+                            {entries.map(category => <li key={category.slug}>
                                 <h4 id={category.slug}>{category.name}</h4>
                                 <div className="link-container">
                                     {category.entries.map(entry =>
-                                        <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
+                                        <a key={entry.slug} className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
                                     )}
                                 </div>
                             </li>)}
