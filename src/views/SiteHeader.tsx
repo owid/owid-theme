@@ -48,13 +48,13 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                     <h2>Entries</h2>
                 </li>
                 {entries.map(category =>
-                    <li className="category">
+                    <li key={category.slug} className="category">
                         <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <div className="subcategory-menu">
                             <div className="submenu-title">{category.name}</div>
                             <ul>
                                 {category.entries.map(entry => {
-                                    return <li>
+                                    return <li key={entry.slug}>
                                         <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
                                     </li>
                                 })}
@@ -82,7 +82,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                         <ul className="entries">
                             <li><hr/></li>
                             {category.entries.map(entry =>
-                                <li><a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a></li>
+                                <li key={entry.slug}><a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a></li>
                             )}
                         </ul>
                     </li>
@@ -94,7 +94,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                     <li><hr/></li>,
                     mainCategory.entries.map(entry => {
                         const classes = []
-                        return <li className={entry === activeEntry ? "active" : undefined}>
+                        return <li key={entry.slug} className={entry === activeEntry ? "active" : undefined}>
                             <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
                         </li>
                     })

@@ -33,7 +33,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                             <h3>Contents</h3>
                             <ol>
                                 {post.tocHeadings.map(heading => 
-                                    <li className={heading.isSubheading ? "subsection" : "section"}>
+                                    <li key={heading.slug} className={heading.isSubheading ? "subsection" : "section"}>
                                         <a href={`#${heading.slug}`}>{heading.text}</a>
                                     </li>
                                 )}
@@ -55,7 +55,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
                             <h3 id="footnotes">Footnotes</h3>
                             <ol className="footnotes">
                                 {post.footnotes.map((footnote, i) =>
-                                    <li id={`note-${i+1}`}>
+                                    <li key={`note-${i+1}`} id={`note-${i+1}`}>
                                         <p dangerouslySetInnerHTML={{__html: footnote}}/>
                                     </li>
                                 )}

@@ -17,10 +17,6 @@ module.exports = {
     },
   	resolve: {
         extensions: [".ts", ".tsx", ".js", ".css", ".scss"],
-        alias: {
-            'react': 'preact-compat',
-            'react-dom': 'preact-compat',
-        },
         modules: [
   	        path.join(__dirname, "js/libs"),
             path.join(__dirname, "css/libs"),
