@@ -7,6 +7,7 @@ import { SiteFooter } from './SiteFooter'
 import { formatAuthors, FormattedPost } from '../formatting'
 import { CategoryWithEntries } from '../wpdb'
 const urlSlug = require('url-slug')
+import * as _ from 'lodash'
 
 export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
     const {entries, post} = props
@@ -16,10 +17,12 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
     const canonicalUrl = `${BAKED_URL}/${post.slug}`
     const pageDesc = post.excerpt
     const publishedYear = post.modifiedDate.getFullYear()
+    const allEntries = _.flatten(_.values(entries).map(c => c.entries))
+    const isEntry = _.includes(allEntries.map(e => e.slug), post.slug)
 
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}>
-            <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate}/>
+            {isEntry && <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate}/>}
         </Head>
         <body>
             <SiteHeader entries={entries} activeSlug={post.slug}/>
