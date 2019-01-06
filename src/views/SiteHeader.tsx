@@ -32,6 +32,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                 <li><a href="https://sdg-tracker.org" title="Sustainable Development Goals">SDGs</a></li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/about">About</a></li>
+                <li><a href="/teaching">Teaching</a></li>
                 <li><a href="/support">Donate</a></li>
             </ul>
             <ul className="mobile">
