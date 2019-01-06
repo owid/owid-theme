@@ -1356,6 +1356,69 @@ span.star, .owid-data a.starred:after {
 	}
 }
 
+/* Teaching Page
+--------------------------------------------- */
+
+.teaching-hub #category-nav,
+.teaching-hub #entries-nav {
+	display: none;
+}
+
+.teaching-hub .article-content h2 {
+	font-family: inherit;
+	font-size: 36px;
+	font-weight: 700;
+	text-align: left;
+	margin: 2rem 0 2rem;
+}
+
+.teaching-hub .columns {
+	margin-bottom: 2rem;
+}
+
+.columns .column {
+	display: inline-block;
+	margin-right: 0.6rem;
+}
+
+a.button {
+	display: inline-block;
+	background-color: #3a4c71;
+	color: white;
+	padding: 0.75rem 1.4rem;
+	text-align: center;
+	line-height: 1.2;
+}
+
+a.button:hover {
+	text-decoration: none;
+	background-color: #4b5c7e;
+}
+
+a.primary-button {
+	background-color: #B62300;
+}
+
+a.primary-button:hover {
+	background-color: #bb4122;
+}
+
+a.button .label {
+	font-weight: bold;
+	margin-bottom: 0.3rem;
+}
+
+a.button .note {
+	font-size: 68.75%;
+	text-transform: uppercase;
+	letter-spacing: 0.04rem;
+	opacity: .6;
+}
+
+a.button span {
+	display: block;
+}
+
 /* OWID Data Entries Table
 --------------------------------------------- */
 
