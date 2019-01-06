@@ -27,20 +27,6 @@ export interface FormattedPost {
     tocHeadings: { text: string, slug: string, isSubheading: boolean }[]
 }
 
-function romanize(num: number) {
-	if (!+num)
-		return "";
-	var digits = String(+num).split(""),
-		key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-				"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-				"","I","II","III","IV","V","VI","VII","VIII","IX"],
-		roman = "",
-		i = 3;
-	while (i--)
-		roman = (key[+(digits.pop() as any) + (i * 10)] || "") + roman;
-	return Array(+digits.join("") + 1).join("M") + roman;
-}
-
 mjAPI.config({
     MathJax: {
       // traditional MathJax configuration
