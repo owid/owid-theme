@@ -2050,21 +2050,31 @@ iframe:not(:first-child) {
 }
 
 nav.entry-toc {
-	font-size: 13px;
+	line-height: 1.2;
+	font-size: 14px;
+}
+
+nav.entry-toc .section {
+	font-weight: 700;
+	margin-top: 20px;
+	color: #222;
+}
+
+nav.entry-toc .subsection {
+	color: #222;
+	margin-top: 5px;
 }
 
 nav.entry-toc h3 {
-    font-weight: 400;
-    line-height: 1.2;
-	margin: 0 0 20px;
-	font-size: 18px;
-	margin-bottom: 6px;
+	margin: 0;
+	font-size: 92.8%;
+	text-transform: uppercase;
+	color: #999;
 }
 
 nav.entry-toc li {
-	margin-left: 10px;
-	color: #333;
 	list-style-type: none;
+	position: relative;
 }
 
 nav.entry-toc li > a {
@@ -2074,11 +2084,6 @@ nav.entry-toc li > a {
 
 nav.entry-toc li.active > a {
 	opacity: 1;
-}
-
-nav.entry-toc li.subsection {
-	margin-top: 2px;
-	margin-left: 30px;
 }
 
 article.page .authors-byline .citation-note {
