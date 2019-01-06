@@ -4,13 +4,13 @@ import { Head } from './Head'
 import { CitationMeta } from './CitationMeta'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
-import { formatAuthors, FormattedPost } from '../formatting'
+import { formatAuthors, FormattedPost, FormattingOptions } from '../formatting'
 import { CategoryWithEntries } from '../wpdb'
 const urlSlug = require('url-slug')
 import * as _ from 'lodash'
 
-export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
-    const {entries, post} = props
+export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost, formattingOptions: FormattingOptions }) => {
+    const {entries, post, formattingOptions} = props
     const authorsText = formatAuthors(post.authors, true)
 
     const pageTitle = post.title
@@ -24,7 +24,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}>
             {isEntry && <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate}/>}
         </Head>
-        <body>
+        <body className={formattingOptions.bodyClassName || ""}>
             <SiteHeader entries={entries} activeSlug={post.slug}/>
             <main>
                 <div className={"clearfix" + (post.tocHeadings.length > 0 ? " page-with-sidebar" : "")}>

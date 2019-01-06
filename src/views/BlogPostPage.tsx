@@ -3,11 +3,11 @@ import * as React from 'react'
 import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
-import { formatAuthors, formatDate, FormattedPost } from '../formatting'
+import { formatAuthors, formatDate, FormattedPost, FormattingOptions } from '../formatting'
 import { CategoryWithEntries, FullPost } from '../wpdb'
 
-export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: FormattedPost }) => {
-    const {entries, post} = props
+export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: FormattedPost, formattingOptions: FormattingOptions }) => {
+    const {entries, post, formattingOptions} = props
     const authorsText = formatAuthors(post.authors)
 
     const pageTitle = post.title
@@ -16,7 +16,7 @@ export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: Form
 
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
-        <body className="single-post">
+        <body className={`single-post ${formattingOptions.bodyClassName || ""}`}>
             <SiteHeader entries={entries}/>
             <main>
                 <header className="blog-header">

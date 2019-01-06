@@ -3,6 +3,7 @@ import {ArticlePage} from './views/ArticlePage'
 import {BlogPostPage} from './views/BlogPostPage'
 import {BlogIndexPage} from './views/BlogIndexPage'
 import {FrontPage} from './views/FrontPage'
+import {TeachingPage} from './views/TeachingPage'
 import SubscribePage from './views/SubscribePage'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -12,7 +13,7 @@ import * as glob from 'glob'
 import * as _ from 'lodash'
 import * as fs from 'fs-extra'
 import { WORDPRESS_DIR } from './settings'
-import { formatPost } from './formatting'
+import { formatPost, extractFormattingOptions } from './formatting'
 import { bakeGrapherUrls, getGrapherExportsByUrl } from "./grapherUtil";
 import * as cheerio from 'cheerio'
 
@@ -37,12 +38,15 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
     await bakeGrapherUrls(grapherUrls, { silent: true })
 
     const exportsByUrl = await getGrapherExportsByUrl()
-    const formatted = await formatPost(post, exportsByUrl)
+
+    // Extract formatting options from post HTML comment (if any)
+    const formattingOptions = extractFormattingOptions(post.content)
+    const formatted = await formatPost(post, exportsByUrl, formattingOptions)
 
     if (rows[0].post_type === 'post')
-        return renderToHtmlPage(<BlogPostPage entries={entries} post={formatted}/>)
+        return renderToHtmlPage(<BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
     else
-        return renderToHtmlPage(<ArticlePage entries={entries} post={formatted}/>)
+        return renderToHtmlPage(<ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
 }
 
 export async function renderFrontPage() {

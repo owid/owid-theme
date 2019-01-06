@@ -78,7 +78,7 @@ async function formatLatex(html: string, latexBlocks?: string[]): Promise<string
     })
 }
 
-export async function formatWordpressPost(post: FullPost, html: string, grapherExports?: GrapherExports) {
+export async function formatWordpressPost(post: FullPost, html: string, grapherExports?: GrapherExports, formattingOptions: FormattingOptions) {
     // Strip comments
     html = html.replace(/<!--[^>]+-->/g, "")
 
@@ -90,7 +90,9 @@ export async function formatWordpressPost(post: FullPost, html: string, grapherE
     [html, latexBlocks] = extractLatex(html)
 
     // Replicate wordpress formatting (thank gods there's an npm package)
-    html = wpautop(html)
+    if (formattingOptions.wpFormat) {
+        html = wpautop(html)
+    }
 
     html = await formatLatex(html, latexBlocks)
 
@@ -195,42 +197,44 @@ export async function formatWordpressPost(post: FullPost, html: string, grapherE
     }
 
     // Table of contents and deep links
-    const hasToc = post.type === 'page' && post.slug !== 'about'
-    let openHeadingIndex = 0
-    let openSubheadingIndex = 0
-    const tocHeadings: { text: string, slug: string, isSubheading: boolean }[] = []
+
+    interface TocHeading {
+        text: string,
+        slug: string,
+        isSubheading: boolean
+    }
+
+    const tocHeadings: TocHeading[] = []
+    const existingSlugs: string[] = []
+    let parentHeading: TocHeading | null = null
+
     $("h1, h2, h3, h4").each((_, el) => {
         const $heading = $(el);
         const headingText = $heading.text()
         // We need both the text and the html because may contain footnote
-        let headingHtml = $heading.html() as string
-        const slug = urlSlug(headingText)
+        // let headingHtml = $heading.html() as string
+        let slug = urlSlug(headingText)
+
+        // Avoid If the slug already exists, try prepend the parent
+        if (existingSlugs.indexOf(slug) !== -1 && parentHeading != null) {
+            slug = `${parentHeading.slug}-${slug}`
+        }
+
+        existingSlugs.push(slug)
 
         // Table of contents
-        if (hasToc) {
+        if (formattingOptions.toc) {
             if ($heading.is("#footnotes") && footnotes.length > 0) {
                 tocHeadings.push({ text: headingText, slug: "footnotes", isSubheading: false })
             } else if (!$heading.is('h1') && !$heading.is('h4')) {
-                // Inject numbering into the text as well
                 if ($heading.is('h2')) {
-                    openHeadingIndex += 1;
-                    openSubheadingIndex = 0;
-                } else if ($heading.is('h3')) {
-                    openSubheadingIndex += 1;
+                    const tocHeading = { text: $heading.text(), slug: slug, isSubheading: false }
+                    tocHeadings.push(tocHeading)
+                    parentHeading = tocHeading
+                } else {
+                    tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: true })
                 }
-    
-                if (openHeadingIndex > 0) {
-                    if ($heading.is('h2')) {
-                        headingHtml = romanize(openHeadingIndex) + '. ' + headingHtml;
-                        $heading.html(headingHtml)
-                        tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: false })
-                    } else {
-                        headingHtml = romanize(openHeadingIndex) + '.' + openSubheadingIndex + ' ' + headingHtml;
-                        $heading.html(headingHtml)
-                        tocHeadings.push({ text: $heading.text(), slug: slug, isSubheading: true })
-                    }					
-                }
-            }    
+            }
         }
 
         // Deep link
@@ -253,7 +257,42 @@ export async function formatWordpressPost(post: FullPost, html: string, grapherE
     }
 }
 
-export async function formatPost(post: FullPost, grapherExports?: GrapherExports): Promise<FormattedPost> {
+export interface FormattingOptions {
+    toc?: boolean,
+    wpFormat?: boolean,
+    bodyClassName: string,
+    [key: string]: string | boolean | undefined
+}
+
+export function extractFormattingOptions(html: string): FormattingOptions {
+    const formattingOptionsMatch = html.match(/<!--\s*formatting-options\s+(.*)\s*-->/)
+    if (formattingOptionsMatch) {
+        return parseFormattingOptions(formattingOptionsMatch[1])
+    } else {
+        return {}
+    }
+}
+
+// Converts "toc:false raw somekey:somevalue" to { toc: false, raw: true, somekey: "somevalue" }
+// If only the key is specified, the value is assumed to be true (e.g. "raw" above)
+function parseFormattingOptions(text: string): FormattingOptions {
+    const options: { [key: string]: string | boolean } = {}
+    text.split(/\s+/)
+        // filter out empty strings
+        .filter((s) => s && s.length > 0)
+        // populate options object
+        .forEach((option: string) => {
+            const [name, value] = option.split(":")
+            let parsedValue
+            if (value === undefined || value === "true") parsedValue = true
+            else if (value === "false") parsedValue = false
+            else parsedValue = value
+            options[name] = parsedValue
+        })
+    return options
+}
+
+export async function formatPost(post: FullPost, grapherExports?: GrapherExports, formattingOptions: FormattingOptions): Promise<FormattedPost> {
     let html = post.content
 
     // Standardize urls
@@ -280,7 +319,12 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
             tocHeadings: []
         }
     } else {
-        return formatWordpressPost(post, html, grapherExports)
+        // Override formattingOptions if specified in the post (as an HTML comment)
+        const options: FormattingOptions = Object.assign({
+            toc: post.type === 'page',
+            wpFormat: true
+        }, formattingOptions)
+        return formatWordpressPost(post, html, grapherExports, options)
     }
 }
 
