@@ -48,9 +48,9 @@ var OWIDScrollNav = function() {
 		// Figure out where in the document we are
 		var lastHeadingIndex = null;
 		headings.each(function(i, $heading) {
-			// HACK (Mispy): The +5 is so being right on top of the heading after you
+			// HACK (Mispy): The +50 is so being right on top of the heading after you
 			// click a link in the TOC still counts as being under it
-			if ($heading.offset().top <= scrollTop+5)
+			if ($heading.offset().top <= scrollTop+50)
 				lastHeadingIndex = i;
 		});
 
