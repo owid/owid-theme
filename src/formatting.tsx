@@ -70,7 +70,7 @@ async function formatLatex(html: string, latexBlocks?: string[]): Promise<string
             compiled.push(`${latex} (parse error: ${err})`)
         }
     }
-    
+
     let i = -1
     return html.replace(/\[latex\]/g, _ => {
         i += 1
@@ -81,10 +81,10 @@ async function formatLatex(html: string, latexBlocks?: string[]): Promise<string
 export async function formatWordpressPost(post: FullPost, html: string, grapherExports?: GrapherExports) {
     // Strip comments
     html = html.replace(/<!--[^>]+-->/g, "")
-    
+
     // Standardize spacing
     html = html.replace(/&nbsp;/g, "").replace(/\r\n/g, "\n").replace(/\n+/g, "\n").replace(/\n/g, "\n\n")
-    
+
     // Need to skirt around wordpress formatting to get proper latex rendering
     let latexBlocks
     [html, latexBlocks] = extractLatex(html)
@@ -193,7 +193,7 @@ export async function formatWordpressPost(post: FullPost, html: string, grapherE
             }
         }
     }
-    
+
     // Table of contents and deep links
     const hasToc = post.type === 'page' && post.slug !== 'about'
     let openHeadingIndex = 0
@@ -293,7 +293,7 @@ export function formatAuthors(authors: string[], requireMax?: boolean): string {
         authorsText = authors[0]
     else
         authorsText += ` and ${_.last(authors)}`
-        
+
     return authorsText
 }
 

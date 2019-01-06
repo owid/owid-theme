@@ -76,7 +76,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
         </div>
         <div id="category-nav" className="desktop">
             <ul>
-                {entries.map(category => 
+                {entries.map(category =>
                     <li key={category.slug} className={`category` + (_.includes(activeCategories, category) ? " active" : "")} title={category.name}>
                         <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <ul className="entries">

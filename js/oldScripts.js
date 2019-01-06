@@ -48,13 +48,13 @@ var OWIDScrollNav = function() {
 			defaultTop = 10;
 
 		// Fix the TOC once we scroll past the header
-		if (scrollTop > mainOffset.top && !isFixed) {		
+		if (scrollTop > mainOffset.top && !isFixed) {
 			$sidebar.css({
 				position: 'fixed',
 				top: defaultTop + 'px',
 				left: navOffset.left,
 				width: $sidebar.outerWidth() + 'px'
-			});			
+			});
 		} else if (scrollTop < mainOffset.top && isFixed) {
 			$sidebar.attr('style', '');
 		}
@@ -77,7 +77,7 @@ var OWIDScrollNav = function() {
 
 		// Ensure TOC doesn't overlap the footer
 		var currentTop = parseFloat($sidebar.css('top')),
-			currentTopAdjustment = currentTop - defaultTop, 
+			currentTopAdjustment = currentTop - defaultTop,
 			footerMargin = 80,
 			unadjustedOverlapHeight = (navOffset.top - currentTopAdjustment + navHeight) - (footerOffset.top - footerMargin);
 
@@ -89,7 +89,7 @@ var OWIDScrollNav = function() {
 			$sidebar.css({
 				top: defaultTop + 'px'
 			});
-		}		
+		}
 	};
 
 	if ($sidebar.css("float") != "none") {
@@ -120,7 +120,7 @@ var EntriesHeaderMenu = function() {
 		if (toExpand == "#search-dropdown") {
 			$("#topics-dropdown").hide();
 		} else {
-			$("#search-dropdown").hide();		
+			$("#search-dropdown").hide();
 		}
 	});
 
