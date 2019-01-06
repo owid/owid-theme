@@ -1,20 +1,6 @@
 window.$ = window.jQuery = require('jquery')
 require ('./tooltip.js')
 
-function romanize(num) {
-	if (!+num)
-		return "";
-	var digits = String(+num).split(""),
-		key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-				"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-				"","I","II","III","IV","V","VI","VII","VIII","IX"],
-		roman = "",
-		i = 3;
-	while (i--)
-		roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-	return Array(+digits.join("") + 1).join("M") + roman;
-}
-
 // Construct scroll-friendly nav sidebar for entries. Should be idempotent so it
 // can be called again to reconstruct on window resize
 var OWIDScrollNav = function() {
