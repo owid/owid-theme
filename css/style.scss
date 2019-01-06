@@ -1369,19 +1369,19 @@ span.star, .owid-data a.starred:after {
 	font-size: 36px;
 	font-weight: 700;
 	text-align: left;
-	margin: 2rem 0 2rem;
+	margin: 1rem 0 2rem;
 }
 
 .teaching-hub .columns {
 	margin-bottom: 2rem;
 }
 
-.columns .column {
+.teaching-hub .columns .column {
 	display: inline-block;
 	margin-right: 0.6rem;
 }
 
-a.button {
+.teaching-hub .button {
 	display: inline-block;
 	background-color: #3a4c71;
 	color: white;
@@ -1390,33 +1390,45 @@ a.button {
 	line-height: 1.2;
 }
 
-a.button:hover {
+.teaching-hub .button:hover {
 	text-decoration: none;
 	background-color: #4b5c7e;
 }
 
-a.primary-button {
+.teaching-hub a.button:visited {
+	color: white;
+}
+
+.teaching-hub .primary-button {
 	background-color: #B62300;
 }
 
-a.primary-button:hover {
+.teaching-hub .primary-button:hover {
 	background-color: #bb4122;
 }
 
-a.button .label {
+.teaching-hub .button .label {
 	font-weight: bold;
 	margin-bottom: 0.3rem;
 }
 
-a.button .note {
+.teaching-hub .button .note {
 	font-size: 68.75%;
 	text-transform: uppercase;
 	letter-spacing: 0.04rem;
 	opacity: .6;
 }
 
-a.button span {
+.teaching-hub .button span {
 	display: block;
+}
+
+.teaching-hub .authors-byline {
+	display: none;
+}
+
+.teaching-hub .button::selection {
+	background: transparent;
 }
 
 /* OWID Data Entries Table
