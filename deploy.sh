@@ -6,6 +6,10 @@ if [ "$1" == "test" ]; then
   HOST="owid@terra"
   ENV="test"
   WORDPRESS_DIR="/home/owid/test.ourworldindata.org"
+elif [ "$1" == "mispytest" ]; then
+  HOST="owid@terra"
+  ENV="mispytest"
+  WORDPRESS_DIR="/home/owid/mispytest-wordpress"
 elif [ "$1" == "live" ]; then
   ENV="live"
   HOST="owid@terra"
@@ -21,7 +25,6 @@ fi
 
 if [[ $REPLY =~ ^[Yy]$ ]] || [ "$1" != "live" ]
 then
-  ./node_modules/.bin/webpack -p
 
   TMP="/home/owid/tmp"
   OLD_REPO="$TMP/$ENV-owid-theme-old"
@@ -40,8 +43,8 @@ then
     ln -sf $DATA/.env $FINAL_TARGET/.env
 
     cd $FINAL_TARGET
-    yarn
-    ./node_modules/.bin/tsc
+    yarn install --production
+    yarn build
     node dist/src/deployHook.js
 EOF
 fi

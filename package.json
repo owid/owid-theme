@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "webpack -p",
-    "dev": "./node_modules/.bin/concurrently --kill-others --raw \"tsc -w\" \"webpack-dev-server\""
+    "build": "rm -rf dist && tsc && webpack -p --progress",
+    "dev": "concurrently --kill-others --raw \"tsc -w\" \"webpack-dev-server\""
   },
   "dependencies": {
     "@types/cheerio": "^0.22.6",
