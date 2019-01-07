@@ -1373,21 +1373,27 @@ span.star, .owid-data a.starred:after {
 }
 
 .teaching-hub .columns {
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
 }
 
 .teaching-hub .columns .column {
 	display: inline-block;
-	margin-right: 0.6rem;
+	margin: 0 .6rem .6rem 0;
+}
+
+@media screen and (max-width: 640px) {
+	.teaching-hub .columns .column {
+		display: block;
+	}
 }
 
 .teaching-hub .button {
-	display: inline-block;
 	background-color: #3a4c71;
 	color: white;
 	padding: 0.75rem 1.4rem;
 	text-align: center;
 	line-height: 1.2;
+	display: block;
 }
 
 .teaching-hub .button:hover {
