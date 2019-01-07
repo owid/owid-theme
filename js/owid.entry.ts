@@ -10,6 +10,6 @@ if (search) {
     let lastQuery = ""
     search.addEventListener('submit', (ev) => {
         ev.preventDefault()
-        Analytics.logEvent("OWID_SITE_SEARCH", { query: input.value, href: window.location.href }).then(() => search.submit()).catch(() => search.submit())
+        Analytics.logEvent("OWID_SITE_SEARCH", { query: input.value }).then(() => search.submit()).catch(() => search.submit())
     })
 }
