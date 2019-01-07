@@ -66,6 +66,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                 <li className="end-link"><a href="https://sdg-tracker.org">SDGs</a></li>
                 <li className="end-link"><a href="/blog">Blog</a></li>
                 <li className='end-link'><a href='/about'>About</a></li>
+                <li className='end-link'><a href='/teaching'>Teaching</a></li>
                 <li className='end-link'><a href='/support'>Donate</a></li>
             </ul>
         </div>
