@@ -11,7 +11,7 @@ import { formatPost, FormattedPost, extractFormattingOptions, formatWordpressPos
 import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
-const { BAKED_DIR, BAKED_URL, WORDPRESS_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
+const { BAKED_DIR, BAKED_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
 import { renderToHtmlPage, renderFrontPage, renderSubscribePage, renderBlogByPageNum } from './renderPage'
 import { bakeGrapherUrls, getGrapherExportsByUrl, GrapherExports } from './grapherUtil'
 
