@@ -1,7 +1,5 @@
 const path = require('path')
-const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production'
@@ -58,30 +56,6 @@ module.exports = (env, argv) => {
             // This plugin extracts css files required in the entry points
             // into a separate CSS bundle for download
             new ExtractTextPlugin('[name].css'),
-
-            // CSS optimization
-            /*new OptimizeCssAssetsPlugin({
-                assetNameRegExp: /\.bundle.*\.css$/,
-                cssProcessorOptions: { discardComments: { removeAll: true } }
-            }),*/
-
-            // JS optimization
-            new ParallelUglifyPlugin({
-                cachePath: path.join(__dirname, 'tmp'),
-                uglifyJS: {
-                    compress: {
-                    warnings: false,
-                    conditionals: true,
-                    unused: false,
-                    comparisons: true,
-                    sequences: true,
-                    dead_code: true,
-                    evaluate: true,
-                    if_return: true,
-                    join_vars: true
-                    },
-                }
-            }),
         ] : [
             new ExtractTextPlugin('[name].css')
         ]),
