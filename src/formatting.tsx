@@ -246,7 +246,7 @@ export async function formatWordpressPost(post: FullPost, html: string, grapherE
 export interface FormattingOptions {
     toc?: boolean,
     wpFormat?: boolean,
-    bodyClassName: string,
+    bodyClassName?: string,
     [key: string]: string | boolean | undefined
 }
 
