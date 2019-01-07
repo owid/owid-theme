@@ -7,7 +7,7 @@ import * as _ from 'lodash'
 import * as cheerio from 'cheerio'
 
 import * as wpdb from './wpdb'
-import { formatPost, FormattedPost } from './formatting'
+import { formatPost, FormattedPost, extractFormattingOptions, formatWordpressPost } from './formatting'
 import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
@@ -96,9 +96,12 @@ export default class WordpressBaker {
     // Bake an individual post/page
     async bakePost(post: wpdb.FullPost) {
         const entries = await wpdb.getEntriesByCategory()
-        const formatted = await formatPost(post, this.grapherExports)
+        const formattingOptions = extractFormattingOptions(post.content)
+        const formatted = await formatPost(post, this.grapherExports, formattingOptions)
         const html = renderToHtmlPage(
-            post.type == 'post' ? <BlogPostPage entries={entries} post={formatted}/> : <ArticlePage entries={entries} post={formatted}/>
+            post.type == 'post'
+                ? <BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />
+                : <ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />
         )
 
         const outPath = path.join(BAKED_DIR, `${post.slug}.html`)
