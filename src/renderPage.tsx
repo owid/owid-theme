@@ -40,7 +40,7 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
 
     // Extract formatting options from post HTML comment (if any)
     const formattingOptions = extractFormattingOptions(post.content)
-    const formatted = await formatPost(post, exportsByUrl, formattingOptions)
+    const formatted = await formatPost(post, formattingOptions, exportsByUrl)
 
     if (rows[0].post_type === 'post')
         return renderToHtmlPage(<BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />)

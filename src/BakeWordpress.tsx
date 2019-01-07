@@ -97,7 +97,7 @@ export default class WordpressBaker {
     async bakePost(post: wpdb.FullPost) {
         const entries = await wpdb.getEntriesByCategory()
         const formattingOptions = extractFormattingOptions(post.content)
-        const formatted = await formatPost(post, this.grapherExports, formattingOptions)
+        const formatted = await formatPost(post, formattingOptions, this.grapherExports)
         const html = renderToHtmlPage(
             post.type == 'post'
                 ? <BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />
@@ -161,7 +161,8 @@ export default class WordpressBaker {
         const posts: FormattedPost[] = []
         for (const row of postRows) {
             const fullPost = await wpdb.getFullPost(row)
-            posts.push(await formatPost(fullPost))
+            const formattingOptions = extractFormattingOptions(fullPost.content)
+            posts.push(await formatPost(fullPost, formattingOptions))
         }
 
         const feed = `<?xml version="1.0" encoding="utf-8"?>

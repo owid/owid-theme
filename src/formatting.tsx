@@ -64,7 +64,7 @@ async function formatLatex(html: string, latexBlocks?: string[]): Promise<string
     })
 }
 
-export async function formatWordpressPost(post: FullPost, html: string, grapherExports?: GrapherExports, formattingOptions: FormattingOptions) {
+export async function formatWordpressPost(post: FullPost, html: string, formattingOptions: FormattingOptions, grapherExports?: GrapherExports) {
     // Strip comments
     html = html.replace(/<!--[^>]+-->/g, "")
 
@@ -278,7 +278,7 @@ function parseFormattingOptions(text: string): FormattingOptions {
     return options
 }
 
-export async function formatPost(post: FullPost, grapherExports?: GrapherExports, formattingOptions: FormattingOptions): Promise<FormattedPost> {
+export async function formatPost(post: FullPost, formattingOptions: FormattingOptions, grapherExports?: GrapherExports): Promise<FormattedPost> {
     let html = post.content
 
     // Standardize urls
@@ -310,7 +310,7 @@ export async function formatPost(post: FullPost, grapherExports?: GrapherExports
             toc: post.type === 'page',
             wpFormat: true
         }, formattingOptions)
-        return formatWordpressPost(post, html, grapherExports, options)
+        return formatWordpressPost(post, html, options, grapherExports)
     }
 }
 
