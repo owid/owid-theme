@@ -2126,18 +2126,18 @@ iframe:not(:first-child) {
 
 nav.entry-toc {
 	line-height: 1.2;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 nav.entry-toc .section {
 	font-weight: 700;
 	margin-top: 20px;
-	color: #222;
+	color: #111;
 }
 
 nav.entry-toc .subsection {
-	color: #222;
-	margin-top: 5px;
+	color: #444;
+	margin-top: 0.4375em;
 }
 
 nav.entry-toc h3 {
