@@ -1,5 +1,6 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const devServer = require('./dist/src/devServer').devServer
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production'
@@ -12,7 +13,8 @@ module.exports = (env, argv) => {
         },
         output: {
             path: path.join(__dirname, "dist"),
-            filename: "js/[name].js"
+            filename: "js/[name].js",
+            libraryTarget: 'umd'
         },
         resolve: {
             extensions: [".ts", ".tsx", ".js", ".css", ".scss"],
@@ -57,7 +59,7 @@ module.exports = (env, argv) => {
             // into a separate CSS bundle for download
             new ExtractTextPlugin('[name].css'),
         ] : [
-            new ExtractTextPlugin('[name].css')
+            new ExtractTextPlugin('[name].css'),
         ]),
 
         devServer: {
@@ -65,6 +67,9 @@ module.exports = (env, argv) => {
             port: 8095,
             contentBase: 'public',
             disableHostCheck: true,
+            before: function(app, server) {
+                app.use('/', devServer)
+            },
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
