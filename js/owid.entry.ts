@@ -2,7 +2,7 @@ import '../css/style.scss'
 import './oldScripts.js'
 import {Analytics} from './Analytics'
 
-Analytics.logEvent("OWID_PAGE_LOAD", { href: window.location.href, title: document.title })
+Analytics.logEvent("OWID_PAGE_LOAD")
 
 const search = document.querySelector("form#search-nav") as HTMLFormElement
 if (search) {
