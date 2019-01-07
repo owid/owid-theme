@@ -32,6 +32,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                 <li><a href="https://sdg-tracker.org" title="Sustainable Development Goals">SDGs</a></li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/about">About</a></li>
+                <li><a href="/teaching">Teaching</a></li>
                 <li><a href="/support">Donate</a></li>
             </ul>
             <ul className="mobile">
@@ -76,7 +77,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
         </div>
         <div id="category-nav" className="desktop">
             <ul>
-                {entries.map(category => 
+                {entries.map(category =>
                     <li key={category.slug} className={`category` + (_.includes(activeCategories, category) ? " active" : "")} title={category.name}>
                         <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                         <ul className="entries">

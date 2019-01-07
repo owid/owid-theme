@@ -1,20 +1,6 @@
 window.$ = window.jQuery = require('jquery')
 require ('./tooltip.js')
 
-function romanize(num) {
-	if (!+num)
-		return "";
-	var digits = String(+num).split(""),
-		key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-				"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-				"","I","II","III","IV","V","VI","VII","VIII","IX"],
-		roman = "",
-		i = 3;
-	while (i--)
-		roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-	return Array(+digits.join("") + 1).join("M") + roman;
-}
-
 // Construct scroll-friendly nav sidebar for entries. Should be idempotent so it
 // can be called again to reconstruct on window resize
 var OWIDScrollNav = function() {
@@ -48,13 +34,13 @@ var OWIDScrollNav = function() {
 			defaultTop = 10;
 
 		// Fix the TOC once we scroll past the header
-		if (scrollTop > mainOffset.top && !isFixed) {		
+		if (scrollTop > mainOffset.top && !isFixed) {
 			$sidebar.css({
 				position: 'fixed',
 				top: defaultTop + 'px',
 				left: navOffset.left,
 				width: $sidebar.outerWidth() + 'px'
-			});			
+			});
 		} else if (scrollTop < mainOffset.top && isFixed) {
 			$sidebar.attr('style', '');
 		}
@@ -62,9 +48,9 @@ var OWIDScrollNav = function() {
 		// Figure out where in the document we are
 		var lastHeadingIndex = null;
 		headings.each(function(i, $heading) {
-			// HACK (Mispy): The +5 is so being right on top of the heading after you
+			// HACK (Mispy): The +50 is so being right on top of the heading after you
 			// click a link in the TOC still counts as being under it
-			if ($heading.offset().top <= scrollTop+5)
+			if ($heading.offset().top <= scrollTop+50)
 				lastHeadingIndex = i;
 		});
 
@@ -77,7 +63,7 @@ var OWIDScrollNav = function() {
 
 		// Ensure TOC doesn't overlap the footer
 		var currentTop = parseFloat($sidebar.css('top')),
-			currentTopAdjustment = currentTop - defaultTop, 
+			currentTopAdjustment = currentTop - defaultTop,
 			footerMargin = 80,
 			unadjustedOverlapHeight = (navOffset.top - currentTopAdjustment + navHeight) - (footerOffset.top - footerMargin);
 
@@ -89,7 +75,7 @@ var OWIDScrollNav = function() {
 			$sidebar.css({
 				top: defaultTop + 'px'
 			});
-		}		
+		}
 	};
 
 	if ($sidebar.css("float") != "none") {
@@ -120,7 +106,7 @@ var EntriesHeaderMenu = function() {
 		if (toExpand == "#search-dropdown") {
 			$("#topics-dropdown").hide();
 		} else {
-			$("#search-dropdown").hide();		
+			$("#search-dropdown").hide();
 		}
 	});
 
