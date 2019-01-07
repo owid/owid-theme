@@ -2161,6 +2161,13 @@ nav.entry-toc li.active > a {
 	opacity: 1;
 }
 
+nav.entry-toc li.active::before {
+	content: '\2022';
+	position: absolute;
+	right: 100%;
+	margin-right: 4px;
+}
+
 article.page .authors-byline .citation-note {
 	opacity: .9;
 	color: #0645ad;
