@@ -1,10 +1,6 @@
 import * as settings from '../settings'
 import * as React from 'react'
 import { Head } from './Head'
-import { SiteHeader } from './SiteHeader'
-import { SiteFooter } from './SiteFooter'
-import { CategoryWithEntries } from '../wpdb'
-import { formatDate } from '../formatting'
 
 export default function SubscribePage() {
     const style = `

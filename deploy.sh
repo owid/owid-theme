@@ -25,7 +25,6 @@ fi
 
 if [[ $REPLY =~ ^[Yy]$ ]] || [ "$1" != "live" ]
 then
-
   TMP="/home/owid/tmp"
   OLD_REPO="$TMP/$ENV-owid-theme-old"
   SYNC_TARGET="$TMP/$ENV-owid-theme"

@@ -21,6 +21,13 @@ export function renderToHtmlPage(element: any) {
     return `<!doctype html>${ReactDOMServer.renderToStaticMarkup(element)}`
 }
 
+type wpPostRow = any
+
+export async function renderPageBySlug(slug: string) {
+    const rows = await wpdb.query(`SELECT * FROM wp_posts AS post WHERE post_name=?`, [slug])
+    return renderPage(rows[0])
+}
+
 export async function renderPageById(id: number, isPreview?: boolean): Promise<string> {
     let rows
     if (isPreview) {
@@ -29,7 +36,11 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
         rows = await wpdb.query(`SELECT * FROM wp_posts AS post WHERE ID=?`, [id])
     }
 
-    const post = await wpdb.getFullPost(rows[0])
+    return renderPage(rows[0])
+}
+
+async function renderPage(postRow: wpPostRow) {
+    const post = await wpdb.getFullPost(postRow)
     const entries = await wpdb.getEntriesByCategory()
 
     const $ = cheerio.load(post.content)
@@ -42,11 +53,12 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
     const formattingOptions = extractFormattingOptions(post.content)
     const formatted = await formatPost(post, formattingOptions, exportsByUrl)
 
-    if (rows[0].post_type === 'post')
+    if (postRow.post_type === 'post')
         return renderToHtmlPage(<BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
     else
         return renderToHtmlPage(<ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
 }
+
 
 export async function renderFrontPage() {
     const postRows = await wpdb.query(`

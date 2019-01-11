@@ -6,7 +6,6 @@ import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { formatAuthors, FormattedPost, FormattingOptions } from '../formatting'
 import { CategoryWithEntries } from '../wpdb'
-const urlSlug = require('url-slug')
 import * as _ from 'lodash'
 
 export const ArticlePage = (props: { entries: CategoryWithEntries[], post: FormattedPost, formattingOptions: FormattingOptions }) => {

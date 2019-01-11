@@ -67,7 +67,7 @@ module.exports = (env, argv) => {
             port: 8095,
             contentBase: 'public',
             disableHostCheck: true,
-            before: function(app, server) {
+            after: function(app, server) {
                 app.use('/', devServer)
             },
             headers: {

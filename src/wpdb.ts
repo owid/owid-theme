@@ -23,7 +23,6 @@ export function end() {
     wpdb.end()
 }
 
-
 interface ImageUpload {
     slug: string
     originalUrl: string

@@ -1,4 +1,3 @@
-import * as settings from '../settings'
 import * as React from 'react'
 
 export default function Tablepress(props: { data: string[][] }) {

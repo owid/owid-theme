@@ -1,6 +1,5 @@
-import {BAKED_URL, ASSETS_URL} from '../settings'
 import * as React from 'react'
-import moment = require('moment');
+import moment = require('moment')
 
 export const CitationMeta = (props: { title: string, authors: string[], date: Date }) => {
     let {title, authors, date} = props
