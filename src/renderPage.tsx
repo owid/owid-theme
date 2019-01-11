@@ -1,8 +1,10 @@
 import * as wpdb from "./wpdb"
+import * as grapherDb from './grapherDb'
 import {ArticlePage} from './views/ArticlePage'
 import {BlogPostPage} from './views/BlogPostPage'
 import {BlogIndexPage} from './views/BlogIndexPage'
 import {FrontPage} from './views/FrontPage'
+import {ChartsIndexPage, ChartIndexItem} from './views/ChartsIndexPage'
 import SubscribePage from './views/SubscribePage'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -13,7 +15,7 @@ import * as _ from 'lodash'
 import * as fs from 'fs-extra'
 import { WORDPRESS_DIR } from './settings'
 import { formatPost, extractFormattingOptions } from './formatting'
-import { bakeGrapherUrls, getGrapherExportsByUrl } from "./grapherUtil";
+import { bakeGrapherUrls, getGrapherExportsByUrl } from "./grapherUtil"
 import * as cheerio from 'cheerio'
 
 // Wrap ReactDOMServer to stick the doctype on
@@ -22,6 +24,12 @@ export function renderToHtmlPage(element: any) {
 }
 
 type wpPostRow = any
+
+export async function renderChartsPage() {
+    const entries = await wpdb.getEntriesByCategory()
+    const chartItems = await grapherDb.query(`SELECT config->>"$.slug" AS slug, config->>"$.title" AS title FROM charts`) as ChartIndexItem[]
+    return renderToHtmlPage(<ChartsIndexPage entries={entries} chartItems={chartItems}/>)
+}
 
 export async function renderPageBySlug(slug: string) {
     const rows = await wpdb.query(`SELECT * FROM wp_posts AS post WHERE post_name=?`, [slug])

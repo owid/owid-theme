@@ -2406,6 +2406,33 @@ html:not(.js) {
 	}
 }
 
+.ChartsIndexPage {
 
-/* SDGs */
+	.chartsHeader {
+		margin: 0 3vw;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
 
+	input[type=search] {
+		width: 100%;
+		padding: 10px;
+	}
+
+	main {
+		padding: 0 3vw;
+		margin-bottom: 30px;
+	}
+
+    main ul {
+        display: flex;
+		flex-wrap: wrap;
+    }
+
+    main ul > li {
+        list-style-type: none;
+		flex: 1 0 400px;
+		padding: 5px 0;
+		padding-right: 5px;
+    }
+}

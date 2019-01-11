@@ -1,6 +1,7 @@
 import '../css/style.scss'
 import './oldScripts.js'
 import {Analytics} from './Analytics'
+import {runChartsIndexPage} from './runChartsIndexPage'
 
 Analytics.logEvent("OWID_PAGE_LOAD")
 
@@ -40,3 +41,7 @@ if (trackedLinkExists) {
         }
     })
 }
+
+declare var window: any
+
+window.runChartsIndexPage = runChartsIndexPage
