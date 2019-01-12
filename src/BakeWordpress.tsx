@@ -12,7 +12,7 @@ import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
 const { BAKED_DIR, BAKED_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
-import { renderToHtmlPage, renderFrontPage, renderSubscribePage, renderBlogByPageNum } from './renderPage'
+import { renderToHtmlPage, renderFrontPage, renderSubscribePage, renderBlogByPageNum, renderChartsPage } from './renderPage'
 import { bakeGrapherUrls, getGrapherExportsByUrl, GrapherExports } from './grapherUtil'
 
 import * as React from 'react'
@@ -130,7 +130,7 @@ export default class WordpressBaker {
 
         // Delete any previously rendered posts that aren't in the database
         const existingSlugs = glob.sync(`${BAKED_DIR}/**/*.html`).map(path => path.replace(`${BAKED_DIR}/`, '').replace(".html", ""))
-            .filter(path => !path.startsWith('wp-') && !path.startsWith('subscribe') && !path.startsWith('blog') && path !== "index" && path !== "identifyadmin" && path !== "404" && path !== "google8272294305985984")
+            .filter(path => !path.startsWith('wp-') && !path.startsWith('subscribe') && !path.startsWith('blog') && path !== "charts" && path !== "index" && path !== "identifyadmin" && path !== "404" && path !== "google8272294305985984")
         const toRemove = without(existingSlugs, ...postSlugs)
         for (const slug of toRemove) {
             const outPath = `${BAKED_DIR}/${slug}.html`
@@ -142,6 +142,7 @@ export default class WordpressBaker {
     async bakeSpecialPages() {
         await this.stageWrite(`${BAKED_DIR}/index.html`, await renderFrontPage())
         await this.stageWrite(`${BAKED_DIR}/subscribe.html`, await renderSubscribePage())
+        await this.stageWrite(`${BAKED_DIR}/charts.html`, await renderChartsPage())
     }
 
     async bakeBlog() {

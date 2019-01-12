@@ -5,6 +5,7 @@ import {observable, computed, action, autorun} from 'mobx'
 interface ChartItem {
     title: string
     li: HTMLLIElement
+    ul: HTMLUListElement
 }
 
 interface SearchResult {
@@ -20,12 +21,12 @@ function decodeHashSafe(s: string) {
 }
 
 class ChartSearcher {
-    ul: HTMLUListElement
     searchInput: HTMLInputElement
     chartItems: ChartItem[] = []
     chartItemsByTitle: {[key: string]: ChartItem} = {}
     strings: string[]
     results: any[] = []
+    sections: HTMLDivElement[] = []
 
     @observable query: string = ""
 
@@ -43,11 +44,12 @@ class ChartSearcher {
 
     constructor() {
         this.searchInput = document.querySelector(".chartsSearchInput") as HTMLInputElement
-        this.ul = document.querySelector(".ChartsIndexPage main ul") as HTMLUListElement
+        this.sections = Array.from(document.querySelectorAll(".ChartsIndexPage main section")) as HTMLDivElement[]
         const lis = Array.from(document.querySelectorAll(".ChartsIndexPage main li")) as HTMLLIElement[]
         this.chartItems = lis.map(li => ({
             title: (li.textContent as string).replace(/₂/g, '2'),
-            li: li
+            li: li,
+            ul: li.closest('ul') as HTMLUListElement
         }))
         this.chartItemsByTitle = _.keyBy(this.chartItems, 'title')
         this.strings = this.chartItems.map(c => fuzzysort.prepare(c.title))
@@ -69,9 +71,12 @@ class ChartSearcher {
         history.replaceState(null, document.title, window.location.pathname + (this.query ? `#search=${encodeHashSafe(this.query)}` : ""))
 
         if (!this.query) {
+            for (const section of this.sections) {
+                section.style.display = null
+            }
             for (const c of this.chartItems) {
-                this.ul.append(c.li)
-                c.li.style.display = 'block'
+                c.ul.append(c.li)
+                c.li.style.display = null
                 c.li.children[0].innerHTML = c.title
             }
 
@@ -80,7 +85,7 @@ class ChartSearcher {
 
         for (let i = this.searchResults.length-1; i >= 0; i--) {
             const c = this.chartItemsByTitle[this.searchResults[i].target]
-            this.ul.prepend(c.li)
+            c.ul.prepend(c.li)
         }
 
         for (const c of this.chartItems) {
@@ -88,8 +93,17 @@ class ChartSearcher {
             if (!res) {
                 c.li.style.display = 'none'
             } else {
-                c.li.style.display = 'block'
+                c.li.style.display = null
                 c.li.children[0].innerHTML = fuzzysort.highlight(res)
+            }
+        }
+
+        // Ensure tag headings are only shown if they have charts under them
+        for (const section of this.sections) {
+            if (!Array.from(section.querySelectorAll("li")).some(li => li.style.display !== 'none')) {
+                section.style.display = 'none'
+            } else {
+                section.style.display = null
             }
         }
     }
@@ -97,7 +111,6 @@ class ChartSearcher {
     @action.bound run() {
         this.searchInput.addEventListener('input', this.onSearchInput)
         this.searchInput.addEventListener('keydown', this.onKeydown)
-        this.searchInput.focus()
 
         autorun(() => this.render())
         
@@ -106,6 +119,8 @@ class ChartSearcher {
             this.searchInput.value = decodeHashSafe(m[1])
         }
         this.query = this.searchInput.value
+
+        this.searchInput.focus()
     }
 }
 

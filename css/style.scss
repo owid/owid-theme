@@ -1051,19 +1051,19 @@ span.star, .owid-data a.starred:after {
 	padding-right: 5px;
 }
 
+@mixin owid-link {
+	color: #3366cc;
+	&:visited {
+		color: #5a3696;
+	}
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 .article-content a,
 .article-footer a {
-	color: #3366cc;
-}
-
-.article-content a:visited ,
-.article-footer a:visited {
-	color: #5a3696;
-}
-
-.article-content a:hover,
-.article-footer a:hover {
-	text-decoration: underline;
+	@include owid-link; 
 }
 
 /* Homepage
@@ -2406,10 +2406,11 @@ html:not(.js) {
 	}
 }
 
-.ChartsIndexPage {
+.ChartsIndexPage main {
+	padding: 0 3vw;
+	margin-bottom: 100px;
 
 	.chartsHeader {
-		margin: 0 3vw;
 		margin-top: 20px;
 		margin-bottom: 10px;
 	}
@@ -2419,20 +2420,34 @@ html:not(.js) {
 		padding: 10px;
 	}
 
-	main {
-		padding: 0 3vw;
-		margin-bottom: 30px;
+	h2 {
+		font-size: 0.9em;
+		color: #444;
+		margin-top: 1.1em;
+		margin-bottom: 0.1em;
 	}
 
-    main ul {
+    ul {
         display: flex;
 		flex-wrap: wrap;
     }
 
-    main ul > li {
+    ul > li {
         list-style-type: none;
+		flex: 1 1 400px;
+		padding: 0.1em 0;
+		padding-right: 0.1em;
+		font-size: 0.8em;
+	}
+
+	/* Make the ending lines look nice */
+	/* https://stackoverflow.com/questions/18744164/flex-box-align-last-row-to-grid */
+	ul::after {
+		content: "";
 		flex: 1 0 400px;
-		padding: 5px 0;
-		padding-right: 5px;
-    }
+	}
+
+	a {
+	    @include owid-link;
+	}
 }
