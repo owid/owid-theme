@@ -42,9 +42,9 @@ export default class WordpressBaker {
             "/feed /atom.xml 302",
 
             // Backwards compatibility-- admin urls
-            "/wp-admin/* https://owid.cloud/wp-admin/:splat 302",
-            "/wp-login.php https://owid.cloud/wp-login.php 302",
-            "/grapher/admin/* https://owid.cloud/grapher/admin/:splat 302",
+            "/wp-admin/* https://owid.cloud/wp-admin/:splat 301",
+            "/wp-login.php https://owid.cloud/wp-login.php 301",
+            "/grapher/admin/* https://owid.cloud/grapher/admin/:splat 301",
 
             // Backwards compatibility-- old Max stuff that isn't static-friendly
             "/roser/* https://www.maxroser.com/roser/:splat 302",
