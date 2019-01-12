@@ -45,7 +45,7 @@ export const ChartsIndexPage = (props: { entries: CategoryWithEntries[], chartIt
             <SiteHeader entries={entries}/>
             <main>
                 <header className="chartsHeader">
-                    <input type="search" className="chartsSearchInput" placeholder="Filter interactive charts"/>
+                    <input type="search" className="chartsSearchInput" placeholder="Filter interactive charts" autoFocus/>
                 </header>
                 {allTags.map(t => <section>
                     <h2>{t.name}</h2>

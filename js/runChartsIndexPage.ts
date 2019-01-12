@@ -119,8 +119,6 @@ class ChartSearcher {
             this.searchInput.value = decodeHashSafe(m[1])
         }
         this.query = this.searchInput.value
-
-        this.searchInput.focus()
     }
 }
 
