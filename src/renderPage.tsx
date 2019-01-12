@@ -42,7 +42,6 @@ export async function renderChartsPage() {
     const chartsById = _.keyBy(chartItems, c => c.id)
 
     for (const ct of chartTags) {
-        console.log(ct.tagParentId)
         // XXX hardcoded filtering to public parent tags
         if ([1515, 1507, 1513, 1504, 1502, 1509, 1506, 1501, 1514, 1511, 1500, 1503, 1505, 1508, 1512, 1510].indexOf(ct.tagParentId) === -1)
             continue
