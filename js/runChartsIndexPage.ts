@@ -60,12 +60,12 @@ class ChartSearcher {
         this.query = this.searchInput.value
     }
 
-    @action.bound onKeydown(ev: KeyboardEvent) {
+    /*@action.bound onKeydown(ev: KeyboardEvent) {
         if (ev.keyCode === 13 && this.query && this.searchResults.length) {
             const href = this.chartItemsByTitle[this.searchResults[0].target].li.children[0].getAttribute('href') as string
             window.location.assign(href)
         }
-    }
+    }*/
 
     render() {
         history.replaceState(null, document.title, window.location.pathname + (this.query ? `#search=${encodeHashSafe(this.query)}` : ""))
@@ -83,10 +83,10 @@ class ChartSearcher {
             return    
         }
 
-        for (let i = this.searchResults.length-1; i >= 0; i--) {
+        /*for (let i = this.searchResults.length-1; i >= 0; i--) {
             const c = this.chartItemsByTitle[this.searchResults[i].target]
             c.ul.prepend(c.li)
-        }
+        }*/
 
         for (const c of this.chartItems) {
             const res = this.resultsByTitle[c.title]
@@ -110,7 +110,7 @@ class ChartSearcher {
 
     @action.bound run() {
         this.searchInput.addEventListener('input', this.onSearchInput)
-        this.searchInput.addEventListener('keydown', this.onKeydown)
+        //this.searchInput.addEventListener('keydown', this.onKeydown)
 
         autorun(() => this.render())
         

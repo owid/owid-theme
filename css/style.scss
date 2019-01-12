@@ -277,7 +277,7 @@ address a:hover {
 }
 
 /* Site Header - Desktop */
-@media only screen and (min-width: 920px) {
+@media only screen and (min-width: 1060px) {
 	.SiteHeader .mobile {
 		display: none;
 	}
@@ -425,7 +425,7 @@ address a:hover {
 
 /* Site Header - Mobile */
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 1060px) {
 	.SiteHeader .desktop {
 		display: none;
 	}
@@ -2359,7 +2359,7 @@ a.ref sup {
 
 /* Hide feedback button on mobile */
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 1060px) {
 	#un-button {
 		display: none !important;
 	}

@@ -7,6 +7,7 @@ import * as _ from 'lodash'
 import * as cheerio from 'cheerio'
 
 import * as wpdb from './wpdb'
+import * as grapherDb from './grapherDb'
 import { formatPost, FormattedPost, extractFormattingOptions, formatWordpressPost } from './formatting'
 import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
@@ -235,5 +236,6 @@ export default class WordpressBaker {
 
     end() {
         wpdb.end()
+        grapherDb.end()
     }
 }
