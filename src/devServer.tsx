@@ -1,18 +1,20 @@
 import {Router} from 'express'
 import {renderFrontPage, renderPageBySlug, renderChartsPage} from './renderPage'
 
-const devServer = Router()
+const beforeWebpack = Router()
 
-devServer.get('/', async (req, res) => {
+beforeWebpack.get('/', async (req, res) => {
     res.send(await renderFrontPage())
 })
 
-devServer.get('/charts', async (req, res) => {
+beforeWebpack.get('/charts', async (req, res) => {
     res.send(await renderChartsPage())
 })
 
-devServer.get('/:slug', async (req, res) => {
+const afterWebpack = Router()
+
+afterWebpack.get('/:slug', async (req, res) => {
     res.send(await renderPageBySlug(req.params.slug))  
 })
 
-export { devServer }
+export { beforeWebpack, afterWebpack }
