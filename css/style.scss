@@ -2093,10 +2093,16 @@ nav.entry-toc {
     direction: rtl;
     text-align: left;
     overflow-y: scroll;
-    line-height: 1;
 	margin-left: 1px;
 	margin-bottom: 30px;
 	padding-left: 16px;
+}
+
+nav.entry-toc li {
+	list-style-type: none;
+	position: relative;
+	color: rgba(0, 0, 0, 0.87);
+	direction: ltr;
 }
 
 nav.entry-toc .section {
@@ -2111,11 +2117,8 @@ nav.entry-toc .section {
 
 nav.entry-toc .subsection {
 	color: #444;
-}
-
-nav.entry-toc li {
-	list-style-type: none;
-	position: relative;
+	line-height: 18px;
+	font-size: 13px;
 }
 
 nav.entry-toc li > a {
@@ -2139,19 +2142,12 @@ nav.entry-toc li.active > a {
 	line-height: 22px;
 }
 
-.entry-toc li {
-	color: rgba(0, 0, 0, 0.87);
-	font-size: 13px;
-	line-height: 15px;
-	direction: ltr;
-}
-
 .entry-toc li > a {
 	color: #616161;
 	display: block;
 	overflow: hidden;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 .entry-toc li > a:hover {
