@@ -12,6 +12,10 @@ import * as path from 'path'
 
 const mjAPI = require("mathjax-node");
 
+export interface Reference {
+
+}
+
 export interface FormattedPost {
     id: number
     type: 'post'|'page'
@@ -22,8 +26,10 @@ export interface FormattedPost {
     authors: string[]
     html: string
     footnotes: string[]
+    references: Reference[]
     excerpt: string
     imageUrl?: string
+    acknowledgements?: string
     tocHeadings: { text: string, slug: string, isSubheading: boolean }[]
 }
 
@@ -64,7 +70,7 @@ async function formatLatex(html: string, latexBlocks?: string[]): Promise<string
     })
 }
 
-export async function formatWordpressPost(post: FullPost, html: string, formattingOptions: FormattingOptions, grapherExports?: GrapherExports) {
+export async function formatWordpressPost(post: FullPost, html: string, formattingOptions: FormattingOptions, grapherExports?: GrapherExports): Promise<FormattedPost> {
     // Strip comments
     html = html.replace(/<!--[^>]+-->/g, "")
 
@@ -74,6 +80,19 @@ export async function formatWordpressPost(post: FullPost, html: string, formatti
     // Need to skirt around wordpress formatting to get proper latex rendering
     let latexBlocks
     [html, latexBlocks] = extractLatex(html)
+
+    // Extract acknowledgements
+    let acknowledgements: string|undefined
+    html = html.replace(/\[acknowledgements\]([\s\S]*?)\[\/acknowledgements\]/gm, (_, ack) => {
+        acknowledgements = wpautop(ack)
+        return ``
+    })
+
+    const references: Reference[] = []
+    html = html.replace(/\[cite\]([\s\S]*?)\[\/cite\]/gm, (_, bibtex) => {
+        references.push({}) // Todo
+        return ``
+    })
 
     // Replicate wordpress formatting (thank gods there's an npm package)
     if (formattingOptions.wpFormat) {
@@ -244,6 +263,8 @@ export async function formatWordpressPost(post: FullPost, html: string, formatti
         authors: post.authors,
         html: $("body").html() as string,
         footnotes: footnotes,
+        acknowledgements: acknowledgements,
+        references: references,
         excerpt: post.excerpt || $($("p")[0]).text(),
         imageUrl: post.imageUrl,
         tocHeadings: tocHeadings
@@ -307,6 +328,7 @@ export async function formatPost(post: FullPost, formattingOptions: FormattingOp
             authors: post.authors,
             html: html,
             footnotes: [],
+            references: [],
             excerpt: post.excerpt||"",
             imageUrl: post.imageUrl,
             tocHeadings: []
