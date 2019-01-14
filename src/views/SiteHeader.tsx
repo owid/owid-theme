@@ -52,9 +52,9 @@ export const SiteHeader = () => {
             </ul>
             <ul className="mobile">
                 <li className="nav-button">
-                    <a href="https://google.com/search?q=site:ourworldindata.org" data-expand="#search-dropdown"><FontAwesomeIcon icon={faSearch}/></a>
+                    <a data-expand="#search-dropdown"><FontAwesomeIcon icon={faSearch}/></a>
                 </li><li className="nav-button">
-                    <a href="/" data-expand="#topics-dropdown" className='mobile'><FontAwesomeIcon icon={faBars}/></a>
+                    <a data-expand="#topics-dropdown" className='mobile'><FontAwesomeIcon icon={faBars}/></a>
                 </li>
             </ul>
         </nav>
