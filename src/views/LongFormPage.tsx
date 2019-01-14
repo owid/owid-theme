@@ -104,7 +104,7 @@ export const LongFormPage = (props: { entries: CategoryWithEntries[], post: Form
                     <ul id="wp-admin-bar-root-default" className="ab-top-menu">
                         <li id="wp-admin-bar-site-name" className="menupop">
                             <a className="ab-item" aria-haspopup="true" href="/wp-admin/">Wordpress</a>
-                        </li>
+                        </li>{" "}
                         <li id="wp-admin-bar-edit"><a className="ab-item" href={`${WORDPRESS_URL}/wp-admin/post.php?post=${post.id}&action=edit`}>Edit Page</a></li>
                     </ul>
                 </div>
