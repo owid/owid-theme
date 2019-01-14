@@ -23,4 +23,6 @@ add_action('post_updated', 'build_static', 10, 3);
 
 add_theme_support('post-thumbnails');
 
+add_post_type_support( 'page', 'excerpt' );
+
 ?>
