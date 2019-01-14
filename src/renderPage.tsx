@@ -1,6 +1,6 @@
 import * as wpdb from "./wpdb"
 import * as grapherDb from './grapherDb'
-import {ArticlePage} from './views/ArticlePage'
+import {LongFormPage} from './views/LongFormPage'
 import {BlogPostPage} from './views/BlogPostPage'
 import {BlogIndexPage} from './views/BlogIndexPage'
 import {FrontPage} from './views/FrontPage'
@@ -95,7 +95,7 @@ async function renderPage(postRow: wpPostRow) {
     if (postRow.post_type === 'post')
         return renderToHtmlPage(<BlogPostPage post={formatted} formattingOptions={formattingOptions} />)
     else
-        return renderToHtmlPage(<ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
+        return renderToHtmlPage(<LongFormPage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
 }
 
 

@@ -24,7 +24,7 @@ export const BlogPostPage = (props: { post: FormattedPost, formattingOptions: Fo
                 </header>
                 <div className="site-content">
                     <article className="post">
-                        <header className="article-header">
+                        <header className="articleHeader">
                             <h1 className="entry-title">{post.title}</h1>
                             <div className="entry-meta">
                                 <time>{formatDate(post.date)}</time> by {formatAuthors(post.authors)}

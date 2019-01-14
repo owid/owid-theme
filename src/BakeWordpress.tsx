@@ -9,7 +9,7 @@ import * as cheerio from 'cheerio'
 import * as wpdb from './wpdb'
 import * as grapherDb from './grapherDb'
 import { formatPost, FormattedPost, extractFormattingOptions, formatWordpressPost } from './formatting'
-import { ArticlePage } from './views/ArticlePage'
+import { LongFormPage } from './views/LongFormPage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
 const { BAKED_DIR, BAKED_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
@@ -105,7 +105,7 @@ export default class WordpressBaker {
         const html = renderToHtmlPage(
             post.type == 'post'
                 ? <BlogPostPage post={formatted} formattingOptions={formattingOptions} />
-                : <ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />
+                : <LongFormPage entries={entries} post={formatted} formattingOptions={formattingOptions} />
         )
 
         const outPath = path.join(BAKED_DIR, `${post.slug}.html`)

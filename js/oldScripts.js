@@ -16,34 +16,12 @@ var OWIDScrollNav = function() {
 	$sidebar.attr('style', '');
 	$(window).off('scroll.toc');
 
-	// For CSS
-	$page.parent().addClass('page-with-sidebar');
-
 	// Keep track of sections so we can find the closest one
-	var headings = $(".article-content h2, .article-content h3").map(function(i, el) { return $(el); })
+	var headings = $(".articleHeader h1, .article-content h2, .article-content h3").map(function(i, el) { return $(el); })
 
 	var currentHeadingIndex = null;
 	var onScroll = function() {
-		var scrollTop = $(document).scrollTop(),
-			scrollBottom = scrollTop + $(window).height(),
-			mainOffset = $("main").offset(),
-			navOffset = $sidebar.offset(),
-			navHeight = $sidebar.height(),
-			footerOffset = $("footer.SiteFooter").offset(),
-			isFixed = $sidebar.css('position') == 'fixed',
-			defaultTop = 10;
-
-		// Fix the TOC once we scroll past the header
-		if (scrollTop > mainOffset.top && !isFixed) {
-			$sidebar.css({
-				position: 'fixed',
-				top: defaultTop + 'px',
-				left: navOffset.left,
-				width: $sidebar.outerWidth() + 'px'
-			});
-		} else if (scrollTop < mainOffset.top && isFixed) {
-			$sidebar.attr('style', '');
-		}
+		var scrollTop = $(document).scrollTop();
 
 		// Figure out where in the document we are
 		var lastHeadingIndex = null;
@@ -60,28 +38,10 @@ var OWIDScrollNav = function() {
 			if (currentHeadingIndex !== null)
 				$sidebar.find("li").eq(currentHeadingIndex).addClass("active");
 		}
-
-		// Ensure TOC doesn't overlap the footer
-		var currentTop = parseFloat($sidebar.css('top')),
-			currentTopAdjustment = currentTop - defaultTop,
-			footerMargin = 80,
-			unadjustedOverlapHeight = (navOffset.top - currentTopAdjustment + navHeight) - (footerOffset.top - footerMargin);
-
-		if (unadjustedOverlapHeight > 0) {
-			$sidebar.css({
-				top: (defaultTop - unadjustedOverlapHeight) + 'px'
-			});
-		} else {
-			$sidebar.css({
-				top: defaultTop + 'px'
-			});
-		}
 	};
 
-	if ($sidebar.css("float") != "none") {
-		onScroll();
-		$(window).on('scroll.toc', onScroll);
-	}
+	onScroll();
+	$(window).on('scroll.toc', onScroll);
 };
 
 OWIDScrollNav();
