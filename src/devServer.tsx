@@ -1,28 +1,27 @@
-import {Router} from 'express'
 import * as express from 'express'
 import {renderFrontPage, renderPageBySlug, renderChartsPage, renderMenuJson} from './renderPage'
-import {WORDPRESS_DIR} from './settings'
+import {WORDPRESS_DIR, DEV_SERVER_PORT, DEV_SERVER_HOST} from './settings'
 
-const beforeWebpack = Router()
+const devServer = express()
 
-beforeWebpack.get('/', async (req, res) => {
+devServer.get('/', async (req, res) => {
     res.send(await renderFrontPage())
 })
 
-beforeWebpack.get('/charts', async (req, res) => {
+devServer.get('/charts', async (req, res) => {
     res.send(await renderChartsPage())
 })
 
-beforeWebpack.get('/headerMenu.json', async (req, res) => {
+devServer.get('/headerMenu.json', async (req, res) => {
     res.send(await renderMenuJson())
 })
 
-const afterWebpack = Router()
+devServer.use(express.static(WORDPRESS_DIR))
 
-afterWebpack.use(express.static(WORDPRESS_DIR))
-
-afterWebpack.get('/:slug', async (req, res) => {
+devServer.get('/:slug', async (req, res) => {
     res.send(await renderPageBySlug(req.params.slug))
 })
 
-export { beforeWebpack, afterWebpack }
+devServer.listen(DEV_SERVER_PORT, DEV_SERVER_HOST, () => {
+    console.log(`OWID dev server started on ${DEV_SERVER_HOST}:${DEV_SERVER_PORT}`)
+})

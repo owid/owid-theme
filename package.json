@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && tsc && webpack -p --progress",
-    "dev": "concurrently --kill-others --raw \"tsc -w\" \"nodemon node_modules/.bin/webpack-dev-server\""
+    "dev": "concurrently --kill-others --raw \"tsc -w\" \"nodemon -r source-map-support/register --watch dist/src dist/src/devServer.js\" \"webpack-dev-server\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",

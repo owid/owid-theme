@@ -1,6 +1,5 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const { beforeWebpack, afterWebpack } = require('./dist/src/devServer')
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production'
@@ -67,12 +66,6 @@ module.exports = (env, argv) => {
             port: 8095,
             contentBase: 'public',
             disableHostCheck: true,
-            before: function(app, server) {
-                app.use('/', beforeWebpack)
-            },
-            after: function(app, server) {
-                app.use('/', afterWebpack)
-            },
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",

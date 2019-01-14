@@ -19,8 +19,12 @@ interface Settings {
     HTTPS_ONLY: boolean
 
     BLOG_POSTS_PER_PAGE: number
+    DEV_SERVER_HOST: string
+    DEV_SERVER_PORT: number
 }
 
 const env: Settings = (process.env as any)
 env.BLOG_POSTS_PER_PAGE = 21
+env.DEV_SERVER_HOST = process.env.DEV_SERVER_HOST || "localhost"
+env.DEV_SERVER_PORT = process.env.DEV_SERVER_PORT ? parseInt(process.env.DEV_SERVER_PORT) : 3099
 export = env
