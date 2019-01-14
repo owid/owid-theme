@@ -11,8 +11,8 @@ module.exports = (env, argv) => {
             owid: "./js/owid.entry.ts",
         },
         output: {
-            path: path.join(__dirname, "dist"),
-            filename: "[name].js",
+            path: path.join(__dirname, "dist/webpack"),
+            filename: "js/[name].js",
             libraryTarget: 'umd'
         },
         resolve: {
@@ -45,7 +45,12 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.(jpe?g|gif|png|eot|woff|ttf|svg|woff2)$/,
-                    loader: 'url-loader?limit=10000'
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10000,
+                        useRelativePaths: true,
+                        publicPath: '../'
+                    }
                 }
             ],
         },
@@ -53,13 +58,11 @@ module.exports = (env, argv) => {
         // Enable sourcemaps for debugging webpack's output.
         devtool: (isProduction ? false : "cheap-module-eval-source-map"),
 
-        plugins: (isProduction ? [
+        plugins: [
             // This plugin extracts css files required in the entry points
             // into a separate CSS bundle for download
-            new ExtractTextPlugin('[name].css'),
-        ] : [
-            new ExtractTextPlugin('[name].css'),
-        ]),
+            new ExtractTextPlugin('css/[name].css'),
+        ],
 
         devServer: {
             host: 'localhost',
