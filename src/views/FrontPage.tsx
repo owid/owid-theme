@@ -12,8 +12,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) => {
     const { entries, posts } = props
 
+    // Structured data for google
+    const structuredMarkup = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": settings.BAKED_URL,
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": `${settings.BAKED_URL}/search?q={search_term_string}`,
+            "query-input": "required name=search_term_string"
+        }
+    }
+
     return <html>
-        <Head canonicalUrl={settings.BAKED_URL} />
+        <Head canonicalUrl={settings.BAKED_URL}>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredMarkup)}}/>
+        </Head>
         <body className="FrontPage">
             <SiteHeader entries={entries} />
             <main>
