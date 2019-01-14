@@ -1730,8 +1730,11 @@ div.owid-presentations li:nth-of-type(1) a:hover {
 /* Pages & Posts
 --------------------------------------------- */
 
-.articleHeader {
+.LongFormPage .articleHeader {
 	margin-top: 1.5rem;
+}
+
+.articleHeader {
 
 	> h1 {
 		font-family: Georgia, "Times New Roman", Serif;	font-weight: 400;
