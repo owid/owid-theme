@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import * as express from 'express'
-import {renderFrontPage, renderPageBySlug, renderChartsPage} from './renderPage'
+import {renderFrontPage, renderPageBySlug, renderChartsPage, renderEntriesJson} from './renderPage'
 import {WORDPRESS_DIR} from './settings'
 
 const beforeWebpack = Router()
@@ -11,6 +11,10 @@ beforeWebpack.get('/', async (req, res) => {
 
 beforeWebpack.get('/charts', async (req, res) => {
     res.send(await renderChartsPage())
+})
+
+beforeWebpack.get('/entries.json', async (req, res) => {
+    res.send(await renderEntriesJson())
 })
 
 const afterWebpack = Router()

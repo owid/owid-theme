@@ -98,7 +98,9 @@ var EntriesHeaderMenu = function() {
 
 	// Mobile menu
 	$("#owid-topbar li.nav-button a").on("click", function(ev) {
-		ev.preventDefault();
+		ev.preventDefault()
+		window.runMobileEntriesMenu();
+/*		ev.preventDefault();
 		var toExpand = $(ev.target).attr("data-expand");
 		$(toExpand).toggle();
 		$(toExpand).find('input').focus();
@@ -107,7 +109,7 @@ var EntriesHeaderMenu = function() {
 			$("#topics-dropdown").hide();
 		} else {
 			$("#search-dropdown").hide();
-		}
+		}*/
 	});
 
 

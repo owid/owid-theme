@@ -70,6 +70,11 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
     return renderPage(rows[0])
 }
 
+export async function renderEntriesJson() {
+    const categories = await wpdb.getEntriesByCategory()
+    return JSON.stringify({ categories: categories })
+}
+
 async function renderPage(postRow: wpPostRow) {
     const post = await wpdb.getFullPost(postRow)
     const entries = await wpdb.getEntriesByCategory()

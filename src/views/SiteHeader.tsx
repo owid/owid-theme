@@ -46,34 +46,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
                 </li>
             </ul>
         </nav>
-        <div id="topics-dropdown" className="mobile">
-            <ul>
-                <li className="header">
-                    <h2>Entries</h2>
-                </li>
-                {entries.map(category =>
-                    <li key={category.slug} className="category">
-                        <a href={`/#${category.slug}`}><span>{category.name}</span></a>
-                        <div className="subcategory-menu">
-                            <div className="submenu-title">{category.name}</div>
-                            <ul>
-                                {category.entries.map(entry => {
-                                    return <li key={entry.slug}>
-                                        <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
-                                    </li>
-                                })}
-                            </ul>
-                        </div>
-                    </li>
-                )}
-                <li className="end-link"><a href="/charts">Charts</a></li>
-                <li className="end-link"><a href="https://sdg-tracker.org">SDGs</a></li>
-                <li className="end-link"><a href="/blog">Blog</a></li>
-                <li className='end-link'><a href='/about'>About</a></li>
-                <li className='end-link'><a href='/teaching'>Teaching</a></li>
-                <li className='end-link'><a href='/support'>Donate</a></li>
-            </ul>
-        </div>
+        <div id="topics-dropdown" className="mobile"></div>
         <div id="search-dropdown" className="mobile">
             <form id="search-nav" action="https://google.com/search" method="GET">
                 <input type="hidden" name="sitesearch" value="ourworldindata.org" />
