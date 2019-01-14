@@ -195,7 +195,6 @@ export default class WordpressBaker {
     async bakeAssets() {
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-includes ${BAKED_DIR}/`)
-        shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/favicon* ${BAKED_DIR}/`)
         shell.exec(`rsync -havz --delete ${WORDPRESS_DIR}/wp-content/themes/owid-theme/public/*  ${BAKED_DIR}/`)
     }
 
