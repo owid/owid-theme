@@ -23,9 +23,18 @@ export const LongFormPage = (props: { entries: CategoryWithEntries[], post: Form
     if (formattingOptions.bodyClassName)
         classes.push(formattingOptions.bodyClassName)
 
+
+    const bibtex = `@article{owid${post.slug.replace(/-/g, '')},
+    author = {${authorsText}},
+    title = {${pageTitle}},
+    journal = {Our World in Data},
+    year = {${publishedYear}},
+    note = {${canonicalUrl}}
+}`
+
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}>
-            {isEntry && <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate}/>}
+            {isEntry && <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate} canonicalUrl={canonicalUrl}/>}
         </Head>
         <body className={classes.join(" ")}>
             <SiteHeader/>
@@ -34,27 +43,29 @@ export const LongFormPage = (props: { entries: CategoryWithEntries[], post: Form
                     <header className="articleHeader">
                         <h1 className="entry-title">{post.title}</h1>
                         <div className="authors-byline">
-                            <a href="/about/#team">by {authorsText}</a><a className="citation-note js-only"><sup>[cite]</sup></a>
-                        </div>
-                        <div className="citation-guideline">
-                            Our articles and data visualizations rely on work from many different people and organizations. When citing this entry, please also cite the underlying data sources. This entry can be cited as:<br/><br/>{authorsText} ({publishedYear}) - "{pageTitle}". <em>Published online at OurWorldInData.org.</em> Retrieved from: '{canonicalUrl}' [Online Resource]
+                            <a href="/about/#team">by {authorsText}</a>
                         </div>
                     </header>
 
-
                     <div className="contentContainer">
                         {post.tocHeadings.length > 0 && <aside className="entry-sidebar">
-                                <nav className="entry-toc">
-                                    <ul>
-                                        <li><a href="#">{pageTitle}</a></li>
-                                        {post.tocHeadings.map((heading, i) =>
-                                            <li key={i} className={heading.isSubheading ? "subsection" : "section"}>
-                                                <a href={`#${heading.slug}`}>{heading.text}</a>
-                                            </li>
-                                        )}
-                                    </ul>
-                                </nav>
-                            </aside>}
+                            <nav className="entry-toc">
+                                <ul>
+                                    <li><a href="#">{pageTitle}</a></li>
+                                    {post.tocHeadings.map((heading, i) =>
+                                        <li key={i} className={heading.isSubheading ? "subsection" : "section" + ((!post.tocHeadings[i+1] || !post.tocHeadings[i+1].isSubheading) ? " nosubs": "")}>
+                                            <a href={`#${heading.slug}`}>{heading.text}</a>
+                                        </li>
+                                    )}
+                                    {post.footnotes.length && <li key="footnotes" className="section nosubs">
+                                        <a href={`#footnotes`}>Footnotes</a>
+                                    </li>}
+                                    {isEntry && <li key="citation" className="section nosubs">
+                                        <a href={`#citation`}>Citation</a>
+                                    </li>}
+                                </ul>
+                            </nav>
+                        </aside>}
 
                         <div className="contentAndFootnotes">
                             <div className="article-content" dangerouslySetInnerHTML={{__html: post.html}}/>
@@ -67,6 +78,22 @@ export const LongFormPage = (props: { entries: CategoryWithEntries[], post: Form
                                         </li>
                                     )}
                                 </ol>
+
+                                {isEntry && <React.Fragment>
+                                    <h3 id="citation">Citation</h3>
+                                    <p>
+                                        Our articles and data visualizations rely on work from many different people and organizations. When citing this entry, please also cite the underlying data sources. This entry can be cited as:
+                                    </p>
+                                    <pre className="citation">
+                                        {authorsText} ({publishedYear}) - "{pageTitle}". <em>Published online at OurWorldInData.org.</em> Retrieved from: '{canonicalUrl}' [Online Resource]
+                                    </pre>
+                                    <p>
+                                        BibTeX citation
+                                    </p>
+                                    <pre className="citation">
+                                        {bibtex}
+                                    </pre>
+                                </React.Fragment>}
                             </footer>}
                         </div>
                     </div>
