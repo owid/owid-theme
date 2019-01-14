@@ -1,6 +1,6 @@
 import * as express from 'express'
 import {renderFrontPage, renderPageBySlug, renderChartsPage, renderMenuJson} from './renderPage'
-import {WORDPRESS_DIR, DEV_SERVER_PORT, DEV_SERVER_HOST} from './settings'
+import {BAKED_DIR, WORDPRESS_DIR, DEV_SERVER_PORT, DEV_SERVER_HOST} from './settings'
 
 const devServer = express()
 

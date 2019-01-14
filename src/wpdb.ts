@@ -208,6 +208,19 @@ export async function getFeaturedImages() {
     return featuredImages
 }
 
+export async function getFeaturedImageUrl(postId: number): Promise<string|undefined> {
+    if (cachedFeaturedImages)
+        return cachedFeaturedImages.get(postId)
+    else {
+        const rows = await wpdb.query(`
+            SELECT wp_postmeta.post_id, wp_posts.guid 
+            FROM wp_postmeta 
+            INNER JOIN wp_posts ON wp_posts.ID=wp_postmeta.meta_value
+            WHERE wp_postmeta.meta_key='_thumbnail_id' AND wp_postmeta.post_id=?`, [postId])
+        return rows.length ? rows[0].guid : undefined
+    }
+}
+
 export interface FullPost {
     id: number
     type: 'post'|'page'
@@ -223,8 +236,8 @@ export interface FullPost {
 
 export async function getFullPost(row: any): Promise<FullPost> {
     const authorship = await getAuthorship()
-    const featuredImages = await getFeaturedImages()
     const permalinks = await getPermalinks()
+    const featuredImageUrl = await getFeaturedImageUrl(row.ID)
 
     const postId = row.post_status === "inherit" ? row.post_parent : row.ID
 
@@ -238,7 +251,7 @@ export async function getFullPost(row: any): Promise<FullPost> {
         authors: authorship.get(postId) || [],
         content: row.post_content,
         excerpt: row.post_excerpt,
-        imageUrl: featuredImages.get(row.ID)
+        imageUrl: featuredImageUrl
     }
 }
 

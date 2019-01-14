@@ -1,11 +1,12 @@
-import {GRAPHER_DIR, BAKED_DIR} from './settings'
-import * as filenamify from 'filenamify'
 import * as glob from 'glob'
 import * as parseUrl from 'url-parse'
 const exec = require('child-process-promise').exec
 import * as path from 'path'
 import * as _ from 'lodash'
 import * as md5 from 'md5'
+
+import {GRAPHER_DIR, BAKED_DIR} from './settings'
+import * as grapherDb from './grapherDb'
 
 // Given a grapher url with query string, create a key to match export filenames
 export function grapherUrlToFilekey(grapherUrl: string) {
@@ -27,14 +28,61 @@ export interface GrapherExports {
     get: (grapherUrl: string) => ChartExportMeta
 }
 
+export async function mapSlugsToIds(): Promise<{ [slug: string]: number }> {
+    const redirects = await grapherDb.query(`SELECT chart_id, slug FROM chart_slug_redirects`)
+    const rows = await grapherDb.query(`SELECT id, JSON_UNQUOTE(JSON_EXTRACT(config, "$.slug")) AS slug FROM charts`)
+
+    const slugToId: {[slug: string]: number} = {}
+    for (const row of redirects) {
+        slugToId[row.slug] = row.chart_id
+    }
+    for (const row of rows) {
+        slugToId[row.slug] = row.id
+    }
+    return slugToId
+}
+
 export async function bakeGrapherUrls(urls: string[], opts: { silent?: boolean } = {}) {
-    const args = [`${GRAPHER_DIR}/dist/src/bakeChartsToImages.js`]
-    args.push(...urls)
-    args.push(`${BAKED_DIR}/exports`)
-    const promise = exec(`cd ${GRAPHER_DIR} && node ${args.map(arg => JSON.stringify(arg)).join(" ")}`)
-    if (!opts.silent)
-        promise.childProcess.stdout.on('data', (data: any) => console.log(data.toString().trim()))
-    await promise
+    const currentExports = await getGrapherExportsByUrl()
+    const slugToId = await mapSlugsToIds()
+    const toBake = []
+
+    // Check that we need to bake this url, and don't already have an export
+    for (const url of urls) {
+        const current = currentExports.get(url)
+        if (!current) {
+            toBake.push(url)
+            continue
+        }
+
+        const slug = _.last(parseUrl(url).pathname.split('/'))
+        if (!slug) {
+            console.error(`Invalid chart url ${url}`)
+            continue
+        }
+
+        const chartId = slugToId[slug]  
+        const rows = await grapherDb.query(`SELECT charts.config->>"$.version" AS version FROM charts WHERE charts.id=?`, [chartId])
+        if (!rows.length) {
+            console.error(`Mysteriously missing chart by id ${chartId}`)
+            continue
+        }
+
+        if (rows[0].version > current.version) {
+            toBake.push(url)
+        }
+    }
+
+    if (toBake.length > 0) {
+        const args = [`${GRAPHER_DIR}/dist/src/bakeChartsToImages.js`]
+        args.push(...toBake)
+        args.push(`${BAKED_DIR}/exports`)
+        const promise = exec(`cd ${GRAPHER_DIR} && node ${args.map(arg => JSON.stringify(arg)).join(" ")}`)
+        if (!opts.silent)
+            promise.childProcess.stdout.on('data', (data: any) => console.log(data.toString().trim()))
+        await promise    
+    }
+
 }
 
 export async function getGrapherExportsByUrl(): Promise<{ get: (grapherUrl: string) => ChartExportMeta }> {

@@ -79,7 +79,11 @@ async function renderPage(postRow: wpPostRow) {
     const entries = await wpdb.getEntriesByCategory()
 
     const $ = cheerio.load(post.content)
+
+
     const grapherUrls = $("iframe").toArray().filter(el => (el.attribs['src']||'').match(/\/grapher\//)).map(el => el.attribs['src'])
+
+    // XXX This is slow!
     await bakeGrapherUrls(grapherUrls, { silent: true })
 
     const exportsByUrl = await getGrapherExportsByUrl()
