@@ -104,7 +104,7 @@ export default class WordpressBaker {
         const formatted = await formatPost(post, formattingOptions, this.grapherExports)
         const html = renderToHtmlPage(
             post.type == 'post'
-                ? <BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />
+                ? <BlogPostPage post={formatted} formattingOptions={formattingOptions} />
                 : <ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />
         )
 

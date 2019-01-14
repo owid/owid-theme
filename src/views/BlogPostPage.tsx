@@ -4,11 +4,9 @@ import { Head } from './Head'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { formatAuthors, formatDate, FormattedPost, FormattingOptions } from '../formatting'
-import { CategoryWithEntries, FullPost } from '../wpdb'
 
-export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: FormattedPost, formattingOptions: FormattingOptions }) => {
-    const {entries, post, formattingOptions} = props
-    const authorsText = formatAuthors(post.authors)
+export const BlogPostPage = (props: { post: FormattedPost, formattingOptions: FormattingOptions }) => {
+    const {post, formattingOptions} = props
 
     const pageTitle = post.title
     const canonicalUrl = `${BAKED_URL}/${post.slug}`
@@ -17,7 +15,7 @@ export const BlogPostPage = (props: { entries: CategoryWithEntries[], post: Form
     return <html>
         <Head pageTitle={pageTitle} pageDesc={pageDesc} canonicalUrl={canonicalUrl} imageUrl={post.imageUrl}/>
         <body className={`single-post ${formattingOptions.bodyClassName || ""}`}>
-            <SiteHeader entries={entries}/>
+            <SiteHeader/>
             <main>
                 <header className="blog-header">
                     <h1>

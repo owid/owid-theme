@@ -29,7 +29,7 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
             <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredMarkup)}}/>
         </Head>
         <body className="FrontPage">
-            <SiteHeader entries={entries} />
+            <SiteHeader/>
             <main>
                 <div id="homepage-cover">
                     <div className="lead-in">

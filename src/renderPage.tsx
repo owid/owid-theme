@@ -26,7 +26,6 @@ export function renderToHtmlPage(element: any) {
 type wpPostRow = any
 
 export async function renderChartsPage() {
-    const entries = await wpdb.getEntriesByCategory()
     const chartItems = await grapherDb.query(`SELECT id, config->>"$.slug" AS slug, config->>"$.title" AS title FROM charts`) as ChartIndexItem[]
 
     const chartTags = await grapherDb.query(`
@@ -51,7 +50,7 @@ export async function renderChartsPage() {
             c.tags.push({ id: ct.tagId, name: ct.tagName })
     }
 
-    return renderToHtmlPage(<ChartsIndexPage entries={entries} chartItems={chartItems}/>)
+    return renderToHtmlPage(<ChartsIndexPage chartItems={chartItems}/>)
 }
 
 export async function renderPageBySlug(slug: string) {
@@ -90,7 +89,7 @@ async function renderPage(postRow: wpPostRow) {
     const formatted = await formatPost(post, formattingOptions, exportsByUrl)
 
     if (postRow.post_type === 'post')
-        return renderToHtmlPage(<BlogPostPage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
+        return renderToHtmlPage(<BlogPostPage post={formatted} formattingOptions={formattingOptions} />)
     else
         return renderToHtmlPage(<ArticlePage entries={entries} post={formatted} formattingOptions={formattingOptions} />)
 }
@@ -143,8 +142,7 @@ export async function renderBlogByPageNum(pageNum: number) {
         }
     }
 
-    const entries = await wpdb.getEntriesByCategory()
-    return renderToHtmlPage(<BlogIndexPage entries={entries} posts={posts} pageNum={pageNum} numPages={numPages}/>)
+    return renderToHtmlPage(<BlogIndexPage posts={posts} pageNum={pageNum} numPages={numPages}/>)
 }
 
 async function main(target: string, isPreview?: boolean) {

@@ -19,8 +19,8 @@ export interface TagWithCharts {
     charts: ChartIndexItem[]
 }
 
-export const ChartsIndexPage = (props: { entries: CategoryWithEntries[], chartItems: ChartIndexItem[] }) => {
-    const { entries, chartItems } = props
+export const ChartsIndexPage = (props: { chartItems: ChartIndexItem[] }) => {
+    const { chartItems } = props
 
     const allTags = _.sortBy(_.uniqBy(_.flatten(chartItems.map(c => c.tags)), t => t.id), t => t.name) as TagWithCharts[]
 
@@ -42,7 +42,7 @@ export const ChartsIndexPage = (props: { entries: CategoryWithEntries[], chartIt
     return <html>
         <Head canonicalUrl={`${settings.BAKED_URL}/charts`} pageTitle="Charts" pageDesc="All of the interactive charts on Our World in Data."/>
         <body className="ChartsIndexPage">
-            <SiteHeader entries={entries}/>
+            <SiteHeader/>
             <main>
                 <header className="chartsHeader">
                     <input type="search" className="chartsSearchInput" placeholder="Filter interactive charts" autoFocus/>

@@ -15,14 +15,14 @@ interface PostMeta {
     imageUrl?: string
 }
 
-export const BlogIndexPage = (props: { entries: CategoryWithEntries[], posts: PostMeta[], pageNum: number, numPages: number }) => {
-    const {entries, posts, pageNum, numPages} = props
+export const BlogIndexPage = (props: { posts: PostMeta[], pageNum: number, numPages: number }) => {
+    const {posts, pageNum, numPages} = props
     const pageNums = _.range(1, numPages+1)
 
     return <html>
         <Head canonicalUrl={`${settings.BAKED_URL}/blog` + (pageNum > 1 ? `/page/${pageNum}` : "")} pageTitle="Blog"/>
         <body className="blog">
-            <SiteHeader entries={entries} />
+            <SiteHeader/>
 
             <main>
                 <div className="site-content">

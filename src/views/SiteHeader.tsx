@@ -3,11 +3,35 @@ import { CategoryWithEntries, EntryMeta } from '../wpdb'
 import * as _ from 'lodash'
 import { faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {decodeHTML} from 'entities'
+var slugify = require('slugify')
 
-// XXX this menu is pretty old and should be redone at some stage
+export const SiteHeader = () => {
+    const categoryOrder = [
+        "Population",
+        "Health",
+        "Food" ,
+        "Energy",
+        "Environment",
+        "Technology",
+        "Growth &amp; Inequality",
+        "Work &amp; Life",
+        "Public Sector",
+        "Global Connections",
+        "War &amp; Peace",
+        "Politics" ,
+        "Violence &amp; Rights",
+        "Education",
+        "Media",
+        "Culture"
+    ]
 
-export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?: string }) => {
-    const {entries} = props
+    const categories = categoryOrder.map(cat => {
+        return {
+            name: decodeHTML(cat),
+            slug: slugify(decodeHTML(cat).toLowerCase())
+        }
+    })
 
     return <header className="SiteHeader">
         <nav id="owid-topbar">
@@ -36,7 +60,7 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
         </nav>
         <div id="category-nav" className="desktop">
             <ul>
-                {entries.map(category =>
+                {categories.map(category =>
                     <li key={category.slug} className="category" title={category.name}>
                         <a href={`/#${category.slug}`}><span>{category.name}</span></a>
                     </li>

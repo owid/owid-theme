@@ -24,7 +24,7 @@ export const ArticlePage = (props: { entries: CategoryWithEntries[], post: Forma
             {isEntry && <CitationMeta title={pageTitle} authors={post.authors} date={post.modifiedDate}/>}
         </Head>
         <body className={formattingOptions.bodyClassName || ""}>
-            <SiteHeader entries={entries} activeSlug={post.slug}/>
+            <SiteHeader/>
             <main>
                 <div className={"clearfix" + (post.tocHeadings.length > 0 ? " page-with-sidebar" : "")}>
                     {post.tocHeadings.length > 0 && <div className="entry-sidebar">
