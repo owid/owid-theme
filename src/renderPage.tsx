@@ -70,7 +70,7 @@ export async function renderPageById(id: number, isPreview?: boolean): Promise<s
     return renderPage(rows[0])
 }
 
-export async function renderEntriesJson() {
+export async function renderMenuJson() {
     const categories = await wpdb.getEntriesByCategory()
     return JSON.stringify({ categories: categories })
 }

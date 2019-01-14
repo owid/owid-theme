@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
         },
         output: {
             path: path.join(__dirname, "dist"),
-            filename: "js/[name].js",
+            filename: "[name].js",
             libraryTarget: 'umd'
         },
         resolve: {

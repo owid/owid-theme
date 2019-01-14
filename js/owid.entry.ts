@@ -2,7 +2,7 @@ import '../css/style.scss'
 import './oldScripts.js'
 import {Analytics} from './Analytics'
 import {runChartsIndexPage} from './runChartsIndexPage'
-import {runMobileEntriesMenu} from './MobileHeader'
+import {runHeaderMenus} from './SiteHeaderMenus'
 
 Analytics.logEvent("OWID_PAGE_LOAD")
 
@@ -46,4 +46,5 @@ if (trackedLinkExists) {
 declare var window: any
 
 window.runChartsIndexPage = runChartsIndexPage
-window.runMobileEntriesMenu = runMobileEntriesMenu
+window.runHeaderMenus = runHeaderMenus
+runHeaderMenus()

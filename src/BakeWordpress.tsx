@@ -13,7 +13,7 @@ import { ArticlePage } from './views/ArticlePage'
 import { BlogPostPage } from './views/BlogPostPage'
 import * as settings from './settings'
 const { BAKED_DIR, BAKED_URL, WORDPRESS_DIR, BLOG_POSTS_PER_PAGE } = settings
-import { renderToHtmlPage, renderFrontPage, renderSubscribePage, renderBlogByPageNum, renderChartsPage } from './renderPage'
+import { renderToHtmlPage, renderFrontPage, renderSubscribePage, renderBlogByPageNum, renderChartsPage, renderMenuJson } from './renderPage'
 import { bakeGrapherUrls, getGrapherExportsByUrl, GrapherExports } from './grapherUtil'
 
 import * as React from 'react'
@@ -147,6 +147,7 @@ export default class WordpressBaker {
         await this.stageWrite(`${BAKED_DIR}/index.html`, await renderFrontPage())
         await this.stageWrite(`${BAKED_DIR}/subscribe.html`, await renderSubscribePage())
         await this.stageWrite(`${BAKED_DIR}/charts.html`, await renderChartsPage())
+        await this.stageWrite(`${BAKED_DIR}/headerMenu.json`, await renderMenuJson())
     }
 
     async bakeBlog() {

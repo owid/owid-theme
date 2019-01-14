@@ -87,6 +87,7 @@ textarea:focus,
 a {
 	color: #1059E5;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 ol,
@@ -443,7 +444,6 @@ address a:hover {
 	}
 
 	.SiteHeader .subcategory-menu {
-		display: none;
 		background: white;
 		line-height: 18px;
 		background-color: #1C758A;
@@ -536,7 +536,6 @@ address a:hover {
 	#topics-dropdown.mobile .subcategory-menu {
 		filter: saturate(60%);
 		-webkit-filter: saturate(60%);
-		display: none;
 	}
 
 	#topics-dropdown.mobile li.category.active .subcategory-menu {
@@ -545,10 +544,6 @@ address a:hover {
 
 	#topics-dropdown.mobile .subcategory-menu {
 		background: #2082a2;
-	}
-
-	#topics-dropdown.mobile .submenu-title {
-		display: none;
 	}
 
 	#topics-dropdown.mobile .subcategory-menu li > a {
@@ -566,10 +561,6 @@ address a:hover {
 	#topics-dropdown.mobile li.end-link > a {
 		text-align: center;
 		color: #444;
-	}
-
-	#search-dropdown {
-		display: none;
 	}
 
 	*::-webkit-input-placeholder {
