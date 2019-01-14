@@ -18,7 +18,7 @@ const afterWebpack = Router()
 afterWebpack.use(express.static(WORDPRESS_DIR))
 
 afterWebpack.get('/:slug', async (req, res) => {
-    res.send(await renderPageBySlug(req.params.slug))  
+    res.send(await renderPageBySlug(req.params.slug))
 })
 
 export { beforeWebpack, afterWebpack }

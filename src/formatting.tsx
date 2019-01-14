@@ -4,7 +4,7 @@ const wpautop = require('wpautop')
 import * as _ from 'lodash'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import {HTTPS_ONLY, WORDPRESS_URL, BAKED_DIR, BAKED_URL}  from './settings'
+import {HTTPS_ONLY, WORDPRESS_URL, BAKED_URL}  from './settings'
 import { getTables, getUploadedImages, FullPost } from './wpdb'
 import Tablepress from './views/Tablepress'
 import {GrapherExports} from './grapherUtil'
@@ -166,9 +166,16 @@ export async function formatWordpressPost(post: FullPost, html: string, formatti
             el.parent.attribs['target'] = '_blank'
         }
 
+
         // Set srcset to load image responsively
         const src = el.attribs['src']||""
         const upload = uploadDex.get(path.basename(src))
+
+        // Add alt tag
+        if (upload && !el.attribs['alt']) {
+            el.attribs['alt'] = _.capitalize(upload.slug.replace(/[-_]/g, ' '))
+        }
+
         if (upload && upload.variants.length) {
             el.attribs['srcset'] = upload.variants.map(v => `${v.url} ${v.width}w`).join(", ")
             el.attribs['sizes'] = "(min-width: 800px) 50vw, 100vw"
