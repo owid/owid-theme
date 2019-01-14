@@ -47,10 +47,10 @@ export const ChartsIndexPage = (props: { entries: CategoryWithEntries[], chartIt
                 <header className="chartsHeader">
                     <input type="search" className="chartsSearchInput" placeholder="Filter interactive charts" autoFocus/>
                 </header>
-                {allTags.map(t => <section>
+                {allTags.map(t => <section key={t.id}>
                     <h2>{t.name}</h2>
                     <ul>
-                        {t.charts.map(c => <li><a href={`/grapher/${c.slug}`}>{c.title}</a></li>)}
+                        {t.charts.map(c => <li key={c.id}><a href={`/grapher/${c.slug}`}>{c.title}</a></li>)}
                     </ul>
                 </section>)}
             </main>

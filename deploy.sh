@@ -32,7 +32,7 @@ then
   FINAL_TARGET="$WORDPRESS_DIR/wp-content/themes/owid-theme"
   DATA="/home/owid/$ENV-theme-data"
 
-  ssh -t $HOST "rm -r $OLD_REPO"
+  ssh -t $HOST "rm -rf $OLD_REPO"
   $RSYNC $DIR/ $HOST:$SYNC_TARGET
   ssh -t $HOST 'bash -e -s' <<EOF
     cp -r $SYNC_TARGET $TMP_NEW

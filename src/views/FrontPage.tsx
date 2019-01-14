@@ -5,6 +5,9 @@ import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { CategoryWithEntries } from '../wpdb'
 import { formatDate } from '../formatting'
+import { faRss } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter, faFacebookF } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { title: string, slug: string, date: Date }[] }) => {
     const { entries, posts } = props
@@ -62,11 +65,11 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                         </ul>
                     </div>
                     <div id="homepage-twitter">
-                        <h3><a href="https://twitter.com/MaxCRoser">Follow us</a></h3>
+                        <h3><a href="https://twitter.com/OurWorldInData">Follow us</a></h3>
                         <div className="social">
-                            <a href="https://twitter.com/MaxCRoser"><i className="fac fac-twitter"></i></a>
-                            <a href="https://www.facebook.com/OurWorldinData"><i className="fac fac-facebook"></i></a>
-                            <a href="/feed/"><i className="fac fac-feed"></i></a>
+                            <a href="https://twitter.com/OurWorldInData"><FontAwesomeIcon icon={faTwitter}/></a>
+                            <a href="https://www.facebook.com/OurWorldinData"><FontAwesomeIcon icon={faFacebookF}/></a>
+                            <a href="/feed/"><FontAwesomeIcon icon={faRss}/></a>
                         </div>
                     </div>
                 </div>

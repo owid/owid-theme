@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { CategoryWithEntries, EntryMeta } from '../wpdb'
 import * as _ from 'lodash'
+import { faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // XXX this menu is pretty old and should be redone at some stage
 
@@ -38,9 +40,9 @@ export const SiteHeader = (props: { entries: CategoryWithEntries[], activeSlug?:
             </ul>
             <ul className="mobile">
                 <li className="nav-button">
-                    <a href="https://google.com/search?q=site:ourworldindata.org" data-expand="#search-dropdown"><i className='fac fac-search'></i></a>
+                    <a href="https://google.com/search?q=site:ourworldindata.org" data-expand="#search-dropdown"><FontAwesomeIcon icon={faSearch}/></a>
                 </li><li className="nav-button">
-                    <a href="/" data-expand="#topics-dropdown" className='mobile'><i className='fac fac-bars'></i></a>
+                    <a href="/" data-expand="#topics-dropdown" className='mobile'><FontAwesomeIcon icon={faBars}/></a>
                 </li>
             </ul>
         </nav>
