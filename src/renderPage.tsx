@@ -165,6 +165,7 @@ async function main(target: string, isPreview?: boolean) {
         console.error(err)
     } finally {
         wpdb.end()
+        grapherDb.end()
     }
 }
 
