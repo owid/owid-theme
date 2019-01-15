@@ -1,5 +1,10 @@
 import '../css/style.scss'
 import './oldScripts.js'
+// From https://fontawesome.com/how-to-use/on-the-web/other-topics/server-side-rendering:
+// "If the CSS is missing when this icon displays in the browser it will flash
+// from a very large icon down to a properly sized one a moment later."
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
 import {Analytics} from './Analytics'
 import {runChartsIndexPage} from './runChartsIndexPage'
 import {runHeaderMenus} from './SiteHeaderMenus'
