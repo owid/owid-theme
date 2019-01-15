@@ -21,6 +21,10 @@ interface Settings {
     BLOG_POSTS_PER_PAGE: number
     DEV_SERVER_HOST: string
     DEV_SERVER_PORT: number
+
+    ALGOLIA_ID: string
+    ALGOLIA_SEARCH_KEY: string
+    ALGOLIA_ADMIN_KEY: string
 }
 
 const env: Settings = (process.env as any)

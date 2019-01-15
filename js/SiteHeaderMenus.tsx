@@ -4,7 +4,7 @@ import { observable, runInAction, action } from 'mobx'
 import { observer } from 'mobx-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
-
+import { HeaderSearch } from './HeaderSearch'
 export interface EntryMeta {
     slug: string
     title: string
@@ -34,10 +34,7 @@ export class DesktopHeader extends React.Component<{ categories: CategoryWithEnt
                 <a className="logo" href="/">Our World in Data</a>
                 <ul className="desktop">
                     <li>
-                        <form id="search-nav" action="https://google.com/search" method="GET">
-                            <input type="hidden" name="sitesearch" value="ourworldindata.org" />
-                            <input type="search" name="q" placeholder="Search..." />
-                        </form>
+                        <HeaderSearch/>
                     </li>
                     <li><a href="/charts">Charts</a></li>
                     <li><a href="https://sdg-tracker.org" title="Sustainable Development Goals">SDGs</a></li>

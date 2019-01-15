@@ -25,6 +25,7 @@ export interface FormattedPost {
     modifiedDate: Date
     authors: string[]
     html: string
+    plaintext: string
     footnotes: string[]
     references: Reference[]
     excerpt: string
@@ -262,6 +263,7 @@ export async function formatWordpressPost(post: FullPost, html: string, formatti
         modifiedDate: post.modifiedDate,
         authors: post.authors,
         html: $("body").html() as string,
+        plaintext: $("body").text() as string,
         footnotes: footnotes,
         acknowledgements: acknowledgements,
         references: references,
@@ -327,6 +329,7 @@ export async function formatPost(post: FullPost, formattingOptions: FormattingOp
             modifiedDate: post.modifiedDate,
             authors: post.authors,
             html: html,
+            plaintext: cheerio.load(html)("body").text(),
             footnotes: [],
             references: [],
             excerpt: post.excerpt||"",

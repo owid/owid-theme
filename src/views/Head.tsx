@@ -27,6 +27,7 @@ export const Head = (props: { canonicalUrl: string, pageTitle?: string, pageDesc
         <meta name="twitter:description" content={pageDesc}/>
         <meta name="twitter:image" content={imageUrl}/>
         <link rel="stylesheet" href={`${ASSETS_URL}/css/owid.css`}/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.0.0/themes/algolia-min.css"/>
         {props.children}
     </head>
 }
