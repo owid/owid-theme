@@ -15,6 +15,11 @@
 
 @import '~normalize.css';
 
+@import 'util.scss';
+@import 'layout.scss';
+@import 'general.scss';
+@import 'header.scss';
+
 body { margin: 0; }
 
 /* Box Sizing
@@ -1044,7 +1049,7 @@ span.star, .owid-data a.starred:after {
 
 .article-content a,
 .article-footer a {
-	@include owid-link; 
+	@include owid-link;
 }
 
 /* Homepage
