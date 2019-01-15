@@ -5,34 +5,16 @@ import { faSearch, faBars, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {decodeHTML} from 'entities'
 import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { entries } from 'mobx';
 var slugify = require('slugify')
 
-export const SiteHeader = () => {
-    const categoryOrder = [
-        "Population",
-        "Health",
-        "Food" ,
-        "Energy",
-        "Environment",
-        "Technology",
-        "Growth &amp; Inequality",
-        "Work &amp; Life",
-        "Public Sector",
-        "Global Connections",
-        "War &amp; Peace",
-        "Politics" ,
-        "Violence &amp; Rights",
-        "Education",
-        "Media",
-        "Culture"
-    ]
-
-    const categories = categoryOrder.map(cat => {
-        return {
-            name: decodeHTML(cat),
-            slug: slugify(decodeHTML(cat).toLowerCase())
-        }
-    })
+export const SiteHeader = (props: { entries?: CategoryWithEntries[], children?: any }) => {
+    // const categories = categoryNames.map(cat => {
+    //     return {
+    //         name: decodeHTML(cat),
+    //         slug: slugify(decodeHTML(cat).toLowerCase())
+    //     }
+    // })
 
     // return <header className="SiteHeader">
     //     <nav id="owid-topbar">
@@ -81,7 +63,7 @@ export const SiteHeader = () => {
             </div>
             <nav className="site-navigation">
                 <div className="large-buttons">
-                    <button className="topics-button">
+                    <button className="topics-button active">
                         <div className="label">
                             Research <br /><strong>by topic</strong>
                         </div>
@@ -131,15 +113,7 @@ export const SiteHeader = () => {
                 </li>
             </ul>
         </div>
-        <div className="wrapper">
-            <div className="site-intro">
-                <h1>Know the world you live in</h1>
-                <p>Everyone has an idea of how the world is changing. Is the world becoming more violent? Is an end to poverty possible? Is population growth unstoppable?</p>
-                <p>We cannot know what is happening in the world from the daily news alone. The news media focuses on single events, too often missing the long-lasting, forceful changes that reshape the world we live in.</p>
-                <p className="big">Taking a long-term perspective, Our World in Data shows how global living conditions and the earth’s environment around us are changing. <br />Through <em>interactive data visualizations</em> we can see how the world has changed; by summarizing the scientific literature we explain why.</p>
-                <p>Published by researchers from the University of Oxford – open source and entirely free.</p>
-            </div>
-        </div>
+        {props.children}
     </header>
 }
 

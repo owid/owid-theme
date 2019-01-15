@@ -7,7 +7,8 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import {Analytics} from './Analytics'
 import {runChartsIndexPage} from './runChartsIndexPage'
-import {runHeaderMenus} from './SiteHeaderMenus'
+import {runHeaderMenus} from './SiteHeaderMenus2'
+
 
 Analytics.logEvent("OWID_PAGE_LOAD")
 
