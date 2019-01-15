@@ -61,9 +61,9 @@ export const LongFormPage = (props: { entries: CategoryWithEntries[], post: Form
                                         <a href={`#acknowledgements`}>Acknowledgements</a>
                                     </li>}
 
-                                    {post.footnotes.length && <li key="footnotes" className="section nosubs">
+                                    {post.footnotes.length ? <li key="footnotes" className="section nosubs">
                                         <a href={`#footnotes`}>Footnotes</a>
-                                    </li>}
+                                    </li> : undefined}
                                     {isEntry && <li key="citation" className="section nosubs">
                                         <a href={`#citation`}>Citation</a>
                                     </li>}

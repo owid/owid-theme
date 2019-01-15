@@ -9,21 +9,42 @@ interface PostHit {
     content: string
     _highlightResult: any
 }
-
-class SearchResult extends React.Component<{ hit: PostHit }> {
+interface ChartHit {
+    slug: string
+    title: string
+    _highlightResult: any
+}
+interface Results {
+    posts: PostHit[]
+    charts: ChartHit[]
+}
+class PostResult extends React.Component<{ hit: PostHit }> {
     render() {
         const {hit} = this.props
-        console.log(hit)
-        return <div className="SearchResult">
-            <a href={hit.slug} dangerouslySetInnerHTML={{__html: hit._highlightResult.title.value}}/>
+        return <div className="PostResult">
+            <a href={`/${hit.slug}`} dangerouslySetInnerHTML={{__html: hit._highlightResult.title.value}}/>
             <p dangerouslySetInnerHTML={{__html: hit._highlightResult.content.value}}/>
         </div>
     }
 }
+class ChartResult extends React.Component<{ hit: ChartHit }> {
+    render() {
+        const {hit} = this.props
+        return <div className="ChartResult">
+            <a href={`/grapher/${hit.slug}`} dangerouslySetInnerHTML={{__html: hit._highlightResult.title.value}}/>
+        </div>
+    }
+}
 
-class SearchResults extends React.Component<{ hits: PostHit[] }> {
+
+class SearchResults extends React.Component<{ results: Results }> {
     componentDidMount() {
         document.body.style.overflowY = 'hidden'
+        this.componentDidUpdate()
+    }
+
+    componentDidUpdate() {
+        (window as any).Grapher.embedAll()
     }
 
     componentWillUnmount() {
@@ -31,30 +52,41 @@ class SearchResults extends React.Component<{ hits: PostHit[] }> {
     }
 
     render() {
-        const {hits} = this.props
+        const {results} = this.props
         return <div className="SearchResults">
-            {hits.map(hit => <SearchResult hit={hit}/>)}
+            {/* {results.posts.map(hit => <PostResult key={hit.slug} hit={hit}/>)} */}
+            {!!results.charts.length && <figure data-grapher-src={`https://ourworldindata.org/grapher/${results.charts[0].slug}`}/>}
+            {results.charts.map(hit => <ChartResult key={hit.slug} hit={hit}/>)}
         </div>
     }
 }
-
 @observer
 export class HeaderSearch extends React.Component {
-    @observable.ref hits?: PostHit[]
+    @observable.ref results?: Results
 
     async onSearch(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.currentTarget.value
-        const algolia = algoliasearch("TBPYZP1AP6", "2078ca669653f7f0e5aac70e4f7c7eb1")
-        const json = await algolia.search([{ indexName: 'mispydev_owid_articles', query: value, params: { distinct: true } }])
-        this.hits = json.results[0].hits
-        console.log(this.hits[0])
+        if (value) {
+            const algolia = algoliasearch("TBPYZP1AP6", "2078ca669653f7f0e5aac70e4f7c7eb1")
+            const json = await algolia.search([
+                { indexName: 'mispydev_owid_articles', query: value, params: { distinct: true } },
+                { indexName: 'mispydev_owid_charts', query: value, params: {} }
+            ])
+            this.results = {
+                posts: json.results[0].hits,
+                charts: json.results[1].hits
+            }
+            console.log(this.results)
+        } else {
+            this.results = undefined
+        }
     }
 
     render() {
-        const {hits} = this
+        const {results} = this
         return <form id="search-nav">
-            <input type="search" onChange={e => this.onSearch(e)}/>
-            {hits && <SearchResults hits={hits}/>}
+            <input type="search" onChange={e => this.onSearch(e)} autoFocus/>
+            {results && <SearchResults results={results}/>}
         </form>
     }
 }

@@ -2456,7 +2456,8 @@ html:not(.js) {
 	padding: 1rem;
 	overflow-y: scroll;
 
-	.SearchResult em {
+	em {
 		background-color: yellow;
+		font-style: initial;
 	}
 }
