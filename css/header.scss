@@ -203,9 +203,10 @@
 }
 
 .topics-dropdown {
-	display: flex;
+	// display: flex;
 	flex-direction: row;
-	width: 48rem;
+	width: 73rem;
+	margin-left: -16rem;
 	min-height: 5rem;
 	position: absolute;
 	top: 100%;
@@ -216,6 +217,8 @@
 	overflow: hidden;
 	border-top-left-radius: 0;
 	cursor: default;
+	column-count: 5;
+	padding: 1rem;
 
 	background-color: white;
 	font-family: "Source Sans Pro";
@@ -225,6 +228,22 @@
 
 	li {
 		list-style-type: none;
+	}
+
+	.category {
+		color: #416897;
+		text-transform: uppercase;
+		margin: 1.25rem 0 .3rem;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.entry {
+		font-weight: 400;
+		line-height: 1.2;
+		margin-bottom: .35rem;
+		color: #6F7883;
 	}
 
 	.menu {

@@ -30,16 +30,12 @@ export class DesktopTopicsMenu extends React.Component<{ categories: CategoryWit
         const { categories } = this.props
 
         return <div className="topics-dropdown">
-            <div className="menu">
-                {categories.map((category) => <CategoryItem category={category} active={category === activeCategory} onAimOver={() => this.setCategory(category)} />)}
-            </div>
-            <div className="submenu">
-                {
-                    !activeCategory
-                    ? <div className="instructions">Select a category on the left</div>
-                    : activeCategory.entries.map((entry) => <a  href={`/${entry.slug}`} className="item">{entry.title}</a>)
-                }
-            </div>
+            {categories.map((category) => <React.Fragment key={category.name}>
+                <div className="category">{category.name}</div>
+                <div className="entries">
+                    {category.entries.map((entry) => <div key={entry.title} className="entry">{entry.title}</div>)}
+                </div>
+            </React.Fragment>)}
         </div>
     }
 }
@@ -102,87 +98,6 @@ export class DesktopHeader extends React.Component<{ categories: CategoryWithEnt
         </React.Fragment>
     }
 }
-
-// @observer
-// export class MobileEntriesMenu extends React.Component<{ categories: CategoryWithEntries[] }> {
-//     @observable.ref activeCategory?: CategoryWithEntries
-
-//     @action.bound toggleCategory(category: CategoryWithEntries) {
-//         if (this.activeCategory === category)
-//             this.activeCategory = undefined
-//         else
-//             this.activeCategory = category
-//     }
-
-//     render() {
-//         const {categories} = this.props
-//         const {activeCategory} = this
-
-//         return <div id="topics-dropdown" className="mobile">
-//             <ul>
-//                 <li className="header">
-//                     <h2>Entries</h2>
-//                 </li>
-//                 {categories.map(category =>
-//                     <li key={category.slug} className="category">
-//                         <a onClick={() => this.toggleCategory(category)}><span>{category.name}</span></a>
-//                         {activeCategory === category && <div className="subcategory-menu">
-//                             <ul>
-//                                 {category.entries.map(entry => {
-//                                     return <li key={entry.slug}>
-//                                         <a className={entry.starred ? "starred" : undefined} title={entry.starred ? "Starred pages are our best and most complete entries." : undefined} href={`/${entry.slug}`}>{entry.title}</a>
-//                                     </li>
-//                                 })}
-//                             </ul>
-//                         </div>}
-//                     </li>
-//                 )}
-//                 <li className="end-link"><a href="/charts">Charts</a></li>
-//                 <li className="end-link"><a href="https://sdg-tracker.org">SDGs</a></li>
-//                 <li className="end-link"><a href="/blog">Blog</a></li>
-//                 <li className='end-link'><a href='/about'>About</a></li>
-//                 <li className='end-link'><a href='/teaching'>Teaching</a></li>
-//                 <li className='end-link'><a href='/support'>Donate</a></li>
-//             </ul>
-//         </div>
-//     }
-// }
-
-// @observer
-// export class MobileHeader extends React.Component<{ categories: CategoryWithEntries[] }> {
-//     @observable showSearch: boolean = false
-//     @observable showCategories: boolean = false
-
-//     @action.bound onToggleSearch() {
-//         this.showSearch = !this.showSearch
-//     }
-
-//     @action.bound onToggleCategories() {
-//         this.showCategories = !this.showCategories
-//     }
-
-//     render() {
-//         return <React.Fragment>
-//             <nav id="owid-topbar">
-//                 <a className="logo" href="/">Our World in Data</a>
-//                 <ul className="mobile">
-//                     <li className="nav-button">
-//                         <a onClick={this.onToggleSearch}><FontAwesomeIcon icon={faSearch}/></a>
-//                     </li><li className="nav-button">
-//                         <a onClick={this.onToggleCategories} data-expand="#topics-dropdown" className='mobile'><FontAwesomeIcon icon={faBars}/></a>
-//                     </li>
-//                 </ul>
-//             </nav>
-//             {this.showSearch && <div id="search-dropdown" className="mobile">
-//                 <form id="search-nav" action="https://google.com/search" method="GET">
-//                     <input type="hidden" name="sitesearch" value="ourworldindata.org" />
-//                     <input type="search" name="q" placeholder="Search..." autoFocus/>
-//                 </form>
-//             </div>}
-//             {this.showCategories && <MobileEntriesMenu categories={this.props.categories}/>}
-//         </React.Fragment>
-//     }
-// }
 
 @observer
 export class SiteHeaderMenus extends React.Component<{ categories: CategoryWithEntries[] }> {
