@@ -316,19 +316,15 @@ address a:hover {
 		max-width: 1170px;
 	}
 
-	#owid-topbar ul.desktop li {
+	#owid-topbar > ul.desktop > li {
 		display: inline-block;
 		margin-left: 28px;
 	}
 
-	#owid-topbar ul.desktop li > a {
+	#owid-topbar > ul.desktop > li > a {
 		height: 47px;
 		line-height: 47px;
 		color: rgba(255, 255, 255, 0.9);
-	}
-
-	#owid-topbar ul.desktop i {
-		padding-right: 8px;
 	}
 
 	#search-nav {
@@ -339,7 +335,7 @@ address a:hover {
 	    background-color: white;
 	}
 
-	#search-nav input {
+	#search-nav > input {
 		width: auto;
 		-webkit-appearance: none;
 		width: 270px;
@@ -2456,8 +2452,19 @@ html:not(.js) {
 	padding: 1rem;
 	overflow-y: scroll;
 
-	em {
-		background-color: yellow;
-		font-style: initial;
+
+	> .container {
+		max-width: 80rem;
+		margin: auto;
+		display: flex;
+		flex-direction: row;	
+	}
+
+	> .container > :first-child {
+		margin-right: 5rem;
+	}
+
+	.postResults, .chartResults {
+		width: 50%;
 	}
 }

@@ -41,10 +41,10 @@ export const FrontPage = (props: { entries: CategoryWithEntries[], posts: { titl
                     </div>
                 </div>
                 <div id="homepage-content" className="clearfix">
-                    <div id="homepage-latest">
+                    {/* <div id="homepage-latest">
                         <h3><a href="/grapher/latest">Latest Visualization</a></h3>
                         <figure data-grapher-src="https://ourworldindata.org/grapher/latest" style={{ height: "660px" }}/>
-                    </div>
+                    </div> */}
                     <div id="homepage-blog">
                         <h3><a href="/blog">Blog</a></h3>
                         <ul>
