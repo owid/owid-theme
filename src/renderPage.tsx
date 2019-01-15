@@ -26,7 +26,7 @@ export function renderToHtmlPage(element: any) {
 type wpPostRow = any
 
 export async function renderChartsPage() {
-    const chartItems = await grapherDb.query(`SELECT id, config->>"$.slug" AS slug, config->>"$.title" AS title FROM charts`) as ChartIndexItem[]
+    const chartItems = await grapherDb.query(`SELECT id, config->>"$.slug" AS slug, config->>"$.title" AS title, config->>"$.variantName" AS variantName FROM charts`) as ChartIndexItem[]
 
     const chartTags = await grapherDb.query(`
         SELECT ct.chartId, ct.tagId, t.name as tagName, t.parentId as tagParentId FROM chart_tags ct

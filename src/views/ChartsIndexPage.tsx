@@ -5,11 +5,13 @@ import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
 import { CategoryWithEntries } from '../wpdb'
 import * as _ from 'lodash'
+import { createVerify } from 'crypto';
 
 export interface ChartIndexItem {
     id: number
     title: string
     slug: string
+    variantName?: string
     tags: { id: number, name: string }[]
 }
 
@@ -50,7 +52,7 @@ export const ChartsIndexPage = (props: { chartItems: ChartIndexItem[] }) => {
                 {allTags.map(t => <section key={t.id}>
                     <h2>{t.name}</h2>
                     <ul>
-                        {t.charts.map(c => <li key={c.id}><a href={`/grapher/${c.slug}`}>{c.title}</a></li>)}
+                {t.charts.map(c => <li key={c.id}><a href={`/grapher/${c.slug}`}>{c.title} {c.variantName ? `(${c.variantName})` : undefined}</a></li>)}
                     </ul>
                 </section>)}
             </main>

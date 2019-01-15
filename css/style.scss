@@ -2432,6 +2432,10 @@ html:not(.js) {
 		font-size: 0.8em;
 	}
 
+	ul > li span {
+		color: #aaa;
+	}
+
 	/* Make the ending lines look nice */
 	/* https://stackoverflow.com/questions/18744164/flex-box-align-last-row-to-grid */
 	ul::after {
